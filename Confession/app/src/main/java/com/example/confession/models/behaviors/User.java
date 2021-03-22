@@ -1,5 +1,8 @@
 package com.example.confession.models.behaviors;
 
+import android.util.Log;
+
+import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
 
@@ -20,7 +23,17 @@ public class User {
 
 	public static User Login(String username, String password)
 	{
-		return null;
+		// Testing
+		if (username.equals("admin") && password.equals("123456"))
+		{
+			BasicUserInfo basic_info = new BasicUserInfo("admin", "K", "");
+			UserInfo info = new UserInfo(basic_info, "test@gmail.com", "09xx xxx xx1");
+			return new User(info);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	public boolean ViewProfile()
