@@ -1,6 +1,4 @@
-package com.example.confession.activities;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.confession.views;
 
 import android.app.Activity;
 import android.os.Bundle;
