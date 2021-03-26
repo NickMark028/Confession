@@ -53,7 +53,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 	@SuppressLint("ShowToast")
 	@Override
-	public void LoginSuccessfully() {
+	public void LoginSuccessfully()  {
 		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
 	}
 
