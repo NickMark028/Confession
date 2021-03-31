@@ -1,10 +1,12 @@
-package com.example.confession;
+package com.example.confession.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class HomePage extends AppCompatActivity {
+import com.example.confession.R;
+
+public class HomePageActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
