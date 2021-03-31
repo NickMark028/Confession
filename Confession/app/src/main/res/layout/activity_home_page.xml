@@ -12,35 +12,16 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/temp_1"
+            class="com.example.confession.GroupFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <fragment
-                android:id="@+id/frag_1"
-                class="com.example.confession.PostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <fragment
-                android:id="@+id/frag_2"
-                class="com.example.confession.PostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <fragment
-                android:id="@+id/frag_3"
-                class="com.example.confession.PostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
 
     </ScrollView>
 
     <View android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:background="#021332"/>
 
 </LinearLayout>
