@@ -12,6 +12,12 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.confession.fragment_add;
+import com.example.confession.fragment_follow;
+import com.example.confession.fragment_newfeed;
+import com.example.confession.fragment_profie;
+import com.example.confession.fragment_search;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.example.confession.R;
