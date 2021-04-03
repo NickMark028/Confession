@@ -1,36 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.HomePageActivity"
-    android:orientation="vertical">
+    tools:context=".fragment_footer">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <fragment
-            android:id="@+id/temp_1"
-            class="com.example.confession.GroupFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </ScrollView>
-
-    <View android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#021332"/>
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </ScrollView>
-
+    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,25 +17,21 @@
             android:layout_weight="1"
             android:src="@drawable/home"/>
         <ImageView
-            android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/loupe"/>
         <ImageView
-            android:id="@+id/add"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/plus"/>
         <ImageView
-            android:id="@+id/follow"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/heart"/>
         <ImageView
-            android:id="@+id/profie"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -68,4 +39,5 @@
 
     </LinearLayout>
 
-</LinearLayout>
+
+</FrameLayout>
