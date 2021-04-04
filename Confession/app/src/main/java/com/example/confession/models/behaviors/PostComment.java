@@ -12,4 +12,8 @@ public class PostComment {
 		this.comment_info = comment_info;
 		this.post = post;
 	}
+	public String GetID(){
+		return null;
+	}
+
 }
