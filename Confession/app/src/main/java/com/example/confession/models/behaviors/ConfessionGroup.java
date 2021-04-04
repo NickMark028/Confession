@@ -55,32 +55,55 @@ public class ConfessionGroup {
 
 	public boolean getMembers(Context context)
 	{
-		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
+//		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
+//		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
+//			@Override
+//			public void getResponse(String response) throws JSONException {
+//				JSONObject obj = new JSONObject(response);
+//				if(!obj.has("error"))
+//				{
+//					JSONArray arr = obj.getJSONArray("members");
+//					for(int i=0;i<arr.length();i++)
+//					{
+//						JSONObject member = arr.getJSONObject(i);
+//						String username = member.getString("username");
+//						String fullname = member.getString("fullname");
+//						String avatar = member.getString("avatar"); // Xem lại tên thuộc tính.
+//						BasicUserInfo meminfo = new BasicUserInfo(username,fullname,avatar);
+//						members.add(meminfo);
+//					}
+//					Log.d("Get members: ",".");
+//				}
+//				else
+//				{
+//					String error = obj.getString("error");
+//					Log.d("Error: ",error);
+//				}
+//			}
+//		});
+		return false;
+	}
+
+	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context)
+	{
+		final ApiService AS = new ApiService(context, "confession/search/?keyword=" + name);
 		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
 			@Override
 			public void getResponse(String response) throws JSONException {
-				JSONObject obj = new JSONObject(response);
-				if(!obj.has("error"))
-				{
-					JSONArray arr = obj.getJSONArray("members");
-					for(int i=0;i<arr.length();i++)
-					{
-						JSONObject member = arr.getJSONObject(i);
-						String username = member.getString("username");
-						String fullname = member.getString("fullname");
-						String avatar = member.getString("avatar"); // Xem lại tên thuộc tính.
-						BasicUserInfo meminfo = new BasicUserInfo(username,fullname,avatar);
-						members.add(meminfo);
-					}
-					Log.d("Get members: ",".");
-				}
-				else
-				{
-					String error = obj.getString("error");
-					Log.d("Error: ",error);
-				}
+				//JSONObject obj = new JSONObject(response);
+//				if(!obj.has("error"))
+//				{
+//					Log.d("Find: ", response);
+//				}
+//				else
+//				{
+//					String error = obj.getString("error");
+//					Log.d("Error: ",error);
+//				}
+//				Log.d("Find", response);
 			}
 		});
-		return true;
+
+		return null;
 	}
 }

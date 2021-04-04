@@ -4,16 +4,25 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.example.confession.binders.SearchGroupBinder;
+import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.presenters.SearchGroupPresenter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragment_search#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_search extends Fragment {
+public class fragment_search extends Fragment implements SearchGroupBinder.View {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +32,8 @@ public class fragment_search extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    EditText txt_search;
 
     public fragment_search() {
         // Required empty public constructor
@@ -59,6 +70,35 @@ public class fragment_search extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view =  inflater.inflate(R.layout.fragment_search, container, false);
+
+        EditText txt_search = view.findViewById(R.id.txt_search);
+        view.findViewById(R.id.txt_search);
+
+        //txt_search.addTextChangedListener()
+
+        txt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                // Testing
+                SearchGroupBinder.Presenter presenter = new SearchGroupPresenter(getContext());
+                presenter.FindGroup(txt_search.getText().toString());
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void Show(ArrayList<ConfessionGroupInfo> groups) {
+
+        // Display list of content here
     }
 }

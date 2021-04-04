@@ -21,7 +21,7 @@ public class SignInPresenter implements SignInBinder.Presenter {
 	public void HandleLogin(String username, String password) {
 
 		// Testing
-		user = User.Login(username, password,context);
+		user = User.Login(username, password, context);
 		if (user != null)
 			view.LoginSuccessfully();
 		else

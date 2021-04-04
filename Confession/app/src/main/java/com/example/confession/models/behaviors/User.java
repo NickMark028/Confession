@@ -64,33 +64,33 @@ public class User {
 		{
 			return null;
 		}*/
-		Log.d("Log","OK");
-		final ApiService AS = new ApiService(context,"user/login");
-		AS.addHeader("username",username);
-		AS.addHeader("password",password);
-		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
-			@Override
-			public void getResponse(String response) throws JSONException {
-				JSONObject obj = new JSONObject(response);
-				if(!obj.has("error"))
-				{
-					String username = obj.getString("username");
-					String name = obj.getString("fullname");
-					String token = obj.getString("token");
-					String email = obj.getString("email");
-					String phone = obj.getString("phone");
-					BasicUserInfo basic_info = new BasicUserInfo(username, name, "");
-					UserInfo info = new UserInfo(basic_info, email, phone,token);
-					new User(info);
-					Log.d("Username: ",username);
-				}
-				else
-				{
-					String error = obj.getString("error");
-					Log.d("Error: ",error);
-				}
-			}
-		});
+//		Log.d("Log","OK");
+//		final ApiService AS = new ApiService(context,"user/login");
+//		AS.addHeader("username",username);
+//		AS.addHeader("password",password);
+//		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
+//			@Override
+//			public void getResponse(String response) throws JSONException {
+//				JSONObject obj = new JSONObject(response);
+//				if(!obj.has("error"))
+//				{
+//					String username = obj.getString("username");
+//					String name = obj.getString("fullname");
+//					String token = obj.getString("token");
+//					String email = obj.getString("email");
+//					String phone = obj.getString("phone");
+//					BasicUserInfo basic_info = new BasicUserInfo(username, name, "");
+//					UserInfo info = new UserInfo(basic_info, email, phone,token);
+//					new User(info);
+//					Log.d("Username: ",username);
+//				}
+//				else
+//				{
+//					String error = obj.getString("error");
+//					Log.d("Error: ",error);
+//				}
+//			}
+//		});
 		return null;
 	}
 
