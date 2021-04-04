@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class ApiService {
     final String contentType = "application/json; charset=utf-8";
-    String apiURL = "http://10.0.2.2:3000/";
+    String apiURL = "https://confessionapi2021.herokuapp.com/";
     String pathURL;
     Context context;
     RequestQueue requestQueue;

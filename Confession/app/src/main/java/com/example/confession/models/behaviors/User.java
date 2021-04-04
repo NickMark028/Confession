@@ -49,7 +49,7 @@ public class User {
 				}
 			}
 		});
-		return true;
+		return false;
 	}
 
 	public static User Login(String username, String password, Context context)
@@ -107,6 +107,7 @@ public class User {
 		AS.addHeader("shortname",group.name); // Thêm thuộc tính shortname cho confession.
 		AS.addHeader("groupname",group.name);
 		AS.addHeader("avatar",group.avatar);
+
 		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
 			@Override
 			public void getResponse(String response) throws JSONException {
@@ -122,6 +123,7 @@ public class User {
 				}
 			}
 		});
+
 		return null;
 	}
 
