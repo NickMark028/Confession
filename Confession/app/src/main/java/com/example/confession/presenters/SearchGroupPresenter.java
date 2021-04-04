@@ -2,24 +2,20 @@ package com.example.confession.presenters;
 
 import android.content.Context;
 
-import com.example.confession.binders.SearchGroupBinder;
+import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.data.ConfessionGroupInfo;
 
-import java.util.ArrayList;
-
-public class SearchGroupPresenter implements SearchGroupBinder.Presenter {
+public class SearchGroupPresenter implements SearchTabBinder.Presenter {
 
 	Context context;
-	ConfessionGroup group;
 
 	public SearchGroupPresenter(Context context) {
 		this.context = context;
 	}
 
 	@Override
-	public ArrayList<ConfessionGroupInfo> FindGroup(String shortname) {
+	public void HandleFindGroup(String group_name) {
 
-		return ConfessionGroup.Find(shortname, context);
+		ConfessionGroup.Find(group_name, context);
 	}
 }

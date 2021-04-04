@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.confession.binders.SearchGroupBinder;
+import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.SearchGroupPresenter;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Use the {@link fragment_search#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_search extends Fragment implements SearchGroupBinder.View {
+public class fragment_search extends Fragment implements SearchTabBinder.View {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,8 +88,8 @@ public class fragment_search extends Fragment implements SearchGroupBinder.View 
             public void afterTextChanged(Editable editable) {
 
                 // Testing
-                SearchGroupBinder.Presenter presenter = new SearchGroupPresenter(getContext());
-                presenter.FindGroup(txt_search.getText().toString());
+                SearchTabBinder.Presenter presenter = new SearchGroupPresenter(getContext());
+                presenter.HandleFindGroup(txt_search.getText().toString());
             }
         });
 
@@ -97,7 +97,7 @@ public class fragment_search extends Fragment implements SearchGroupBinder.View 
     }
 
     @Override
-    public void Show(ArrayList<ConfessionGroupInfo> groups) {
+    public void OnFindGroup(ArrayList<ConfessionGroupInfo> groups) {
 
         // Display list of content here
     }

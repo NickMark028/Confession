@@ -100,7 +100,7 @@ public class ConfessionGroup {
 //					String error = obj.getString("error");
 //					Log.d("Error: ",error);
 //				}
-//				Log.d("Find", response);
+				Log.d("Find", response);
 			}
 		});
 

@@ -3,7 +3,6 @@ package com.example.confession.views;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,13 +52,13 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 	@SuppressLint("ShowToast")
 	@Override
-	public void LoginSuccessfully() {
+	public void OnLoginSuccess() {
 		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
 	}
 
 	@SuppressLint("ShowToast")
 	@Override
-	public void LoginFailure() {
+	public void OnLoginFailure(int error_code) {
 		Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show();
 	}
 }

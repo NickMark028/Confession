@@ -4,8 +4,8 @@ public interface SignInBinder {
 
 	interface View {
 
-		void LoginSuccessfully();
-		void LoginFailure();
+		void OnLoginSuccess();
+		void OnLoginFailure(int error_code);
 	}
 
 	interface Presenter {
