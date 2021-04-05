@@ -1,24 +1,18 @@
 package com.example.confession.views;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.os.Bundle;
-
-import com.example.confession.fragment_add;
-import com.example.confession.fragment_follow;
-import com.example.confession.fragment_newfeed;
-import com.example.confession.fragment_profie;
-import com.example.confession.fragment_search;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.confession.views.fragments.AddFragment;
+import com.example.confession.views.fragments.FollowFragment;
+import com.example.confession.views.fragments.NewfeedFragment;
+import com.example.confession.views.fragments.ProfileFragment;
+import com.example.confession.views.fragments.SearchFragment;
 
 import com.example.confession.R;
 
@@ -37,7 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Fragment selectedFragment = null;
-				selectedFragment = new fragment_newfeed();
+				selectedFragment = new NewfeedFragment();
 				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
 			}
@@ -50,7 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Fragment selectedFragment = null;
-				selectedFragment = new fragment_search();
+				selectedFragment = new SearchFragment();
 				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
 			}
@@ -63,7 +57,7 @@ public class HomePageActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Fragment selectedFragment = null;
-				selectedFragment = new fragment_add();
+				selectedFragment = new AddFragment();
 				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
 			}
@@ -75,7 +69,7 @@ public class HomePageActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Fragment selectedFragment = null;
-				selectedFragment = new fragment_follow();
+				selectedFragment = new FollowFragment();
 				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
 			}
@@ -87,7 +81,7 @@ public class HomePageActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Fragment selectedFragment = null;
-				selectedFragment = new fragment_profie();
+				selectedFragment = new ProfileFragment();
 				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
 			}

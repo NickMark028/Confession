@@ -1,4 +1,4 @@
-package com.example.confession;
+package com.example.confession.views.fragments;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.confession.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_newfeed#newInstance} factory method to
+ * Use the {@link NewfeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_newfeed extends Fragment {
+public class NewfeedFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class fragment_newfeed extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_newfeed() {
+    public NewfeedFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +39,8 @@ public class fragment_newfeed extends Fragment {
      * @return A new instance of fragment fragment_newfeed.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_newfeed newInstance(String param1, String param2) {
-        fragment_newfeed fragment = new fragment_newfeed();
+    public static NewfeedFragment newInstance(String param1, String param2) {
+        NewfeedFragment fragment = new NewfeedFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

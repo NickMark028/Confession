@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.GroupFragment">
+    tools:context=".views.fragments.GroupFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,19 +109,19 @@
 
             <fragment
                 android:id="@+id/temp_1"
-                class="com.example.confession.views.PostFragment"
+                class="com.example.confession.views.fragments.PostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <fragment
                 android:id="@+id/temp_2"
-                class="com.example.confession.views.PostFragment"
+                class="com.example.confession.views.fragments.PostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <fragment
                 android:id="@+id/temp_3"
-                class="com.example.confession.views.PostFragment"
+                class="com.example.confession.views.fragments.PostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

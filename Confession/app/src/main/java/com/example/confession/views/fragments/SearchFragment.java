@@ -1,4 +1,4 @@
-package com.example.confession;
+package com.example.confession.views.fragments;
 
 import android.os.Bundle;
 
@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.confession.R;
 import com.example.confession.binders.SearchTabBinder;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.SearchGroupPresenter;
 
@@ -19,10 +21,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_search#newInstance} factory method to
+ * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_search extends Fragment implements SearchTabBinder.View {
+public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +37,7 @@ public class fragment_search extends Fragment implements SearchTabBinder.View {
 
     EditText txt_search;
 
-    public fragment_search() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -48,8 +50,8 @@ public class fragment_search extends Fragment implements SearchTabBinder.View {
      * @return A new instance of fragment fragment_search.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_search newInstance(String param1, String param2) {
-        fragment_search fragment = new fragment_search();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,9 +98,24 @@ public class fragment_search extends Fragment implements SearchTabBinder.View {
         return view;
     }
 
-    @Override
-    public void OnFindGroup(ArrayList<ConfessionGroupInfo> groups) {
 
-        // Display list of content here
+    @Override
+    public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
+
+    }
+
+    @Override
+    public void OnFindGroupFailure(int error_code) {
+
+    }
+
+    @Override
+    public void OnJoinGroupSuccess(ConfessionGroup group) {
+
+    }
+
+    @Override
+    public void OnJoinGroupFailure(int error_code) {
+
     }
 }
