@@ -4,83 +4,234 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
     android:orientation="vertical"
-    android:background="@drawable/ic_launcher_foreground"
-    tools:context=".views.SignInActivity">
+    android:background="@drawable/custom_bg_gradient_vert"
+    android:weightSum="10"
+    tools:context="views.SignInActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp">
 
-
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Username"
-                android:textSize="18dp"/>
-
-            <EditText
-                android:id="@+id/txt_username"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3" />
-
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fontFamily="@font/nunito_extra_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:text="@string/app_name_uppercase"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Password"
-                android:textSize="18dp"/>
-
-
-            <EditText
-                android:id="@+id/txt_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3" />
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="150dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_weight="5"
+        android:background="@drawable/custom_bg_shadow"
+        android:id="@+id/fragment_sign_in"
+        android:outlineAmbientShadowColor="@color/black"
+        >
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:text="Login" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="or"
-            android:gravity="center"
-            android:textSize="18dp"></TextView>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:weightSum="10">
 
-            android:text="Sign up" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/nunito_extra_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/main_theme"
+                android:textSize="34sp"
+                android:text="@string/sign_in_uppercase"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_weight="6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_weight="6"
+                    >
+
+                    <EditText
+                        android:id="@+id/si_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:hint="@string/username"
+                        android:textColorHint="#C0C0C0"
+                        android:drawableStart="@drawable/custom_user_icon"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:background="@drawable/custom_edit_text"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="@string/username"
+
+                        />
+                    <EditText
+                        android:id="@+id/si_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/custom_lock_icon"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="@string/password"
+                        android:textColorHint="#C0C0C0"
+                        android:inputType="textPassword"
+                        android:background="@drawable/custom_edit_text"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="@string/password"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/forgot_pass_click"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/forgot_pass_question"
+                            android:textColor="@color/main_theme"
+                            android:fontFamily="@font/nunito_regular"
+                            android:ems="13"
+                            android:onClick="onClick"
+                            android:clickable="true"
+                            android:textAlignment="textEnd"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/si_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/custom_bg_btn"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="@string/sign_in"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:textAllCaps="false"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="OR"
+                            android:textColor="@color/edit_no_focus"
+                            android:fontFamily="@font/nunito_regular"
+                            android:textAlignment="center"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="30dp"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/fb_button"
+                        android:drawableStart="@drawable/ic_fb"
+                        android:drawablePadding="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/custom_fb_btn"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="@string/fb_login"
+                        android:textColor="@color/fb_text"
+                        android:textSize="16sp"
+                        android:textAlignment="textStart"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:textAllCaps="false"
+                        />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/google_button"
+                        android:drawableStart="@drawable/ic_google_plus"
+                        android:drawablePadding="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/custom_gg_btn"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="@string/google_login"
+                        android:textColor="@color/gg_text"
+                        android:textSize="16sp"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:textAllCaps="false"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        >
+                        <TextView
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Don't have an account?"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunito_regular"
+                            android:textAlignment="center"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="30dp"
+                            android:textSize="16sp"
+                            />
+                        <TextView
+                            android:id="@+id/txt_su_click"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_up"
+                            android:textColor="@color/main_theme"
+                            android:fontFamily="@font/nunito_bold"
+                            android:textAlignment="center"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="30dp"
+                            android:textSize="16sp"
+                            android:onClick="onClick"
+                            android:clickable="true"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
 
 </LinearLayout>
 
