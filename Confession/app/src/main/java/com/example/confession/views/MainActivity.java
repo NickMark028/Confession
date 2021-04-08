@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
 
-		Intent intent = new Intent(this, SignInActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(this, SignInActivity.class);
+//		startActivity(intent);
 	}
 }
