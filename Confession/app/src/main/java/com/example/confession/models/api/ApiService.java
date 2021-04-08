@@ -45,7 +45,7 @@ public class ApiService {
             @Override
             public void onResponse(String response) {
                 jsonresponse = response;
-                //Log.e("RES", " res::" + jsonresponse);
+                //Log.e("RES", " res::" + jsonresponse)
                 try {
                     callback.getResponse(jsonresponse);
                 } catch (JSONException e) {

@@ -20,6 +20,7 @@ public class SearchGroupPresenter implements SearchGroupBinder.Presenter {
 	@Override
 	public ArrayList<ConfessionGroupInfo> FindGroup(String shortname) {
 
-		return ConfessionGroup.Find(shortname, context);
+		return null;
+		//return ConfessionGroup.Find(shortname, context);
 	}
 }

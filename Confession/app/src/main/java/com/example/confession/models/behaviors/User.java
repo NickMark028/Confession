@@ -6,19 +6,24 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.example.confession.models.api.ApiController;
+import com.example.confession.models.api.ApiGet;
+import com.example.confession.models.api.ApiPost;
 import com.example.confession.models.api.ApiService;
 import com.example.confession.models.api.VolleyCallback;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class User {
 
+public class User{
 	protected final UserInfo user_info;
 
 	private User(UserInfo user_info)
@@ -28,69 +33,66 @@ public class User {
 
 	private static boolean Register(UserInfo user_info, String password, Context context)
 	{
-		final ApiService AS = new ApiService(context,"user/register");
-		AS.addHeader("username",user_info.basic_info.username);
-		AS.addHeader("password",password);
-		AS.addHeader("fullname",user_info.basic_info.name);
-		AS.addHeader("email",user_info.email);
-		AS.addHeader("phone",user_info.phone);
-		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
-			@Override
-			public void getResponse(String response) throws JSONException {
-				JSONObject obj = new JSONObject(response);
-				if(!obj.has("error"))
-				{
-					Log.d("Register: ",obj.getString("username"));
-				}
-				else
-				{
-					String error = obj.getString("error");
-					Log.d("Error: ",error);
-				}
+		HashMap params = new HashMap<String, String>();
+		params.put("username",user_info.basic_info.username);
+		params.put("password",password);
+		params.put("fullname",user_info.basic_info.name);
+		params.put("email",user_info.email);
+		params.put("phone",user_info.phone);
+
+		ApiPost ap = new ApiPost("user/register",params);
+		Thread t = new Thread(ap);
+		t.start();
+		while(!ap.isComplete)
+		{
+			Log.d("Thread API: ","Đang đăng ký tài khoản...");
+		}
+
+		Log.d("Response",ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if(!obj.has("error"))
+			{
+				return true;
 			}
-		});
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
-	public static User Login(String username, String password, Context context)
-	{
-		/*if (username.equals("admin") && password.equals("123456"))
+	public static User Login(String username, String password, Context context){
+		HashMap params = new HashMap<String, String>();
+		params.put("username",username);
+		params.put("password",password);
+		ApiPost ap = new ApiPost("user/login",params);
+		Thread t = new Thread(ap);
+		t.start();
+		while(!ap.isComplete)
 		{
-			BasicUserInfo basic_info = new BasicUserInfo("admin", "K", "");
-			UserInfo info = new UserInfo(basic_info, "test@gmail.com", "09xx xxx xx1");
-			return new User(info);
+			Log.d("Thread API: ","Đang kiểm tra thông tin đăng nhập...");
 		}
-		else
-		{
-			return null;
-		}*/
-//		Log.d("Log","OK");
-//		final ApiService AS = new ApiService(context,"user/login");
-//		AS.addHeader("username",username);
-//		AS.addHeader("password",password);
-//		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
-//			@Override
-//			public void getResponse(String response) throws JSONException {
-//				JSONObject obj = new JSONObject(response);
-//				if(!obj.has("error"))
-//				{
-//					String username = obj.getString("username");
-//					String name = obj.getString("fullname");
-//					String token = obj.getString("token");
-//					String email = obj.getString("email");
-//					String phone = obj.getString("phone");
-//					BasicUserInfo basic_info = new BasicUserInfo(username, name, "");
-//					UserInfo info = new UserInfo(basic_info, email, phone,token);
-//					new User(info);
-//					Log.d("Username: ",username);
-//				}
-//				else
-//				{
-//					String error = obj.getString("error");
-//					Log.d("Error: ",error);
-//				}
-//			}
-//		});
+
+		Log.d("Response",ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if(!obj.has("error"))
+			{
+				String id = obj.getString("_id");
+				String name = obj.getString("fullname");
+				String token = obj.getString("token");
+				String email = obj.getString("email");
+				String phone = obj.getString("phone");
+				BasicUserInfo basic_info = new BasicUserInfo(id,username, name, "");
+				UserInfo info = new UserInfo(basic_info, email, phone,token);
+				User user = new User(info);
+				return user;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -102,51 +104,66 @@ public class User {
 
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group, Context context)
 	{
-		final ApiService AS = new ApiService(context,"confession/new");
-		AS.addHeader("token",user_info.auth_token);
-		AS.addHeader("shortname",group.name); // Thêm thuộc tính shortname cho confession.
-		AS.addHeader("groupname",group.name);
-		AS.addHeader("avatar",group.avatar);
+		HashMap params = new HashMap<String,String>();
+		params.put("token",user_info.auth_token);
+		params.put("shortname",group.shortname);
+		params.put("groupname",group.name);
+		params.put("avatar",group.avatar);
 
-		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
-			@Override
-			public void getResponse(String response) throws JSONException {
-				JSONObject obj = new JSONObject(response);
-				if(!obj.has("error"))
-				{
-					Log.d("Create Confession: ",obj.getString("groupname"));
-				}
-				else
-				{
-					String error = obj.getString("error");
-					Log.d("Error: ",error);
-				}
+		ApiPost ap = new ApiPost("confession/new",params);
+		Thread t = new Thread(ap);
+		t.start();
+		while(!ap.isComplete)
+		{
+			Log.d("Thread API: ","Đang tạo confession...");
+		}
+
+		ConfessionGroup confession  = null;
+		Log.d("Response",ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if(!obj.has("error"))
+			{
+				String id = obj.getString("_id");
+				String shortname = obj.getString("shortname");
+				String groupname = obj.getString("groupname");
+				String avatar = obj.getString("avatar");
+				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+				confession = new ConfessionGroup(confession_info);
 			}
-		});
-
-		return null;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return confession;
 	}
 
 	public boolean JoinGroup(ConfessionGroupInfo group, Context context)
 	{
-		final ApiService AS = new ApiService(context,"confession/join");
-		AS.addHeader("token",user_info.auth_token);
-		AS.addHeader("confession",group.id);
-		AS.executeRequest(Request.Method.POST, new VolleyCallback() {
-			@Override
-			public void getResponse(String response) throws JSONException {
-				JSONObject obj = new JSONObject(response);
-				if(!obj.has("error"))
-				{
-					Log.d("Join Confession: ",".");
-				}
-				else
-				{
-					String error = obj.getString("error");
-					Log.d("Error: ",error);
-				}
+		HashMap params = new HashMap<String,String>();
+		params.put("token",user_info.auth_token);
+		params.put("confession",group.id);
+
+		ApiPost ap = new ApiPost("confession/join",params);
+		Thread t = new Thread(ap);
+		t.start();
+		while(!ap.isComplete)
+		{
+			Log.d("Thread API: ","Đang tham gia confession...");
+		}
+
+		Log.d("Response",ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if(!obj.has("error"))
+			{
+				return true;
 			}
-		});
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
@@ -157,7 +174,40 @@ public class User {
 
 	public ArrayList<ConfessionGroup> GetFollowedGroups()
 	{
+		ArrayList<ConfessionGroup> groups = new ArrayList<ConfessionGroup>();
+		HashMap params = new HashMap<String, String>();
+		params.put("token",this.user_info.auth_token);
+		ApiGet ag = new ApiGet("user/joinedconf",params);
 
+		Thread t = new Thread(ag);
+		t.start();
+		while(!ag.isComplete)
+		{
+			Log.d("Thread API: ","Đang lấy danh sách các confession đã tham gia...");
+		}
+
+		Log.d("Response",ag.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if(!obj.has("error"))
+			{
+				JSONArray items = new JSONArray(ag.response);
+				for(int i=0;i<items.length();i++)
+				{
+					JSONObject item = items.getJSONObject(i);
+					String id = item.getString("_id");
+					String shortname = item.getString("shortname");
+					String groupname = item.getString("groupname");
+					String avatar = item.getString("avatar");
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+					groups.add(new ConfessionGroup(group_info));
+				}
+				return groups;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
