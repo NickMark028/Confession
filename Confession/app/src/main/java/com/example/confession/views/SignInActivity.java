@@ -15,12 +15,13 @@ import com.example.confession.R;
 import com.example.confession.binders.SignInBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.SignInPresenter;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends Activity implements SignInBinder.View {
 
 	private SignInBinder.Presenter presenter;
 
-	private EditText si_username, si_password;
+	private TextInputEditText si_username, si_password;
 	private Button si_button, fb_button, google_button;
 	private TextView txt_su_click, forgot_pass_click;
 
@@ -61,28 +62,32 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		fb_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Add forgot password", Toast.LENGTH_LONG);
+				Toast.makeText(getApplicationContext(), "Add forgot password", Toast.LENGTH_LONG).show();
 			}
 		});
 
 		google_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Add google sign up", Toast.LENGTH_LONG);
+				Toast.makeText(getApplicationContext(), "Add google sign up", Toast.LENGTH_LONG).show();
 			}
 		});
 
 		txt_su_click.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Add sign up", Toast.LENGTH_LONG);
+				Toast.makeText(getApplicationContext(), "Add sign up", Toast.LENGTH_LONG).show();
+				Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
+				startActivity(myIntent);
 			}
 		});
 
 		forgot_pass_click.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Add forgot password", Toast.LENGTH_LONG);
+				Toast.makeText(getApplicationContext(), "Forgot password", Toast.LENGTH_LONG).show();
+				Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+				startActivity(myIntent);
 			}
 		});
 	}
