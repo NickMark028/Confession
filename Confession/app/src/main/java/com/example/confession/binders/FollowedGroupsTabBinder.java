@@ -14,11 +14,11 @@ public interface FollowedGroupsTabBinder {
 		void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroup> groups);
 		void OnGetFollowedGroupsFailure(int error_code);
 
-		void OnHandleGetCreatedGroupsSuccess(ArrayList<ConfessionGroup> groups);
-		void OnHandleGetCreatedGroupsFailure(int error_code);
+		void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroup> groups);
+		void OnGetCreatedGroupsFailure(int error_code);
 
-		void OnHandleUnfollowGroupSuccess(ConfessionGroup group);
-		void OnHandleUnfollowGroupFailure(int error_code);
+		void OnUnfollowGroupSuccess(ConfessionGroup group);
+		void OnUnfollowGroupFailure(int error_code);
 
 	}
 
