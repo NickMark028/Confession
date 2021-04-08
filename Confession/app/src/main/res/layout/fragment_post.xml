@@ -8,13 +8,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+
         android:orientation="vertical">
 
         <!--        Group icon + name + time-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -32,12 +35,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Group name"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/nunito_semi_bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1 hour ago" />
+                    android:text="1 hour ago"
+                    android:fontFamily="@font/nunito_regular"
+                    android:textColor="#8B8B8B"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -54,12 +62,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Post title" />
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Post title"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus metus sit amet est malesuada, a iaculis purus dictum. Quisque porttitor eros at risus rutrum, sed sollicitudin urna congue. Nulla vel arcu diam. Pellentesque sit amet leo ac nulla gravida venenatis consectetur ut mi. Nam elit ante, faucibus nec dapibus non, ornare eu libero. Mauris eleifend ipsum eu purus suscipit lacinia. Nulla facilisi. Suspendisse potenti. Nulla et est sit amet quam ultricies consectetur id a mi. Phasellus et euismod nunc." />
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/lorem"
+                android:fontFamily="@font/nunito_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -74,13 +94,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -90,7 +113,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="12dp"
                     android:src="@drawable/comment_icon" />
 
             </LinearLayout>
@@ -99,7 +122,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1.834 likes"
-                android:textStyle="bold" />
+                android:fontFamily="@font/nunito_semi_bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
 
         </LinearLayout>
 
@@ -107,7 +132,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <!--            TODO Add comments from Phong-->
@@ -115,7 +142,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="See all comments" />
+                android:text="See all comments"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="#A7A7A7"
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,15 +155,19 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/tree_icon" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:hint="Leave a comment..." />
+                    android:layout_marginLeft="10dp"
+                    android:hint="Leave a comment..."
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:background="@null"
+                    />
 
             </LinearLayout>
 
