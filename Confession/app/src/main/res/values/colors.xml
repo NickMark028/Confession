@@ -17,4 +17,5 @@
 
     <color name="gg_theme">#FDDBC3</color>
     <color name="gg_text">#F2994A</color>
+    <color name="navigation_icon">#130F26</color>
 </resources>
