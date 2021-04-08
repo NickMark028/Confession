@@ -7,6 +7,12 @@
         </shape>
     </item>
 
+    <item android:state_enabled="true" android:state_activated="true">
+        <shape android:shape="rectangle">
+            <stroke android:color="@color/edit_focus" android:width="2dp"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
     <item android:state_enabled="true" >
         <shape android:shape="rectangle">
             <stroke android:color="@color/edit_no_focus" android:width="2dp"/>
