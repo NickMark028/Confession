@@ -64,47 +64,54 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center_vertical|center_horizontal"
                     android:layout_weight="6"
                     >
 
-                    <EditText
-                        android:id="@+id/si_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="@string/username"
-                        android:textColorHint="#C0C0C0"
-                        android:drawableStart="@drawable/custom_user_icon"
-                        android:drawablePadding="12dp"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:background="@drawable/custom_edit_text"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:fontFamily="@font/nunito_regular"
-                        android:layout_marginBottom="10dp"
-                        android:autofillHints="@string/username"
 
-                        />
-                    <EditText
-                        android:id="@+id/si_password"
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:startIconDrawable="@drawable/custom_user_icon"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:drawableStart="@drawable/custom_lock_icon"
-                        android:drawablePadding="12dp"
-                        android:ems="10"
-                        android:hint="@string/password"
-                        android:textColorHint="#C0C0C0"
-                        android:inputType="textPassword"
-                        android:background="@drawable/custom_edit_text"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:fontFamily="@font/nunito_regular"
                         android:layout_marginBottom="10dp"
-                        android:autofillHints="@string/password"
-                        />
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/si_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint="@string/username"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:passwordToggleEnabled="true"
+                        app:startIconDrawable="@drawable/custom_lock_icon"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/si_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="@string/password"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -190,9 +197,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal"
+                        android:gravity="bottom|center_horizontal"
                         >
                         <TextView
                             android:paddingStart="5dp"
@@ -202,9 +209,7 @@
                             android:text="Don't have an account?"
                             android:textColor="@color/black"
                             android:fontFamily="@font/nunito_regular"
-                            android:textAlignment="center"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginBottom="30dp"
+                            android:layout_marginBottom="10dp"
                             android:textSize="16sp"
                             />
                         <TextView
@@ -216,9 +221,7 @@
                             android:text="@string/sign_up"
                             android:textColor="@color/main_theme"
                             android:fontFamily="@font/nunito_bold"
-                            android:textAlignment="center"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginBottom="30dp"
+                            android:layout_marginBottom="10dp"
                             android:textSize="16sp"
                             android:onClick="onClick"
                             android:clickable="true"
