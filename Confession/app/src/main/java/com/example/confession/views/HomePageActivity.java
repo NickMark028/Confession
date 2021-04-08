@@ -1,9 +1,12 @@
 package com.example.confession.views;
 
+import android.content.ClipData;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -15,77 +18,58 @@ import com.example.confession.views.fragments.ProfileFragment;
 import com.example.confession.views.fragments.SearchFragment;
 
 import com.example.confession.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomePageActivity extends AppCompatActivity {
 
 	private ActionBar toolbar;
-
+	private int mCurrentNavItem = 100083;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-		ImageView v0 = findViewById(R.id.newfeed);
-		v0.setOnClickListener(new View.OnClickListener() {
+
+
+		toolbar = getSupportActionBar();
+		BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar);
+
+		bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 			@Override
-			public void onClick(View view) {
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				if(mCurrentNavItem == item.getItemId()){
+					return true;
+				}
 
-				Fragment selectedFragment = null;
-				selectedFragment = new NewfeedFragment();
-				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+				switch (item.getItemId()){
+					case R.id.navigation_home:
+						SetFragment(new NewfeedFragment());
+						break;
+					case R.id.navigation_search:
+						SetFragment(new SearchFragment());
+						break;
+					case R.id.navigation_add_post:
+						SetFragment(new AddFragment());
+						break;
+					case R.id.navigation_heart:
+						SetFragment(new FollowFragment());
+						break;
+					case R.id.navigation_profile:
+						SetFragment(new ProfileFragment());
+						break;
+				}
 
+				mCurrentNavItem = item.getItemId();
+				item.setChecked(true);
+				return true;
 			}
-
 		});
 
-		ImageView v1 = findViewById(R.id.search);
-		v1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
+		SetFragment(new NewfeedFragment());
 
-				Fragment selectedFragment = null;
-				selectedFragment = new SearchFragment();
-				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
-			}
-
-		});
-
-		ImageView v2 = findViewById(R.id.add);
-		v2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				Fragment selectedFragment = null;
-				selectedFragment = new AddFragment();
-				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
-			}
-
-		});
-		ImageView v3 = findViewById(R.id.follow);
-		v3.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				Fragment selectedFragment = null;
-				selectedFragment = new FollowFragment();
-				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
-			}
-
-		});
-		ImageView v4 = findViewById(R.id.profie);
-		v4.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				Fragment selectedFragment = null;
-				selectedFragment = new ProfileFragment();
-				getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
-			}
-
-		});
 	};
+
+	private void SetFragment(Fragment selectedFragment){
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+	}
 }
