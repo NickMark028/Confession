@@ -17,11 +17,14 @@ public class SignInPresenter implements SignInBinder.Presenter {
 
 	@Override
 	public void HandleLogin(String username, String password) {
+		//For testing
+		view.OnLoginSuccess(user);
 
-		user = User.Login(username, password, view.GetContext());
-		if (user != null)
-			view.OnLoginSuccess(user);
-		else
-			view.OnLoginFailure(1);
+
+//		user = User.Login(username, password, view.GetContext());
+//		if (user != null)
+//			view.OnLoginSuccess(user);
+//		else
+//			view.OnLoginFailure(1);
 	}
 }
