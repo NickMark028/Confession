@@ -4,113 +4,244 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
     android:orientation="vertical"
-    android:background="@drawable/ic_launcher_foreground">
-<!--    tools:context=".views.SigUpActivity">  -->
+    android:background="@drawable/custom_bg_gradient_vert"
+    android:weightSum="10"
+    tools:context=".views.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="Phone number"
-            android:textSize="18dp"/>
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="61dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Email"
-            android:textSize="18dp"/>
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Username"
-            android:textSize="18dp"/>
-
-        <EditText
-            android:id="@+id/txt_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password"
-            android:textSize="18sp"/>
-
-
-        <EditText
-            android:id="@+id/txt_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Sign up" />
-
-
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="or"
-            android:gravity="center"
-            android:textSize="18dp"></TextView>
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:text="Login" />
-
-
+            android:layout_height="0dp"
+            android:fontFamily="@font/nunito_extra_bold"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:text="@string/app_name_uppercase"/>
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/custom_bg_shadow"
+        android:id="@+id/fragment_sign_up"
+        android:outlineAmbientShadowColor="@color/black"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/nunito_extra_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/main_theme"
+                android:textSize="34sp"
+                android:text="@string/sign_up_uppercase"/>
+
+            <LinearLayout
+                android:layout_weight="6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:baselineAligned="false"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="6"
+                    >
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:startIconDrawable="@drawable/custom_user_icon"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/su_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:hint="@string/username"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:startIconDrawable="@drawable/custom_email_icon"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/su_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:hint="@string/email"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:startIconDrawable="@drawable/custom_phone_icon"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:hintEnabled="false"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/su_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/custom_edit_text"
+                            android:fontFamily="@font/nunito_regular"
+                            android:hint="@string/phone"
+                            android:inputType="phone" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:passwordToggleEnabled="true"
+                        app:startIconDrawable="@drawable/custom_lock_icon"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/su_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="@string/password"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        app:passwordToggleEnabled="true"
+                        app:startIconDrawable="@drawable/custom_lock_icon"
+                        android:theme="@style/EditTextLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintEnabled="false"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/su_confirm_pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="@string/conf_password"
+                            android:fontFamily="@font/nunito_regular"
+                            android:background="@drawable/custom_edit_text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/su_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/custom_bg_btn"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="@string/sign_up"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:textAllCaps="false"
+                        />
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom|center_horizontal"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/nunito_regular"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            android:text="Have an account?"
+
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/txt_si_click"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+
+                            android:fontFamily="@font/nunito_bold"
+
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            android:text="@string/sign_in"
+                            android:textAlignment="center"
+                            android:textColor="@color/main_theme"
+                            android:textSize="16sp"
+                            android:onClick="onClick"
+                            android:clickable="true"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
