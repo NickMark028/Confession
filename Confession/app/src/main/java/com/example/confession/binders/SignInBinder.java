@@ -1,10 +1,16 @@
 package com.example.confession.binders;
 
+import android.content.Context;
+
+import com.example.confession.models.behaviors.User;
+
 public interface SignInBinder {
 
 	interface View {
 
-		void OnLoginSuccess();
+		Context GetContext();
+
+		void OnLoginSuccess(User user);
 		void OnLoginFailure(int error_code);
 	}
 

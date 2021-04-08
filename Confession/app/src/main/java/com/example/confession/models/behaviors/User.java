@@ -1,9 +1,7 @@
 package com.example.confession.models.behaviors;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.example.confession.models.api.ApiService;
@@ -54,18 +52,8 @@ public class User {
 
 	public static User Login(String username, String password, Context context)
 	{
-		/*if (username.equals("admin") && password.equals("123456"))
-		{
-			BasicUserInfo basic_info = new BasicUserInfo("admin", "K", "");
-			UserInfo info = new UserInfo(basic_info, "test@gmail.com", "09xx xxx xx1");
-			return new User(info);
-		}
-		else
-		{
-			return null;
-		}*/
+		final User result;
 
-		Log.d("Log","OK");
 		final ApiService AS = new ApiService(context,"user/login");
 		AS.addHeader("username",username);
 		AS.addHeader("password",password);
@@ -90,12 +78,15 @@ public class User {
 					String error = obj.getString("error");
 					Log.d("Error: ",error);
 				}
+				Log.d("testing", "+++++++++++++++++++++++++++++++++++++++++++++++");
 			}
 		});
+
+		Log.d("testing", "-----------------------------------------");
 		return null;
 	}
 
-	public boolean ViewProfile()
+	public boolean ViewProfile(Context context)
 	{
 
 		return false;

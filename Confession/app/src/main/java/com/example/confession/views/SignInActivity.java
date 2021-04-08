@@ -2,6 +2,7 @@ package com.example.confession.views;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.binders.SignInBinder;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.SignInPresenter;
 
 public class SignInActivity extends Activity implements SignInBinder.View {
@@ -27,18 +29,13 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
 
-
-
 		InitPresenter();
 		InitView();
 		InitListener();
-
-//		Intent intent = new Intent(this, SignInActivity.class);
-//		startActivity(intent);
 	}
 
 	private void InitPresenter() {
-		presenter = new SignInPresenter(this,getApplicationContext());
+		presenter = new SignInPresenter(this);
 	}
 
 	private void InitView() {
@@ -64,36 +61,43 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		fb_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				Toast.makeText(getApplicationContext(), "Add forgot password", Toast.LENGTH_LONG);
 			}
 		});
 
 		google_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				Toast.makeText(getApplicationContext(), "Add google sign up", Toast.LENGTH_LONG);
 			}
 		});
 
 		txt_su_click.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				Toast.makeText(getApplicationContext(), "Add sign up", Toast.LENGTH_LONG);
 			}
 		});
 
 		forgot_pass_click.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				Toast.makeText(getApplicationContext(), "Add forgot password", Toast.LENGTH_LONG);
 			}
 		});
 	}
 
+	@Override
+	public Context GetContext() {
+		return getApplicationContext();
+	}
+
 	@SuppressLint("ShowToast")
 	@Override
-	public void OnLoginSuccess() {
+	public void OnLoginSuccess(User user) {
 		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
+		Intent myIntent = new Intent(this, HomePageActivity.class);
+		startActivity(myIntent);
 	}
 
 	@SuppressLint("ShowToast")

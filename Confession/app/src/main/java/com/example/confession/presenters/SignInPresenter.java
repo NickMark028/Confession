@@ -7,23 +7,20 @@ import com.example.confession.models.behaviors.User;
 
 public class SignInPresenter implements SignInBinder.Presenter {
 
-	Context context;
 	private final SignInBinder.View view;
 	private User user;
 
-	public SignInPresenter(SignInBinder.View view, Context context)
+	public SignInPresenter(SignInBinder.View view)
 	{
-		this.context = context;
 		this.view = view;
 	}
 
 	@Override
 	public void HandleLogin(String username, String password) {
 
-		// Testing
-		user = User.Login(username, password, context);
+		user = User.Login(username, password, view.GetContext());
 		if (user != null)
-			view.OnLoginSuccess();
+			view.OnLoginSuccess(user);
 		else
 			view.OnLoginFailure(1);
 	}

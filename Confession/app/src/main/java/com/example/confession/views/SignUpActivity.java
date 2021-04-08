@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.confession.R;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
