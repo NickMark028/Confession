@@ -11,6 +11,9 @@
     <string name="username">Username</string>
     <string name="username_uppercase">USERNAME</string>
 
+    <string name="phone">Phone</string>
+    <string name="phone_uppercase">PHONE</string>
+
     <string name="password">Password</string>
     <string name="password_uppercase">PASSWORD</string>
     <string name="email">Email</string>
@@ -23,6 +26,18 @@
     <string name="title_activity_sign_up">activity_sign_up</string>
     <string name="fb_login">Sign In with Facebook</string>
     <string name="google_login">Sign In with Google</string>
+
+    <string name="forgot_your_pass">Forgot your password?</string>
+    <string name="forgot_ypass_1">Enter your registered email below </string>
+    <string name="forgot_ypass_2">to receive password reset instruction</string>
+    <string name="remember_password">Remember password?</string>
+    <string name="email_send_noti">Email has been sent!</string>
+    <string name="email_send_m1">Please check your inbox and click in the</string>
+    <string name="email_send_m2">received link to reset your password</string>
+
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus metus sit amet est malesuada, a iaculis purus dictum. Quisque porttitor eros at risus rutrum, sed sollicitudin urna congue. Nulla vel arcu diam. Pellentesque sit amet leo ac nulla gravida venenatis consectetur ut mi. Nam elit ante, faucibus nec dapibus non, ornare eu libero. Mauris eleifend ipsum eu purus suscipit lacinia. Nulla facilisi. Suspendisse potenti. Nulla et est sit amet quam ultricies consectetur id a mi. Phasellus et euismod nunc.</string>
+
+
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
