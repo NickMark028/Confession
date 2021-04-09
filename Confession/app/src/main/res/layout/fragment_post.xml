@@ -32,6 +32,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_group_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Group name"
@@ -40,6 +41,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
+                    android:id="@+id/txt_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1 hour ago"
@@ -58,19 +60,20 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Post title"
-                android:fontFamily="@font/nunito_semi_bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:text="Post title"-->
+<!--                android:fontFamily="@font/nunito_semi_bold"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp"/>-->
 
             <TextView
+                android:id="@+id/txt_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -81,12 +84,13 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:layout_marginTop="5dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/post_image"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="256dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/post_image"/>-->
 
         </LinearLayout>
 
