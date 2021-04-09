@@ -14,4 +14,8 @@ public class PostComment {
 		this.post = post;
 	}
 
+	public String GetID(){
+		return null;
+	}
+
 }
