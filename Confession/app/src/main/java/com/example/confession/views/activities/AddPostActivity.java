@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -29,6 +34,9 @@ import com.example.confession.presenters.AddPostPresenter;
 import com.example.confession.presenters.SignUpPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
+import java.io.IOException;
+
 public class AddPostActivity extends AppCompatActivity implements AddPostTabBinder.View {
 
     AddPostPresenter presenter;
@@ -44,7 +52,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     private EditText addp_user_status;
     private ImageView add_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
-
+    private File imgOut = null;
     public AddPostActivity() {}
 
     @Override
@@ -77,8 +85,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             @Override
             public void onClick(View view) {
                 //Close add post activity
-                Intent myIntent = new Intent(getApplicationContext(), HomePageActivity.class);
-                startActivity(myIntent);
+                
                 finish();
             }
         });
@@ -110,7 +117,16 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         addp_camera_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From your camera");
+
+                imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 //Open camera
+                Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(camera, 304);
             }
         });
 
@@ -147,6 +163,14 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,13 +178,25 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
-
             add_post_img_added.setImageURI(imageUri);
-        }else{
+
+        }
+        else if(requestCode == 304 && resultCode == RESULT_OK){
+            Bitmap selectedImage = null;
+            try {
+                selectedImage = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                add_post_img_added.setImageBitmap(selectedImage);
+                myURL = getRealPathFromURI(imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
             Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, AddPostActivity.class));
             finish();
         }
+
     }
 
     @Override
