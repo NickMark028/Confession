@@ -85,7 +85,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             @Override
             public void onClick(View view) {
                 //Close add post activity
-                
+
                 finish();
             }
         });
