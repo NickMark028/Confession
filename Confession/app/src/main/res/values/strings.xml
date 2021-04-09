@@ -8,6 +8,9 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_uppercase">SIGN UP</string>
 
+    <string name="log_out">Logout</string>
+    <string name="log_out_uppercase">LOGOUT</string>
+
     <string name="user_id_demo">User#1111</string>
     <string name="group">Group</string>
     <string name="post_content_hint">
@@ -17,7 +20,9 @@
     </string>
 
     <string name="username">Username</string>
+    <string name="username_demo">___username</string>
     <string name="username_uppercase">USERNAME</string>
+    <string name="description">description</string>
 
     <string name="phone">Phone</string>
     <string name="phone_uppercase">PHONE</string>
