@@ -29,8 +29,6 @@ public class HomePageActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-
-
 		toolbar = getSupportActionBar();
 		BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar);
 
