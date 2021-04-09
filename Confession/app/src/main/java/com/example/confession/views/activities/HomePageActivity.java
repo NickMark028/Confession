@@ -1,6 +1,7 @@
 package com.example.confession.views.activities;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +50,9 @@ public class HomePageActivity extends AppCompatActivity {
 						SetFragment(new SearchFragment());
 						break;
 					case R.id.navigation_add_post:
-						SetFragment(new AddFragment());
+						//SetFragment(new AddFragment());
+						Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
+						startActivity(myIntent);
 						break;
 					case R.id.navigation_heart:
 						SetFragment(new FollowFragment());

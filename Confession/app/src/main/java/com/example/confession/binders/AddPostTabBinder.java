@@ -12,6 +12,6 @@ public interface AddPostTabBinder {
 
 	interface Presenter {
 
-		void HandleLogin(String username, String password);
+		//void HandleLogin(String username, String password);
 	}
 }

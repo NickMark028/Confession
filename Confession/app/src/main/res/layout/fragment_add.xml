@@ -11,13 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_weight="1"
-            android:src="@drawable/back"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="13dp"/>
 
         <TextView
             android:layout_width="0dp"
