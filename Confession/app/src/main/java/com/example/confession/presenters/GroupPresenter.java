@@ -21,6 +21,6 @@ public class GroupPresenter implements GroupBinder.Presenter {
 	@Override
 	public void HandleGetPosts() {
 
-		GroupPost.
+//		GroupPost.
 	}
 }

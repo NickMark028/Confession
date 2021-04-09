@@ -309,6 +309,46 @@ public class ConfessionGroup {
 
 	public ArrayList<GroupPost> GetPosts(UserInfo member)
 	{
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
+		Log.d("asasassa",this.group_info.id);
+		ApiGet ag = new ApiGet("confession/id", params);
+		Thread t = new Thread(ag);
+		t.start();
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
+		}
+
+		ArrayList<GroupPost> posts = new ArrayList<GroupPost>();
+		Log.d("Response", ag.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if (!obj.has("error")) {
+				JSONArray items = obj.getJSONArray("posts");
+				for (int i = 0; i < items.length(); i++) {
+					JSONObject item = items.getJSONObject(i);
+					String id = item.getString("_id");
+
+					JSONObject poster = item.getJSONObject("memberid");
+					poster = poster.getJSONObject("userid");
+
+					String username =poster.getString("username");
+					String fullname =poster.getString("fullname");
+					BasicUserInfo author = new BasicUserInfo(username,fullname,"");
+					BasicUserInfo approver = member.basic_info;
+					String content = item.getString("content");
+
+					//String id, BasicUserInfo author, BasicUserInfo approver, String content
+					GroupPostInfo post_info = new GroupPostInfo(id,author,approver,content);
+					GroupPost post = new GroupPost(post_info,this.group_info);
+					posts.add(post);
+				}
+				return posts;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

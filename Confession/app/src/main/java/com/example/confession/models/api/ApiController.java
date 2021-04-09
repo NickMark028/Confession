@@ -1,5 +1,7 @@
 package com.example.confession.models.api;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -78,6 +80,7 @@ public class ApiController {
     {
         String response="";
         String fullurl = this.apiURL + path;
+
         int i=1;
         for (Map.Entry<String, String> item: query.entrySet()) {
             if(i==1)
@@ -90,12 +93,15 @@ public class ApiController {
             }
             i++;
         }
-        URL url = null;
+
+
         try {
-            url = new URL(fullurl);
-            HttpURLConnection conn = null;
-            conn = (HttpURLConnection) url.openConnection();
+
+            URL url = new URL(fullurl);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
             conn.connect();
+            int httpResponse = conn.getResponseCode();
+            Log.d("Status: ",new Integer(httpResponse).toString());
             BufferedReader buf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line;
@@ -103,6 +109,7 @@ public class ApiController {
             {
                 response.concat(line);
             }
+            Log.d("Res",response);
             return response;
         } catch (MalformedURLException e) {
             e.printStackTrace();
