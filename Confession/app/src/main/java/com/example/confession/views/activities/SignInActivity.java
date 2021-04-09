@@ -74,7 +74,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		txt_su_click.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Add sign up", Toast.LENGTH_LONG).show();
 				Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
 				startActivity(myIntent);
 			}

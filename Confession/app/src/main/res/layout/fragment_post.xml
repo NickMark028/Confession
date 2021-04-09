@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
@@ -32,20 +32,22 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_group_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Group name"
                     android:fontFamily="@font/nunito_semi_bold"
+                    android:text="Group name"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/txt_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1 hour ago"
                     android:fontFamily="@font/nunito_regular"
+                    android:text="1 hour ago"
                     android:textColor="#8B8B8B"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -58,35 +60,37 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Post title"
-                android:fontFamily="@font/nunito_semi_bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:layout_marginLeft="10dp"-->
+            <!--                android:layout_marginRight="10dp"-->
+            <!--                android:text="Post title"-->
+            <!--                android:fontFamily="@font/nunito_semi_bold"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="18sp"/>-->
 
             <TextView
+                android:id="@+id/txt_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:text="@string/lorem"
                 android:fontFamily="@font/nunito_light"
+                android:text="@string/lorem"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <ImageView
+                android:id="@+id/iv_content"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/post_image"/>
+                android:src="@drawable/post_image" />
 
         </LinearLayout>
 
@@ -94,18 +98,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_react"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/react_icon" />
@@ -121,10 +126,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.834 likes"
                 android:fontFamily="@font/nunito_semi_bold"
+                android:text="1.834 likes"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -132,8 +137,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
@@ -142,10 +147,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="See all comments"
                 android:fontFamily="@font/nunito_regular"
+                android:text="See all comments"
                 android:textColor="#A7A7A7"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,11 +168,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:hint="Leave a comment..."
-                    android:textSize="16sp"
-                    android:fontFamily="@font/nunito_regular"
                     android:background="@null"
-                    />
+                    android:fontFamily="@font/nunito_regular"
+                    android:hint="Leave a comment..."
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

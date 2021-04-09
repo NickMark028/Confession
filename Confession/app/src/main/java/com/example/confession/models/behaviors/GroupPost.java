@@ -36,4 +36,11 @@ public class GroupPost {
 		return 0;
 	}
 
+	public GroupPostInfo GetPostInfo() {
+		return post_info;
+	}
+
+	public ConfessionGroupInfo GetGroup() {
+		return group;
+	}
 }

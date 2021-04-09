@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.confession.views.fragments.AddFragment;
 import com.example.confession.views.fragments.FollowFragment;
+import com.example.confession.views.fragments.GroupFragment;
 import com.example.confession.views.fragments.NewfeedFragment;
 import com.example.confession.views.fragments.ProfileFragment;
 import com.example.confession.views.fragments.SearchFragment;
@@ -30,8 +31,6 @@ public class HomePageActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-
-
 		toolbar = getSupportActionBar();
 		BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar);
 
@@ -43,8 +42,10 @@ public class HomePageActivity extends AppCompatActivity {
 				}
 
 				switch (item.getItemId()){
+					// TODO change to newsfeed agian
 					case R.id.navigation_home:
-						SetFragment(new NewfeedFragment());
+//						SetFragment(new NewfeedFragment());
+						SetFragment(new GroupFragment());
 						break;
 					case R.id.navigation_search:
 						SetFragment(new SearchFragment());
