@@ -23,5 +23,6 @@ public class SearchGroupPresenter implements SearchTabBinder.Presenter {
 	@Override
 	public void HandleJoinGroup(ConfessionGroupInfo group_info) {
 
+		return null;
 	}
 }
