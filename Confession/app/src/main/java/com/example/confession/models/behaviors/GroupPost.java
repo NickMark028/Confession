@@ -15,4 +15,12 @@ public class GroupPost {
 		this.post_info = post_info;
 		this.group = group;
 	}
+
+	public GroupPostInfo GetPostInfo() {
+		return post_info;
+	}
+
+	public ConfessionGroupInfo GetGroup() {
+		return group;
+	}
 }
