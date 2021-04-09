@@ -31,6 +31,15 @@ public class ConfessionGroup {
 		this.group_info = group_info;
 	}
 
+	public ConfessionGroupInfo GetGroupInfo() {
+		return group_info;
+	}
+
+	public int GetMemberCount()
+	{
+		return members.size();
+	}
+
 	//	public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
