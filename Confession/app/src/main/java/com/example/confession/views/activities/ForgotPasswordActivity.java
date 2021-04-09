@@ -1,4 +1,4 @@
-package com.example.confession.views;
+package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -15,7 +15,6 @@ import com.example.confession.R;
 import com.example.confession.binders.ForgotPasswordBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.ForgotPasswordPresenter;
-import com.example.confession.presenters.SignUpPresenter;
 import com.example.confession.views.fragments.ForgotPasswordSuccessFragment;
 import com.google.android.material.textfield.TextInputEditText;
 

@@ -1,14 +1,11 @@
-package com.example.confession.views;
+package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.SupportActionModeWrapper;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +13,6 @@ import android.widget.Toast;
 import com.example.confession.R;
 import com.example.confession.binders.SignUpBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.SignInPresenter;
 import com.example.confession.presenters.SignUpPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 

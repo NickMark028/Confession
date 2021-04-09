@@ -19,7 +19,7 @@ import com.example.confession.R;
 import com.example.confession.binders.ForgotPasswordBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.ForgotPasswordPresenter;
-import com.example.confession.views.SignInActivity;
+import com.example.confession.views.activities.SignInActivity;
 
 /**
  * A simple {@link Fragment} subclass.

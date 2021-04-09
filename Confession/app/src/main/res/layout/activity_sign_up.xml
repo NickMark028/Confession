@@ -4,43 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/custom_bg_gradient_vert"
+    android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".views.SignUpActivity">
+    tools:context=".views.activities.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_gravity="center_vertical"
         android:layout_weight="5"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:orientation="vertical">
+
         <TextView
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:fontFamily="@font/nunito_extra_bold"
             android:gravity="center_horizontal|center_vertical"
+            android:text="@string/app_name_uppercase"
             android:textColor="@color/white"
-            android:textSize="36sp"
-            android:text="@string/app_name_uppercase"/>
+            android:textSize="36sp" />
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/fragment_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:background="@drawable/custom_bg_shadow"
-        android:id="@+id/fragment_sign_up"
-        android:outlineAmbientShadowColor="@color/black"
-        >
+        android:outlineAmbientShadowColor="@color/black">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-
             android:weightSum="10">
 
             <TextView
@@ -49,82 +47,78 @@
                 android:layout_weight="4"
                 android:fontFamily="@font/nunito_extra_bold"
                 android:gravity="center_horizontal|center_vertical"
+                android:text="@string/sign_up_uppercase"
                 android:textColor="@color/main_theme"
-                android:textSize="34sp"
-                android:text="@string/sign_up_uppercase"/>
+                android:textSize="34sp" />
 
             <LinearLayout
-                android:layout_weight="6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
+                android:layout_weight="6"
                 android:baselineAligned="false"
-                >
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
                     android:layout_weight="6"
-                    >
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:startIconDrawable="@drawable/custom_user_icon"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
+                        android:theme="@style/EditTextLabel"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
-                        >
+                        app:startIconDrawable="@drawable/custom_user_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:hint="@string/username"
-                            android:fontFamily="@font/nunito_regular"
                             android:background="@drawable/custom_edit_text"
-                            />
+                            android:fontFamily="@font/nunito_regular"
+                            android:hint="@string/username"
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:startIconDrawable="@drawable/custom_email_icon"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
+                        android:theme="@style/EditTextLabel"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
-                        >
+                        app:startIconDrawable="@drawable/custom_email_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:hint="@string/email"
-                            android:fontFamily="@font/nunito_regular"
                             android:background="@drawable/custom_edit_text"
+                            android:fontFamily="@font/nunito_regular"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
 
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:startIconDrawable="@drawable/custom_phone_icon"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
+                        android:theme="@style/EditTextLabel"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
-                        >
+                        app:startIconDrawable="@drawable/custom_phone_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_phone"
@@ -137,47 +131,45 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:passwordToggleEnabled="true"
-                        app:startIconDrawable="@drawable/custom_lock_icon"
-                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
+                        android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
-                        >
+                        app:passwordToggleEnabled="true"
+                        app:startIconDrawable="@drawable/custom_lock_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:hint="@string/password"
-                            android:fontFamily="@font/nunito_regular"
                             android:background="@drawable/custom_edit_text"
-                            />
+                            android:fontFamily="@font/nunito_regular"
+                            android:hint="@string/password"
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:passwordToggleEnabled="true"
-                        app:startIconDrawable="@drawable/custom_lock_icon"
-                        android:theme="@style/EditTextLabel"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
+                        android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
-                        >
+                        app:passwordToggleEnabled="true"
+                        app:startIconDrawable="@drawable/custom_lock_icon">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_confirm_pass"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:hint="@string/conf_password"
-                            android:fontFamily="@font/nunito_regular"
                             android:background="@drawable/custom_edit_text"
-                            />
+                            android:fontFamily="@font/nunito_regular"
+                            android:hint="@string/conf_password"
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -185,16 +177,13 @@
                         android:id="@+id/su_button"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/custom_bg_btn"
                         android:fontFamily="@font/nunito_regular"
                         android:text="@string/sign_up"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:layout_marginTop="20dp"
                         android:textAllCaps="false"
-                        />
-
-
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
 
                     <LinearLayout
@@ -224,17 +213,16 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
 
-                            android:fontFamily="@font/nunito_bold"
+                            android:clickable="true"
 
+                            android:fontFamily="@font/nunito_bold"
+                            android:onClick="onClick"
                             android:paddingStart="5dp"
                             android:paddingEnd="0dp"
                             android:text="@string/sign_in"
                             android:textAlignment="center"
                             android:textColor="@color/main_theme"
-                            android:textSize="16sp"
-                            android:onClick="onClick"
-                            android:clickable="true"
-                            />
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
 

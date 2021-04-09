@@ -1,4 +1,4 @@
-package com.example.confession.views;
+package com.example.confession.views.activities;
 
 import android.content.ClipData;
 import android.os.Bundle;

@@ -31,7 +31,7 @@ public class ConfessionGroup {
 		this.group_info = group_info;
 	}
 
-//	public boolean getPosts(Context context)
+	//	public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
 //		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
@@ -89,8 +89,7 @@ public class ConfessionGroup {
 //		return false;
 //	}
 //
-	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context)
-	{
+	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context) {
 //		final ApiService AS = new ApiService(context, "confession/search/?keyword=" + name);
 //		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
 //			@Override
@@ -112,36 +111,32 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public ArrayList<BasicUserInfo> GetPendingUsers(UserInfo admin)
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("conf",this.group_info.id);
+	public ArrayList<BasicUserInfo> GetPendingUsers(UserInfo admin) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
 
-		ApiGet ag = new ApiGet("confession/id",params);
+		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while(!ag.isComplete)
-		{
-			Log.d("Thread API: ","Đang lấy danh sách thành viên chờ...");
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách thành viên chờ...");
 		}
 
-		ArrayList<BasicUserInfo> users= new ArrayList<BasicUserInfo>();
-		Log.d("Response",ag.response);
+		ArrayList<BasicUserInfo> users = new ArrayList<BasicUserInfo>();
+		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				JSONArray items = obj.getJSONArray("users");
 
-				for(int i=0;i<items.length();i++)
-				{
+				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String id = item.getString("_id");
 					String username = item.getString("username");
 					String name = item.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username,name,"");
+					BasicUserInfo user = new BasicUserInfo(username, name, "");
 					users.add(user);
 				}
 				return users;
@@ -152,27 +147,24 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public boolean AcceptUser(BasicUserInfo user,UserInfo admin)
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("token",admin.auth_token);
-		params.put("confession",this.group_info.id);
+	public boolean AcceptUser(BasicUserInfo user, UserInfo admin) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token", admin.auth_token);
+		params.put("confession", this.group_info.id);
 //		params.put("premem",user.id); // Có nguy cơ sai.
 
-		ApiPost ap = new ApiPost("confession/addmember",params);
+		ApiPost ap = new ApiPost("confession/addmember", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang chấp nhận thành viên chờ...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang chấp nhận thành viên chờ...");
 		}
 
-		Log.d("Response",ap.response);
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				return true;
 			}
 		} catch (JSONException e) {
@@ -181,35 +173,30 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	public boolean RejectUser(BasicUserInfo user,UserInfo admin)
-	{
+	public boolean RejectUser(BasicUserInfo user, UserInfo admin) {
 		return false;
 	}
 
-	public ArrayList<BasicUserInfo> GetMembers(UserInfo admin)
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("conf",this.group_info.id);
+	public ArrayList<BasicUserInfo> GetMembers(UserInfo admin) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
 
-		ApiGet ag = new ApiGet("confession/id",params);
+		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while(!ag.isComplete)
-		{
-			Log.d("Thread API: ","Đang lấy danh sách thành viên...");
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách thành viên...");
 		}
 
-		ArrayList<BasicUserInfo> members= new ArrayList<BasicUserInfo>();
-		Log.d("Response",ag.response);
+		ArrayList<BasicUserInfo> members = new ArrayList<BasicUserInfo>();
+		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				JSONArray items = obj.getJSONArray("members");
 
-				for(int i=0;i<items.length();i++)
-				{
+				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					JSONObject subitem = item.getJSONObject("userid");
 
@@ -217,7 +204,7 @@ public class ConfessionGroup {
 					String username = subitem.getString("username");
 					String name = subitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username,name,avatar);
+					BasicUserInfo user = new BasicUserInfo(username, name, avatar);
 					members.add(user);
 				}
 				return members;
@@ -229,30 +216,26 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public ArrayList<BasicUserInfo> GetAdmins(UserInfo admin)
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("conf",this.group_info.id);
+	public ArrayList<BasicUserInfo> GetAdmins(UserInfo admin) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
 
-		ApiGet ag = new ApiGet("confession/id",params);
+		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while(!ag.isComplete)
-		{
-			Log.d("Thread API: ","Đang lấy danh sách thành admin...");
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách thành admin...");
 		}
 
-		ArrayList<BasicUserInfo> admins= new ArrayList<BasicUserInfo>();
-		Log.d("Response",ag.response);
+		ArrayList<BasicUserInfo> admins = new ArrayList<BasicUserInfo>();
+		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				JSONArray items = obj.getJSONArray("admins");
 
-				for(int i=0;i<items.length();i++)
-				{
+				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					JSONObject subitem = item.getJSONObject("memberid");
 					JSONObject subsubitem = subitem.getJSONObject("userid");
@@ -261,7 +244,7 @@ public class ConfessionGroup {
 					String username = subsubitem.getString("username");
 					String name = subsubitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username,name,avatar);
+					BasicUserInfo user = new BasicUserInfo(username, name, avatar);
 					admins.add(user);
 				}
 				return admins;
@@ -272,24 +255,21 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public static ArrayList<ConfessionGroupInfo> GetAll()
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		ApiGet ag = new ApiGet("confession/id",params);
+	public static ArrayList<ConfessionGroupInfo> GetAll() {
+		HashMap<String, String> params = new HashMap<String, String>();
+		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while(!ag.isComplete)
-		{
-			Log.d("Thread API: ","Đang lấy tất cả confession...");
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy tất cả confession...");
 		}
 
-		ArrayList<ConfessionGroupInfo> confessions= new ArrayList<ConfessionGroupInfo>();
-		Log.d("Response",ag.response);
+		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
+		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				return confessions;
 			}
 		} catch (JSONException e) {
@@ -298,30 +278,27 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public GroupPost CreatePost(GroupPostInfo post, User member)
-	{
-		HashMap<String,String> params = new HashMap<String,String>();
-		params.put("token",member.user_info.auth_token);
-		params.put("confessionid",this.group_info.id);
+	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token", member.auth_token);
+		params.put("confessionid", this.group_info.id);
 //		params.put("memberid",member.user_info.basic_info.id);
-		params.put("title",post.id);
-		params.put("content",post.content);
-		ApiPost ap = new ApiPost("post/new",params);
+		params.put("title", post.id);
+		params.put("content", post.content);
+		ApiPost ap = new ApiPost("post/new", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang đăng bài...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang đăng bài...");
 		}
 
-		ArrayList<ConfessionGroupInfo> confessions= new ArrayList<ConfessionGroupInfo>();
-		Log.d("Response",ap.response);
+		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
-				GroupPost groupPost = new GroupPost(post,this.group_info);
+			if (!obj.has("error")) {
+				GroupPost groupPost = new GroupPost(post, this.group_info);
 				return groupPost;
 			}
 		} catch (JSONException e) {

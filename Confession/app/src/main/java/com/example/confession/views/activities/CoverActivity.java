@@ -1,4 +1,4 @@
-package com.example.confession.views;
+package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.confession.R;
 
-public class CommentActivity extends AppCompatActivity {
+public class CoverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.activity_cover);
     }
 }
