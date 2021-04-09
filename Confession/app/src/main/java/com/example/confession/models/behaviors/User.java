@@ -32,11 +32,11 @@ public class User{
 	private static boolean Register(UserInfo user, String password, Context context)
 	{
 		HashMap params = new HashMap<String, String>();
-		params.put("username",user_info.basic_info.username);
+		params.put("username",user.basic_info.username);
 		params.put("password",password);
-		params.put("fullname",user_info.basic_info.name);
-		params.put("email",user_info.email);
-		params.put("phone",user_info.phone);
+		params.put("fullname",user.basic_info.name);
+		params.put("email",user.email);
+		params.put("phone",user.phone);
 
 		ApiPost ap = new ApiPost("user/register",params);
 		Thread t = new Thread(ap);
@@ -60,7 +60,7 @@ public class User{
 		return false;
 	}
 
-	public static User Login(String username, String password, Context context){
+	public static User Login(String username, String password){
 		HashMap params = new HashMap<String, String>();
 		params.put("username",username);
 		params.put("password",password);
@@ -83,7 +83,7 @@ public class User{
 				String token = obj.getString("token");
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
-				BasicUserInfo basic_info = new BasicUserInfo(id,username, name, "");
+				BasicUserInfo basic_info = new BasicUserInfo(username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone,token);
 				User user = new User(info);
 				return user;
@@ -100,7 +100,7 @@ public class User{
 		return false;
 	}
 
-	public ConfessionGroup CreateGroup(ConfessionGroupInfo group, Context context)
+	public ConfessionGroup CreateGroup(ConfessionGroupInfo group)
 	{
 		HashMap params = new HashMap<String,String>();
 		params.put("token",user_info.auth_token);
@@ -136,7 +136,7 @@ public class User{
 		return confession;
 	}
 
-	public boolean JoinGroup(ConfessionGroupInfo group, Context context)
+	public boolean JoinGroup(ConfessionGroupInfo group)
 	{
 		HashMap params = new HashMap<String,String>();
 		params.put("token",user_info.auth_token);

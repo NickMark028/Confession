@@ -87,11 +87,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		});
 	}
 
-	@Override
-	public Context GetContext() {
-		return getApplicationContext();
-	}
-
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginSuccess(User user) {

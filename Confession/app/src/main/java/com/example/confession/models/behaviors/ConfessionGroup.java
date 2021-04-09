@@ -89,8 +89,8 @@ public class ConfessionGroup {
 //		return false;
 //	}
 //
-//	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context)
-//	{
+	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context)
+	{
 //		final ApiService AS = new ApiService(context, "confession/search/?keyword=" + name);
 //		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
 //			@Override
@@ -109,8 +109,8 @@ public class ConfessionGroup {
 //			}
 //		});
 //
-//		return null;
-//	}
+		return null;
+	}
 
 	public ArrayList<BasicUserInfo> GetPendingUsers(UserInfo admin)
 	{
@@ -141,7 +141,7 @@ public class ConfessionGroup {
 					String username = item.getString("username");
 					String name = item.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username,name,"");
+					BasicUserInfo user = new BasicUserInfo(username,name,"");
 					users.add(user);
 				}
 				return users;
@@ -157,7 +157,7 @@ public class ConfessionGroup {
 		HashMap<String,String> params = new HashMap<String,String>();
 		params.put("token",admin.auth_token);
 		params.put("confession",this.group_info.id);
-		params.put("premem",user.id); // Có nguy cơ sai.
+//		params.put("premem",user.id); // Có nguy cơ sai.
 
 		ApiPost ap = new ApiPost("confession/addmember",params);
 		Thread t = new Thread(ap);
@@ -217,7 +217,7 @@ public class ConfessionGroup {
 					String username = subitem.getString("username");
 					String name = subitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username,name,avatar);
+					BasicUserInfo user = new BasicUserInfo(username,name,avatar);
 					members.add(user);
 				}
 				return members;
@@ -261,7 +261,7 @@ public class ConfessionGroup {
 					String username = subsubitem.getString("username");
 					String name = subsubitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username,name,avatar);
+					BasicUserInfo user = new BasicUserInfo(username,name,avatar);
 					admins.add(user);
 				}
 				return admins;
@@ -303,7 +303,7 @@ public class ConfessionGroup {
 		HashMap<String,String> params = new HashMap<String,String>();
 		params.put("token",member.user_info.auth_token);
 		params.put("confessionid",this.group_info.id);
-		params.put("memberid",member.user_info.basic_info.id);
+//		params.put("memberid",member.user_info.basic_info.id);
 		params.put("title",post.id);
 		params.put("content",post.content);
 		ApiPost ap = new ApiPost("post/new",params);

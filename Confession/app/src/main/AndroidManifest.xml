@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Confession">
 
-        <activity android:name=".views.CreateGroupActivity"></activity>
+        <activity android:name=".views.CreateGroupActivity"/>
         <activity android:name=".views.CoverActivity" />
         <activity android:name=".views.CommentActivity" />
         <activity android:name=".views.SignUpActivity" />
         <activity android:name=".views.ForgotPasswordActivity" />
-        <activity android:name=".views.HomePageActivity">
+        <activity android:name=".views.HomePageActivity"/>
 
         <activity
             android:name=".views.SignInActivity"
-            android:noHistory="true"></activity>
+            android:noHistory="true"/>
             
         <activity
             android:name=".views.MainActivity"
