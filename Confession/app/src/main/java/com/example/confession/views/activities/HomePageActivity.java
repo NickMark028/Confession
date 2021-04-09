@@ -24,7 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomePageActivity extends AppCompatActivity {
 
 	private ActionBar toolbar;
+	private int mPrevNavItem = 0;
 	private int mCurrentNavItem = 100083;
+	BottomNavigationView bottomNavigationView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
 		toolbar = getSupportActionBar();
-		BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar);
+		bottomNavigationView = findViewById(R.id.navigation_bar);
 
 		bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 			@Override
@@ -53,6 +56,7 @@ public class HomePageActivity extends AppCompatActivity {
 						//SetFragment(new AddFragment());
 						Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
 						startActivity(myIntent);
+
 						break;
 					case R.id.navigation_heart:
 						SetFragment(new FollowFragment());
@@ -61,7 +65,7 @@ public class HomePageActivity extends AppCompatActivity {
 						SetFragment(new ProfileFragment());
 						break;
 				}
-
+				mPrevNavItem = mCurrentNavItem;
 				mCurrentNavItem = item.getItemId();
 				item.setChecked(true);
 				return true;
@@ -71,6 +75,12 @@ public class HomePageActivity extends AppCompatActivity {
 		SetFragment(new NewfeedFragment());
 
 	};
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		bottomNavigationView.setSelectedItemId(mPrevNavItem);
+	}
 
 	private void SetFragment(Fragment selectedFragment){
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
