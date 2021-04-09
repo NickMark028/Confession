@@ -8,8 +8,6 @@ public interface SignInBinder {
 
 	interface View {
 
-		Context GetContext();
-
 		void OnLoginSuccess(User user);
 		void OnLoginFailure(int error_code);
 	}
