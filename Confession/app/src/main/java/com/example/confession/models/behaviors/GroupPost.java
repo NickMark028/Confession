@@ -17,23 +17,36 @@ public class GroupPost {
 		this.post_info = post_info;
 		this.group = group;
 	}
-	public String GetID(){
+
+	public String GetID() {
 		return null;
 	}
-	 public PostComment addComment(PostCommentInfo comment, BasicUserInfo user){
+
+	public PostComment addComment(PostCommentInfo comment, BasicUserInfo user) {
 		return null;
 	}
-	public boolean RemoveComment(PostComment comment, BasicUserInfo from){
+
+	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
 		return false;
 	}
-	public boolean React(BasicUserInfo user){
+
+	public boolean React(BasicUserInfo user) {
 		return false;
 	}
-	public PostComment[] GetComment(){
+
+	public PostComment[] GetComment() {
 		return null;
 	}
-	public int GetReactionCount(){
+
+	public int GetReactionCount() {
 		return 0;
 	}
 
+	public GroupPostInfo GetPostInfo() {
+		return post_info;
+	}
+
+	public ConfessionGroupInfo GetGroup() {
+		return group;
+	}
 }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class User{
+public class User {
 	protected final UserInfo user_info;
 
 	private User(UserInfo user_info)
@@ -29,7 +29,7 @@ public class User{
 		this.user_info = user_info;
 	}
 
-	private static boolean Register(UserInfo user, String password, Context context)
+	public static boolean Register(UserInfo user, String password)
 	{
 		HashMap params = new HashMap<String, String>();
 		params.put("username",user.basic_info.username);
@@ -94,7 +94,7 @@ public class User{
 		return null;
 	}
 
-	public boolean ViewProfile(Context context)
+	public boolean ViewProfile()
 	{
 
 		return false;

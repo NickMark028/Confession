@@ -29,9 +29,9 @@
         <activity
             android:name=".views.activities.HomePageActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".views.activities.SignInActivity"
-            android:noHistory="true" />
+
+        <activity android:name=".views.activities.SignInActivity"></activity>
+
         <activity
             android:name=".views.activities.MainActivity"
             android:noHistory="true">

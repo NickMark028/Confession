@@ -31,6 +31,15 @@ public class ConfessionGroup {
 		this.group_info = group_info;
 	}
 
+	public ConfessionGroupInfo GetGroupInfo() {
+		return group_info;
+	}
+
+	public int GetMemberCount()
+	{
+		return members.size();
+	}
+
 	//	public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
@@ -279,31 +288,36 @@ public class ConfessionGroup {
 	}
 
 	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", member.auth_token);
-		params.put("confessionid", this.group_info.id);
-//		params.put("memberid",member.user_info.basic_info.id);
-		params.put("title", post.id);
-		params.put("content", post.content);
-		ApiPost ap = new ApiPost("post/new", params);
-		Thread t = new Thread(ap);
-		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang đăng bài...");
-		}
+//		HashMap<String, String> params = new HashMap<String, String>();
+//		params.put("token", member.auth_token);
+//		params.put("confessionid", this.group_info.id);
+////		params.put("memberid",member.user_info.basic_info.id);
+//		params.put("title", post.id);
+//		params.put("content", post.content);
+//		ApiPost ap = new ApiPost("post/new", params);
+//		Thread t = new Thread(ap);
+//		t.start();
+//		while (!ap.isComplete) {
+//			Log.d("Thread API: ", "Đang đăng bài...");
+//		}
+//
+//		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
+//		Log.d("Response", ap.response);
+//		JSONObject obj = null;
+//		try {
+//			obj = new JSONObject(ap.response);
+//			if (!obj.has("error")) {
+//				GroupPost groupPost = new GroupPost(post, this.group_info);
+//				return groupPost;
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+		return null;
+	}
 
-		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
-		Log.d("Response", ap.response);
-		JSONObject obj = null;
-		try {
-			obj = new JSONObject(ap.response);
-			if (!obj.has("error")) {
-				GroupPost groupPost = new GroupPost(post, this.group_info);
-				return groupPost;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	public ArrayList<GroupPost> GetPosts(UserInfo member)
+	{
 		return null;
 	}
 }

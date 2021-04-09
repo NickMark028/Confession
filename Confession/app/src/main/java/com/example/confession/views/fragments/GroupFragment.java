@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.confession.R;
+import com.example.confession.binders.GroupBinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +17,8 @@ import com.example.confession.R;
  * create an instance of this fragment.
  */
 public class GroupFragment extends Fragment {
+
+//	GroupBinder.Presenter presenter = new;
 
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,12 +58,16 @@ public class GroupFragment extends Fragment {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
+
+
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	                         Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_group, container, false);
+		View view = inflater.inflate(R.layout.fragment_group, container, false);
+
+
+		return view;
 	}
 }
