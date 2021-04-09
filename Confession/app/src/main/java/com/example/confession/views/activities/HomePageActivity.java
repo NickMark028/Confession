@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.confession.binders.BottomSheetListener;
 import com.example.confession.views.fragments.AddFragment;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.GroupFragment;
@@ -22,7 +24,7 @@ import com.example.confession.views.fragments.SearchFragment;
 import com.example.confession.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements BottomSheetListener {
 
 	private ActionBar toolbar;
 	private int mPrevNavItem = 0;
@@ -47,8 +49,8 @@ public class HomePageActivity extends AppCompatActivity {
 				switch (item.getItemId()){
 					// TODO change to newsfeed agian
 					case R.id.navigation_home:
-//						SetFragment(new NewfeedFragment());
-						SetFragment(new GroupFragment());
+						SetFragment(new NewfeedFragment());
+						//SetFragment(new GroupFragment());
 						break;
 					case R.id.navigation_search:
 						SetFragment(new SearchFragment());
@@ -85,5 +87,16 @@ public class HomePageActivity extends AppCompatActivity {
 
 	private void SetFragment(Fragment selectedFragment){
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+	}
+
+	@Override
+	public void onButtonClicked(String text) {
+		if(text.equals("logout")){
+			Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+
+			Intent myIntent = new Intent(getApplicationContext(), SignInActivity.class);
+			startActivity(myIntent);
+			finish();
+		}
 	}
 }
