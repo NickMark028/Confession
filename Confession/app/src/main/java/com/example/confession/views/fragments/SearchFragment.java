@@ -9,14 +9,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.confession.R;
+import com.example.confession.adapters.GroupAdapter;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.SearchGroupPresenter;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +42,11 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
     private String mParam1;
     private String mParam2;
 
-    EditText txt_search;
+    androidx.appcompat.widget.SearchView txt_search;
+    TextView txt_search_result;
+    ListView lv_search_item;
+    ArrayList<ConfessionGroupInfo> list_group;
+    ArrayList<ConfessionGroupInfo> search_item;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -66,6 +77,25 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        createDemoGroupInfo();
+
+    }
+
+    //For testing only
+    public void createDemoGroupInfo(){
+        list_group = new ArrayList<>();
+        search_item = new ArrayList<>();
+
+        list_group.add(new ConfessionGroupInfo("111", "lih", "loveishurt", "url"));
+        list_group.add(new ConfessionGroupInfo("112", "lih", "loveishurt1", "url"));
+        list_group.add(new ConfessionGroupInfo("113", "lih", "loveishurt2", "url"));
+        list_group.add(new ConfessionGroupInfo("114", "lih", "loveishurt3", "url"));
+        list_group.add(new ConfessionGroupInfo("115", "lih", "loveishurt4", "url"));
+        list_group.add(new ConfessionGroupInfo("116", "lih", "helloishurt", "url"));
+        list_group.add(new ConfessionGroupInfo("117", "lih", "helloisgood", "url"));
+        list_group.add(new ConfessionGroupInfo("118", "lih", "googleishurt", "url"));
+        list_group.add(new ConfessionGroupInfo("119", "lih", "androidishurt", "url"));
+        list_group.add(new ConfessionGroupInfo("120", "lih", "lifeishard", "url"));
     }
 
     @Override
@@ -74,26 +104,63 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
 
-        EditText txt_search = view.findViewById(R.id.txt_search);
-        view.findViewById(R.id.txt_search);
+        txt_search = view.findViewById(R.id.txt_search);
+        txt_search_result = view.findViewById(R.id.txt_search_result);
+        lv_search_item = view.findViewById(R.id.lv_search_group_item);
 
-        //txt_search.addTextChangedListener()
-
-        txt_search.addTextChangedListener(new TextWatcher() {
+        txt_search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                // Testing
-                SearchTabBinder.Presenter presenter = new SearchGroupPresenter(getContext());
-                presenter.HandleFindGroup(txt_search.getText().toString());
+            public void onClick(View v) {
+                txt_search.onActionViewExpanded();
             }
         });
+
+        txt_search.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Testing
+//                SearchTabBinder.Presenter presenter = new SearchGroupPresenter(getContext());
+//                presenter.HandleFindGroup(query);
+
+                for(ConfessionGroupInfo group: list_group){
+                    if(group.name.contains(query)){
+                        search_item.add(group);
+                    }
+                }
+
+                Toast.makeText(getActivity(), "Search found " + search_item.size(), Toast.LENGTH_SHORT).show();
+                lv_search_item.setAdapter(new GroupAdapter(getContext(), search_item));
+
+                lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        view.setSelected(true);
+                    }
+                });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty()){
+                    txt_search_result.setText(String.format("No Results", newText));
+                    search_item.clear();
+                    return false;
+                }
+
+                txt_search_result.setText(String.format("Results for %s", newText));
+
+                if(search_item.size() > 0){
+                    search_item.clear();
+                }
+                return true;
+            }
+        });
+
+
+
+
+
 
         return view;
     }
