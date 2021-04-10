@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="15dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
     android:orientation="vertical"
     tools:context=".views.fragments.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/txt_search"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_search_view"
+        app:defaultQueryHint="Search"
+
+        />
+
+    <TextView
+        android:id="@+id/txt_search_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:text="Result"
+        android:fontFamily="@font/nunito_regular"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
+        />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/loupe">
+    <ListView
+        android:id="@+id/lv_search_group_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/transparent"
+        />
 
-        </ImageView>
-
-        <EditText
-            android:id="@+id/txt_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="Search"></EditText>
-
-
-    </LinearLayout>
-
-    <include layout="@layout/layout_group_info"/>
-    <include layout="@layout/layout_group_info"/>
-    <include layout="@layout/layout_group_info"/>
-    <include layout="@layout/layout_group_info"/>
 
 </LinearLayout>
