@@ -19,6 +19,7 @@ import com.example.confession.R;
 import com.example.confession.binders.ProfileTabBinder;
 import com.example.confession.presenters.ForgotPasswordPresenter;
 import com.example.confession.views.activities.SignInActivity;
+import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -116,7 +117,8 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
             public void onClick(View view) {
                 //presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
                 ProfileUsernameBottomSheet bottomSheet = new ProfileUsernameBottomSheet();
-                bottomSheet.show(getFragmentManager(), "Username");
+                assert getFragmentManager() != null;
+                bottomSheet.show(getFragmentManager(), "username");
             }
         });
 
@@ -124,8 +126,10 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
         profile_open_post_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "bottom sheet open post", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(getContext(), "bottom sheet open post", Toast.LENGTH_SHORT).show();
+                ProfileCreateNewBottomSheet bottomSheet = new ProfileCreateNewBottomSheet();
+                assert getFragmentManager() != null;
+                bottomSheet.show(getFragmentManager(), "create_new");
             }
         });
 
