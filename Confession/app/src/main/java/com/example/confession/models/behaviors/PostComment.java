@@ -17,5 +17,4 @@ public class PostComment {
 	public String GetID(){
 		return null;
 	}
-
 }

@@ -83,7 +83,7 @@ public class User {
 				String token = obj.getString("token");
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
-				BasicUserInfo basic_info = new BasicUserInfo(username, name, "");
+				BasicUserInfo basic_info = new BasicUserInfo(id,username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone,token);
 				User user = new User(info);
 				return user;

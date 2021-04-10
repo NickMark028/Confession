@@ -1,14 +1,10 @@
 package com.example.confession.models.behaviors;
 
 import android.content.Context;
-import android.util.JsonWriter;
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.example.confession.models.api.ApiGet;
 import com.example.confession.models.api.ApiPost;
-import com.example.confession.models.api.ApiService;
-import com.example.confession.models.api.VolleyCallback;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
@@ -99,25 +95,39 @@ public class ConfessionGroup {
 //	}
 //
 	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context) {
-//		final ApiService AS = new ApiService(context, "confession/search/?keyword=" + name);
-//		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
-//			@Override
-//			public void getResponse(String response) throws JSONException {
-//				//JSONObject obj = new JSONObject(response);
-////				if(!obj.has("error"))
-////				{
-////					Log.d("Find: ", response);
-////				}
-////				else
-////				{
-////					String error = obj.getString("error");
-////					Log.d("Error: ",error);
-////				}
-////				Log.d("Find", response);
-//			}
-//		});
-//
-		return null;
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("keyword", name);
+
+		ApiGet ag = new ApiGet("confession/search", params);
+		Thread t = new Thread(ag);
+		t.start();
+
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang tìm kiếm các nhóm theo từ khóa...");
+		}
+
+		ArrayList<ConfessionGroupInfo> groups = new ArrayList<ConfessionGroupInfo>();
+		Log.d("Response", ag.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if (!obj.has("error")) {
+				JSONArray items = new JSONArray(ag.response);
+				for(int i=0;i<items.length();i++)
+				{
+					JSONObject item = items.getJSONObject(i);
+					String id = item.getString("_id");
+					String shortname = item.getString("shortname");
+					String groupname = item.getString("groupname");
+					String avatar = item.getString("avatar");
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+					groups.add(group_info);
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return groups;
 	}
 
 	public ArrayList<BasicUserInfo> GetPendingUsers(UserInfo admin) {
@@ -145,22 +155,22 @@ public class ConfessionGroup {
 					String username = item.getString("username");
 					String name = item.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username, name, "");
+					BasicUserInfo user = new BasicUserInfo(id,username, name, "");
 					users.add(user);
 				}
-				return users;
+
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return users;
 	}
 
 	public boolean AcceptUser(BasicUserInfo user, UserInfo admin) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", admin.auth_token);
 		params.put("confession", this.group_info.id);
-//		params.put("premem",user.id); // Có nguy cơ sai.
+		params.put("premem",user.id); // Có nguy cơ sai.
 
 		ApiPost ap = new ApiPost("confession/addmember", params);
 		Thread t = new Thread(ap);
@@ -213,16 +223,16 @@ public class ConfessionGroup {
 					String username = subitem.getString("username");
 					String name = subitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username, name, avatar);
+					BasicUserInfo user = new BasicUserInfo(id,username, name, avatar);
 					members.add(user);
 				}
-				return members;
+
 
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return members;
 	}
 
 	public ArrayList<BasicUserInfo> GetAdmins(UserInfo admin) {
@@ -253,20 +263,20 @@ public class ConfessionGroup {
 					String username = subsubitem.getString("username");
 					String name = subsubitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(username, name, avatar);
+					BasicUserInfo user = new BasicUserInfo(id,username, name, avatar);
 					admins.add(user);
 				}
-				return admins;
+
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return admins;
 	}
 
 	public static ArrayList<ConfessionGroupInfo> GetAll() {
 		HashMap<String, String> params = new HashMap<String, String>();
-		ApiGet ag = new ApiGet("confession/id", params);
+		ApiGet ag = new ApiGet("confession/", params);
 		Thread t = new Thread(ag);
 		t.start();
 		while (!ag.isComplete) {
@@ -279,7 +289,36 @@ public class ConfessionGroup {
 		try {
 			obj = new JSONObject(ag.response);
 			if (!obj.has("error")) {
-				return confessions;
+
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	} // Check lại api không trả ra []
+
+	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token", member.auth_token);
+		params.put("confessionid", this.group_info.id);
+		params.put("memberid",member.basic_info.id);
+		params.put("title", post.id);
+		params.put("content", post.content);
+		ApiPost ap = new ApiPost("post/new", params);
+		Thread t = new Thread(ap);
+		t.start();
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang đăng bài...");
+		}
+
+		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
+		Log.d("Response", ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				GroupPost groupPost = new GroupPost(post, this.group_info);
+				return groupPost;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -287,37 +326,49 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
-//		HashMap<String, String> params = new HashMap<String, String>();
-//		params.put("token", member.auth_token);
-//		params.put("confessionid", this.group_info.id);
-////		params.put("memberid",member.user_info.basic_info.id);
-//		params.put("title", post.id);
-//		params.put("content", post.content);
-//		ApiPost ap = new ApiPost("post/new", params);
-//		Thread t = new Thread(ap);
-//		t.start();
-//		while (!ap.isComplete) {
-//			Log.d("Thread API: ", "Đang đăng bài...");
-//		}
-//
-//		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
-//		Log.d("Response", ap.response);
-//		JSONObject obj = null;
-//		try {
-//			obj = new JSONObject(ap.response);
-//			if (!obj.has("error")) {
-//				GroupPost groupPost = new GroupPost(post, this.group_info);
-//				return groupPost;
-//			}
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-		return null;
-	}
-
-	public ArrayList<GroupPost> GetPosts(UserInfo member)
+	public ArrayList<GroupPost> GetPosts(UserInfo member) // Hoạt động tốt.
 	{
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
+
+		ApiGet ag = new ApiGet("confession/id", params);
+		Thread t = new Thread(ag);
+		t.start();
+
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
+		}
+
+		ArrayList<GroupPost> posts = new ArrayList<GroupPost>();
+		Log.e("Response", ag.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if (!obj.has("error")) {
+				JSONArray items = obj.getJSONArray("posts");
+				for (int i = 0; i < items.length(); i++) {
+					JSONObject item = items.getJSONObject(i);
+					String id = item.getString("_id");
+
+					JSONObject poster = item.getJSONObject("memberid");
+					poster = poster.getJSONObject("userid");
+
+					String posterid=poster.getString("_id");
+					String username =poster.getString("username");
+					String fullname =poster.getString("fullname");
+					BasicUserInfo author = new BasicUserInfo(posterid,username,fullname,"");
+					BasicUserInfo approver = member.basic_info;
+					String content = item.getString("content");
+
+					GroupPostInfo post_info = new GroupPostInfo(id,author,approver,content);
+					GroupPost post = new GroupPost(post_info,this.group_info);
+					posts.add(post);
+				}
+				return posts;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
