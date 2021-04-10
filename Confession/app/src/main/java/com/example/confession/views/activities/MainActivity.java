@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		ConfessionGroup g = new ConfessionGroup(new ConfessionGroupInfo("60505ccec951fc27083de447", "", "", ""));
-		g.GetPosts(new UserInfo(new BasicUserInfo("","",""),"","",""));
+		g.GetPosts(new UserInfo(new BasicUserInfo("","","",""),"","",""));
 
 		//Intent intent = new Intent(this, SignInActivity.class);
 		//startActivity(intent);

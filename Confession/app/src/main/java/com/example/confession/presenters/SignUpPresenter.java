@@ -27,7 +27,7 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 		// TODO Hash password
 		String hash_pass = password;
 
-		BasicUserInfo basic_user_info = new BasicUserInfo(username, "Add a name here", "Add avatar here");
+		BasicUserInfo basic_user_info = new BasicUserInfo("",username, "Add a name here", "Add avatar here");
 		UserInfo user_info = new UserInfo(basic_user_info, email, phone, "Authentication code here");
 
 		if (User.Register(user_info, hash_pass))
