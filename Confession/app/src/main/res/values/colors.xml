@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_theme">#387DE4</color>
-
+    <color name="transparent">#00FFFFFF</color>
     <color name="edit_focus">#152E71</color>
     <color name="edit_no_focus">#C0C0C0</color>
 
@@ -25,6 +25,6 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="profile_gr_theme">#C9DBF9</color>
-
+    <color name="press_overlay">#EEEEEE</color>
 
 </resources>
