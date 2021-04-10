@@ -14,27 +14,38 @@ import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class GroupAdapter extends BaseAdapter {
 
 	Context context;
 	ArrayList<ConfessionGroup> groups;
+	ArrayList<ConfessionGroupInfo> group;
 
-	public GroupAdapter(Context context, ArrayList<ConfessionGroup> groups) {
+//	public GroupAdapter(Context context, ArrayList<ConfessionGroup> groups) {
+//
+//		this.context = context;
+//		this.groups = groups;
+//	}
+
+	//for testing GUI only
+	public GroupAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
 
 		this.context = context;
-		this.groups = groups;
+		this.group = group;
 	}
+
 
 	@Override
 	public int getCount() {
-		return groups.size();
+		return group.size();
 	}
 
 	@Override
 	public Object getItem(int i) {
-		return groups.get(i);
+		return group.get(i);
 	}
 
 	@Override
@@ -49,22 +60,34 @@ public class GroupAdapter extends BaseAdapter {
 		View row = inflater.inflate(R.layout.layout_group_info, null);
 
 		//  Init view
-		ImageView iv_avatar = row.findViewById(R.id.iv_avatar);
-		TextView txt_group_name = row.findViewById(R.id.txt_group_name);
-		TextView txt_member_count = row.findViewById(R.id.txt_member_count);
-		Button btn_join = row.findViewById(R.id.btn_join);
+		ImageView search_gr_avatar = row.findViewById(R.id.search_gr_avatar);
+		TextView search_gr_name = row.findViewById(R.id.search_gr_name);
+		TextView search_gr_member = row.findViewById(R.id.search_gr_member);
+		TextView search_gr_user_state = row.findViewById(R.id.search_gr_user_state);
 
 		// Init data
-		ConfessionGroup group = groups.get(i);
+		//ConfessionGroup group = groups.get(i);
 //		iv_avatar.setBackgroundResource(...);
-		txt_group_name.setText(group.GetGroupInfo().name);
-		txt_member_count.setText(group.GetMemberCount());
+		//search_gr_name.setText(group.GetGroupInfo().name);
+		//search_gr_member.setText(group.GetMemberCount());
 
-		// Init listener
-		btn_join.setOnClickListener(view1 -> {
-			//...
-		});
+
+		//Testing GUI
+		search_gr_name.setText(group.get(i).name);
+		search_gr_member.setText("101");
+
+		if (checkIsUserInGroup()) {
+			search_gr_user_state.setText("Joined");
+		} else {
+			search_gr_user_state.setText("");
+		}
+
 
 		return row;
+	}
+
+	//Kiem tra User co trong Group khong
+	private boolean checkIsUserInGroup(){
+		return true;
 	}
 }
