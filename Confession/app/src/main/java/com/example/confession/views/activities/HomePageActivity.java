@@ -36,6 +36,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
+
 		toolbar = getSupportActionBar();
 		bottomNavigationView = findViewById(R.id.navigation_bar);
 
@@ -89,6 +90,8 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 	}
 
+
+	//BottomListener method
 	@Override
 	public void onButtonClicked(String text) {
 		if(text.equals("logout")){
@@ -98,5 +101,20 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 			startActivity(myIntent);
 			finish();
 		}
+
+		if(text.equals("create_post")){
+			Toast.makeText(getApplicationContext(), "Create Post", Toast.LENGTH_SHORT).show();
+
+			View view = bottomNavigationView.findViewById(R.id.navigation_add_post);
+			view.performClick();
+		}
+
+		if(text.equals("create_group")){
+			Toast.makeText(getApplicationContext(), "Create Group", Toast.LENGTH_SHORT).show();
+
+
+		}
+
+
 	}
 }
