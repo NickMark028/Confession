@@ -47,6 +47,7 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
     ListView lv_search_item;
     ArrayList<ConfessionGroupInfo> list_group;
     ArrayList<ConfessionGroupInfo> search_item;
+    GroupAdapter mGroupAdapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -107,6 +108,21 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
         txt_search = view.findViewById(R.id.txt_search);
         txt_search_result = view.findViewById(R.id.txt_search_result);
         lv_search_item = view.findViewById(R.id.lv_search_group_item);
+        mGroupAdapter = new GroupAdapter(getContext(), search_item);
+        lv_search_item.setAdapter(mGroupAdapter);
+
+        InitListener();
+
+        return view;
+    }
+
+    public void InitListener(){
+        lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+            }
+        });
 
         txt_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,16 +144,11 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
                     }
                 }
 
+                UpdateListView();
+                txt_search_result.setText(String.format("Results for %s", query));
                 Toast.makeText(getActivity(), "Search found " + search_item.size(), Toast.LENGTH_SHORT).show();
-                lv_search_item.setAdapter(new GroupAdapter(getContext(), search_item));
 
-                lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        view.setSelected(true);
-                    }
-                });
-                return true;
+                return false;
             }
 
             @Override
@@ -145,10 +156,11 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
                 if(newText.isEmpty()){
                     txt_search_result.setText(String.format("No Results", newText));
                     search_item.clear();
-                    return false;
+                    UpdateListView();
+                    return true;
                 }
 
-                txt_search_result.setText(String.format("Results for %s", newText));
+                txt_search_result.setText(String.format("Searching for %s", newText));
 
                 if(search_item.size() > 0){
                     search_item.clear();
@@ -156,13 +168,20 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
                 return true;
             }
         });
+    }
 
 
+    private void UpdateListView(){
+        Runnable run = new Runnable() {
+            @Override
+            public void run() {
+                mGroupAdapter.notifyDataSetChanged();
+                lv_search_item.invalidateViews();
+                lv_search_item.refreshDrawableState();
+            }
+        };
 
-
-
-
-        return view;
+        run.run();
     }
 
 
