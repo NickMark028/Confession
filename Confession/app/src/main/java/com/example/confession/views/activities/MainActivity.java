@@ -2,12 +2,15 @@ package com.example.confession.views.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
+
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 public class MainActivity extends Activity {
 
@@ -20,5 +23,7 @@ public class MainActivity extends Activity {
 
 		//Intent intent = new Intent(this, SignInActivity.class);
 		//startActivity(intent);
+
+		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
