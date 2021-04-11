@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".views.fragments.PostFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:gravity="center_vertical">
 
         <!--        Group icon + name + time-->
         <LinearLayout
@@ -18,18 +22,21 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/sample_group_icon" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_group_name"
@@ -47,52 +54,61 @@
                     android:fontFamily="@font/nunito_regular"
                     android:text="1 hour ago"
                     android:textColor="#8B8B8B"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    />
 
             </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dots" />
 
         </LinearLayout>
 
         <!--        Post content: Title + Text + Images-->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
-
-            <!--            <TextView-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginLeft="10dp"-->
-            <!--                android:layout_marginRight="10dp"-->
-            <!--                android:text="Post title"-->
-            <!--                android:fontFamily="@font/nunito_semi_bold"-->
-            <!--                android:textColor="@color/black"-->
-            <!--                android:textSize="18sp"/>-->
+            android:id="@+id/feed_content_layout">
 
             <TextView
                 android:id="@+id/txt_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:fontFamily="@font/nunito_light"
                 android:text="@string/lorem"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_content"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/post_image" />
+                android:src="@drawable/post_image"
 
-        </LinearLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_content" />
+
+            <ImageView
+                android:id="@+id/heart_cover"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/avd_instagram_like"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_content"
+                android:alpha="0"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--        Reaction-->
         <LinearLayout
@@ -113,7 +129,7 @@
                     android:id="@+id/iv_react"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/react_icon" />
+                    android:src="@drawable/ic_heart_animate" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -165,14 +181,27 @@
                     android:src="@drawable/tree_icon" />
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:id="@+id/edit_txt_cmt"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:fontFamily="@font/nunito_regular"
                     android:hint="Leave a comment..."
-                    android:textSize="16sp" />
-
+                    android:textSize="16sp"
+                    android:inputType="textLongMessage"
+                    android:imeOptions="actionSend"
+                    android:lines="1"/>
+                <TextView
+                    android:id="@+id/txt_post_cmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="POST"
+                    android:textColor="@color/main_theme"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    android:clickable="true"/>
             </LinearLayout>
 
         </LinearLayout>
