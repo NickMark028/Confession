@@ -136,16 +136,31 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
         profile_joined_group.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Joined group", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Joined group", Toast.LENGTH_SHORT).show();
 
+                Fragment fragment = new ProfileGroupsFragment();
+
+                assert getFragmentManager() != null;
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container,fragment,"TAG_JOINED_GROUP")
+                        .addToBackStack("TAG_JOINED_GROUP")
+                        .commit();
             }
         });
 
         profile_your_group.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Your group", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Your group", Toast.LENGTH_SHORT).show();
+                Fragment fragment = new ProfileGroupsFragment();
 
+                assert getFragmentManager() != null;
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container,fragment,"TAG_YOUR_GROUP")
+                        .addToBackStack("TAG_YOUR_GROUP")
+                        .commit();
             }
         });
 
