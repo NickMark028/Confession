@@ -1,9 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".views.activities.CommentActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/back"
+
+            android:layout_marginTop="13dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_weight="4"
+            android:text="Comments"
+            android:textColor="#719AF6"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:layout_marginTop="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/avatar"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="User#1111"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="2 hours ago"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="3"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="This is comment"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Reply"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/avatar"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="User#1111"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="2 hours ago"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="3"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="This is comment"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Reply"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/avatar"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="User#1111"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="2 hours ago"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="3"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="This is comment"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Reply"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
