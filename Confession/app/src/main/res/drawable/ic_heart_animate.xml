@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:name="empty"
+        android:pathData="@string/heart_empty_path"
+        android:fillColor="#000000" />
+
+    <clip-path
+        android:name="clip"
+        android:pathData="@string/heart_clip_hidden" />
+
+    <path
+        android:name="full"
+        android:pathData="@string/heart_full_path"
+        android:fillColor="#FF0000" />
+
+</vector>
