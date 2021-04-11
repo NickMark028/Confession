@@ -3,4 +3,5 @@
 
     <solid android:color="@color/profile_gr_theme"/>
     <corners android:radius="10dp"/>
+
 </shape>
