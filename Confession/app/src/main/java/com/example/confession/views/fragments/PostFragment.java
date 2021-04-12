@@ -10,7 +10,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,21 +24,7 @@ import android.widget.Toast;
 import com.example.confession.R;
 import com.example.confession.presenters.DoubleClickListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PostFragment extends Fragment {
-
-	// TODO: Rename parameter arguments, choose names that match
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-	private static final String ARG_PARAM1 = "param1";
-	private static final String ARG_PARAM2 = "param2";
-
-	// TODO: Rename and change types of parameters
-	private String mParam1;
-	private String mParam2;
 
 	private EditText edit_txt_cmt;
 	private TextView txt_post_cmt;
@@ -54,33 +39,9 @@ public class PostFragment extends Fragment {
 		// Required empty public constructor
 	}
 
-	/**
-	 * Use this factory method to create a new instance of
-	 * this fragment using the provided parameters.
-	 *
-	 * @param param1 Parameter 1.
-	 * @param param2 Parameter 2.
-	 * @return A new instance of fragment PostFragment.
-	 */
-	// TODO: Rename and change types and number of parameters
-	public static PostFragment newInstance(String param1, String param2) {
-		PostFragment fragment = new PostFragment();
-		Bundle args = new Bundle();
-		args.putString(ARG_PARAM1, param1);
-		args.putString(ARG_PARAM2, param2);
-		fragment.setArguments(args);
-		return fragment;
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mParam1 = getArguments().getString(ARG_PARAM1);
-			mParam2 = getArguments().getString(ARG_PARAM2);
-		}
-
-
 	}
 
 	@SuppressLint("UseCompatLoadingForDrawables")
@@ -88,7 +49,7 @@ public class PostFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View view =  inflater.inflate(R.layout.fragment_post, container, false);
+		View view = inflater.inflate(R.layout.fragment_post, container, false);
 
 		edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
 		txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
@@ -102,14 +63,12 @@ public class PostFragment extends Fragment {
 		empty_heart = (AnimatedVectorDrawable) getContext().getResources().getDrawable(R.drawable.avd_heart_empty);
 		fill_heart = (AnimatedVectorDrawable) getContext().getResources().getDrawable(R.drawable.avd_heart_fill);
 
-
 		InitListener();
-
 
 		return view;
 	}
 
-	private void HeartAnimate(View view){
+	private void HeartAnimate(View view) {
 		AnimatedVectorDrawable drawable
 				= full
 				? empty_heart
@@ -119,7 +78,8 @@ public class PostFragment extends Fragment {
 		full = !full;
 		Toast.makeText(getContext(), full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
 	}
-	private void InitListener(){
+
+	private void InitListener() {
 		iv_react.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -132,11 +92,11 @@ public class PostFragment extends Fragment {
 			public void onDoubleClick() {
 				heart_cover.setAlpha(0.70f);
 
-				if(drawable instanceof AnimatedVectorDrawableCompat){
+				if (drawable instanceof AnimatedVectorDrawableCompat) {
 					avd = (AnimatedVectorDrawableCompat) drawable;
 					avd.start();
-				}else if(drawable instanceof AnimatedVectorDrawable){
-					avd2 = (AnimatedVectorDrawable)drawable;
+				} else if (drawable instanceof AnimatedVectorDrawable) {
+					avd2 = (AnimatedVectorDrawable) drawable;
 					avd2.start();
 				}
 
@@ -148,10 +108,9 @@ public class PostFragment extends Fragment {
 		edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus){
+				if (hasFocus) {
 					txt_post_cmt.setVisibility(View.VISIBLE);
-				}
-				else{
+				} else {
 					txt_post_cmt.setVisibility(View.INVISIBLE);
 				}
 			}
@@ -160,7 +119,7 @@ public class PostFragment extends Fragment {
 		edit_txt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if(actionId == EditorInfo.IME_ACTION_SEND){
+				if (actionId == EditorInfo.IME_ACTION_SEND) {
 					String msg = edit_txt_cmt.getText().toString();
 					Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 					edit_txt_cmt.setText("");
@@ -189,5 +148,4 @@ public class PostFragment extends Fragment {
 			}
 		});
 	}
-
 }

@@ -6,18 +6,21 @@ import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 
+import java.util.ArrayList;
+
 public class SearchGroupPresenter implements SearchTabBinder.Presenter {
 
-	Context context;
+	SearchTabBinder.View view;
 
-	public SearchGroupPresenter(Context context) {
-		this.context = context;
+	public SearchGroupPresenter(SearchTabBinder.View view) {
+		this.view = view;
 	}
 
 	@Override
 	public void HandleFindGroup(String group_name) {
 
-		ConfessionGroup.Find(group_name, context);
+		ArrayList<ConfessionGroupInfo> groups = ConfessionGroup.Find(group_name);
+		view.OnFindGroupSuccess(groups);
 	}
 
 	@Override

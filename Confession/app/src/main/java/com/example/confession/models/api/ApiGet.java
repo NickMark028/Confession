@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class ApiGet implements Runnable{
     public boolean isComplete = false;
-    public String response;
+    public String response="";
     private String url;
     private HashMap<String,String> params;
 

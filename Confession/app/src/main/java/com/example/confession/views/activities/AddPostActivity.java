@@ -3,7 +3,6 @@ package com.example.confession.views.activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,7 +29,6 @@ import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.presenters.AddPostPresenter;
-import com.example.confession.presenters.SignUpPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -50,7 +47,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     private Button ap_get_gr_list_btn;
     private TextView  post_txt_btn;
     private EditText addp_user_status;
-    private ImageView add_post_img_added;
+    private ImageView addp_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
     private File imgOut = null;
     public AddPostActivity() {}
@@ -70,13 +67,14 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     }
 
     private void InitView() {
+
         add_post_close_btn = findViewById(R.id.add_post_close_btn);
         ap_get_gr_list_btn = findViewById(R.id.ap_get_gr_list_btn);
         post_txt_btn = findViewById(R.id.post_txt_btn);
         addp_user_status = findViewById(R.id.addp_user_status);
         addp_image_click = findViewById(R.id.addp_image_click);
         addp_camera_click = findViewById(R.id.addp_camera_click);
-        add_post_img_added = findViewById(R.id.add_post_img_added);
+        addp_post_img_added = findViewById(R.id.addp_post_img_added);
     }
 
     private void InitListener() {
@@ -133,9 +131,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         addp_user_status.addTextChangedListener(new TextWatcher() {
             boolean hint;
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -178,14 +174,14 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
-            add_post_img_added.setImageURI(imageUri);
+            addp_post_img_added.setImageURI(imageUri);
 
         }
         else if(requestCode == 304 && resultCode == RESULT_OK){
             Bitmap selectedImage = null;
             try {
                 selectedImage = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                add_post_img_added.setImageBitmap(selectedImage);
+                addp_post_img_added.setImageBitmap(selectedImage);
                 myURL = getRealPathFromURI(imageUri);
             } catch (IOException e) {
                 e.printStackTrace();

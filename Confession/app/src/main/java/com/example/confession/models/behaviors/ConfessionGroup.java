@@ -94,7 +94,7 @@ public class ConfessionGroup {
 //		return false;
 //	}
 //
-	public static ArrayList<ConfessionGroupInfo> Find(String name, Context context) {
+	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("keyword", name);
 
@@ -110,8 +110,8 @@ public class ConfessionGroup {
 		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
-			obj = new JSONObject(ag.response);
-			if (!obj.has("error")) {
+			//obj = new JSONObject(ag.response);
+			if (!ag.response.equals("")) {
 				JSONArray items = new JSONArray(ag.response);
 				for(int i=0;i<items.length();i++)
 				{
@@ -298,6 +298,7 @@ public class ConfessionGroup {
 	} // Check lại api không trả ra []
 
 	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", member.auth_token);
 		params.put("confessionid", this.group_info.id);
