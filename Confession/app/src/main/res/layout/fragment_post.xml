@@ -59,6 +59,7 @@
 
             </LinearLayout>
             <ImageView
+                android:id="@+id/iv_admin_manage_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_dots" />
