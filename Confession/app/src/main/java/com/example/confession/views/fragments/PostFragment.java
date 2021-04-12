@@ -23,12 +23,14 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.presenters.DoubleClickListener;
+import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
+import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 
 public class PostFragment extends Fragment {
 
 	private EditText edit_txt_cmt;
 	private TextView txt_post_cmt;
-	private ImageView heart_cover, iv_react;
+	private ImageView heart_cover, iv_react,iv_admin_manage_btn;
 	private AnimatedVectorDrawableCompat avd;
 	private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
 	private ConstraintLayout feed_content_layout;
@@ -56,12 +58,17 @@ public class PostFragment extends Fragment {
 
 		heart_cover = view.findViewById(R.id.heart_cover);
 		iv_react = view.findViewById(R.id.iv_react);
+		iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
 		feed_content_layout = view.findViewById(R.id.feed_content_layout);
 
 		drawable = heart_cover.getDrawable();
 
 		empty_heart = (AnimatedVectorDrawable) getContext().getResources().getDrawable(R.drawable.avd_heart_empty);
 		fill_heart = (AnimatedVectorDrawable) getContext().getResources().getDrawable(R.drawable.avd_heart_fill);
+
+		if(!user_role.equals("ROLE_ADMIN")){
+			iv_admin_manage_btn.setVisibility(View.GONE);
+		}
 
 		InitListener();
 
@@ -145,6 +152,15 @@ public class PostFragment extends Fragment {
 
 				InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+			}
+		});
+
+		iv_admin_manage_btn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				GroupAdminManagePostBottomSheet bottomSheet = new GroupAdminManagePostBottomSheet();
+				assert getFragmentManager() != null;
+				bottomSheet.show(getFragmentManager(), "action_admin_manage_post");
 			}
 		});
 	}

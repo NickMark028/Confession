@@ -125,5 +125,10 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		if (text.equals("create_group")) {
 			Toast.makeText(getApplicationContext(), "Create Group", Toast.LENGTH_SHORT).show();
 		}
+		else{
+			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+		}
+
+
 	}
 }
