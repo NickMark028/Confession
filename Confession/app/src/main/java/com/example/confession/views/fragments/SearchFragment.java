@@ -121,6 +121,13 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
+
+                Fragment fragment = new GroupFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment , "TAQ_GROUP_NOT_JOIN")
+                        .addToBackStack("TAQ_GROUP_NOT_JOIN")
+                        .commit();
             }
         });
 
