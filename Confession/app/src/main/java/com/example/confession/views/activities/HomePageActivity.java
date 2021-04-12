@@ -114,6 +114,9 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 
 		}
+		else{
+			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+		}
 
 
 	}
