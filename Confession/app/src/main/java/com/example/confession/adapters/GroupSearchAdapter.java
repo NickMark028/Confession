@@ -24,6 +24,9 @@ public class GroupSearchAdapter extends BaseAdapter {
 	ArrayList<ConfessionGroup> groups;
 	ArrayList<ConfessionGroupInfo> group;
 
+	private ImageView search_gr_avatar;
+	private TextView search_gr_name, search_gr_member, search_gr_user_state;
+
 //	public GroupAdapter(Context context, ArrayList<ConfessionGroup> groups) {
 //
 //		this.context = context;
@@ -60,21 +63,14 @@ public class GroupSearchAdapter extends BaseAdapter {
 		View row = inflater.inflate(R.layout.layout_group_info, null);
 
 		//  Init view
-		ImageView search_gr_avatar = row.findViewById(R.id.search_gr_avatar);
-		TextView search_gr_name = row.findViewById(R.id.search_gr_name);
-		TextView search_gr_member = row.findViewById(R.id.search_gr_member);
-		TextView search_gr_user_state = row.findViewById(R.id.search_gr_user_state);
+		InitView(row);
 
 		// Init data
-		//ConfessionGroup group = groups.get(i);
-//		iv_avatar.setBackgroundResource(...);
-		//search_gr_name.setText(group.GetGroupInfo().name);
-		//search_gr_member.setText(group.GetMemberCount());
+		InitData(i);
 
-
-		//Testing GUI
-		search_gr_name.setText(group.get(i).name);
-		search_gr_member.setText("101");
+		//Data for testing GUI
+//		search_gr_name.setText(group.get(i).name);
+//		search_gr_member.setText("101");
 
 		if (checkIsUserInGroup()) {
 			search_gr_user_state.setText("Joined");
@@ -84,6 +80,21 @@ public class GroupSearchAdapter extends BaseAdapter {
 
 
 		return row;
+	}
+
+	public void InitView(View row){
+		search_gr_avatar = row.findViewById(R.id.search_gr_avatar);
+		search_gr_name = row.findViewById(R.id.search_gr_name);
+		search_gr_member = row.findViewById(R.id.search_gr_member);
+		search_gr_user_state = row.findViewById(R.id.search_gr_user_state);
+	}
+
+	public void InitData(int pos){
+		ConfessionGroup group = groups.get(pos);
+		ConfessionGroupInfo cgi = group.GetGroupInfo();
+		//search_gr_avatar.setImageResource(cgi.avatar); int # String - not match
+		search_gr_name.setText(cgi.name);
+		search_gr_member.setText(group.GetMemberCount());
 	}
 
 	//Kiem tra User co trong Group khong
