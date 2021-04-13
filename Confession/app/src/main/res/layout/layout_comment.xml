@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/ll_cmt_cover"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="999dp"
+        >
+        <ImageView
+            android:id="@+id/iv_ava_user_cmt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/img_avatar_test"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="0dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/txt_username_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:scrollHorizontally="false"
+            android:text="@string/username_msg"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/txt_cmt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 hours ago"
+                android:fontFamily="@font/nunito_light"
+                />
+            <TextView
+                android:id="@+id/txt_cmt_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 likes"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="0dp"
+                android:fontFamily="@font/nunito_semi_bold"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Reply"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_cmt_react"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_heart_animate"/>
+
+
+
+    </LinearLayout>
+</LinearLayout>
