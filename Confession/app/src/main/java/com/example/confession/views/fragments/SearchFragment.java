@@ -9,13 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupAdapter;
+import com.example.confession.adapters.GroupSearchAdapter;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
@@ -126,7 +124,7 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	@Override
 	public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
 
-		GroupAdapter adapter = new GroupAdapter(getContext(), groups);
+		GroupSearchAdapter adapter = new GroupSearchAdapter(getContext(), groups);
 		Log.i("123", "-----------------------------------------------");
 
 		if (groups.size() != 0)

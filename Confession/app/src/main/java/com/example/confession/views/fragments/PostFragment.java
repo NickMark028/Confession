@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.example.confession.R;
 import com.example.confession.presenters.DoubleClickListener;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
-import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 
 public class PostFragment extends Fragment {
 
@@ -36,6 +35,8 @@ public class PostFragment extends Fragment {
 	private ConstraintLayout feed_content_layout;
 	private Drawable drawable;
 	private boolean full = false;
+	private String user_role = "ROLE_ADMIN";
+
 
 	public PostFragment() {
 		// Required empty public constructor
@@ -51,7 +52,7 @@ public class PostFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View view = inflater.inflate(R.layout.fragment_post, container, false);
+		View view = inflater.inflate(R.layout.layout_post, container, false);
 
 		edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
 		txt_post_cmt = view.findViewById(R.id.txt_post_cmt);

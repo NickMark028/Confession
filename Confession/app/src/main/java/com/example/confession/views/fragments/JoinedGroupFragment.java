@@ -1,5 +1,6 @@
 package com.example.confession.views.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;

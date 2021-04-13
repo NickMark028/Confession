@@ -45,7 +45,7 @@ public class PostAdapter extends BaseAdapter {
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
 		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-		View row = inflater.inflate(R.layout.fragment_post, null);
+		View row = inflater.inflate(R.layout.layout_post, null);
 
 		//  Init view
 		TextView txt_group_name = row.findViewById(R.id.txt_group_name);
@@ -62,6 +62,15 @@ public class PostAdapter extends BaseAdapter {
 		txt_content.setText(post_info.content.toString());
 		// TODO background here + react
 //		iv_content.setBackgroundResource(post_info.time_created.toString());
+
+		txt_content.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				// ..
+
+			}
+		});
 
 		// Init listener
 		iv_react.setOnClickListener(view1 -> {

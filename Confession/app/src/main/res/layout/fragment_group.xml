@@ -17,43 +17,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_group_back_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/back"
                 android:contentDescription="@string/description"
-                />
+                android:src="@drawable/back" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="0dp"
                 android:layout_weight="1"
                 android:text="GroupName"
                 android:textColor="@color/main_theme"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="0dp"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/iv_group_setting_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_setting_group"
                 android:contentDescription="@string/description"
-                />
+                android:src="@drawable/ic_setting_group" />
 
         </LinearLayout>
 
-<!--        Group info-->
+        <!--        Group info-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/tree_icon"/>
+                    android:src="@drawable/tree_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -76,14 +74,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"
-                        android:textColor="@color/black"
-                        android:text="1"/>
+                        android:text="1"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_regular"
-                        android:text="posts"/>
+                        android:text="posts" />
 
                 </LinearLayout>
 
@@ -98,14 +96,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"
-                        android:textColor="@color/black"
-                        android:text="130"/>
+                        android:text="130"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_regular"
-                        android:text="members"/>
+                        android:text="members" />
 
                 </LinearLayout>
 
@@ -116,33 +114,35 @@
                 android:id="@+id/btn_join_group"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/custom_bg_btn"
                 android:fontFamily="@font/nunito_regular"
                 android:text="Join group"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
 
 
-<!--        Separator-->
+        <!--        Separator-->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="#AAAAAA"/>
+            android:background="#AAAAAA" />
+
         <LinearLayout
             android:id="@+id/ll_noti_join_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone">
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -152,38 +152,41 @@
                 app:strokeWidth="1.5dp"
 
                 >
+
                 <ImageView
-                    android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_lock_black"
-                    />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/ic_lock_black" />
             </com.google.android.material.card.MaterialCardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="This is a private group"
                     android:fontFamily="@font/nunito_bold"
-                    android:textColor="@color/black"
-                    android:paddingBottom="2dp"/>
+                    android:paddingBottom="2dp"
+                    android:text="This is a private group"
+                    android:textColor="@color/black" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Please join this group to see their posts."
-                    android:fontFamily="@font/nunito_regular"/>
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="Please join this group to see their posts." />
             </LinearLayout>
         </LinearLayout>
         <!--        Posts-->
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/ll_post_in_group"
                 android:layout_width="match_parent"
@@ -191,23 +194,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <fragment
-                    android:id="@+id/temp_1"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <include layout="@layout/layout_post" />
 
-                <fragment
-                    android:id="@+id/temp_2"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <include layout="@layout/layout_post" />
 
-                <fragment
-                    android:id="@+id/temp_3"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <include layout="@layout/layout_post" />
+
 
             </LinearLayout>
         </ScrollView>

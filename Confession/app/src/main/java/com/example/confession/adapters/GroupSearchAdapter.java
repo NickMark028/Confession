@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class GroupAdapter extends BaseAdapter {
+public class GroupSearchAdapter extends BaseAdapter {
 
 	Context context;
 	ArrayList<ConfessionGroup> groups;
@@ -31,7 +31,7 @@ public class GroupAdapter extends BaseAdapter {
 //	}
 
 	//for testing GUI only
-	public GroupAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
+	public GroupSearchAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
 
 		this.context = context;
 		this.group = group;

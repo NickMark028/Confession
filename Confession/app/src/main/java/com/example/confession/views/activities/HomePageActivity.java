@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.SearchGroupPresenter;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
@@ -25,6 +26,8 @@ import java.util.HashMap;
 
 public class HomePageActivity extends AppCompatActivity implements BottomSheetListener {
 
+	private User user;
+
 	private ActionBar toolbar;
 	private int mPrevNavItem = 0;
 	private int mCurrentNavItem = 100083;
@@ -37,6 +40,8 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
+
+//		user = User.From(savedInstanceState);
 
 		frag_map = new HashMap<>();
 		frag_map.put(R.id.navigation_home, new NewfeedsFragment());

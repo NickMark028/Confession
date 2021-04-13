@@ -94,6 +94,8 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	public void OnLoginSuccess(User user) {
 		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
 		Intent myIntent = new Intent(this, HomePageActivity.class);
+//		Bundle data = user.ToBundle();
+//		startActivity(myIntent, data);
 		startActivity(myIntent);
 	}
 

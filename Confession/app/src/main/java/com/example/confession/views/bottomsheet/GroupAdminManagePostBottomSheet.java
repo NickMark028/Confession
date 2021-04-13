@@ -19,7 +19,7 @@ public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {
     BottomSheetListener mListener;
 
     private AppCompatButton group_admin_pin_post_btn, group_admin_delpost_btn;
-
+    private int result = 0;
     @Override
     public int getTheme() {
         return R.style.Widget_AppTheme_BottomSheet;
@@ -46,6 +46,7 @@ public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {
         group_admin_pin_post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 0;
                 mListener.onButtonClicked("action_admin_pin");
             }
         });
@@ -53,6 +54,7 @@ public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {
         group_admin_delpost_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 1;
                 mListener.onButtonClicked("action_admin_delete");
             }
         });
@@ -71,5 +73,7 @@ public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {
 
     }
 
-
+    public int GetResult(){
+        return result;
+    }
 }
