@@ -27,6 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class ProfileUsernameBottomSheet extends BottomSheetDialogFragment{
     BottomSheetListener mListener;
     private Button profile_logout_btn;
+    private int result = 0;
 
     @Override
     public int getTheme() {
@@ -60,8 +61,7 @@ public class ProfileUsernameBottomSheet extends BottomSheetDialogFragment{
         catch(ClassCastException e){
             throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
         }
-
     }
 
-
+    public int GetResult(){return result;}
 }

@@ -18,6 +18,7 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
     BottomSheetListener mListener;
 
     private Button group_user_leave_btn, group_user_member_btn;
+    private int result = 0;
 
     @Override
     public int getTheme() {
@@ -45,6 +46,7 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
         group_user_leave_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 1;
                 mListener.onButtonClicked("action_user_leave_group");
             }
         });
@@ -52,6 +54,7 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
         group_user_member_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 0;
                 mListener.onButtonClicked("action_user_member");
             }
         });
@@ -70,5 +73,5 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
 
     }
 
-
+    public int GetResult(){return result;}
 }

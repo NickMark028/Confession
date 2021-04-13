@@ -27,6 +27,7 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
     BottomSheetListener mListener;
 
     private Button profile_create_post_btn, profile_create_group_btn;
+    private int result = 0;
 
     @Override
     public int getTheme() {
@@ -54,6 +55,7 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
         profile_create_post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 0;
                 mListener.onButtonClicked("create_post");
             }
         });
@@ -61,6 +63,7 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
         profile_create_group_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = 1;
                 mListener.onButtonClicked("create_group");
             }
         });
@@ -79,5 +82,5 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
 
     }
 
-
+    public int GetResult(){return result;}
 }
