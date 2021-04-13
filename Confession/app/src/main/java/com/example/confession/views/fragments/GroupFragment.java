@@ -33,7 +33,7 @@ public class GroupFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 	private String mTag;
-	private String user_role = "ADMIN";
+	private String user_role = "ROLE_ADMIN";
 	private LinearLayout ll_post_in_group, ll_noti_join_group;
 	private ImageView iv_group_back_btn, iv_group_setting_btn;
 	private AppCompatButton btn_join_group;
