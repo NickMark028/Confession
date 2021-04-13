@@ -73,8 +73,10 @@
         android:layout_height="wrap_content"
         android:text="Joined"
         android:fontFamily="@font/nunito_semi_bold"
-        android:textColor="#9F9D9D"
+        android:textColor="#047CB3"
         android:textSize="14sp"
-        android:textAlignment="center"
+        android:paddingStart="0dp"
+        android:paddingEnd="10dp"
+        android:textAlignment="textEnd"
         />
 </LinearLayout>
