@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.confession.CreatePostGroupListActivity;
 import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.models.behaviors.GroupPost;
@@ -88,10 +89,15 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             }
         });
 
+        //If user dont join any group, we will set disable for this button
+        //Only call when user has already joined a group
         ap_get_gr_list_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Open list group activity
+
+                Intent intent = new Intent(getApplicationContext(),CreatePostGroupListActivity.class);
+                startActivity(intent);
             }
         });
 
