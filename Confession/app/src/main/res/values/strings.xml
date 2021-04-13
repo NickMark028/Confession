@@ -20,6 +20,9 @@
     </string>
 
     <string name="username">Username</string>
+    <string name="username_msg">
+        <p><b>___username </b>Ghé nhà mình xem Sneakers chất lượng giá siêu hạt dẻ nha.</p>
+    </string>
     <string name="username_demo">___username</string>
     <string name="username_uppercase">USERNAME</string>
     <string name="description">description</string>
