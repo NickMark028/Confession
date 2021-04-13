@@ -25,7 +25,6 @@ public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {
         return R.style.Widget_AppTheme_BottomSheet;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
