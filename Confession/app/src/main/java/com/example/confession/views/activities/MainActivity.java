@@ -23,21 +23,21 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 
-		BasicUserInfo basic_info = new BasicUserInfo("admin", "Admin name");
-		UserInfo info = new UserInfo(basic_info, "test@email.com", "0xx xxx xxx1");
-		User user = new User(info);
-		Bundle bundle = user.ToBundle();
-		User new_user = User.From(bundle);
-
-		Log.i("Data", new_user.toString());
+//		BasicUserInfo basic_info = new BasicUserInfo("admin", "Admin name");
+//		UserInfo info = new UserInfo(basic_info, "test@email.com", "0xx xxx xxx1");
+//		User user = new User(info);
+//		Bundle bundle = user.ToBundle();
+//		User new_user = User.From(bundle);
+//
+//		Log.i("Data", new_user.toString());
 
 
 //		ConfessionGroup g = new ConfessionGroup(new ConfessionGroupInfo("60505ccec951fc27083de447", "", "", ""));
 //		g.GetPosts(new UserInfo(new BasicUserInfo("","","",""),"","",""));
 
-		//Intent intent = new Intent(this, SignInActivity.class);
-		//startActivity(intent);
+		Intent intent = new Intent(this, SignInActivity.class);
+		startActivity(intent);
 
-//		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
