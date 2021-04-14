@@ -10,14 +10,17 @@ public final class BasicUserInfo implements Serializable {
 	public final String avatar;
 
 	public BasicUserInfo(String username, String name) {
+
 		this("", username, name, "");
 	}
 
 	public BasicUserInfo(String username, String name, String avatar) {
+
 		this("", username, name, avatar);
 	}
 
 	public BasicUserInfo(String id, String username, String name, String avatar) {
+
 		this.id = id;
 		this.username = username;
 		this.name = name;

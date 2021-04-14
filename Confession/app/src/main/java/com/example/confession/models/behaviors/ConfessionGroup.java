@@ -29,6 +29,12 @@ public class ConfessionGroup {
 		this.group_info = group_info;
 	}
 
+	public static ConfessionGroup From(Bundle bundle) {
+
+		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
+		return new ConfessionGroup(info);
+	}
+
 	public Bundle ToBundle() {
 
 		Bundle bundle = new Bundle();
@@ -36,18 +42,16 @@ public class ConfessionGroup {
 		return bundle;
 	}
 
-	public static ConfessionGroup From(Bundle bundle) {
+	public String GetID() {
 
-		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
-		return new ConfessionGroup(info);
+		return group_info.id;
 	}
 
 	public ConfessionGroupInfo GetGroupInfo() {
 		return group_info;
 	}
 
-	public int GetMemberCount()
-	{
+	public int GetMemberCount() {
 		return members.size();
 	}
 
@@ -128,14 +132,13 @@ public class ConfessionGroup {
 			//obj = new JSONObject(ag.response);
 			if (!ag.response.equals("")) {
 				JSONArray items = new JSONArray(ag.response);
-				for(int i=0;i<items.length();i++)
-				{
+				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String id = item.getString("_id");
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
 					groups.add(group_info);
 				}
 			}
@@ -170,7 +173,7 @@ public class ConfessionGroup {
 					String username = item.getString("username");
 					String name = item.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username, name, "");
+					BasicUserInfo user = new BasicUserInfo(id, username, name, "");
 					users.add(user);
 				}
 
@@ -185,7 +188,7 @@ public class ConfessionGroup {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", admin.auth_token);
 		params.put("confession", this.group_info.id);
-		params.put("premem",user.id); // Có nguy cơ sai.
+		params.put("premem", user.id); // Có nguy cơ sai.
 
 		ApiPost ap = new ApiPost("confession/addmember", params);
 		Thread t = new Thread(ap);
@@ -238,7 +241,7 @@ public class ConfessionGroup {
 					String username = subitem.getString("username");
 					String name = subitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username, name, avatar);
+					BasicUserInfo user = new BasicUserInfo(id, username, name, avatar);
 					members.add(user);
 				}
 
@@ -278,7 +281,7 @@ public class ConfessionGroup {
 					String username = subsubitem.getString("username");
 					String name = subsubitem.getString("fullname");
 					String avatar = "";
-					BasicUserInfo user = new BasicUserInfo(id,username, name, avatar);
+					BasicUserInfo user = new BasicUserInfo(id, username, name, avatar);
 					admins.add(user);
 				}
 
@@ -317,7 +320,7 @@ public class ConfessionGroup {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", member.auth_token);
 		params.put("confessionid", this.group_info.id);
-		params.put("memberid",member.basic_info.id);
+		params.put("memberid", member.basic_info.id);
 		params.put("title", post.id);
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
@@ -369,15 +372,15 @@ public class ConfessionGroup {
 					JSONObject poster = item.getJSONObject("memberid");
 					poster = poster.getJSONObject("userid");
 
-					String posterid=poster.getString("_id");
-					String username =poster.getString("username");
-					String fullname =poster.getString("fullname");
-					BasicUserInfo author = new BasicUserInfo(posterid,username,fullname,"");
+					String posterid = poster.getString("_id");
+					String username = poster.getString("username");
+					String fullname = poster.getString("fullname");
+					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
 					BasicUserInfo approver = member.basic_info;
 					String content = item.getString("content");
 
-					GroupPostInfo post_info = new GroupPostInfo(id,author,approver,content);
-					GroupPost post = new GroupPost(post_info,this.group_info);
+					GroupPostInfo post_info = new GroupPostInfo(id, author, approver, content);
+					GroupPost post = new GroupPost(post_info, this.group_info);
 					posts.add(post);
 				}
 				return posts;

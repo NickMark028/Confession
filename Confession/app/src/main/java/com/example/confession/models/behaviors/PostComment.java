@@ -18,8 +18,12 @@ public class PostComment {
 		this.post = post;
 	}
 
-	public String GetID(){
-		return comment_info.id;
+	public static PostComment From(Bundle bundle) {
+
+		PostCommentInfo comment_info = (PostCommentInfo) bundle.getSerializable("comment_info");
+		GroupPostInfo post = (GroupPostInfo) bundle.getSerializable("post");
+
+		return new PostComment(comment_info, post);
 	}
 
 	public Bundle ToBundle() {
@@ -30,12 +34,8 @@ public class PostComment {
 		return bundle;
 	}
 
-	public static PostComment From(Bundle bundle) {
-
-		PostCommentInfo comment_info = (PostCommentInfo) bundle.getSerializable("comment_info");
-		GroupPostInfo post = (GroupPostInfo) bundle.getSerializable("post");
-
-		return new PostComment(comment_info, post);
+	public String GetID(){
+		return comment_info.id;
 	}
 
 	@Override

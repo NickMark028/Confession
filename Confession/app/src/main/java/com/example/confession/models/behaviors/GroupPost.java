@@ -25,16 +25,9 @@ public class GroupPost {
 	protected ArrayList<PostComment> comments;
 
 	public GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
+
 		this.post_info = post_info;
 		this.group = group;
-	}
-
-	public Bundle ToBundle() {
-
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("post_info", this.post_info);
-		bundle.putSerializable("group", this.group);
-		return bundle;
 	}
 
 	public static GroupPost From(Bundle bundle) {
@@ -45,8 +38,16 @@ public class GroupPost {
 		return new GroupPost(post_info, group);
 	}
 
-	public String GetID() {
-		return null;
+	public Bundle ToBundle() {
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("post_info", this.post_info);
+		bundle.putSerializable("group", this.group);
+		return bundle;
+	}
+
+	public String GetID(){
+		return post_info.id;
 	}
 
 	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo user) {

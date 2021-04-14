@@ -20,22 +20,29 @@ import java.util.HashMap;
 public class User {
 
 	protected final UserInfo user_info;
+//	protected final String auth_token;
 
-	private User(UserInfo user_info) {
+	private User(UserInfo user_info/* , String auth_token */) {
+
 		this.user_info = user_info;
+//		this.auth_token = auth_token;
+	}
+
+	public static User From(Bundle bundle) {
+
+		UserInfo user_info = (UserInfo) bundle.getSerializable("user_info");
+//		UserInfo auth_token = (UserInfo) bundle.getSerializable("auth_token");
+
+		return new User(user_info);
+//		return new User(user_info, auth_token);
 	}
 
 	public Bundle ToBundle() {
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("user_info", this.user_info);
+//		bundle.putString("auth_token", this.auth_token);
 		return bundle;
-	}
-
-	public static User From(Bundle bundle) {
-
-		UserInfo info = (UserInfo) bundle.getSerializable("user_info");
-		return new User(info);
 	}
 
 	public static boolean Register(UserInfo user, String password) {
