@@ -24,7 +24,7 @@ public class GroupPost {
 	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
 
-	public GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
+	private GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
 		this.post_info = post_info;
 		this.group = group;
 	}

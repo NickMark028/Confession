@@ -12,7 +12,7 @@ public class PostComment {
 	protected final PostCommentInfo comment_info;
 	protected final GroupPostInfo post;
 
-	public PostComment(PostCommentInfo comment_info, GroupPostInfo post) {
+	private PostComment(PostCommentInfo comment_info, GroupPostInfo post) {
 
 		this.comment_info = comment_info;
 		this.post = post;

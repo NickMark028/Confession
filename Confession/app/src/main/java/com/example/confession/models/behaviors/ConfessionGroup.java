@@ -24,7 +24,7 @@ public class ConfessionGroup {
 	protected ArrayList<GroupPost> posts;
 	protected ArrayList<BasicUserInfo> members;
 
-	public ConfessionGroup(ConfessionGroupInfo group_info) {
+	private ConfessionGroup(ConfessionGroupInfo group_info) {
 
 		this.group_info = group_info;
 	}
