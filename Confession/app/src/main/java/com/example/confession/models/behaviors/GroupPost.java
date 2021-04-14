@@ -1,5 +1,6 @@
 package com.example.confession.models.behaviors;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.confession.models.api.ApiGet;
@@ -28,11 +29,27 @@ public class GroupPost {
 		this.group = group;
 	}
 
+	public Bundle ToBundle() {
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("post_info", this.post_info);
+		bundle.putSerializable("group", this.group);
+		return bundle;
+	}
+
+	public static GroupPost From(Bundle bundle) {
+
+		GroupPostInfo post_info = (GroupPostInfo) bundle.getSerializable("post_info");
+		ConfessionGroupInfo group = (ConfessionGroupInfo) bundle.getSerializable("group");
+
+		return new GroupPost(post_info, group);
+	}
+
 	public String GetID() {
 		return null;
 	}
 
-	public PostComment addComment(PostCommentInfo comment, BasicUserInfo user) {
+	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo user) {
 		return null;
 	}
 

@@ -21,21 +21,20 @@ public class User {
 
 	protected final UserInfo user_info;
 
-	// TODO Testing only (public -> private)
-	public User(UserInfo user_info) {
+	private User(UserInfo user_info) {
 		this.user_info = user_info;
 	}
 
 	public Bundle ToBundle() {
 
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("data", this.user_info);
+		bundle.putSerializable("user_info", this.user_info);
 		return bundle;
 	}
 
 	public static User From(Bundle bundle) {
 
-		UserInfo info = (UserInfo) bundle.getSerializable("data");
+		UserInfo info = (UserInfo) bundle.getSerializable("user_info");
 		return new User(info);
 	}
 

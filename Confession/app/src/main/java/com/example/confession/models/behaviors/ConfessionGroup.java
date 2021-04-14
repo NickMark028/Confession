@@ -1,6 +1,7 @@
 package com.example.confession.models.behaviors;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.confession.models.api.ApiGet;
@@ -24,7 +25,21 @@ public class ConfessionGroup {
 	protected ArrayList<BasicUserInfo> members;
 
 	public ConfessionGroup(ConfessionGroupInfo group_info) {
+
 		this.group_info = group_info;
+	}
+
+	public Bundle ToBundle() {
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("group_info", this.group_info);
+		return bundle;
+	}
+
+	public static ConfessionGroup From(Bundle bundle) {
+
+		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
+		return new ConfessionGroup(info);
 	}
 
 	public ConfessionGroupInfo GetGroupInfo() {
