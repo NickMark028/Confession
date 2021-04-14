@@ -1,6 +1,7 @@
 package com.example.confession.models.behaviors;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -22,36 +23,47 @@ import java.util.HashMap;
 
 
 public class User {
+
 	protected final UserInfo user_info;
 
-	private User(UserInfo user_info)
-	{
+	// TODO Testing only (public -> private)
+	public User(UserInfo user_info) {
 		this.user_info = user_info;
 	}
 
-	public static boolean Register(UserInfo user, String password)
-	{
-		HashMap params = new HashMap<String, String>();
-		params.put("username",user.basic_info.username);
-		params.put("password",password);
-		params.put("fullname",user.basic_info.name);
-		params.put("email",user.email);
-		params.put("phone",user.phone);
+	public Bundle ToBundle() {
 
-		ApiPost ap = new ApiPost("user/register",params);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("data", this.user_info);
+		return bundle;
+	}
+
+	public static User From(Bundle bundle) {
+
+		UserInfo info = (UserInfo) bundle.getSerializable("data");
+		return new User(info);
+	}
+
+	public static boolean Register(UserInfo user, String password) {
+		HashMap params = new HashMap<String, String>();
+		params.put("username", user.basic_info.username);
+		params.put("password", password);
+		params.put("fullname", user.basic_info.name);
+		params.put("email", user.email);
+		params.put("phone", user.phone);
+
+		ApiPost ap = new ApiPost("user/register", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang đăng ký tài khoản...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang đăng ký tài khoản...");
 		}
 
-		Log.d("Response",ap.response);
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				return true;
 			}
 		} catch (JSONException e) {
@@ -60,31 +72,29 @@ public class User {
 		return false;
 	}
 
-	public static User Login(String username, String password){
+	public static User Login(String username, String password) {
 		HashMap params = new HashMap<String, String>();
-		params.put("username",username);
-		params.put("password",password);
-		ApiPost ap = new ApiPost("user/login",params);
+		params.put("username", username);
+		params.put("password", password);
+		ApiPost ap = new ApiPost("user/login", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang kiểm tra thông tin đăng nhập...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
 		}
 
-		Log.d("Response",ap.response);
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				String id = obj.getString("_id");
 				String name = obj.getString("fullname");
 				String token = obj.getString("token");
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
-				BasicUserInfo basic_info = new BasicUserInfo(id,username, name, "");
-				UserInfo info = new UserInfo(basic_info, email, phone,token);
+				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
+				UserInfo info = new UserInfo(basic_info, email, phone, token);
 				User user = new User(info);
 				return user;
 			}
@@ -94,40 +104,36 @@ public class User {
 		return null;
 	}
 
-	public boolean ViewProfile()
-	{
+	public boolean ViewProfile() {
 
 		return false;
 	}
 
-	public ConfessionGroup CreateGroup(ConfessionGroupInfo group)
-	{
-		HashMap params = new HashMap<String,String>();
-		params.put("token",user_info.auth_token);
-		params.put("shortname",group.shortname);
-		params.put("groupname",group.name);
-		params.put("avatar",group.avatar);
+	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
+		HashMap params = new HashMap<String, String>();
+		params.put("token", user_info.auth_token);
+		params.put("shortname", group.shortname);
+		params.put("groupname", group.name);
+		params.put("avatar", group.avatar);
 
-		ApiPost ap = new ApiPost("confession/new",params);
+		ApiPost ap = new ApiPost("confession/new", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang tạo confession...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang tạo confession...");
 		}
 
-		ConfessionGroup confession  = null;
-		Log.d("Response",ap.response);
+		ConfessionGroup confession = null;
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				String id = obj.getString("_id");
 				String shortname = obj.getString("shortname");
 				String groupname = obj.getString("groupname");
 				String avatar = obj.getString("avatar");
-				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
 				confession = new ConfessionGroup(confession_info);
 			}
 		} catch (JSONException e) {
@@ -136,26 +142,23 @@ public class User {
 		return confession;
 	}
 
-	public boolean JoinGroup(ConfessionGroupInfo group)
-	{
-		HashMap params = new HashMap<String,String>();
-		params.put("token",user_info.auth_token);
-		params.put("confession",group.id);
+	public boolean JoinGroup(ConfessionGroupInfo group) {
+		HashMap params = new HashMap<String, String>();
+		params.put("token", user_info.auth_token);
+		params.put("confession", group.id);
 
-		ApiPost ap = new ApiPost("confession/join",params);
+		ApiPost ap = new ApiPost("confession/join", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while(!ap.isComplete)
-		{
-			Log.d("Thread API: ","Đang tham gia confession...");
+		while (!ap.isComplete) {
+			Log.d("Thread API: ", "Đang tham gia confession...");
 		}
 
-		Log.d("Response",ap.response);
+		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				return true;
 			}
 		} catch (JSONException e) {
@@ -165,40 +168,35 @@ public class User {
 		return false;
 	}
 
-	public boolean LeaveGroup(ConfessionGroup group)
-	{
+	public boolean LeaveGroup(ConfessionGroup group) {
 		return false;
 	}
 
-	public ArrayList<ConfessionGroup> GetFollowedGroups()
-	{
+	public ArrayList<ConfessionGroup> GetFollowedGroups() {
 		ArrayList<ConfessionGroup> groups = new ArrayList<ConfessionGroup>();
 		HashMap params = new HashMap<String, String>();
-		params.put("token",this.user_info.auth_token);
-		ApiGet ag = new ApiGet("user/joinedconf",params);
+		params.put("token", this.user_info.auth_token);
+		ApiGet ag = new ApiGet("user/joinedconf", params);
 
 		Thread t = new Thread(ag);
 		t.start();
-		while(!ag.isComplete)
-		{
-			Log.d("Thread API: ","Đang lấy danh sách các confession đã tham gia...");
+		while (!ag.isComplete) {
+			Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
 		}
 
-		Log.d("Response",ag.response);
+		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
-			if(!obj.has("error"))
-			{
+			if (!obj.has("error")) {
 				JSONArray items = new JSONArray(ag.response);
-				for(int i=0;i<items.length();i++)
-				{
+				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String id = item.getString("_id");
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id,shortname,groupname,avatar);
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
 					groups.add(new ConfessionGroup(group_info));
 				}
 				return groups;
@@ -209,20 +207,17 @@ public class User {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetNewsfeed()
-	{
+	public ArrayList<GroupPost> GetNewsfeed() {
 
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetPastPosts()
-	{
+	public ArrayList<GroupPost> GetPastPosts() {
 
 		return null;
 	}
 
-	public boolean IsAdmin(ConfessionGroup group)
-	{
+	public boolean IsAdmin(ConfessionGroup group) {
 
 		return false;
 	}

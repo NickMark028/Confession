@@ -9,6 +9,11 @@ public final class UserInfo implements Serializable {
 	public final String phone;
 	public final String auth_token;
 
+	public UserInfo(BasicUserInfo basic_info, String email, String phone) {
+
+		this(basic_info, email, phone, "");
+	}
+
 	public UserInfo(BasicUserInfo basic_info, String email, String phone, String auth_token) {
 
 		this.basic_info = basic_info;

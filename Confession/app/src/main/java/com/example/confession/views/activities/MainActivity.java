@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
@@ -17,13 +20,23 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-		ConfessionGroup g = new ConfessionGroup(new ConfessionGroupInfo("60505ccec951fc27083de447", "", "", ""));
-		g.GetPosts(new UserInfo(new BasicUserInfo("","","",""),"","",""));
+
+		BasicUserInfo basic_info = new BasicUserInfo("admin", "Admin name");
+		UserInfo info = new UserInfo(basic_info, "test@email.com", "0xx xxx xxx1");
+		User user = new User(info);
+		Bundle bundle = user.ToBundle();
+		User new_user = User.From(bundle);
+		
+
+
+//		ConfessionGroup g = new ConfessionGroup(new ConfessionGroupInfo("60505ccec951fc27083de447", "", "", ""));
+//		g.GetPosts(new UserInfo(new BasicUserInfo("","","",""),"","",""));
 
 		//Intent intent = new Intent(this, SignInActivity.class);
 		//startActivity(intent);
 
-		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+//		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
