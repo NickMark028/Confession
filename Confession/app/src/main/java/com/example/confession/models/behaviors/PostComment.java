@@ -17,4 +17,11 @@ public class PostComment {
 	public String GetID(){
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "PostComment{" +
+				"comment_info=" + comment_info +
+				'}';
+	}
 }

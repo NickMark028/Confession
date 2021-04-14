@@ -372,4 +372,11 @@ public class ConfessionGroup {
 		}
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "ConfessionGroup{" +
+				"group_info=" + group_info +
+				'}';
+	}
 }

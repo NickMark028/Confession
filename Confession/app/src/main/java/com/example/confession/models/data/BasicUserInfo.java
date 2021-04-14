@@ -23,4 +23,14 @@ public final class BasicUserInfo implements Serializable {
 		this.name = name;
 		this.avatar = avatar;
 	}
+
+	@Override
+	public String toString() {
+		return "BasicUserInfo{" +
+				"id='" + id + '\'' +
+				", username='" + username + '\'' +
+				", name='" + name + '\'' +
+				", avatar='" + avatar + '\'' +
+				'}';
+	}
 }

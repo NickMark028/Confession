@@ -1,15 +1,10 @@
 package com.example.confession.models.behaviors;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.example.confession.models.api.ApiController;
 import com.example.confession.models.api.ApiGet;
 import com.example.confession.models.api.ApiPost;
-import com.example.confession.models.api.ApiService;
-import com.example.confession.models.api.VolleyCallback;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
@@ -112,7 +107,7 @@ public class User {
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 		HashMap params = new HashMap<String, String>();
 		params.put("token", user_info.auth_token);
-		params.put("shortname", group.shortname);
+		params.put("shortname", group.short_name);
 		params.put("groupname", group.name);
 		params.put("avatar", group.avatar);
 
@@ -220,5 +215,12 @@ public class User {
 	public boolean IsAdmin(ConfessionGroup group) {
 
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"user_info=" + user_info +
+				'}';
 	}
 }

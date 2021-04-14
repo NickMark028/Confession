@@ -14,4 +14,13 @@ public final class PostCommentInfo implements Serializable {
 		this.commenter = commenter;
 		this.content = content;
 	}
+
+	@Override
+	public String toString() {
+		return "PostCommentInfo{" +
+				"id='" + id + '\'' +
+				", commenter=" + commenter +
+				", content='" + content + '\'' +
+				'}';
+	}
 }

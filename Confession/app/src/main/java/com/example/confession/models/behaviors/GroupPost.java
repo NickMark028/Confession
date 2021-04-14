@@ -134,4 +134,11 @@ public class GroupPost {
 		}
 		return postComments;
 	}
+
+	@Override
+	public String toString() {
+		return "GroupPost{" +
+				"post_info=" + post_info +
+				'}';
+	}
 }

@@ -128,7 +128,7 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 		Log.i("123", "-----------------------------------------------");
 
 		if (groups.size() != 0)
-			Log.i("Group name:",groups.get(0).shortname);
+			Log.i("Group name:",groups.get(0).short_name);
 
 		lv_search_item.setAdapter(adapter);
 	}

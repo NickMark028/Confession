@@ -28,7 +28,8 @@ public class MainActivity extends Activity {
 		User user = new User(info);
 		Bundle bundle = user.ToBundle();
 		User new_user = User.From(bundle);
-		
+
+		Log.d("Data", new_user.toString());
 
 
 //		ConfessionGroup g = new ConfessionGroup(new ConfessionGroupInfo("60505ccec951fc27083de447", "", "", ""));

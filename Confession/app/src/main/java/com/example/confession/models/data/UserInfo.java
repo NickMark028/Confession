@@ -21,4 +21,14 @@ public final class UserInfo implements Serializable {
 		this.phone = phone;
 		this.auth_token = auth_token;
 	}
+
+	@Override
+	public String toString() {
+		return "UserInfo{" +
+				"basic_info=" + basic_info +
+				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
+				", auth_token='" + auth_token + '\'' +
+				'}';
+	}
 }

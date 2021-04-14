@@ -20,4 +20,15 @@ public final class GroupPostInfo implements Serializable {
 		this.approver = approver;
 		this.content = content;
 	}
+
+	@Override
+	public String toString() {
+		return "GroupPostInfo{" +
+				"id='" + id + '\'' +
+				", time_created=" + time_created +
+				", author=" + author +
+				", approver=" + approver +
+				", content='" + content + '\'' +
+				'}';
+	}
 }
