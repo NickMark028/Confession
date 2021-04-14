@@ -1,6 +1,8 @@
 package com.example.confession.models.data;
 
-public final class BasicUserInfo {
+import java.io.Serializable;
+
+public final class BasicUserInfo implements Serializable {
 
 	public final String id;
 	public final String username;

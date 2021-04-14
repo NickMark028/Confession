@@ -1,6 +1,8 @@
 package com.example.confession.models.data;
 
-public final class ConfessionGroupInfo {
+import java.io.Serializable;
+
+public final class ConfessionGroupInfo implements Serializable {
 
 	public final String id;
 	public final String shortname;

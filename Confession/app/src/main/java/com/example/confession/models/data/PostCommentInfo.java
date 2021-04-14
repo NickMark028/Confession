@@ -1,6 +1,8 @@
 package com.example.confession.models.data;
 
-public final class PostCommentInfo {
+import java.io.Serializable;
+
+public final class PostCommentInfo implements Serializable {
 
 	public final String id;
 	public final BasicUserInfo commenter;

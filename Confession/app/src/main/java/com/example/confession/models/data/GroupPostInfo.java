@@ -1,9 +1,10 @@
 package com.example.confession.models.data;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public final class GroupPostInfo {
+public final class GroupPostInfo implements Serializable {
 
 	public final String id;
 	public final Date time_created;
