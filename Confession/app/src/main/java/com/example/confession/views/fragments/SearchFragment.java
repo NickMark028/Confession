@@ -16,6 +16,7 @@ import com.example.confession.R;
 import com.example.confession.adapters.GroupSearchAdapter;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.SearchGroupPresenter;
 
@@ -23,7 +24,8 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
-	SearchTabBinder.Presenter presenter;
+	private final SearchTabBinder.Presenter presenter;
+	private final User user;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
@@ -31,9 +33,10 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
 //	ArrayList<ConfessionGroupInfo> list_group;
 //	GroupAdapter mGroupAdapter;
-	public SearchFragment() {
+	public SearchFragment(User user) {
 
 		presenter = new SearchGroupPresenter(this);
+		this.user = user;
 	}
 
 	@Override

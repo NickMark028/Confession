@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	}
 
 	private void InitPresenter() {
+
 		presenter = new SignInPresenter(this);
 	}
 
@@ -53,7 +55,9 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		si_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				presenter.HandleLogin(
+						si_username.getText().toString(),
+						si_password.getText().toString());
 			}
 		});
 
@@ -92,10 +96,9 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginSuccess(User user) {
-		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
+
 		Intent myIntent = new Intent(this, HomePageActivity.class);
-//		Bundle data = user.ToBundle();
-//		startActivity(myIntent, data);
+		user.AddTo(myIntent);
 		startActivity(myIntent);
 	}
 

@@ -2,18 +2,16 @@ package com.example.confession.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.binders.BottomSheetListener;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.SearchGroupPresenter;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
 import com.example.confession.views.fragments.ProfileFragment;
@@ -41,32 +39,33 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-//		user = User.From(savedInstanceState);
+		Log.i("OnCreate", "------------------------------------------");
+
+		user = User.From(getIntent().getExtras());
 
 		frag_map = new HashMap<>();
-		frag_map.put(R.id.navigation_home, new NewfeedsFragment());
-		frag_map.put(R.id.navigation_search, new SearchFragment());
+		frag_map.put(R.id.navigation_home, new NewfeedsFragment(user));
+		frag_map.put(R.id.navigation_search, new SearchFragment(user));
 //		frag_map.put(R.id.navigation_add_post, new NewfeedFragment());
-		frag_map.put(R.id.navigation_heart, new FollowFragment());
-		frag_map.put(R.id.navigation_profile, new ProfileFragment());
+		frag_map.put(R.id.navigation_heart, new FollowFragment(user));
+		frag_map.put(R.id.navigation_profile, new ProfileFragment(user));
 
 		toolbar = getSupportActionBar();
 		bottomNavigationView = findViewById(R.id.navigation_bar);
 
-		bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				if (mCurrentNavItem == item.getItemId()) {
-					return true;
-				}
+		bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+			if (mCurrentNavItem == item.getItemId()) {
+				return true;
+			}
 
-				Fragment frag = frag_map.get(item.getItemId());
-				if (frag != null)
-					SetFragment(frag);
-				else {
-					Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
-					startActivity(myIntent);
-				}
+			Fragment frag = frag_map.get(item.getItemId());
+			if (frag != null)
+				SetFragment(frag);
+			else {
+				Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
+				user.AddTo(myIntent);
+				startActivity(myIntent);
+			}
 
 //				switch (item.getItemId()) {
 //					// TODO change to newsfeed agian
@@ -88,15 +87,13 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 //						SetFragment(new ProfileFragment());
 //						break;
 //				}
-				mPrevNavItem = mCurrentNavItem;
-				mCurrentNavItem = item.getItemId();
-				item.setChecked(true);
-				return true;
-			}
+			mPrevNavItem = mCurrentNavItem;
+			mCurrentNavItem = item.getItemId();
+			item.setChecked(true);
+			return true;
 		});
 
-		SetFragment(new NewfeedsFragment());
-
+		SetFragment(new NewfeedsFragment(user));
 	}
 
 	@Override
@@ -106,7 +103,10 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 	}
 
 	private void SetFragment(Fragment selectedFragment) {
-		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.fragment_container, selectedFragment)
+				.commit();
 	}
 
 	//BottomListener method
@@ -129,11 +129,8 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 		if (text.equals("create_group")) {
 			Toast.makeText(getApplicationContext(), "Create Group", Toast.LENGTH_SHORT).show();
-		}
-		else{
+		} else {
 			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 		}
-
-
 	}
 }

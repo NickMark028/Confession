@@ -38,6 +38,6 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, SignInActivity.class);
 		startActivity(intent);
 
-//		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
