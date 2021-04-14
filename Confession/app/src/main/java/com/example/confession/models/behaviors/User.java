@@ -1,5 +1,6 @@
 package com.example.confession.models.behaviors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,12 +38,14 @@ public class User {
 //		return new User(user_info, auth_token);
 	}
 
-	public Bundle ToBundle() {
+	public void AddTo(Intent intent) {
 
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("user_info", this.user_info);
-//		bundle.putString("auth_token", this.auth_token);
-		return bundle;
+		intent.putExtra("user_info", this.user_info);
+	}
+
+	public BasicUserInfo GetBasicUserInfo() {
+
+		return user_info.basic_info;
 	}
 
 	public static boolean Register(UserInfo user, String password) {

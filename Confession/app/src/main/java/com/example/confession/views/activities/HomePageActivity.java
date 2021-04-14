@@ -2,6 +2,7 @@ package com.example.confession.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,7 +39,9 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-		user = User.From(savedInstanceState);
+		Log.i("OnCreate", "------------------------------------------");
+
+		user = User.From(getIntent().getExtras());
 
 		frag_map = new HashMap<>();
 		frag_map.put(R.id.navigation_home, new NewfeedsFragment(user));
@@ -60,6 +63,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 				SetFragment(frag);
 			else {
 				Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
+				user.AddTo(myIntent);
 				startActivity(myIntent);
 			}
 
@@ -90,7 +94,6 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		});
 
 		SetFragment(new NewfeedsFragment(user));
-
 	}
 
 	@Override
@@ -100,7 +103,10 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 	}
 
 	private void SetFragment(Fragment selectedFragment) {
-		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.fragment_container, selectedFragment)
+				.commit();
 	}
 
 	//BottomListener method

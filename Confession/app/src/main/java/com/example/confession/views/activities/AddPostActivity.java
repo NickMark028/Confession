@@ -29,6 +29,7 @@ import com.example.confession.CreatePostGroupListActivity;
 import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.models.behaviors.GroupPost;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.AddPostPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -37,7 +38,8 @@ import java.io.IOException;
 
 public class AddPostActivity extends AppCompatActivity implements AddPostTabBinder.View {
 
-    AddPostPresenter presenter;
+    private AddPostPresenter presenter;
+    private User user;
 
     private Uri imageUri;
     private String myURL = "";
@@ -46,17 +48,20 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
 
     private ImageButton add_post_close_btn;
     private Button ap_get_gr_list_btn;
-    private TextView  post_txt_btn;
+    private TextView  post_txt_btn, addp_post_username;
     private EditText addp_user_status;
     private ImageView addp_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
     private File imgOut = null;
-    public AddPostActivity() {}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
+
+        user = User.From(getIntent().getExtras());
 
         InitPresenter();
         InitView();
@@ -72,10 +77,13 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         add_post_close_btn = findViewById(R.id.add_post_close_btn);
         ap_get_gr_list_btn = findViewById(R.id.ap_get_gr_list_btn);
         post_txt_btn = findViewById(R.id.post_txt_btn);
+        addp_post_username = findViewById(R.id.addp_post_username);
         addp_user_status = findViewById(R.id.addp_user_status);
         addp_image_click = findViewById(R.id.addp_image_click);
         addp_camera_click = findViewById(R.id.addp_camera_click);
         addp_post_img_added = findViewById(R.id.addp_post_img_added);
+
+        addp_post_username.setText(user.GetBasicUserInfo().name);
     }
 
     private void InitListener() {
