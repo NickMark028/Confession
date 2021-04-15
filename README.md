@@ -8,7 +8,7 @@
 <a href="https://github.com/NickMark028/Confession/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/NickMark028/Confession?color=2b9348"></a>
 <a href="https://github.com/NickMark028/Confession/blob/master/LICENSE"><img src="https://img.shields.io/github/license/NickMark028/Confession?color=2b9348" alt="License Badge"/></a>
 
-<div style="display: flex; flex-direction:row; justify-content: space-between; align-item: flex-start">
+<div style="display: flex; flex-direction:row; justify-content: space-between; ">
   <img alt="Demo Forgot Password Screen" src="assets/gif/demo_forgotpassword.gif"/>  
   <img alt="Demo Main Screen" src="assets/gif/demo_login_mainscreen.gif"/>
 </div>
@@ -64,10 +64,10 @@ Clone this repository and import into Android Studio
 
 <!-- CONTACT -->
 ## Contact 
-Truong Quoc An - tqan.work@gmail.com
-Truong Bao Khiem - nickmark028@gmail.com
-Nguyen Thanh Phong - tphong171@gmail.com
-Vu Cong Thanh - vcthanh2901@gmail.com
+* Truong Quoc An - tqan.work@gmail.com
+* Truong Bao Khiem - nickmark028@gmail.com
+* Nguyen Thanh Phong - tphong171@gmail.com
+* Vu Cong Thanh - vcthanh2901@gmail.com
 
 
 
