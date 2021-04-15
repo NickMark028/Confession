@@ -25,18 +25,18 @@ public class GroupListAdapter extends BaseAdapter {
 	private ImageView iv_group_item_gr_avatar;
 	private TextView txt_group_list_gr_name;
 
-//	public GroupAdapter(Context context, ArrayList<ConfessionGroup> groups) {
-//
-//		this.context = context;
-//		this.groups = groups;
-//	}
-
-	//for testing GUI only
-	public GroupListAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
+	public GroupListAdapter(Context context, ArrayList<ConfessionGroup> groups) {
 
 		this.context = context;
-		this.group = group;
+		this.groups = groups;
 	}
+
+	//for testing GUI only
+//	public GroupListAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
+//
+//		this.context = context;
+//		this.group = group;
+//	}
 
 
 	@Override

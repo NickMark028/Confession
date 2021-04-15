@@ -8,23 +8,31 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.example.confession.R;
+import com.example.confession.adapters.GroupListAdapter;
 import com.example.confession.binders.CreateGroupBinder;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.CreateGroupPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupBinder.View {
+
+    private User user;
 
     private CreateGroupPresenter presenter;
     private ImageButton create_post_close_btn;
     private TextInputEditText create_group_name;
     private AppCompatButton create_group_btn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+
+        user = User.From(getIntent().getExtras());
 
         InitPresenter();
         InitView();
@@ -39,6 +47,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
         create_post_close_btn = findViewById(R.id.create_post_close_btn);
         create_group_name = findViewById(R.id.create_group_name);
         create_group_btn = findViewById(R.id.create_group_btn);
+
 
         create_group_btn.setEnabled(false);
     }

@@ -27,7 +27,7 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
     BottomSheetListener mListener;
 
     private Button profile_create_post_btn, profile_create_group_btn;
-    private int result = 0;
+    private int result = -1;
 
     @Override
     public int getTheme() {
