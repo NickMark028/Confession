@@ -41,7 +41,7 @@ In this project, we will make an android application about Confession topic.
 
 Why we do this:
 * We want to create a secret environment for everyone to join us and share their own story about their life or something else.
-* We also do this project for our subject in Univerity (Mobile Application Developement)
+* We also do this project for our subject (Mobile Application Developement) in our university (University of Science - Dai Hoc Khoa hoc Tu nhien) 
 
 ### Built With
 
