@@ -30,8 +30,8 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	TextView txt_search_result;
 	ListView lv_search_item;
 
-//	ArrayList<ConfessionGroupInfo> list_group;
-//	GroupAdapter mGroupAdapter;
+	ArrayList<ConfessionGroupInfo> list_group;
+	GroupSearchAdapter mGroupSearchAdapter;
 	public SearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
@@ -59,6 +59,10 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 		txt_search = view.findViewById(R.id.txt_search);
 		txt_search_result = view.findViewById(R.id.txt_search_result);
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
+
+		list_group = new ArrayList<>();
+		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group);
+		lv_search_item.setAdapter(mGroupSearchAdapter);
 	}
 
 	private void InitListener() {
@@ -70,13 +74,22 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 			public boolean onQueryTextSubmit(String query) {
 
 				presenter.HandleFindGroup(query);
-				return true;
+				return false;
 			}
 
 			@Override
 			public boolean onQueryTextChange(String newText) {
 
-				presenter.HandleFindGroup(newText);
+				if (newText.isEmpty()) {
+					txt_search_result.setText(String.format("No Results", newText));
+					list_group.clear();
+					UpdateListView();
+					return true;
+				}
+
+				txt_search_result.setText(String.format("Searching for %s", newText));
+
+				//presenter.HandleFindGroup(newText);
 				return true;
 			}
 //			@Override
@@ -109,24 +122,25 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 		});
 	}
 
-//	private void UpdateListView() {
-//		Runnable run = new Runnable() {
-//			@Override
-//			public void run() {
-//				mGroupAdapter.notifyDataSetChanged();
-//				lv_search_item.invalidateViews();
-//				lv_search_item.refreshDrawableState();
-//			}
-//		};
-//
-//		run.run();
-//	}
+	private void UpdateListView() {
+		Runnable run = new Runnable() {
+			@Override
+			public void run() {
+				mGroupSearchAdapter.notifyDataSetChanged();
+				lv_search_item.invalidateViews();
+				lv_search_item.refreshDrawableState();
+			}
+		};
+
+		run.run();
+	}
 
 	@Override
 	public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
+		list_group.clear();
+		list_group.addAll(groups);
 
-		GroupSearchAdapter adapter = new GroupSearchAdapter(getContext(), groups);
-		lv_search_item.setAdapter(adapter);
+		UpdateListView();
 	}
 
 	@Override

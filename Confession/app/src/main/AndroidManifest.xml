@@ -4,8 +4,10 @@
     package="com.example.confession">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -39,7 +41,8 @@
             <!--            </intent-filter>-->
         </activity>
 
-        <activity android:name=".views.activities.SignInActivity">
+        <activity android:name=".views.activities.SignUpActivity"/>
+        <activity android:name=".views.activities.SignInActivity" >
             <!--            <action android:name="android.intent.action.MAIN" />-->
 
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->

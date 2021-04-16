@@ -100,6 +100,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
 
                 Intent intent = new Intent(getApplicationContext(), CreatePostGroupListActivity.class);
                 startActivity(intent);
+
             }
         });
 

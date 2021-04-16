@@ -20,7 +20,7 @@ public class GroupListAdapter extends BaseAdapter {
 
 	Context context;
 	ArrayList<ConfessionGroup> groups;
-	ArrayList<ConfessionGroupInfo> group;
+	//ArrayList<ConfessionGroupInfo> group;
 
 	private ImageView iv_group_item_gr_avatar;
 	private TextView txt_group_list_gr_name;
@@ -41,12 +41,12 @@ public class GroupListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return group.size();
+		return groups.size();
 	}
 
 	@Override
 	public Object getItem(int i) {
-		return group.get(i);
+		return groups.get(i);
 	}
 
 	@Override
