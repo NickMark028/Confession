@@ -13,13 +13,6 @@ import com.example.confession.models.behaviors.User;
 
 public class FollowFragment extends Fragment {
 
-    private final User user;
-
-    public FollowFragment(User user) {
-
-        this.user = user;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

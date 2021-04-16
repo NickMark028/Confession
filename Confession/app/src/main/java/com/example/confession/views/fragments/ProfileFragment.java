@@ -24,14 +24,7 @@ import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
-
-    private final User user;
 
     // IN-USE VARIABLES
 
@@ -39,12 +32,6 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
     private ImageButton profile_open_post_btn;
     private LinearLayout profile_joined_group, profile_your_group,
             profile_edit_account_btn, profile_change_pass_btn, profile_faq_btn, profile_contact_us_btn;
-
-
-    public ProfileFragment(User user) {
-
-        this.user = user;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

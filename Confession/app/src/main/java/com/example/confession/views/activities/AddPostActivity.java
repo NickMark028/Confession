@@ -39,7 +39,6 @@ import java.io.IOException;
 public class AddPostActivity extends AppCompatActivity implements AddPostTabBinder.View {
 
     private AddPostPresenter presenter;
-    private User user;
 
     private Uri imageUri;
     private String myURL = "";
@@ -61,8 +60,6 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
-        user = User.From(getIntent().getExtras());
-
         InitPresenter();
         InitView();
         InitListener();
@@ -83,21 +80,18 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         addp_camera_click = findViewById(R.id.addp_camera_click);
         addp_post_img_added = findViewById(R.id.addp_post_img_added);
 
-        addp_post_username.setText(user.GetBasicUserInfo().name);
+        addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
     }
 
     private void InitListener() {
 
-        add_post_close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Close add post activity
+        add_post_close_btn.setOnClickListener(view -> {
+            //Close add post activity
 
-                finish();
-            }
+            finish();
         });
 
-        //If user dont join any group, we will set disable for this button
+        //If user don't join any group, we will set disable for this button
         //Only call when user has already joined a group
         ap_get_gr_list_btn.setOnClickListener(new View.OnClickListener() {
             @Override

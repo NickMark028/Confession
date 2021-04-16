@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.example.confession.R;
 import com.example.confession.binders.CreateGroupBinder;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.presenters.CreateGroupPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -32,10 +33,12 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     private void InitPresenter() {
-        this.presenter = new CreateGroupPresenter();
+
+        this.presenter = new CreateGroupPresenter(this);
     }
 
     public void InitView(){
+
         create_post_close_btn = findViewById(R.id.create_post_close_btn);
         create_group_name = findViewById(R.id.create_group_name);
         create_group_btn = findViewById(R.id.create_group_btn);
@@ -77,16 +80,14 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
             @Override
             public void onClick(View v) {
                 String gName = create_group_name.getText().toString();
-                presenter.HandleCreateGroup(gName);
+                presenter.HandleCreateGroup(gName, gName);
             }
         });
     }
 
     @Override
-    public void OnCreateGroupSuccess(int code) {
-        if(code == 200){
-            //....
-        }
+    public void OnCreateGroupSuccess(ConfessionGroup group) {
+
     }
 
     @Override
