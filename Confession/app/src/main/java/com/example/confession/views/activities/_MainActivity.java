@@ -2,6 +2,7 @@ package com.example.confession.views.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +37,9 @@ public class _MainActivity extends Activity {
 
 		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-		Intent intent = new Intent(this, CommentActivity.class);
+//		Intent intent = new Intent(this, CommentActivity.class);
+
+		Intent intent = new Intent(this, SignInActivity.class);
 		startActivity(intent);
 	}
 }

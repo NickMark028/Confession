@@ -19,10 +19,14 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".views.activities.AddPostActivity" />
-        <activity android:name=".views.activities.CreateGroupActivity" />
-        <activity android:name=".views.activities.CoverActivity" />
-        <activity android:name=".views.activities.CommentActivity" />
+        <activity android:name=".views.activities.AddPostActivity"
+            android:noHistory="true"/>
+        <activity android:name=".views.activities.CreateGroupActivity"
+            android:noHistory="true"/>
+        <activity android:name=".views.activities.CoverActivity"
+            android:noHistory="true"/>
+        <activity android:name=".views.activities.CommentActivity"
+            android:noHistory="true"/>
         <activity android:name=".views.activities.ForgotPasswordActivity"
             android:noHistory="true"/>
 

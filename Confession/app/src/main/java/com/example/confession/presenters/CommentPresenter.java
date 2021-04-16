@@ -15,12 +15,17 @@ public class CommentPresenter implements CommentBinder.Presenter {
         this.view = view;
     }
 
-    @Override
-    public void HandlePostComment(GroupPost post, String content) {
+//    @Override
+//    public void HandlePostComment(GroupPost post, String content) {
+//
+////        PostCommentInfo info = new PostCommentInfo();
+////        User user = User.GetInstance();
+////        post.AddComment(info, User.GetInstance());
 
-        PostCommentInfo info = new PostCommentInfo()
-        User user = User.GetInstance();
-        post.AddComment(info, user.GetBasicUserInfo());
+//    }
+
+    @Override
+    public void HandlePostComment(String content) {
 
     }
 }
