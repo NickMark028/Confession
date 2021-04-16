@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,8 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_cmt_back"
             android:layout_width="24dp"
@@ -22,7 +22,7 @@
             android:layout_marginEnd="15dp"
             android:src="@drawable/back"
 
-           />
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,31 +37,30 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/edit_no_focus"
-        />
+        android:background="@color/edit_no_focus" />
 
     <ListView
         android:id="@+id/lv_cmt_item"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@color/transparent"
-        />
+        android:divider="@color/transparent" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/edit_no_focus"
-        />
+        android:background="@color/edit_no_focus" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp">
 
         <ImageView
             android:layout_width="35dp"
@@ -72,22 +71,23 @@
             android:id="@+id/cmt_edit_txt_cmt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@null"
             android:fontFamily="@font/nunito_regular"
             android:hint="Comment"
-            android:textSize="16sp"
-            android:inputType="textLongMessage"
             android:imeOptions="actionSend"
-            android:lines="1"/>
+            android:inputType="textLongMessage"
+            android:lines="1"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/cmt_txt_post_cmt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:text="Post"
             android:textColor="@color/main_theme"
-            android:textSize="15sp"
-            android:clickable="true"/>
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

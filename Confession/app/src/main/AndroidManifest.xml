@@ -41,7 +41,7 @@
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->
         </activity>
 
-        <activity android:name=".views.activities.MainActivity"
+        <activity android:name=".views.activities._MainActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

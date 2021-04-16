@@ -15,7 +15,7 @@ import com.example.confession.models.data.UserInfo;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
-public class MainActivity extends Activity {
+public class _MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 
 		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-		Intent intent = new Intent(this, SignInActivity.class);
+		Intent intent = new Intent(this, CommentActivity.class);
 		startActivity(intent);
 	}
 }

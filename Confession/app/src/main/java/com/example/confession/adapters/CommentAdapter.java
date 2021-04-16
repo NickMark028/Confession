@@ -2,8 +2,10 @@ package com.example.confession.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.example.confession.models.data.PostCommentInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CommentAdapter extends BaseAdapter {
 
@@ -64,22 +68,11 @@ public class CommentAdapter extends BaseAdapter {
 		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
 		View row = inflater.inflate(R.layout.layout_comment, null);
 
-		InitView(view);
+		InitView(row);
 		InitProperty(i);
-		InitListener();
+		//InitListener();
 
 		return row;
-	}
-
-	private void InitProperty(int i) {
-
-		PostCommentInfo comment = comments.get(i);
-		txt_username_message.setText(String.format("<b> {0} </b> {1}", comment.commenter, comment.content));
-
-		SimpleDateFormat formatter = new SimpleDateFormat();
-		txt_cmt_time.setText(formatter.format(comment.time_created));
-
-		// Todo Add avatar here
 	}
 
 	public void InitView(View view) {
@@ -93,6 +86,21 @@ public class CommentAdapter extends BaseAdapter {
 
 		empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
 		fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
+	}
+
+	private void InitProperty(int i) {
+
+		PostCommentInfo comment = comments.get(i);
+		txt_username_message.setText(Html.fromHtml(String.format("<b> %s </b> %s", comment.commenter.name, comment.content)));
+
+
+		SimpleDateFormat formatter = new SimpleDateFormat("d");
+
+		Date now = Calendar.getInstance().getTime();
+
+		txt_cmt_time.setText(formatter.format(comment.time_created.getTime() - now.getTime()) + "d ago");
+
+		// Todo Add avatar here
 	}
 
 	public void InitListener(){
