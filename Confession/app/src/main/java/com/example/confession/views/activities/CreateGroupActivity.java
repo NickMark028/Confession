@@ -3,17 +3,20 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupListAdapter;
 import com.example.confession.binders.CreateGroupBinder;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.presenters.CreateGroupPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -40,10 +43,12 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     private void InitPresenter() {
-        this.presenter = new CreateGroupPresenter();
+
+        this.presenter = new CreateGroupPresenter(this);
     }
 
     public void InitView(){
+
         create_post_close_btn = findViewById(R.id.create_post_close_btn);
         create_group_name = findViewById(R.id.create_group_name);
         create_group_btn = findViewById(R.id.create_group_btn);
@@ -62,14 +67,10 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
 
         create_group_name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -86,20 +87,23 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
             @Override
             public void onClick(View v) {
                 String gName = create_group_name.getText().toString();
-                presenter.HandleCreateGroup(gName);
+                presenter.HandleCreateGroup(gName, gName);
             }
         });
     }
 
     @Override
-    public void OnCreateGroupSuccess(int code) {
-        if(code == 200){
-            //....
-        }
+    public void OnCreateGroupSuccess(ConfessionGroup group) {
+
+        // Todo navigate to new group
+
+        finish();
+
     }
 
     @Override
     public void OnCreateGroupFail(int error_code) {
 
+        Toast.makeText(this, "Failed to create group", Toast.LENGTH_LONG).show();
     }
 }

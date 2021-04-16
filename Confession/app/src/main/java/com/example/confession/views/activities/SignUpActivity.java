@@ -56,12 +56,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		su_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				presenter.HandleSignUp(su_username.getText().toString(),
+				presenter.HandleSignUp(
+						"Add name here",
+						su_username.getText().toString(),
 						su_email.getText().toString(),
 						su_phone.getText().toString(),
 						su_password.getText().toString(),
 						su_confirm_pass.getText().toString());
-				//presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
 			}
 		});
 

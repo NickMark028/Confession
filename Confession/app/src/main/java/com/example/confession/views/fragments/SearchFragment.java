@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
 	private final SearchTabBinder.Presenter presenter;
-	private final User user;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
@@ -33,10 +32,9 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
 //	ArrayList<ConfessionGroupInfo> list_group;
 //	GroupAdapter mGroupAdapter;
-	public SearchFragment(User user) {
+	public SearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
-		this.user = user;
 	}
 
 	@Override
@@ -128,11 +126,6 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
 
 		GroupSearchAdapter adapter = new GroupSearchAdapter(getContext(), groups);
-		Log.i("123", "-----------------------------------------------");
-
-		if (groups.size() != 0)
-			Log.i("Group name:",groups.get(0).short_name);
-
 		lv_search_item.setAdapter(adapter);
 	}
 

@@ -23,7 +23,8 @@
         <activity android:name=".views.activities.CreateGroupActivity" />
         <activity android:name=".views.activities.CoverActivity" />
         <activity android:name=".views.activities.CommentActivity" />
-        <activity android:name=".views.activities.ForgotPasswordActivity" />
+        <activity android:name=".views.activities.ForgotPasswordActivity"
+            android:noHistory="true"/>
 
         <activity
             android:name=".views.activities.HomePageActivity"

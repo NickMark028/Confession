@@ -75,21 +75,15 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			}
 		});
 
-		txt_su_click.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
-				startActivity(myIntent);
-			}
+		txt_su_click.setOnClickListener(view -> {
+			Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
+			startActivity(myIntent);
 		});
 
-		forgot_pass_click.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Forgot password", Toast.LENGTH_LONG).show();
-				Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-				startActivity(myIntent);
-			}
+		forgot_pass_click.setOnClickListener(view -> {
+			Toast.makeText(getApplicationContext(), "Forgot password", Toast.LENGTH_LONG).show();
+			Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+			startActivity(myIntent);
 		});
 	}
 
@@ -98,7 +92,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	public void OnLoginSuccess(User user) {
 
 		Intent myIntent = new Intent(this, HomePageActivity.class);
-		user.AddTo(myIntent);
 		startActivity(myIntent);
 	}
 

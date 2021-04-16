@@ -21,27 +21,28 @@ import java.util.HashMap;
 public class User {
 
 	protected final UserInfo user_info;
-//	protected final String auth_token;
+	private static User instance = null;
 
-	private User(UserInfo user_info/* , String auth_token */) {
+	private User(UserInfo user_info) {
 
 		this.user_info = user_info;
-//		this.auth_token = auth_token;
 	}
 
-	public static User From(Bundle bundle) {
+	public synchronized static User GetInstance() {
 
-		UserInfo user_info = (UserInfo) bundle.getSerializable("user_info");
-//		UserInfo auth_token = (UserInfo) bundle.getSerializable("auth_token");
-
-		return new User(user_info);
-//		return new User(user_info, auth_token);
+		return instance;
 	}
 
-	public void AddTo(Intent intent) {
-
-		intent.putExtra("user_info", this.user_info);
-	}
+//	public static User From(Bundle bundle) {
+//
+//		UserInfo user_info = (UserInfo) bundle.getSerializable("user_info");
+//		return new User(user_info);
+//	}
+//
+//	public void AddTo(Intent intent) {
+//
+//		intent.putExtra("user_info", this.user_info);
+//	}
 
 	public BasicUserInfo GetBasicUserInfo() {
 
@@ -76,7 +77,8 @@ public class User {
 		return false;
 	}
 
-	public static User Login(String username, String password) {
+	public synchronized static User Login(String username, String password) {
+
 		HashMap params = new HashMap<String, String>();
 		params.put("username", username);
 		params.put("password", password);
@@ -100,17 +102,15 @@ public class User {
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone, token);
 				User user = new User(info);
+
+				instance = user;
+
 				return user;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public boolean ViewProfile() {
-
-		return false;
 	}
 
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {

@@ -24,8 +24,6 @@ import java.util.HashMap;
 
 public class HomePageActivity extends AppCompatActivity implements BottomSheetListener {
 
-	private User user;
-
 	private ActionBar toolbar;
 	private int mPrevNavItem = 0;
 	private int mCurrentNavItem = 100083;
@@ -39,16 +37,12 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 
-		Log.i("OnCreate", "------------------------------------------");
-
-		user = User.From(getIntent().getExtras());
-
 		frag_map = new HashMap<>();
-		frag_map.put(R.id.navigation_home, new NewfeedsFragment(user));
-		frag_map.put(R.id.navigation_search, new SearchFragment(user));
+		frag_map.put(R.id.navigation_home, new NewfeedsFragment());
+		frag_map.put(R.id.navigation_search, new SearchFragment());
 //		frag_map.put(R.id.navigation_add_post, new NewfeedFragment());
-		frag_map.put(R.id.navigation_heart, new FollowFragment(user));
-		frag_map.put(R.id.navigation_profile, new ProfileFragment(user));
+		frag_map.put(R.id.navigation_heart, new FollowFragment());
+		frag_map.put(R.id.navigation_profile, new ProfileFragment());
 
 		toolbar = getSupportActionBar();
 		bottomNavigationView = findViewById(R.id.navigation_bar);
@@ -63,7 +57,6 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 				SetFragment(frag);
 			else {
 				Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
-				user.AddTo(myIntent);
 				startActivity(myIntent);
 			}
 
@@ -93,7 +86,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 			return true;
 		});
 
-		SetFragment(new NewfeedsFragment(user));
+		SetFragment(new NewfeedsFragment());
 	}
 
 	@Override
@@ -128,11 +121,12 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		}
 
 		if (text.equals("create_group")) {
+
 			Toast.makeText(getApplicationContext(), "Create Group", Toast.LENGTH_SHORT).show();
 
 			Intent mIntent = new Intent(getApplicationContext(), CreateGroupActivity.class);
-			user.AddTo(mIntent);
 			startActivity(mIntent);
+
 		} else {
 			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 		}

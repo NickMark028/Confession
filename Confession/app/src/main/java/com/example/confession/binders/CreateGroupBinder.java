@@ -1,12 +1,19 @@
 package com.example.confession.binders;
 
-public interface CreateGroupBinder {
-    interface View{
-        void OnCreateGroupSuccess(int code);
-        void OnCreateGroupFail(int error_code);
-    }
+import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.models.data.ConfessionGroupInfo;
 
-    interface Presenter{
-        void HandleCreateGroup(String group_name);
-    }
+public interface CreateGroupBinder {
+
+	interface View {
+
+		void OnCreateGroupSuccess(ConfessionGroup group);
+
+		void OnCreateGroupFail(int error_code);
+	}
+
+	interface Presenter {
+
+		void HandleCreateGroup(String short_name, String name);
+	}
 }
