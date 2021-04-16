@@ -1,15 +1,26 @@
 package com.example.confession.presenters;
 
 import com.example.confession.binders.CommentBinder;
+import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.PostCommentInfo;
 
 public class CommentPresenter implements CommentBinder.Presenter {
+
     CommentBinder.View view;
 
-    @Override
-    public void HandlePostComment(PostComment pc) {
-        //...
+    public CommentPresenter(CommentBinder.View view) {
 
-        view.OnPostCommentSuccess(200);
+        this.view = view;
+    }
+
+    @Override
+    public void HandlePostComment(GroupPost post, String content) {
+
+        PostCommentInfo info = new PostCommentInfo()
+        User user = User.GetInstance();
+        post.AddComment(info, user.GetBasicUserInfo());
+
     }
 }

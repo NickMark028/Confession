@@ -50,10 +50,6 @@ public class GroupPost {
 		return post_info.id;
 	}
 
-	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo user) {
-		return null;
-	}
-
 	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
 		return false;
 	}

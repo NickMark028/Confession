@@ -9,12 +9,12 @@ public interface CommentBinder {
 
 	interface View {
 
-		void OnPostCommentSuccess(int code);
+		void OnPostCommentSuccess();
 		void OnPostCommentFailure(int error_code);
 	}
 
 	interface Presenter {
 
-		void HandlePostComment(PostComment pc);
+		void HandlePostComment(String content);
 	}
 }

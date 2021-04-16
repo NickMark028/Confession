@@ -67,7 +67,7 @@ public class CommentActivity extends AppCompatActivity implements CommentBinder.
 
 	public void InitPresenter() {
 
-		this.presenter = new CommentPresenter();
+		this.presenter = new CommentPresenter(this);
 	}
 
 	public void InitView() {
@@ -121,7 +121,7 @@ public class CommentActivity extends AppCompatActivity implements CommentBinder.
 	}
 
 	@Override
-	public void OnPostCommentSuccess(int code) {
+	public void OnPostCommentSuccess() {
 
 	}
 

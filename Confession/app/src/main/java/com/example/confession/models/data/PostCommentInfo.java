@@ -11,6 +11,11 @@ public final class PostCommentInfo implements Serializable {
 	public final String content;
 	public final Date time_created;
 
+	public PostCommentInfo(BasicUserInfo commenter, String content) {
+
+		this("", commenter, content);
+	}
+
 	public PostCommentInfo(String id, BasicUserInfo commenter, String content) {
 
 		this.id = id;
