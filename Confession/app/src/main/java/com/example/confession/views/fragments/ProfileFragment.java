@@ -34,6 +34,7 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
     private ImageButton profile_open_post_btn;
     private LinearLayout profile_joined_group, profile_your_group,
             profile_edit_account_btn, profile_change_pass_btn, profile_faq_btn, profile_contact_us_btn;
+    private TextView profile_fullname, profile_email,profile_phone;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,10 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 
     private void InitView() {
         profile_txt_username_click = getView().findViewById(R.id.profile_txt_username_click);
+        profile_fullname = getView().findViewById(R.id.profile_fullname);
+        profile_email = getView().findViewById(R.id.profile_email);
+        profile_phone = getView().findViewById(R.id.profile_phone);
+
         profile_open_post_btn = getView().findViewById(R.id.profile_open_post_btn);
         profile_joined_group = getView().findViewById(R.id.profile_joined_group);
         profile_your_group = getView().findViewById(R.id.profile_your_group);
@@ -69,6 +74,13 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
         profile_change_pass_btn = getView().findViewById(R.id.profile_change_pass_btn);
         profile_faq_btn = getView().findViewById(R.id.profile_faq_btn);
         profile_contact_us_btn = getView().findViewById(R.id.profile_contact_us_btn);
+
+        //Set up data
+        profile_txt_username_click.setText(User.GetInstance().GetBasicUserInfo().username);
+        profile_fullname.setText(User.GetInstance().GetBasicUserInfo().name);
+        profile_email.setText(User.GetInstance().GetUserInfo().email);
+        profile_phone.setText(User.GetInstance().GetUserInfo().phone);
+
     }
 
     private void InitListener() {
