@@ -19,13 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.data.PostCommentInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CommentAdapter extends BaseAdapter {
 
 	Context context;
-	ArrayList<PostComment> comments;
+	ArrayList<PostCommentInfo> comments;
 
 	private LinearLayout ll_cmt_cover;
 	private ImageView iv_ava_user_cmt, iv_cmt_react;
@@ -34,7 +36,8 @@ public class CommentAdapter extends BaseAdapter {
 	private Drawable drawable;
 	private boolean full = false;
 	private ActionBar actionBar;
-	public CommentAdapter(Context context, ArrayList<PostComment> comments) {
+
+	public CommentAdapter(Context context, ArrayList<PostCommentInfo> comments) {
 
 		this.context = context;
 		this.comments = comments;
@@ -61,28 +64,26 @@ public class CommentAdapter extends BaseAdapter {
 		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
 		View row = inflater.inflate(R.layout.layout_comment, null);
 
-		//  Init view
-//		ImageView iv_avatar = row.findViewById(R.id.iv_avatar);
-//		TextView txt_group_name = row.findViewById(R.id.txt_group_name);
-//		TextView txt_member_count = row.findViewById(R.id.txt_member_count);
-//		Button btn_join = row.findViewById(R.id.btn_join);
-//
-		// Init data
-//		ConfessionGroup group = groups.get(i);
-////		iv_avatar.setBackgroundResource(...);
-//		txt_group_name.setText(group.GetGroupInfo().name);
-//		txt_member_count.setText(group.GetMemberCount());
-//
-//		// Init listener
-//		btn_join.setOnClickListener(view1 -> {
-//			//...
-//		});
-//
+		InitView(view);
+		InitProperty(i);
+		InitListener();
 
 		return row;
 	}
 
-	public void InitView(View view){
+	private void InitProperty(int i) {
+
+		PostCommentInfo comment = comments.get(i);
+		txt_username_message.setText(String.format("<b> {0} </b> {1}", comment.commenter, comment.content));
+
+		SimpleDateFormat formatter = new SimpleDateFormat();
+		txt_cmt_time.setText(formatter.format(comment.time_created));
+
+		// Todo Add avatar here
+	}
+
+	public void InitView(View view) {
+
 		ll_cmt_cover = view.findViewById(R.id.ll_cmt_cover);
 		iv_ava_user_cmt = view.findViewById(R.id.iv_ava_user_cmt);
 		iv_cmt_react = view.findViewById(R.id.iv_cmt_react);
@@ -111,8 +112,6 @@ public class CommentAdapter extends BaseAdapter {
 
 
 	}
-
-
 
 	private void HeartAnimate(View view) {
 		AnimatedVectorDrawable drawable

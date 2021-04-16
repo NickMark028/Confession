@@ -1,18 +1,22 @@
 package com.example.confession.models.data;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public final class PostCommentInfo implements Serializable {
 
 	public final String id;
 	public final BasicUserInfo commenter;
 	public final String content;
+	public final Date time_created;
 
 	public PostCommentInfo(String id, BasicUserInfo commenter, String content) {
 
 		this.id = id;
 		this.commenter = commenter;
 		this.content = content;
+		time_created = Calendar.getInstance().getTime();
 	}
 
 	@Override
