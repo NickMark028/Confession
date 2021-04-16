@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.binders.ProfileTabBinder;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.ForgotPasswordPresenter;
+import com.example.confession.views.activities.CreateGroupActivity;
 import com.example.confession.views.activities.SignInActivity;
 import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
@@ -80,7 +82,6 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
         profile_change_pass_btn = getView().findViewById(R.id.profile_change_pass_btn);
         profile_faq_btn = getView().findViewById(R.id.profile_faq_btn);
         profile_contact_us_btn = getView().findViewById(R.id.profile_contact_us_btn);
-
     }
 
     private void InitListener() {
@@ -103,6 +104,14 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
                 ProfileCreateNewBottomSheet bottomSheet = new ProfileCreateNewBottomSheet();
                 assert getFragmentManager() != null;
                 bottomSheet.show(getFragmentManager(), "create_new");
+
+                int result = bottomSheet.GetResult();
+
+                if(result == 1){
+//                    Intent mIntent = new Intent(getActivity().getApplicationContext(), CreateGroupActivity.class);
+//                    user.AddTo(mIntent);
+//                    startActivity(mIntent);
+                }
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.confession;
+package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.confession.R;
+import com.example.confession.adapters.GroupListAdapter;
+import com.example.confession.models.behaviors.User;
+
 public class CreatePostGroupListActivity extends AppCompatActivity {
+
+    private User user;
 
     private ImageView iv_group_list_back;
     private ListView lv_create_post_group_list;
@@ -26,6 +32,7 @@ public class CreatePostGroupListActivity extends AppCompatActivity {
         iv_group_list_back = findViewById(R.id.iv_group_list_back);
         lv_create_post_group_list = findViewById(R.id.lv_create_post_group_list);
 
+        lv_create_post_group_list.setAdapter(new GroupListAdapter(getApplicationContext(), user.GetFollowedGroups()));
     }
 
     public void InitListener(){
@@ -35,7 +42,5 @@ public class CreatePostGroupListActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }

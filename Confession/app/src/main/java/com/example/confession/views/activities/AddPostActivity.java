@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.confession.CreatePostGroupListActivity;
+
 import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.models.behaviors.GroupPost;
@@ -84,6 +84,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         addp_post_img_added = findViewById(R.id.addp_post_img_added);
 
         addp_post_username.setText(user.GetBasicUserInfo().name);
+
     }
 
     private void InitListener() {
@@ -104,7 +105,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             public void onClick(View view) {
                 //Open list group activity
 
-                Intent intent = new Intent(getApplicationContext(),CreatePostGroupListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreatePostGroupListActivity.class);
                 startActivity(intent);
             }
         });
