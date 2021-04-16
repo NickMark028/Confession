@@ -9,11 +9,13 @@ public interface SignUpBinder {
     interface View {
 
         void OnSignUpSuccess();
+
         void OnSignUpFailure(int error_code);
     }
 
     interface Presenter {
 
-        void HandleSignUp(String username, String email, String phone, String password, String confirm_pass);
+        // Todo: Add avatar here
+        void HandleSignUp(String name, String username, String email, String phone, String password, String confirm_pass);
     }
 }

@@ -1,5 +1,10 @@
 package com.example.confession.presenters;
 
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.Image;
+import android.widget.ImageView;
+
 import com.example.confession.binders.SignUpBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
@@ -15,17 +20,14 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 	}
 
 	@Override
-	public void HandleSignUp(String username, String email, String phone, String password, String confirm_pass) {
+	public void HandleSignUp(String name, String username, String email, String phone, String password, String confirm_pass) {
 
-		// TODO Add encryption to password
 		if (!password.equals(confirm_pass)) {
 			view.OnSignUpFailure(1);
 			return;
 		}
 
-		// TODO Hash password
 		String hash_pass = Hashing.SHA512(password);
-
 		BasicUserInfo basic_user_info = new BasicUserInfo(username, "Add a name here", "Add avatar here");
 		UserInfo user_info = new UserInfo(basic_user_info, email, phone);
 
