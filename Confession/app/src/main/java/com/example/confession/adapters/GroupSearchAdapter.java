@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 
 import org.w3c.dom.Text;
@@ -90,11 +91,12 @@ public class GroupSearchAdapter extends BaseAdapter {
 	}
 
 	public void InitData(int pos){
-		ConfessionGroup group = groups.get(pos);
-		ConfessionGroupInfo cgi = group.GetGroupInfo();
+		//ConfessionGroup group = groups.get(pos);
+		ConfessionGroupInfo cgi = group.get(pos);
 		//search_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 		search_gr_name.setText(cgi.name);
-		search_gr_member.setText(group.GetMemberCount());
+		search_gr_member.setText(Integer.toString(cgi.members));
+
 	}
 
 	//Kiem tra User co trong Group khong
