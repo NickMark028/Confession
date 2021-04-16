@@ -20,20 +20,20 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 	}
 
 	@Override
-	public void HandleSignUp(String name, String username, String email, String phone, String password, String confirm_pass) {
+	public void HandleSignUp(String name, String username, String email, String phone, String password, String confirm_pass, Object avatar) {
 
 		if (!password.equals(confirm_pass)) {
-			view.OnSignUpFailure(1);
+			view.OnSignUpFailure("Password doesn't match");
 			return;
 		}
 
 		String hash_pass = Hashing.SHA512(password);
-		BasicUserInfo basic_user_info = new BasicUserInfo(username, "Add a name here", "Add avatar here");
+		BasicUserInfo basic_user_info = new BasicUserInfo(username, "Add a name here", avatar);
 		UserInfo user_info = new UserInfo(basic_user_info, email, phone);
 
 		if (User.Register(user_info, hash_pass))
 			view.OnSignUpSuccess();
 		else
-			view.OnSignUpFailure(2);
+			view.OnSignUpFailure("Failed to create account");
 	}
 }

@@ -74,11 +74,11 @@ public class GroupPost {
 		return group;
 	}
 
-	public PostComment AddComment(PostCommentInfo comment, UserInfo member)
+	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", member.auth_token);
-		params.put("memberid", member.basic_info.id);
+		params.put("token", User.GetAuthToken());
+		params.put("memberid", member.id);
 		params.put("postid", comment.id);
 		params.put("content", comment.content);
 

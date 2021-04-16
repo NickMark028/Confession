@@ -3,9 +3,8 @@ package com.example.confession.presenters;
 import com.example.confession.binders.CommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.PostCommentInfo;
-import com.example.confession.models.data.UserInfo;
 
 public class CommentPresenter implements CommentBinder.Presenter {
 
@@ -17,9 +16,14 @@ public class CommentPresenter implements CommentBinder.Presenter {
     }
 
     @Override
-    public void HandlePostComment(GroupPost post, UserInfo user, String content) {
+    public void HandlePostComment(GroupPost post, BasicUserInfo user, String content) {
 
-        PostCommentInfo info = new PostCommentInfo(user.basic_info, content);
-        post.AddComment(info, user);
+        PostCommentInfo info = new PostCommentInfo(user, content);
+        PostComment comment = post.AddComment(info, user);
+
+        if (comment != null)
+            view.OnPostCommentSuccess();
+        else
+            view.OnPostCommentFailure("Failed to add comment");
     }
 }

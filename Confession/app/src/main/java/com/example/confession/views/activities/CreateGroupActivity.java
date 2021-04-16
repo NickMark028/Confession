@@ -98,7 +98,7 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     @Override
-    public void OnCreateGroupFail(int error_code) {
+    public void OnCreateGroupFail(String error) {
 
         Toast.makeText(this, "Failed to create group", Toast.LENGTH_LONG).show();
     }

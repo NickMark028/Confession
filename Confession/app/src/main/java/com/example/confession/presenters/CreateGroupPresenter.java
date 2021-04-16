@@ -23,6 +23,6 @@ public class CreateGroupPresenter implements CreateGroupBinder.Presenter {
 		if (group != null)
 			view.OnCreateGroupSuccess(group);
 		else
-			view.OnCreateGroupFail(1);
+			view.OnCreateGroupFail("Duplicate short name");
 	}
 }

@@ -148,7 +148,7 @@ public class ConfessionGroup {
 		return groups;
 	}
 
-	public ArrayList<BasicUserInfo> GetPendingUsers(UserInfo admin) {
+	public ArrayList<BasicUserInfo> GetPendingUsers(BasicUserInfo admin) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", this.group_info.id);
 
@@ -184,9 +184,9 @@ public class ConfessionGroup {
 		return users;
 	}
 
-	public boolean AcceptUser(BasicUserInfo user, UserInfo admin) {
+	public boolean AcceptUser(BasicUserInfo user, BasicUserInfo admin) {
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", admin.auth_token);
+		params.put("token", User.GetAuthToken());
 		params.put("confession", this.group_info.id);
 		params.put("premem", user.id); // Có nguy cơ sai.
 
@@ -210,11 +210,11 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	public boolean RejectUser(BasicUserInfo user, UserInfo admin) {
+	public boolean RejectUser(BasicUserInfo user, BasicUserInfo admin) {
 		return false;
 	}
 
-	public ArrayList<BasicUserInfo> GetMembers(UserInfo admin) {
+	public ArrayList<BasicUserInfo> GetMembers(BasicUserInfo admin) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", this.group_info.id);
 
@@ -253,7 +253,7 @@ public class ConfessionGroup {
 		return members;
 	}
 
-	public ArrayList<BasicUserInfo> GetAdmins(UserInfo admin) {
+	public ArrayList<BasicUserInfo> GetAdmins(BasicUserInfo admin) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", this.group_info.id);
 
@@ -315,12 +315,12 @@ public class ConfessionGroup {
 		return null;
 	} // Check lại api không trả ra []
 
-	public GroupPost CreatePost(GroupPostInfo post, UserInfo member) {
+	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", member.auth_token);
+		params.put("token", User.GetAuthToken());
 		params.put("confessionid", this.group_info.id);
-		params.put("memberid", member.basic_info.id);
+		params.put("memberid", member.id);
 		params.put("title", post.id);
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
@@ -345,7 +345,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetPosts(UserInfo member) // Hoạt động tốt.
+	public ArrayList<GroupPost> GetPosts(BasicUserInfo member) // Hoạt động tốt.
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", this.group_info.id);
@@ -376,7 +376,7 @@ public class ConfessionGroup {
 					String username = poster.getString("username");
 					String fullname = poster.getString("fullname");
 					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
-					BasicUserInfo approver = member.basic_info;
+					BasicUserInfo approver = member;
 					String content = item.getString("content");
 
 					GroupPostInfo post_info = new GroupPostInfo(id, author, approver, content);

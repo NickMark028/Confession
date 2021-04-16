@@ -9,7 +9,7 @@ public interface CreateGroupBinder {
 
 		void OnCreateGroupSuccess(ConfessionGroup group);
 
-		void OnCreateGroupFail(int error_code);
+		void OnCreateGroupFail(String error);
 	}
 
 	interface Presenter {

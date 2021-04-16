@@ -1,21 +1,18 @@
 package com.example.confession.binders;
 
 import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.data.UserInfo;
-
-import java.util.ArrayList;
+import com.example.confession.models.data.BasicUserInfo;
 
 public interface CommentBinder {
 
 	interface View {
 
 		void OnPostCommentSuccess();
-		void OnPostCommentFailure(int error_code);
+		void OnPostCommentFailure(String error);
 	}
 
 	interface Presenter {
 
-		void HandlePostComment(GroupPost post, UserInfo user, String content);
+		void HandlePostComment(GroupPost post, BasicUserInfo user, String content);
 	}
 }

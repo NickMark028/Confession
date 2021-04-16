@@ -209,7 +209,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     }
 
     @Override
-    public void AddPostFailure(int error_code) {
+    public void AddPostFailure(String error) {
 
     }
 }

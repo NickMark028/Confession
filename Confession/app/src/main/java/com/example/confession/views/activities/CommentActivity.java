@@ -126,7 +126,7 @@ public class CommentActivity extends AppCompatActivity implements CommentBinder.
 	}
 
 	@Override
-	public void OnPostCommentFailure(int error_code) {
+	public void OnPostCommentFailure(String error) {
 
 	}
 }

@@ -20,7 +20,14 @@ import java.util.HashMap;
 
 public class User {
 
-	protected final UserInfo user_info;
+	public final UserInfo user_info;           // Todo temp
+	private static String auth_token = null;
+
+	public static String GetAuthToken() {
+
+		return auth_token;
+	}
+
 	private static User instance = null;
 
 	private User(UserInfo user_info) {
@@ -33,23 +40,13 @@ public class User {
 		return instance;
 	}
 
-//	public static User From(Bundle bundle) {
-//
-//		UserInfo user_info = (UserInfo) bundle.getSerializable("user_info");
-//		return new User(user_info);
-//	}
-//
-//	public void AddTo(Intent intent) {
-//
-//		intent.putExtra("user_info", this.user_info);
-//	}
-
 	public BasicUserInfo GetBasicUserInfo() {
 
 		return user_info.basic_info;
 	}
 
 	public static boolean Register(UserInfo user, String password) {
+
 		HashMap params = new HashMap<String, String>();
 		params.put("username", user.basic_info.username);
 		params.put("password", password);
@@ -99,13 +96,14 @@ public class User {
 				String token = obj.getString("token");
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
+
+
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone, token);
-				User user = new User(info);
+				instance = new User(info);
+				auth_token = token;
 
-				instance = user;
-
-				return user;
+				return instance;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

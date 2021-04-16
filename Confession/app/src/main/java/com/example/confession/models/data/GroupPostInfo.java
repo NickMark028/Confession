@@ -12,10 +12,15 @@ public final class GroupPostInfo implements Serializable {
 	public final BasicUserInfo approver;
 	public final String content;
 
+	public GroupPostInfo(BasicUserInfo author, BasicUserInfo approver, String content) {
+
+		this("", author, approver, content);
+	}
+
 	public GroupPostInfo(String id, BasicUserInfo author, BasicUserInfo approver, String content) {
 
 		this.id = id;
-		this.time_created = Calendar.getInstance().getTime();
+		this.time_created = Calendar.getInstance().getTime();       // Todo Temp
 		this.author = author;
 		this.approver = approver;
 		this.content = content;
