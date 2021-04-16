@@ -44,6 +44,11 @@ public class User {
 //		intent.putExtra("user_info", this.user_info);
 //	}
 
+	//(An) add for getting Email and Phone
+	public UserInfo GetUserInfo(){
+		return user_info;
+	}
+
 	public BasicUserInfo GetBasicUserInfo() {
 
 		return user_info.basic_info;
