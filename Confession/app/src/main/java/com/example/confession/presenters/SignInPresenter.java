@@ -20,7 +20,7 @@ public class SignInPresenter implements SignInBinder.Presenter {
 
 	@Override
 	public void HandleLogin(String username, String password) {
-//		view.OnLoginSuccess(user);
+
 		user = User.Login(username, password);
 
 		// Todo: Change to sha password

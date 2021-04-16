@@ -2,6 +2,7 @@ package com.example.confession.binders;
 
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.data.UserInfo;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,6 @@ public interface CommentBinder {
 
 	interface Presenter {
 
-		void HandlePostComment(String content);
+		void HandlePostComment(GroupPost post, UserInfo user, String content);
 	}
 }

@@ -5,6 +5,7 @@ import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.PostCommentInfo;
+import com.example.confession.models.data.UserInfo;
 
 public class CommentPresenter implements CommentBinder.Presenter {
 
@@ -15,17 +16,10 @@ public class CommentPresenter implements CommentBinder.Presenter {
         this.view = view;
     }
 
-//    @Override
-//    public void HandlePostComment(GroupPost post, String content) {
-//
-////        PostCommentInfo info = new PostCommentInfo();
-////        User user = User.GetInstance();
-////        post.AddComment(info, User.GetInstance());
-
-//    }
-
     @Override
-    public void HandlePostComment(String content) {
+    public void HandlePostComment(GroupPost post, UserInfo user, String content) {
 
+        PostCommentInfo info = new PostCommentInfo(user.basic_info, content);
+        post.AddComment(info, user);
     }
 }
