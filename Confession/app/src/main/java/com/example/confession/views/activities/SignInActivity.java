@@ -46,8 +46,8 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		si_button = findViewById(R.id.si_button);
 		fb_button = findViewById(R.id.fb_button);
 		google_button = findViewById(R.id.google_button);
-		txt_su_click= findViewById(R.id.txt_su_click);
-		forgot_pass_click= findViewById(R.id.forgot_pass_click);
+		txt_su_click = findViewById(R.id.txt_su_click);
+		forgot_pass_click = findViewById(R.id.forgot_pass_click);
 	}
 
 	private void InitListener() {
