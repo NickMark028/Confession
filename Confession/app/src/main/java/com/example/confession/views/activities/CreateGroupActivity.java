@@ -22,8 +22,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupBinder.View {
 
-    private User user;
-
     private CreateGroupPresenter presenter;
     private ImageButton create_post_close_btn;
     private TextInputEditText create_group_name;
@@ -34,8 +32,6 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
-        user = User.From(getIntent().getExtras());
 
         InitPresenter();
         InitView();
