@@ -23,12 +23,6 @@ public class User {
 
 	public final UserInfo user_info;           // Todo temp
 	private static String auth_token = null;
-
-	public static String GetAuthToken() {
-
-		return auth_token;
-	}
-
 	private static User instance = null;
 
 	private User(UserInfo user_info) {
@@ -41,14 +35,15 @@ public class User {
 		return instance;
 	}
 
+	public static String GetAuthToken() {
+
+		return auth_token;
+	}
+
+	@Deprecated
 	public BasicUserInfo GetBasicUserInfo() {
 
 		return user_info.basic_info;
-	}
-
-	public String GetID()
-	{
-		return user_info.basic_info.id;   
 	}
 
 	public static boolean Register(UserInfo user, String password) {
@@ -116,6 +111,11 @@ public class User {
 		return null;
 	}
 
+	public String GetID()
+	{
+		return user_info.basic_info.id;
+	}
+
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 		HashMap params = new HashMap<String, String>();
 		params.put("token", user_info.auth_token);
@@ -149,7 +149,7 @@ public class User {
 		return confession;
 	}
 
-	public boolean JoinGroup(ConfessionGroupInfo group) {
+	public boolean JoinGroup(String group_id) {
 		HashMap params = new HashMap<String, String>();
 		params.put("token", user_info.auth_token);
 		params.put("confession", group.id);
@@ -175,7 +175,7 @@ public class User {
 		return false;
 	}
 
-	public boolean LeaveGroup(ConfessionGroup group) {
+	public boolean LeaveGroup(String group_id) {
 		return false;
 	}
 
@@ -220,12 +220,12 @@ public class User {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetPastPosts() {
+	public ArrayList<GroupPostInfo> GetPastPosts() {
 
 		return null;
 	}
 
-	public boolean IsAdmin(ConfessionGroup group) {
+	public boolean IsAdmin(String group_id) {
 
 		return false;
 	}
