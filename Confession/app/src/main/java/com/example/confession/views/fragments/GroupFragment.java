@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 
 import com.example.confession.R;
 import com.example.confession.binders.GroupBinder;
+import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.views.bottomsheet.GroupUserManageBottomSheet;
 
 /**
@@ -33,6 +35,8 @@ public class GroupFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 	private String mTag;
+	private ConfessionGroupInfo cgi;
+
 	private String user_role = "ROLE_ADMIN";
 	private LinearLayout ll_post_in_group, ll_noti_join_group;
 	private ImageView iv_group_back_btn, iv_group_setting_btn;
@@ -52,11 +56,19 @@ public class GroupFragment extends Fragment {
 	 * @return A new instance of fragment GroupFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static GroupFragment newInstance(String param1, String param2) {
+//	public static GroupFragment newInstance(String param1, String param2) {
+//		GroupFragment fragment = new GroupFragment();
+//		Bundle args = new Bundle();
+//		args.putString(ARG_PARAM1, param1);
+//		args.putString(ARG_PARAM2, param2);
+//		fragment.setArguments(args);
+//		return fragment;
+//	}
+
+	public static GroupFragment newInstance(ConfessionGroupInfo cgi) {
 		GroupFragment fragment = new GroupFragment();
 		Bundle args = new Bundle();
-		args.putString(ARG_PARAM1, param1);
-		args.putString(ARG_PARAM2, param2);
+		args.putSerializable("group_info", cgi);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -67,8 +79,11 @@ public class GroupFragment extends Fragment {
 		if (getArguments() != null) {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
+
+			cgi = (ConfessionGroupInfo) getArguments().getSerializable("group_info");
 		}
 		mTag = this.getTag();
+		//User.GetInstance().IsAdmin(cgi.id);
 	}
 
 	@Override
