@@ -8,6 +8,7 @@ import com.example.confession.models.api.ApiGet;
 import com.example.confession.models.api.ApiPost;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.UserInfo;
 
 import org.json.JSONArray;
@@ -22,12 +23,6 @@ public class User {
 
 	public final UserInfo user_info;           // Todo temp
 	private static String auth_token = null;
-
-	public static String GetAuthToken() {
-
-		return auth_token;
-	}
-
 	private static User instance = null;
 
 	private User(UserInfo user_info) {
@@ -52,8 +47,14 @@ public class User {
 //	}
 
 	//(An) add for getting Email and Phone
+	
 	public UserInfo GetUserInfo(){
 		return user_info;
+	}
+
+	public static String GetAuthToken() {
+
+		return auth_token;
 	}
 
 	public BasicUserInfo GetBasicUserInfo() {
@@ -113,7 +114,6 @@ public class User {
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
 
-
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone, token);
 				instance = new User(info);
@@ -127,9 +127,15 @@ public class User {
 		return null;
 	}
 
+	public String GetID()
+	{
+		return user_info.basic_info.id;
+	}
+
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
+
 		HashMap params = new HashMap<String, String>();
-		params.put("token", user_info.auth_token);
+		params.put("token", User.GetAuthToken());
 		params.put("shortname", group.short_name);
 		params.put("groupname", group.name);
 		params.put("avatar", group.avatar);
@@ -160,10 +166,10 @@ public class User {
 		return confession;
 	}
 
-	public boolean JoinGroup(ConfessionGroupInfo group) {
+	public boolean JoinGroup(String group_id) {
 		HashMap params = new HashMap<String, String>();
-		params.put("token", user_info.auth_token);
-		params.put("confession", group.id);
+		params.put("token", User.GetAuthToken());
+		params.put("confession", group_id);
 
 		ApiPost ap = new ApiPost("confession/join", params);
 		Thread t = new Thread(ap);
@@ -173,9 +179,8 @@ public class User {
 		}
 
 		Log.d("Response", ap.response);
-		JSONObject obj = null;
 		try {
-			obj = new JSONObject(ap.response);
+			JSONObject obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
 				return true;
 			}
@@ -186,14 +191,15 @@ public class User {
 		return false;
 	}
 
-	public boolean LeaveGroup(ConfessionGroup group) {
+	public boolean LeaveGroup(String group_id) {
 		return false;
 	}
 
-	public ArrayList<ConfessionGroup> GetFollowedGroups() {
-		ArrayList<ConfessionGroup> groups = new ArrayList<ConfessionGroup>();
+	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
+
+		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
-		params.put("token", this.user_info.auth_token);
+		params.put("token", User.GetAuthToken());
 		ApiGet ag = new ApiGet("user/joinedconf", params);
 
 		Thread t = new Thread(ag);
@@ -203,9 +209,9 @@ public class User {
 		}
 
 		Log.d("Response", ag.response);
-		JSONObject obj = null;
+
 		try {
-			obj = new JSONObject(ag.response);
+			JSONObject obj = new JSONObject(ag.response);
 			if (!obj.has("error")) {
 				JSONArray items = new JSONArray(ag.response);
 				for (int i = 0; i < items.length(); i++) {
@@ -215,7 +221,7 @@ public class User {
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
 					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
-					groups.add(new ConfessionGroup(group_info));
+					groups.add(group_info);
 				}
 				return groups;
 			}
@@ -225,17 +231,23 @@ public class User {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetNewsfeed() {
+	// Phong them jum ham nay nha
+	public ArrayList<ConfessionGroupInfo> GetCreatedGroups()
+	{
+		return null;
+	}
+
+	public ArrayList<GroupPostInfo> GetNewsfeed() {
 
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetPastPosts() {
+	public ArrayList<GroupPostInfo> GetPastPosts() {
 
 		return null;
 	}
 
-	public boolean IsAdmin(ConfessionGroup group) {
+	public boolean IsAdmin(String group_id) {
 
 		return false;
 	}

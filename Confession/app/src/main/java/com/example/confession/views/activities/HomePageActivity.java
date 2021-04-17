@@ -60,26 +60,6 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 				startActivity(myIntent);
 			}
 
-//				switch (item.getItemId()) {
-//					// TODO change to newsfeed agian
-//					case R.id.navigation_home:
-//						SetFragment(new NewfeedFragment());
-//						break;
-//					case R.id.navigation_search:
-//						SetFragment(new SearchFragment());
-//						break;
-//					case R.id.navigation_add_post:
-//						//SetFragment(new AddFragment());
-//						Intent myIntent = new Intent(getApplicationContext(), AddPostActivity.class);
-//						startActivity(myIntent);
-//						break;
-//					case R.id.navigation_heart:
-//						SetFragment(new FollowFragment());
-//						break;
-//					case R.id.navigation_profile:
-//						SetFragment(new ProfileFragment());
-//						break;
-//				}
 			mPrevNavItem = mCurrentNavItem;
 			mCurrentNavItem = item.getItemId();
 			item.setChecked(true);

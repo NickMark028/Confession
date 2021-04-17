@@ -7,6 +7,8 @@ import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
 import com.example.confession.models.data.UserInfo;
 
+import java.util.ArrayList;
+
 public class PostComment {
 
 	protected final PostCommentInfo comment_info;
@@ -36,6 +38,31 @@ public class PostComment {
 
 	public String GetID(){
 		return comment_info.id;
+	}
+
+	public PostComment AddComment(PostCommentInfo comment, String auth_token)
+	{
+		return null;
+	}
+
+	public ArrayList<PostCommentInfo> GetComments(String auth_token)
+	{
+		return null;
+	}
+
+	public boolean RemoveComment(String comment_id, String from_user_id, String auth_token)
+	{
+		return false;
+	}
+
+	public boolean React(String user_id, String auth_token)
+	{
+		return false;
+	}
+
+	public int GetReactionCount(String auth_token)
+	{
+		return 0;
 	}
 
 	@Override

@@ -8,9 +8,13 @@ public final class GroupPostInfo implements Serializable {
 
 	public final String id;
 	public final Date time_created;
-	public final BasicUserInfo author;
+	private final BasicUserInfo author;
 	public final BasicUserInfo approver;
 	public final String content;
+
+	// TODO Related
+	public int reaction_count;
+	public boolean react;
 
 	public GroupPostInfo(BasicUserInfo author, BasicUserInfo approver, String content) {
 

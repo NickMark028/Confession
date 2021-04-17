@@ -1,11 +1,14 @@
 package com.example.confession.models.data;
 
+import android.os.Bundle;
+
 import java.io.Serializable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class ConfessionGroupInfo implements Serializable {
 
 	public final String id;
-	public final String short_name;
+	public final String short_name;     // TODO ????
 	public final String name;
 	public final String avatar;
 	public int members = 110;
@@ -26,6 +29,11 @@ public final class ConfessionGroupInfo implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.avatar = avatar;
+	}
+
+	public static ConfessionGroupInfo From(Bundle bundle) {
+
+		return (ConfessionGroupInfo) bundle.getSerializable("group_info");
 	}
 
 	public int getMembers() {

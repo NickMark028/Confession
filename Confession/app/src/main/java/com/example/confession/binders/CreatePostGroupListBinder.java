@@ -2,20 +2,20 @@ package com.example.confession.binders;
 
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.data.GroupPostInfo;
+import com.example.confession.models.data.ConfessionGroupInfo;
 
 import java.util.ArrayList;
 
-public interface GroupBinder {
+public interface CreatePostGroupListBinder {
 
 	interface View {
 
-		void OnGetPostsSuccess(ArrayList<GroupPostInfo> posts);
-		void OnGetPostsFailure(String error);
+		void OnGetGroupsSuccess(ArrayList<ConfessionGroupInfo> groups);
+		void OnGetGroupsFailure(String error);
 	}
 
 	interface Presenter {
 
-		void HandleGetPosts(ConfessionGroup group);
+		void HandleGetGroups();
 	}
 }
