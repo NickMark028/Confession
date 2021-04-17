@@ -117,6 +117,7 @@ public class User {
 	}
 
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
+
 		HashMap params = new HashMap<String, String>();
 		params.put("token", user_info.auth_token);
 		params.put("shortname", group.short_name);
@@ -152,7 +153,7 @@ public class User {
 	public boolean JoinGroup(String group_id) {
 		HashMap params = new HashMap<String, String>();
 		params.put("token", user_info.auth_token);
-		params.put("confession", group.id);
+		params.put("confession", group_id);
 
 		ApiPost ap = new ApiPost("confession/join", params);
 		Thread t = new Thread(ap);
@@ -162,9 +163,8 @@ public class User {
 		}
 
 		Log.d("Response", ap.response);
-		JSONObject obj = null;
 		try {
-			obj = new JSONObject(ap.response);
+			JSONObject obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
 				return true;
 			}
