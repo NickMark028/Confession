@@ -200,7 +200,11 @@ public class User {
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
-		ApiGet ag = new ApiGet("user/joinedconf", params);
+
+		//An - fix url API
+		String url = "user/joinedconf";
+
+		ApiGet ag = new ApiGet(url, params);
 
 		Thread t = new Thread(ag);
 		t.start();
@@ -211,9 +215,12 @@ public class User {
 		Log.d("Response", ag.response);
 
 		try {
-			JSONObject obj = new JSONObject(ag.response);
-			if (!obj.has("error")) {
-				JSONArray items = new JSONArray(ag.response);
+			//(An) Array tra ra []Array chu khong tra ra Object
+//			JSONObject obj = new JSONObject(ag.response);
+
+			JSONArray items = new JSONArray(ag.response);
+			if (!items.isNull(0)) {
+
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String id = item.getString("_id");
