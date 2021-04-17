@@ -15,6 +15,7 @@ import com.example.confession.adapters.GroupListAdapter;
 import com.example.confession.binders.CreatePostGroupListBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.CreatePostGroupListPresenter;
 
 import java.util.ArrayList;
@@ -51,7 +52,9 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				Intent data = new Intent();
 				ConfessionGroup group = (ConfessionGroup)adapterView.getSelectedItem();
+				group.AddTo(data);
 				setResult(101, data);
+				finish();
 			}
 		});
 
@@ -61,7 +64,7 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	}
 
 	@Override
-	public void OnGetGroupsSuccess(ArrayList<ConfessionGroup> groups) {
+	public void OnGetGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 
 		GroupListAdapter adapter = new GroupListAdapter(this, groups);
 		lv_create_post_group_list.setAdapter(adapter);
@@ -70,10 +73,5 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	@Override
 	public void OnGetGroupsFailure(String error) {
 
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
 	}
 }

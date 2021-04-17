@@ -10,7 +10,7 @@ public interface CreatePostGroupListBinder {
 
 	interface View {
 
-		void OnGetGroupsSuccess(ArrayList<ConfessionGroup> groups);
+		void OnGetGroupsSuccess(ArrayList<ConfessionGroupInfo> groups);
 		void OnGetGroupsFailure(String error);
 	}
 

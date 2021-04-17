@@ -3,6 +3,7 @@ package com.example.confession.presenters;
 import com.example.confession.binders.CreatePostGroupListBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class CreatePostGroupListPresenter implements CreatePostGroupListBinder.P
 	public void HandleGetGroups() {
 
 		User user = User.GetInstance();
-		ArrayList<ConfessionGroup> groups = user.GetFollowedGroups();
+		ArrayList<ConfessionGroupInfo> groups = user.GetFollowedGroups();
 
 		if (groups != null)
 			view.OnGetGroupsSuccess(groups);

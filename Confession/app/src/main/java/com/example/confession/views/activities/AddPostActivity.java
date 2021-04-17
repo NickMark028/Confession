@@ -28,8 +28,10 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.AddPostPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -101,7 +103,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                 Intent intent = new Intent(getApplicationContext(), CreatePostGroupListActivity.class);
                 Bundle return_data = new Bundle();
                 startActivityForResult(intent, 0, return_data);
-                COnfe
+
             }
         });
 
@@ -200,14 +202,14 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         }
         else if (requestCode == 101 && resultCode == RESULT_OK)
         {
-        	data
+            ConfessionGroupInfo group = ConfessionGroupInfo.From(data.getExtras());
+            ap_get_gr_list_btn.setText(group.name);
         }
         else{
             Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, AddPostActivity.class));
             finish();
         }
-
     }
 
     @Override
