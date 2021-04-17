@@ -71,4 +71,9 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	public void OnGetGroupsFailure(String error) {
 
 	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+	}
 }

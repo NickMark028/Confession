@@ -203,6 +203,7 @@ public class ConfessionGroup {
 			JSONArray items = obj.getJSONArray("members");
 
 			for (int i = 0; i < items.length(); i++) {
+
 				JSONObject item = items.getJSONObject(i);
 				JSONObject subitem = item.getJSONObject("userid");
 
@@ -213,7 +214,6 @@ public class ConfessionGroup {
 				BasicUserInfo user = new BasicUserInfo(id, username, name, avatar);
 				members.add(user);
 			}
-
 
 		}
 	} catch (JSONException e) {
@@ -262,29 +262,29 @@ public class ConfessionGroup {
 		return admins;
 	}
 
-	public static ArrayList<ConfessionGroupInfo> GetAll() {
-
-		HashMap<String, String> params = new HashMap<>();
-		ApiGet ag = new ApiGet("confession/", params);
-		Thread t = new Thread(ag);
-		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy tất cả confession...");
-		}
-
-		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
-		Log.d("Response", ag.response);
-		JSONObject obj = null;
-		try {
-			obj = new JSONObject(ag.response);
-			if (!obj.has("error")) {
-
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
-	} // Check lại api không trả ra []
+//	public static ArrayList<ConfessionGroupInfo> GetAll() {
+//
+//		HashMap<String, String> params = new HashMap<>();
+//		ApiGet ag = new ApiGet("confession/", params);
+//		Thread t = new Thread(ag);
+//		t.start();
+//		while (!ag.isComplete) {
+//			Log.d("Thread API: ", "Đang lấy tất cả confession...");
+//		}
+//
+//		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
+//		Log.d("Response", ag.response);
+//		JSONObject obj = null;
+//		try {
+//			obj = new JSONObject(ag.response);
+//			if (!obj.has("error")) {
+//
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	} // Check lại api không trả ra []
 
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -351,9 +351,9 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetPosts() // Hoạt động tốt.
+	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
-		HashMap<String, String> params = new HashMap<String, String>();
+		HashMap<String, String> params = new HashMap<>();
 		params.put("conf", this.group_info.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
@@ -364,7 +364,7 @@ public class ConfessionGroup {
 			Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
 		}
 
-		ArrayList<GroupPost> posts = new ArrayList<GroupPost>();
+		ArrayList<GroupPostInfo> posts = new ArrayList<>();
 		Log.e("Response", ag.response);
 		JSONObject obj = null;
 		try {
@@ -382,18 +382,25 @@ public class ConfessionGroup {
 					String username = poster.getString("username");
 					String fullname = poster.getString("fullname");
 					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
-					BasicUserInfo approver = member;
+
+					// TODO: Change approver to the one who approved the post
+					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
+
 					String content = item.getString("content");
 
 					GroupPostInfo post_info = new GroupPostInfo(id, author, approver, content);
-					GroupPost post = new GroupPost(post_info, this.group_info);
-					posts.add(post);
+					posts.add(post_info);
 				}
 				return posts;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token)
+	{
 		return null;
 	}
 
@@ -404,17 +411,17 @@ public class ConfessionGroup {
 
 	public boolean RejectPost(String post_id, String auth_token)
 	{
-		return false
+		return false;
 	}
 
 	public boolean PinPostToTop(String post_id, String auth_token)
 	{
-		return false
+		return false;
 	}
 
 	public boolean RemovePost(String post_id, String auth_token)
 	{
-		return false
+		return false;
 	}
 
 	@Override
@@ -424,23 +431,3 @@ public class ConfessionGroup {
 				'}';
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

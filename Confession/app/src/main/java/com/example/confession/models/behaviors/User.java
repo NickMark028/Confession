@@ -215,6 +215,12 @@ public class User {
 		return null;
 	}
 
+	// Phong them jum ham nay nha
+	public ArrayList<ConfessionGroupInfo> GetCreatedGroups()
+	{
+		return null;
+	}
+
 	public ArrayList<GroupPostInfo> GetNewsfeed() {
 
 		return null;
