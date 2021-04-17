@@ -28,7 +28,7 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 		}
 
 		String hash_pass = Hashing.SHA512(password);
-		BasicUserInfo basic_user_info = new BasicUserInfo(username, "Add a name here", avatar);
+		BasicUserInfo basic_user_info = new BasicUserInfo(username, name, avatar);
 		UserInfo user_info = new UserInfo(basic_user_info, email, phone);
 
 		if (User.Register(user_info, hash_pass))
