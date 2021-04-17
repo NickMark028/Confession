@@ -19,34 +19,25 @@ import java.util.ArrayList;
 public class GroupListAdapter extends BaseAdapter {
 
 	Context context;
-//	ArrayList<ConfessionGroup> groups;
-	ArrayList<ConfessionGroupInfo> group;
+	ArrayList<ConfessionGroupInfo> groups;
 
 	private ImageView iv_group_item_gr_avatar;
 	private TextView txt_group_list_gr_name;
 
-	public GroupListAdapter(Context context, ArrayList<ConfessionGroup> groups) {
+	public GroupListAdapter(Context context, ArrayList<ConfessionGroupInfo> groups) {
 
 		this.context = context;
 		this.groups = groups;
 	}
 
-	//for testing GUI only
-//	public GroupListAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
-//
-//		this.context = context;
-//		this.group = group;
-//	}
-
-
 	@Override
 	public int getCount() {
-		return group.size();
+		return groups.size();
 	}
 
 	@Override
 	public Object getItem(int i) {
-		return group.get(i);
+		return groups.get(i);
 	}
 
 	@Override
@@ -76,10 +67,10 @@ public class GroupListAdapter extends BaseAdapter {
 	}
 
 	public void InitData(int pos){
-		ConfessionGroup group = groups.get(pos);
-		ConfessionGroupInfo cgi = group.GetGroupInfo();
 
-		txt_group_list_gr_name.setText(cgi.name);
+		ConfessionGroupInfo group = groups.get(pos);
+
+		txt_group_list_gr_name.setText(group.name);
 		//iv_group_item_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 	}
 

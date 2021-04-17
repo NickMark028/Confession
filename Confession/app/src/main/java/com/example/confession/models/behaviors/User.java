@@ -40,7 +40,6 @@ public class User {
 		return auth_token;
 	}
 
-	@Deprecated
 	public BasicUserInfo GetBasicUserInfo() {
 
 		return user_info.basic_info;
@@ -119,7 +118,7 @@ public class User {
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 
 		HashMap params = new HashMap<String, String>();
-		params.put("token", user_info.auth_token);
+		params.put("token", User.GetAuthToken());
 		params.put("shortname", group.short_name);
 		params.put("groupname", group.name);
 		params.put("avatar", group.avatar);
@@ -152,7 +151,7 @@ public class User {
 
 	public boolean JoinGroup(String group_id) {
 		HashMap params = new HashMap<String, String>();
-		params.put("token", user_info.auth_token);
+		params.put("token", User.GetAuthToken());
 		params.put("confession", group_id);
 
 		ApiPost ap = new ApiPost("confession/join", params);
@@ -183,7 +182,7 @@ public class User {
 
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
-		params.put("token", this.user_info.auth_token);
+		params.put("token", User.GetAuthToken());
 		ApiGet ag = new ApiGet("user/joinedconf", params);
 
 		Thread t = new Thread(ag);

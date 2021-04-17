@@ -4,6 +4,7 @@ import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 
 public class AddPostPresenter implements AddPostTabBinder.Presenter {
@@ -16,11 +17,11 @@ public class AddPostPresenter implements AddPostTabBinder.Presenter {
 
 
     @Override
-    public void HandleAddPost(ConfessionGroup group, String content) {
+    public void HandleAddPost(ConfessionGroupInfo group_info, String content) {
 
         User user = User.GetInstance();
-        GroupPostInfo info = new GroupPostInfo(user.GetBasicUserInfo(), null, content);
-        GroupPost post = group.AddPost(info, user.GetBasicUserInfo());
+        GroupPostInfo post_info = new GroupPostInfo(user.GetBasicUserInfo(), null, content);
+        GroupPost post = new ConfessionGroup(group_info).AddPost(post_info, user.GetBasicUserInfo(), User.GetAuthToken());
 
         if (post != null)
             view.AddPostSuccess(post);

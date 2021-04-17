@@ -2,6 +2,7 @@ package com.example.confession.binders;
 
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
+import com.example.confession.models.data.ConfessionGroupInfo;
 
 public interface AddPostTabBinder {
 
@@ -13,6 +14,6 @@ public interface AddPostTabBinder {
 
 	interface Presenter {
 
-		void HandleAddPost(ConfessionGroup group, String content);
+		void HandleAddPost(ConfessionGroupInfo group_info, String content);
 	}
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public final class ConfessionGroupInfo implements Serializable {
 
 	public final String id;
-	public final String short_name;
+	public final String short_name;     // TODO ????
 	public final String name;
 	public final String avatar;
 	public int members = 110;
