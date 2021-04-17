@@ -1,6 +1,7 @@
 package com.example.confession.models.behaviors;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -29,17 +30,15 @@ public class ConfessionGroup {
 		this.group_info = group_info;
 	}
 
+	public void AddTo(Intent intent)
+	{
+		intent.putExtra("group_info", group_info);
+	}
+
 	public static ConfessionGroup From(Bundle bundle) {
 
 		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
 		return new ConfessionGroup(info);
-	}
-
-	public Bundle ToBundle() {
-
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("group_info", this.group_info);
-		return bundle;
 	}
 
 	public String GetID() {

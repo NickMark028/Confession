@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GroupListAdapter extends BaseAdapter {
 
 	Context context;
-	ArrayList<ConfessionGroup> groups;
+//	ArrayList<ConfessionGroup> groups;
 	ArrayList<ConfessionGroupInfo> group;
 
 	private ImageView iv_group_item_gr_avatar;

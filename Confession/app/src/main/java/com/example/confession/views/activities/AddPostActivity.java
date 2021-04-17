@@ -47,7 +47,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
 
     private ImageButton add_post_close_btn;
     private Button ap_get_gr_list_btn;
-    private TextView  post_txt_btn, addp_post_username;
+    private TextView post_txt_btn, addp_post_username;
     private EditText addp_user_status;
     private ImageView addp_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
@@ -99,7 +99,9 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                 //Open list group activity
 
                 Intent intent = new Intent(getApplicationContext(), CreatePostGroupListActivity.class);
-                startActivity(intent);
+                Bundle return_data = new Bundle();
+                startActivityForResult(intent, 0, return_data);
+                COnfe
             }
         });
 
@@ -177,6 +179,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
@@ -194,6 +197,10 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if (requestCode == 101 && resultCode == RESULT_OK)
+        {
+        	data
         }
         else{
             Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show();

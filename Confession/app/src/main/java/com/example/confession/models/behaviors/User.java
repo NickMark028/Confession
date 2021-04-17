@@ -8,6 +8,7 @@ import com.example.confession.models.api.ApiGet;
 import com.example.confession.models.api.ApiPost;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.UserInfo;
 
 import org.json.JSONArray;
@@ -43,6 +44,11 @@ public class User {
 	public BasicUserInfo GetBasicUserInfo() {
 
 		return user_info.basic_info;
+	}
+
+	public String GetID()
+	{
+		return user_info.basic_info.id;   
 	}
 
 	public static boolean Register(UserInfo user, String password) {
@@ -96,7 +102,6 @@ public class User {
 				String token = obj.getString("token");
 				String email = obj.getString("email");
 				String phone = obj.getString("phone");
-
 
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone, token);
@@ -174,8 +179,9 @@ public class User {
 		return false;
 	}
 
-	public ArrayList<ConfessionGroup> GetFollowedGroups() {
-		ArrayList<ConfessionGroup> groups = new ArrayList<ConfessionGroup>();
+	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
+
+		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", this.user_info.auth_token);
 		ApiGet ag = new ApiGet("user/joinedconf", params);
@@ -187,9 +193,9 @@ public class User {
 		}
 
 		Log.d("Response", ag.response);
-		JSONObject obj = null;
+
 		try {
-			obj = new JSONObject(ag.response);
+			JSONObject obj = new JSONObject(ag.response);
 			if (!obj.has("error")) {
 				JSONArray items = new JSONArray(ag.response);
 				for (int i = 0; i < items.length(); i++) {
@@ -199,7 +205,7 @@ public class User {
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
 					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
-					groups.add(new ConfessionGroup(group_info));
+					groups.add(group_info);
 				}
 				return groups;
 			}
@@ -209,7 +215,7 @@ public class User {
 		return null;
 	}
 
-	public ArrayList<GroupPost> GetNewsfeed() {
+	public ArrayList<GroupPostInfo> GetNewsfeed() {
 
 		return null;
 	}
