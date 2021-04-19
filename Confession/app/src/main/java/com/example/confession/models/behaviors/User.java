@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class User {
 
-	public final UserInfo user_info;           // Todo temp
+	public final UserInfo user_info;
 	private static String auth_token = null;
 	private static User instance = null;
 

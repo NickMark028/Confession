@@ -10,8 +10,6 @@ public interface JoinedGroupsTabBinder {
 
 	interface View {
 
-		// ...
-
 		void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups);
 		void OnGetFollowedGroupsFailure(String error);
 

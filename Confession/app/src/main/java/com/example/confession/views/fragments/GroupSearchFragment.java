@@ -18,6 +18,7 @@ import com.example.confession.binders.JoinedGroupsTabBinder;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.presenters.JoinedGroupsTabPresenter;
 import com.example.confession.presenters.SearchGroupPresenter;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ import java.util.Set;
 public class GroupSearchFragment extends Fragment implements SearchTabBinder.View {
 
 	private final SearchTabBinder.Presenter presenter;
-	private final JoinedGroupsTabBinder.Presenter group_presenter;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
@@ -40,7 +40,6 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 	public GroupSearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
-		group_presenter =new Followed
 	}
 
 	@Override
@@ -70,24 +69,24 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		joined_groups = new HashSet<>();
 		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
+
+		presenter.HandleGetJoinedGroups();
 	}
 
 	private void InitListener() {
 
-		lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				view.setSelected(true);
+		lv_search_item.setOnItemClickListener((parent, view, position, id) -> {
 
-				ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
-				Fragment fragment = GroupFragment.newInstance(cgi);
+			view.setSelected(true);
 
-				getFragmentManager()
-						.beginTransaction()
-						.replace(R.id.fragment_container, fragment, "group_info")
-						.addToBackStack("group_info")
-						.commit();
-			}
+			ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
+			Fragment fragment = GroupFragment.newInstance(cgi);
+
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.fragment_container, fragment, "group_info")
+					.addToBackStack("group_info")
+					.commit();
 		});
 
 		txt_search.setOnClickListener(v -> txt_search.onActionViewExpanded());
@@ -163,24 +162,33 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		list_group.clear();
 		list_group.addAll(groups);
 
-		joined_groups.clear();
-		joined_groups.addAll();
-
 		UpdateListView();
 	}
 
 	@Override
-	public void OnFindGroupFailure(int error_code) {
+	public void OnFindGroupFailure(String error) {
 
 	}
 
 	@Override
-	public void OnJoinGroupSuccess(ConfessionGroup group) {
+	public void OnGetJoinedGroupsSuccess(Set<String> joined_groups) {
 
+		this.joined_groups.clear();
+		this.joined_groups.addAll(joined_groups);
 	}
 
 	@Override
-	public void OnJoinGroupFailure(int error_code) {
+	public void OnGetJoinedGroupsFailure(String error) {
 
 	}
+
+//	@Override
+//	public void OnJoinGroupSuccess(ConfessionGroup group) {
+//
+//	}
+//
+//	@Override
+//	public void OnJoinGroupFailure(String error) {
+//
+//	}
 }
