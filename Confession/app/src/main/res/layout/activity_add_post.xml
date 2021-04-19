@@ -35,6 +35,12 @@
             android:text="POST"
             android:textColor="@color/main_theme"
             android:textSize="18sp" />
+        <ProgressBar
+            android:id="@+id/add_post_loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            />
     </LinearLayout>
 
     <View

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +48,9 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     private String myURL = "";
 //    private StorageTask uploadTask;
 //    private StorageReference storageReference;
+    private ConfessionGroupInfo cgi;
 
+    private ProgressBar add_post_loading;
     private ImageButton add_post_close_btn;
     private Button ap_get_gr_list_btn;
     private TextView post_txt_btn, addp_post_username;
@@ -81,8 +85,12 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         addp_image_click = findViewById(R.id.addp_image_click);
         addp_camera_click = findViewById(R.id.addp_camera_click);
         addp_post_img_added = findViewById(R.id.addp_post_img_added);
+        add_post_loading = findViewById(R.id.add_post_loading);
 
         addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
+//        if(User.GetInstance().GetBasicUserInfo() != null){
+//            addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
+//        }
     }
 
     private void InitListener() {
@@ -100,8 +108,8 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             public void onClick(View view) {
                 //Open list group activity
 
-                Intent intent = new Intent(getApplicationContext(), CreatePostGroupListActivity.class);
-                startActivityForResult(intent, 0);
+                Intent intent = new Intent(AddPostActivity.this, CreatePostGroupListActivity.class);
+                startActivityForResult(intent, 1999);
             }
         });
 
@@ -109,6 +117,13 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
             @Override
             public void onClick(View view) {
                 //Post a post action
+
+                if(!addp_user_status.getText().toString().isEmpty()){
+                    post_txt_btn.setEnabled(false);
+                    post_txt_btn.setVisibility(View.INVISIBLE);
+                    add_post_loading.setVisibility(View.VISIBLE);
+                    presenter.HandleAddPost(cgi, User.GetAuthToken());
+                }
             }
         });
 
@@ -198,25 +213,33 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                 e.printStackTrace();
             }
         }
-        else if (requestCode == 101 && resultCode == RESULT_OK)
+        else if (requestCode == 1999 && resultCode == RESULT_OK)
         {
-            ConfessionGroupInfo group = ConfessionGroupInfo.From(data.getExtras());
-            ap_get_gr_list_btn.setText(group.name);
+
+            cgi = ConfessionGroupInfo.From(data.getExtras());
+
+//            Log.e("-------------101----------------", cgi.name);
+            ap_get_gr_list_btn.setText(cgi.name);
         }
         else{
             Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, AddPostActivity.class));
-            finish();
+            //startActivity(new Intent(getApplicationContext(), AddPostActivity.class));
+            //finish();
         }
     }
 
     @Override
     public void AddPostSuccess(GroupPost post) {
-
+        Toast.makeText(this, "Create Post Successfully", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
     public void AddPostFailure(String error) {
+        Toast.makeText(this, "Create Post Failure", Toast.LENGTH_SHORT).show();
+        add_post_loading.setVisibility(View.GONE);
+        post_txt_btn.setEnabled(true);
+        post_txt_btn.setVisibility(View.VISIBLE);
 
     }
 }

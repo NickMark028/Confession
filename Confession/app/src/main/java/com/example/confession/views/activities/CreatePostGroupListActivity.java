@@ -2,6 +2,7 @@ package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupListAdapter;
@@ -38,6 +40,8 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 		presenter = new CreatePostGroupListPresenter(this);
 		InitView();
 		InitListener();
+
+		presenter.HandleGetGroups();
 	}
 
 	public void InitView() {
@@ -54,23 +58,32 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				Intent data = new Intent();
-				ConfessionGroup group = (ConfessionGroup)adapterView.getSelectedItem();
-				group.AddTo(data);
-				setResult(101, data);
+//				ConfessionGroup group = (ConfessionGroup)adapterView.getSelectedItem();
+//				group.AddTo(data);
+				//ConfessionGroupInfo cgi = (ConfessionGroupInfo) adapterView.getSelectedItem();
+
+				view.setSelected(true);
+				ConfessionGroupInfo cgi = (ConfessionGroupInfo) adapterView.getItemAtPosition(i);
+				data.putExtra("group_info", cgi);
+				setResult(RESULT_OK, data);
 				finish();
+				//Toast.makeText(getApplicationContext(), cgi.name, Toast.LENGTH_LONG).show();
 			}
 		});
 
-		iv_group_list_back.setOnClickListener(view -> {
-			finish();
+		iv_group_list_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
 		});
 	}
 
 	@Override
 	public void OnGetGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 
-		GroupListAdapter adapter = new GroupListAdapter(this, groups);
-		lv_create_post_group_list.setAdapter(adapter);
+		myAdapter = new GroupListAdapter(this, groups);
+		lv_create_post_group_list.setAdapter(myAdapter);
 	}
 
 	@Override

@@ -4,11 +4,13 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -67,7 +69,22 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 
 	private void InitListener() {
 
-		lv_search_item.setOnItemClickListener((parent, view, position, id) -> view.setSelected(true));
+		lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				view.setSelected(true);
+
+				ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
+				Fragment fragment = GroupFragment.newInstance(cgi);
+
+				getFragmentManager()
+						.beginTransaction()
+						.replace(R.id.fragment_container, fragment, "group_info")
+						.addToBackStack("group_info")
+						.commit();
+			}
+		});
+
 		txt_search.setOnClickListener(v -> txt_search.onActionViewExpanded());
 		txt_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override

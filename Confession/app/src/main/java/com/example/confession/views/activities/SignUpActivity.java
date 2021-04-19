@@ -234,7 +234,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 
 	@Override
 	public void OnSignUpFailure(String error) {
-
 		newT.interrupt();
 		progressDialog.dismiss();
 
