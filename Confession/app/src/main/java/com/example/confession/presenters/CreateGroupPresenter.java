@@ -1,5 +1,7 @@
 package com.example.confession.presenters;
 
+import android.util.Log;
+
 import com.example.confession.binders.CreateGroupBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
@@ -21,7 +23,9 @@ public class CreateGroupPresenter implements CreateGroupBinder.Presenter {
 		ConfessionGroup group = User.GetInstance().CreateGroup(info);
 
 		if (group != null)
+		{
 			view.OnCreateGroupSuccess(group);
+		}
 		else
 			view.OnCreateGroupFail("Duplicate short name");
 	}

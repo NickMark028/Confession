@@ -101,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 								su_phone.getText().toString(),
 								su_password.getText().toString(),
 								su_confirm_pass.getText().toString(),
-								"Add avatar");
+								"Add avatar here");
 					}
 				});
 				newT.start();
