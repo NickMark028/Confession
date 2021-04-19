@@ -1,5 +1,7 @@
 package com.example.confession.presenters;
 
+import android.util.Log;
+
 import com.example.confession.binders.CreatePostGroupListBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
@@ -21,8 +23,10 @@ public class CreatePostGroupListPresenter implements CreatePostGroupListBinder.P
 		User user = User.GetInstance();
 		ArrayList<ConfessionGroupInfo> groups = user.GetFollowedGroups();
 
-		if (groups != null)
+		if (groups != null) {
 			view.OnGetGroupsSuccess(groups);
+			Log.e("-", "-----------------------------------------");
+		}
 		else
 			view.OnGetGroupsFailure("Failed to get followed groups");
 	}

@@ -3,6 +3,7 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -99,7 +100,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 								su_email.getText().toString(),
 								su_phone.getText().toString(),
 								su_password.getText().toString(),
-								su_confirm_pass.getText().toString());
+								su_confirm_pass.getText().toString(),
+								"Add avatar here");
 					}
 				});
 				newT.start();
@@ -231,7 +233,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	}
 
 	@Override
-	public void OnSignUpFailure(int error_code) {
+	public void OnSignUpFailure(String error) {
+
 		newT.interrupt();
 		progressDialog.dismiss();
 

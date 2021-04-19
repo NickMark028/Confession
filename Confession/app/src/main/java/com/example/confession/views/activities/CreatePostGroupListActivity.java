@@ -44,6 +44,8 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 
 		iv_group_list_back = findViewById(R.id.iv_group_list_back);
 		lv_create_post_group_list = findViewById(R.id.lv_create_post_group_list);
+
+		presenter.HandleGetGroups();
 	}
 
 	public void InitListener() {
