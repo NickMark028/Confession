@@ -1,5 +1,6 @@
 package com.example.confession.views.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -51,8 +52,8 @@ public class GroupFragment extends Fragment {
 	 * Use this factory method to create a new instance of
 	 * this fragment using the provided parameters.
 	 *
-	 * @param param1 Parameter 1.
-	 * @param param2 Parameter 2.
+	 * @param cgi ConfessionGroupInfo.
+	 *
 	 * @return A new instance of fragment GroupFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
@@ -120,6 +121,7 @@ public class GroupFragment extends Fragment {
 		});
 
 		btn_join_group.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SetTextI18n")
 			@Override
 			public void onClick(View v) {
 				mTag = "TAQ_GROUP_REQUESTING";
