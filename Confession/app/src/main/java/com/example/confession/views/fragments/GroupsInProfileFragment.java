@@ -26,10 +26,6 @@ public class GroupsInProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public GroupsInProfileFragment() {
-        // Required empty public constructor
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
