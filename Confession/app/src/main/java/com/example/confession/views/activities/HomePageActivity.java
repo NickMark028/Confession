@@ -2,7 +2,6 @@ package com.example.confession.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.binders.BottomSheetListener;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
 import com.example.confession.views.fragments.ProfileFragment;
-import com.example.confession.views.fragments.SearchFragment;
+import com.example.confession.views.fragments.GroupSearchFragment;
 
 import com.example.confession.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,7 +37,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 		frag_map = new HashMap<>();
 		frag_map.put(R.id.navigation_home, new NewfeedsFragment());
-		frag_map.put(R.id.navigation_search, new SearchFragment());
+		frag_map.put(R.id.navigation_search, new GroupSearchFragment());
 //		frag_map.put(R.id.navigation_add_post, new NewfeedFragment());
 		frag_map.put(R.id.navigation_heart, new FollowFragment());
 		frag_map.put(R.id.navigation_profile, new ProfileFragment());

@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class User {
 
-	public final UserInfo user_info;           // Todo temp
+	public final UserInfo user_info;
 	private static String auth_token = null;
 	private static User instance = null;
 
@@ -238,10 +238,17 @@ public class User {
 		return null;
 	}
 
-	// Phong them jum ham nay nha
+	// TODO Phong them jum ham nay nha
 	public ArrayList<ConfessionGroupInfo> GetCreatedGroups()
 	{
-		return null;
+		return new ArrayList<>();
+	}
+
+	public ArrayList<ConfessionGroupInfo> GetJoinedGroups()
+	{
+		ArrayList<ConfessionGroupInfo> joined_groups = GetFollowedGroups();
+		joined_groups.addAll(GetCreatedGroups());
+		return joined_groups;
 	}
 
 	public ArrayList<GroupPostInfo> GetNewsfeed() {

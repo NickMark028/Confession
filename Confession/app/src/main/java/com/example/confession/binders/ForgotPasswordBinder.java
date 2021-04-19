@@ -5,9 +5,8 @@ import android.content.Context;
 import com.example.confession.models.behaviors.User;
 
 public interface ForgotPasswordBinder {
-    interface View {
 
-        Context GetContext();
+    interface View {
 
         void OnResetPasswordSuccess(User user);
         void OnResetPasswordFailure(int error_code);

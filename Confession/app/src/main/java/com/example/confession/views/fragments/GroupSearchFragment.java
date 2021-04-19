@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +14,18 @@ import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupSearchAdapter;
+import com.example.confession.binders.JoinedGroupsTabBinder;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.presenters.JoinedGroupsTabPresenter;
 import com.example.confession.presenters.SearchGroupPresenter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class SearchFragment extends Fragment implements SearchTabBinder.View {
+public class GroupSearchFragment extends Fragment implements SearchTabBinder.View {
 
 	private final SearchTabBinder.Presenter presenter;
 
@@ -33,10 +34,13 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	ListView lv_search_item;
 
 	ArrayList<ConfessionGroupInfo> list_group;
+	Set<String> joined_groups;
 	GroupSearchAdapter mGroupSearchAdapter;
-	public SearchFragment() {
+
+	public GroupSearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
+		presenter.HandleGetJoinedGroups();
 	}
 
 	@Override
@@ -56,33 +60,32 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 		return view;
 	}
 
-	private void InitFragment(View view)
-	{
+	private void InitFragment(View view) {
+
 		txt_search = view.findViewById(R.id.txt_search);
 		txt_search_result = view.findViewById(R.id.txt_search_result);
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
 
 		list_group = new ArrayList<>();
-		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group);
+		joined_groups = new HashSet<>();
+		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
 	}
 
 	private void InitListener() {
 
-		lv_search_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				view.setSelected(true);
+		lv_search_item.setOnItemClickListener((parent, view, position, id) -> {
 
-				ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
-				Fragment fragment = GroupFragment.newInstance(cgi);
+			view.setSelected(true);
 
-				getFragmentManager()
-						.beginTransaction()
-						.replace(R.id.fragment_container, fragment, "group_info")
-						.addToBackStack("group_info")
-						.commit();
-			}
+			ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
+			Fragment fragment = GroupFragment.newInstance(cgi);
+
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.fragment_container, fragment, "group_info")
+					.addToBackStack("group_info")
+					.commit();
 		});
 
 		txt_search.setOnClickListener(v -> txt_search.onActionViewExpanded());
@@ -140,6 +143,7 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	}
 
 	private void UpdateListView() {
+
 		Runnable run = new Runnable() {
 			@Override
 			public void run() {
@@ -148,12 +152,12 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 				lv_search_item.refreshDrawableState();
 			}
 		};
-
 		run.run();
 	}
 
 	@Override
 	public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
+
 		list_group.clear();
 		list_group.addAll(groups);
 
@@ -161,17 +165,29 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	}
 
 	@Override
-	public void OnFindGroupFailure(int error_code) {
+	public void OnFindGroupFailure(String error) {
 
 	}
 
 	@Override
-	public void OnJoinGroupSuccess(ConfessionGroup group) {
+	public void OnGetJoinedGroupsSuccess(Set<String> joined_groups) {
 
+		this.joined_groups.clear();
+		this.joined_groups.addAll(joined_groups);
 	}
 
 	@Override
-	public void OnJoinGroupFailure(int error_code) {
+	public void OnGetJoinedGroupsFailure(String error) {
 
 	}
+
+//	@Override
+//	public void OnJoinGroupSuccess(ConfessionGroup group) {
+//
+//	}
+//
+//	@Override
+//	public void OnJoinGroupFailure(String error) {
+//
+//	}
 }

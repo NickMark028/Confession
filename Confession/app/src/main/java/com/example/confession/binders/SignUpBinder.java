@@ -5,7 +5,6 @@ public interface SignUpBinder {
     interface View {
 
         void OnSignUpSuccess();
-
         void OnSignUpFailure(String error);
     }
 
