@@ -6,50 +6,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.confession.R;
-import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 
-import org.w3c.dom.Text;
-
+import java.util.AbstractSet;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GroupSearchAdapter extends BaseAdapter {
 
 	Context context;
-	ArrayList<ConfessionGroup> groups;
-	ArrayList<ConfessionGroupInfo> group;
+	ArrayList<ConfessionGroupInfo> groups;
+	Set<String> joined_groups;
 
 	private ImageView search_gr_avatar;
 	private TextView search_gr_name, search_gr_member, search_gr_user_state;
 
-//	public GroupAdapter(Context context, ArrayList<ConfessionGroup> groups) {
-//
-//		this.context = context;
-//		this.groups = groups;
-//	}
-
-	//for testing GUI only
-	public GroupSearchAdapter(Context context, ArrayList<ConfessionGroupInfo> group) {
+	public GroupSearchAdapter(Context context, ArrayList<ConfessionGroupInfo> groups, Set<String> joined_groups) {
 
 		this.context = context;
-		this.group = group;
+		this.groups = groups;
+		this.joined_groups = joined_groups;
 	}
-
 
 	@Override
 	public int getCount() {
-		return group.size();
+		return groups.size();
 	}
 
 	@Override
 	public Object getItem(int i) {
-		return group.get(i);
+		return groups.get(i);
 	}
 
 	@Override
@@ -73,17 +64,11 @@ public class GroupSearchAdapter extends BaseAdapter {
 //		search_gr_name.setText(group.get(i).name);
 //		search_gr_member.setText("101");
 
-		if (checkIsUserInGroup()) {
-			search_gr_user_state.setText("Joined");
-		} else {
-			search_gr_user_state.setText("");
-		}
-
-
 		return row;
 	}
 
 	public void InitView(View row){
+
 		search_gr_avatar = row.findViewById(R.id.search_gr_avatar);
 		search_gr_name = row.findViewById(R.id.search_gr_name);
 		search_gr_member = row.findViewById(R.id.search_gr_member);
@@ -91,11 +76,19 @@ public class GroupSearchAdapter extends BaseAdapter {
 	}
 
 	public void InitData(int pos){
-		//ConfessionGroup group = groups.get(pos);
-		ConfessionGroupInfo cgi = group.get(pos);
+
+		ConfessionGroupInfo cgi = groups.get(pos);
+
 		//search_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 		search_gr_name.setText(cgi.name);
 		search_gr_member.setText(Integer.toString(cgi.members));
+
+		if (joined_groups.contains(cgi.id)) {
+			search_gr_user_state.setText("Joined");
+		} else {
+			search_gr_user_state.setText("");
+		}
+
 
 	}
 

@@ -8,7 +8,7 @@
     android:paddingStart="15dp"
     android:paddingTop="15dp"
     android:paddingEnd="15dp"
-    tools:context=".views.fragments.SearchFragment">
+    tools:context=".views.fragments.GroupSearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.SearchView

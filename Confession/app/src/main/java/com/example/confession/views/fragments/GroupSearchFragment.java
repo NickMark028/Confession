@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,27 +14,33 @@ import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupSearchAdapter;
+import com.example.confession.binders.JoinedGroupsTabBinder;
 import com.example.confession.binders.SearchTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.SearchGroupPresenter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class SearchFragment extends Fragment implements SearchTabBinder.View {
+public class GroupSearchFragment extends Fragment implements SearchTabBinder.View {
 
 	private final SearchTabBinder.Presenter presenter;
+	private final JoinedGroupsTabBinder.Presenter group_presenter;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
 	ListView lv_search_item;
 
 	ArrayList<ConfessionGroupInfo> list_group;
+	Set<String> joined_groups;
 	GroupSearchAdapter mGroupSearchAdapter;
-	public SearchFragment() {
+
+	public GroupSearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
+		group_presenter =new Followed
 	}
 
 	@Override
@@ -56,14 +60,15 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 		return view;
 	}
 
-	private void InitFragment(View view)
-	{
+	private void InitFragment(View view) {
+
 		txt_search = view.findViewById(R.id.txt_search);
 		txt_search_result = view.findViewById(R.id.txt_search_result);
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
 
 		list_group = new ArrayList<>();
-		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group);
+		joined_groups = new HashSet<>();
+		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
 	}
 
@@ -140,6 +145,7 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 	}
 
 	private void UpdateListView() {
+
 		Runnable run = new Runnable() {
 			@Override
 			public void run() {
@@ -148,14 +154,17 @@ public class SearchFragment extends Fragment implements SearchTabBinder.View {
 				lv_search_item.refreshDrawableState();
 			}
 		};
-
 		run.run();
 	}
 
 	@Override
 	public void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups) {
+
 		list_group.clear();
 		list_group.addAll(groups);
+
+		joined_groups.clear();
+		joined_groups.addAll();
 
 		UpdateListView();
 	}
