@@ -40,6 +40,7 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 	public GroupSearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);
+		presenter.HandleGetJoinedGroups();
 	}
 
 	@Override
@@ -69,8 +70,6 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		joined_groups = new HashSet<>();
 		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
-
-		presenter.HandleGetJoinedGroups();
 	}
 
 	private void InitListener() {

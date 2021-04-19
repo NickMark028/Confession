@@ -88,12 +88,5 @@ public class GroupSearchAdapter extends BaseAdapter {
 		} else {
 			search_gr_user_state.setText("");
 		}
-
-
-	}
-
-	//Kiem tra User co trong Group khong
-	private boolean checkIsUserInGroup(){
-		return true;
 	}
 }
