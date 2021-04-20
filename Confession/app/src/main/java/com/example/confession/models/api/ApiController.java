@@ -1,12 +1,19 @@
 package com.example.confession.models.api;
 
+import android.media.effect.EffectUpdateListener;
+import android.util.Log;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -79,9 +86,10 @@ public class ApiController {
         String response="";
         String fullurl = this.apiURL + path;
         int i=1;
-        for (Map.Entry<String, String> item: query.entrySet()) {
+       for (Map.Entry<String, String> item: query.entrySet()) {
             if(i==1)
             {
+                Log.d("1111111","");
                 fullurl=fullurl+"?"+item.getKey()+"="+item.getValue();
             }
             else
@@ -89,25 +97,33 @@ public class ApiController {
                 fullurl=fullurl+"&"+item.getKey()+"="+item.getValue();
             }
             i++;
+
         }
+        Log.d("fullurl", fullurl);
+
         URL url = null;
         try {
             url = new URL(fullurl);
-            HttpURLConnection conn = null;
-            conn = (HttpURLConnection) url.openConnection();
-            conn.connect();
-            BufferedReader buf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
 
-            String line;
-            while((line=buf.readLine())!=null)
-            {
-                response.concat(line);
+            int responseCode=conn.getResponseCode();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                String line;
+                BufferedReader buf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line = buf.readLine()) != null) {
+                    response+=line;
+                    Log.e("Line", line);
+                }
+                buf.close();
             }
-            return response;
+            conn.disconnect();
+
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Log.e("Line","AA");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Line","AA");
         }
         return  response;
     }

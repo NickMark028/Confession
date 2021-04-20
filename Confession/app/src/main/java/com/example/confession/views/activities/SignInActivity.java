@@ -2,12 +2,17 @@ package com.example.confession.views.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.confession.R;
 import com.example.confession.binders.SignInBinder;
@@ -22,7 +27,9 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	private TextInputEditText si_username, si_password;
 	private Button si_button, fb_button, google_button;
 	private TextView txt_su_click, forgot_pass_click;
-
+	private AlertDialog.Builder builder;
+	private AlertDialog progressDialog;
+	private Thread newT;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	}
 
 	private void InitPresenter() {
+
 		presenter = new SignInPresenter(this);
 	}
 
@@ -44,8 +52,22 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		si_button = findViewById(R.id.si_button);
 		fb_button = findViewById(R.id.fb_button);
 		google_button = findViewById(R.id.google_button);
-		txt_su_click= findViewById(R.id.txt_su_click);
-		forgot_pass_click= findViewById(R.id.forgot_pass_click);
+		txt_su_click = findViewById(R.id.txt_su_click);
+		forgot_pass_click = findViewById(R.id.forgot_pass_click);
+	}
+
+	private void InitProgressDialog(String msg){
+		builder = new AlertDialog.Builder(SignInActivity.this);
+		builder.setCancelable(false);
+
+		progressDialog = builder.create();
+		View view = getLayoutInflater().inflate(R.layout.progress_dialog_layout, null);
+		TextView txt_dialog_progress = view.findViewById(R.id.txt_dialog_progress);
+		txt_dialog_progress.setText(msg);
+
+		progressDialog.setView(view);
+		progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+		progressDialog.show();
 	}
 
 	private void InitListener() {
@@ -53,7 +75,19 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		si_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
+				newT = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						presenter.HandleLogin(
+								si_username.getText().toString(),
+								si_password.getText().toString());
+					}
+				});
+
+				newT.start();
+
+				//Init Dialog
+				InitProgressDialog("Logging in");
 			}
 		});
 
@@ -71,35 +105,47 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			}
 		});
 
-		txt_su_click.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
-				startActivity(myIntent);
-			}
+		txt_su_click.setOnClickListener(view -> {
+			Intent myIntent = new Intent(SignInActivity.this, SignUpActivity.class);
+			startActivity(myIntent);
 		});
 
-		forgot_pass_click.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Forgot password", Toast.LENGTH_LONG).show();
-				Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-				startActivity(myIntent);
-			}
+		forgot_pass_click.setOnClickListener(view -> {
+			Toast.makeText(getApplicationContext(), "Forgot password", Toast.LENGTH_LONG).show();
+			Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+			startActivity(myIntent);
 		});
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+
+
 	}
 
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginSuccess(User user) {
-		Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
+		newT.interrupt();
+		progressDialog.dismiss();
 		Intent myIntent = new Intent(this, HomePageActivity.class);
 		startActivity(myIntent);
+		finish();
 	}
 
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginFailure(int error_code) {
-		Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show();
+		newT.interrupt();
+		progressDialog.dismiss();
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show();
+			}
+		});
+
+
 	}
 }

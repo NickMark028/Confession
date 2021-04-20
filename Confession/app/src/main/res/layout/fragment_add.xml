@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.AddFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".views.fragments.AddFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -24,29 +24,32 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="45dp"
-            android:backgroundTint="#739BF6"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
             android:layout_weight="2"
+            android:backgroundTint="#739BF6"
             android:text="Post"
             android:textColor="#FFFFFF"
-            android:textSize="18dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="15dp"/>
+            android:textSize="18dp" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:background="#000000" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp">
+        android:orientation="horizontal">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/tree_icon"/>
+            android:src="@drawable/tree_icon" />
 
         <LinearLayout
             android:layout_width="227dp"
@@ -63,13 +66,12 @@
             </TextView>
 
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown"
-           />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
     </LinearLayout>
 
@@ -84,45 +86,52 @@
         android:maxLines="15"
         android:minLines="5"
         android:text="What do you think?" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/image"/>
+            android:src="@drawable/image" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="3"
+            android:gravity="top|left"
             android:text="Image"
-            android:textSize="18dp"
-            android:gravity="top|left"/>
+            android:textSize="18dp" />
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:background="#000000" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:src="@drawable/camera"/>
+            android:src="@drawable/camera" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="3"
+            android:gravity="top|left"
             android:text="Camera"
-            android:textSize="18dp"
-            android:gravity="top|left"/>
+            android:textSize="18dp" />
 
     </LinearLayout>
 

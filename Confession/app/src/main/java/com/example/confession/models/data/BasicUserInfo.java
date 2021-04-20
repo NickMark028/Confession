@@ -1,17 +1,39 @@
 package com.example.confession.models.data;
 
-public final class BasicUserInfo {
+import java.io.Serializable;
 
-//	public final String id;
+public final class BasicUserInfo implements Serializable {
+
+	public final String id;
 	public final String username;
 	public final String name;
-	public final String avatar;
+	public final Object avatar;
 
-	public BasicUserInfo(/* String id,*/ String username, String name, String avatar) {
+	public BasicUserInfo(String username, String name) {
 
-//		this.id = id;
+		this("", username, name, "");
+	}
+
+	public BasicUserInfo(String username, String name, Object avatar) {
+
+		this("", username, name, avatar);
+	}
+
+	public BasicUserInfo(String id, String username, String name, Object avatar) {
+
+		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.avatar = avatar;
+	}
+
+	@Override
+	public String toString() {
+		return "BasicUserInfo{" +
+				"id='" + id + '\'' +
+				", username='" + username + '\'' +
+				", name='" + name + '\'' +
+				", avatar='" + avatar + '\'' +
+				'}';
 	}
 }

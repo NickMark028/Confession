@@ -6,9 +6,12 @@ import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
+import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.UserInfo;
 
 import java.security.acl.Group;
+import java.util.ArrayList;
 
 public class GroupPresenter implements GroupBinder.Presenter {
 
@@ -19,8 +22,13 @@ public class GroupPresenter implements GroupBinder.Presenter {
 	}
 
 	@Override
-	public void HandleGetPosts() {
+	public void HandleGetPosts(ConfessionGroup group) {
 
-//		GroupPost.
+		ArrayList<GroupPostInfo> posts = group.GetPosts(User.GetAuthToken());
+
+		if (posts != null)
+			view.OnGetPostsSuccess(posts);
+		else
+			view.OnGetPostsFailure("Failed to get groups");
 	}
 }

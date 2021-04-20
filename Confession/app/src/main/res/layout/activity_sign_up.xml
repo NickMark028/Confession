@@ -69,39 +69,46 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_su_username"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
+                        app:errorEnabled="true"
+
                         app:startIconDrawable="@drawable/custom_user_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_username"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/username"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:textAllCaps="false"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_su_email"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/custom_email_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_email"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/email"
@@ -111,40 +118,45 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_su_phone"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/custom_phone_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_phone"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/phone"
-                            android:inputType="phone" />
+                            android:inputType="numberPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_su_pass"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
+                        app:errorEnabled="true"
+
                         app:passwordToggleEnabled="true"
                         app:startIconDrawable="@drawable/custom_lock_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_password"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/password"
@@ -152,20 +164,22 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_su_confirmpass"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
                         app:passwordToggleEnabled="true"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/custom_lock_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/su_confirm_pass"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/conf_password"
@@ -177,7 +191,7 @@
                         android:id="@+id/su_button"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/custom_bg_btn"
                         android:fontFamily="@font/nunito_regular"
                         android:text="@string/sign_up"

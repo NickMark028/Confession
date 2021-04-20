@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.activities.MainActivity">
+    tools:context=".views.activities._MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi" />
+        android:text="Testing purposes only" />
 
 </LinearLayout>
