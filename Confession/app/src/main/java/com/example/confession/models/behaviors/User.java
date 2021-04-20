@@ -62,6 +62,7 @@ public class User {
 		return user_info.basic_info;
 	}
 
+	// Done //
 	public static boolean Register(UserInfo user, String password) {
 
 		HashMap params = new HashMap<String, String>();
@@ -74,9 +75,8 @@ public class User {
 		ApiPost ap = new ApiPost("user/register", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang đăng ký tài khoản...");
-		}
+		Log.d("Thread API: ", "Đang đăng ký tài khoản...");
+		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -91,6 +91,7 @@ public class User {
 		return false;
 	}
 
+	// Done //
 	public synchronized static User Login(String username, String password) {
 
 		HashMap params = new HashMap<String, String>();
@@ -99,9 +100,8 @@ public class User {
 		ApiPost ap = new ApiPost("user/login", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
-		}
+		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
+		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -132,6 +132,7 @@ public class User {
 		return user_info.basic_info.id;
 	}
 
+	// Done //
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 
 		HashMap params = new HashMap<String, String>();
@@ -143,9 +144,8 @@ public class User {
 		ApiPost ap = new ApiPost("confession/new", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang tạo confession...");
-		}
+		Log.d("Thread API: ", "Đang tạo confession...");
+		while (!ap.isComplete);
 
 		ConfessionGroup confession = null;
 		Log.d("Response", ap.response);
@@ -166,6 +166,7 @@ public class User {
 		return confession;
 	}
 
+	// Done //
 	public boolean JoinGroup(String group_id) {
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
@@ -174,9 +175,8 @@ public class User {
 		ApiPost ap = new ApiPost("confession/join", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang tham gia confession...");
-		}
+		Log.d("Thread API: ", "Đang tham gia confession...");
+		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
 		try {
@@ -195,29 +195,23 @@ public class User {
 		return false;
 	}
 
-	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 
+	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
 
-		//An - fix url API
-		String url = "user/joinedconf";
-
+		String url = "user/joinedconfnorole";
 		ApiGet ag = new ApiGet(url, params);
 
 		Thread t = new Thread(ag);
 		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
-		}
+		Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
+		while (!ag.isComplete);
 
 		Log.d("Response", ag.response);
 
 		try {
-			//(An) Array tra ra []Array chu khong tra ra Object
-//			JSONObject obj = new JSONObject(ag.response);
-
 			JSONArray items = new JSONArray(ag.response);
 			if (!items.isNull(0)) {
 
@@ -238,10 +232,42 @@ public class User {
 		return null;
 	}
 
-	// TODO Phong them jum ham nay nha
+	// Done //
 	public ArrayList<ConfessionGroupInfo> GetCreatedGroups()
 	{
-		return new ArrayList<>();
+		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
+		HashMap params = new HashMap<String, String>();
+		params.put("token", User.GetAuthToken());
+
+		String url = "user/joinedconfrole";
+		ApiGet ag = new ApiGet(url, params);
+
+		Thread t = new Thread(ag);
+		t.start();
+		Log.d("Thread API: ", "Đang lấy danh sách các confession đang quản lý...");
+		while (!ag.isComplete);
+
+		Log.d("Response", ag.response);
+
+		try {
+			JSONArray items = new JSONArray(ag.response);
+			if (!items.isNull(0)) {
+
+				for (int i = 0; i < items.length(); i++) {
+					JSONObject item = items.getJSONObject(i);
+					String id = item.getString("_id");
+					String shortname = item.getString("shortname");
+					String groupname = item.getString("groupname");
+					String avatar = item.getString("avatar");
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+					groups.add(group_info);
+				}
+				return groups;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public ArrayList<ConfessionGroupInfo> GetJoinedGroups()

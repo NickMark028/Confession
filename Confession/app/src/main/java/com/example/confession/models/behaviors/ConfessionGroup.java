@@ -76,7 +76,6 @@ public class ConfessionGroup {
 					BasicUserInfo user = new BasicUserInfo(id, username, name, "");
 					users.add(user);
 				}
-
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
