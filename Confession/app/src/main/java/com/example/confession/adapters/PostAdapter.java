@@ -27,7 +27,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 import com.example.confession.R;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.data.GroupPostInfo;
-import com.example.confession.presenters.DoubleClickListener;
+import com.example.confession.listener.DoubleClickListener;
 import com.example.confession.views.activities.CommentActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 
