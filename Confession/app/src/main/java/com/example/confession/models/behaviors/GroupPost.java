@@ -54,19 +54,19 @@ public class GroupPost {
 		return false;
 	}
 
+	// Sửa lại API tự lấy member id từ user id mới chạy được //
 	public boolean React(BasicUserInfo user)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
-		params.put("memberid", member.id);
-		params.put("postid", comment.id);
-		params.put("content", comment.content);
+		params.put("memberid", "6059a449abdfae07a4e77646"); // Sửa lại API
+		params.put("postid", this.post_info.id);
 
-		ApiPost ap = new ApiPost("post/comment/new", params);
+		ApiPost ap = new ApiPost("post/reaction/react", params);
 		Thread t = new Thread(ap);
 		t.start();
 
-		Log.d("Thread API: ", "Đang đăng bình luận...");
+		Log.d("Thread API: ", "Đang thả tim...");
 		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
@@ -74,12 +74,11 @@ public class GroupPost {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				return new PostComment(comment,this.post_info);
+				return true;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
 		return false;
 	}
 
@@ -91,6 +90,7 @@ public class GroupPost {
 
 	public int GetReactionCount()
 	{
+		
 		return 0;
 	}
 
