@@ -47,6 +47,7 @@ public class ConfessionGroup {
 		return group_info.id;
 	}
 
+	// Done //
 	public ArrayList<BasicUserInfo> GetPendingUsers(String auth_token) {
 
 		HashMap<String, String> params = new HashMap<>();
@@ -55,9 +56,9 @@ public class ConfessionGroup {
 		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy danh sách thành viên chờ...");
-		}
+
+		Log.d("Thread API: ", "Đang lấy danh sách thành viên chờ...");
+		while (!ag.isComplete);
 
 		ArrayList<BasicUserInfo> users = new ArrayList<>();
 		Log.d("Response", ag.response);
@@ -83,6 +84,7 @@ public class ConfessionGroup {
 		return users;
 	}
 
+	// Done //
 	public boolean AcceptUser(String user_id, String auth_token) {
 
 		HashMap<String, String> params = new HashMap<>();
@@ -93,9 +95,9 @@ public class ConfessionGroup {
 		ApiPost ap = new ApiPost("confession/addmember", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang chấp nhận thành viên chờ...");
-		}
+
+		Log.d("Thread API: ", "Đang chấp nhận thành viên chờ...");
+		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -110,6 +112,7 @@ public class ConfessionGroup {
 		return false;
 	}
 
+	// Write API later //
 	public boolean RejectUser(String user_id, String auth_token) {
 		return false;
 	}
@@ -181,6 +184,7 @@ public class ConfessionGroup {
 //		return false;
 //	}
 
+	// Done //
 	public ArrayList<BasicUserInfo> GetMembers(String auth_token) {
 
 	HashMap<String, String> params = new HashMap<String, String>();
@@ -189,9 +193,9 @@ public class ConfessionGroup {
 	ApiGet ag = new ApiGet("confession/id", params);
 	Thread t = new Thread(ag);
 	t.start();
-	while (!ag.isComplete) {
-		Log.d("Thread API: ", "Đang lấy danh sách thành viên...");
-	}
+
+	Log.d("Thread API: ", "Đang lấy danh sách thành viên...");
+	while (!ag.isComplete);
 
 	ArrayList<BasicUserInfo> members = new ArrayList<BasicUserInfo>();
 	Log.d("Response", ag.response);
@@ -221,6 +225,7 @@ public class ConfessionGroup {
 	return members;
 }
 
+	// Done //
 	public ArrayList<BasicUserInfo> GetAdmins(String auth_token) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -229,9 +234,9 @@ public class ConfessionGroup {
 		ApiGet ag = new ApiGet("confession/id", params);
 		Thread t = new Thread(ag);
 		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy danh sách thành admin...");
-		}
+
+		Log.d("Thread API: ", "Đang lấy danh sách thành admin...");
+		while (!ag.isComplete);
 
 		ArrayList<BasicUserInfo> admins = new ArrayList<BasicUserInfo>();
 		Log.d("Response", ag.response);
@@ -285,17 +290,17 @@ public class ConfessionGroup {
 //		return null;
 //	} // Check lại api không trả ra []
 
+	// Done //
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("keyword", name);
-
+		if(name.equals("")) return null;
 		ApiGet ag = new ApiGet("confession/search", params);
 		Thread t = new Thread(ag);
 		t.start();
 
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang tìm kiếm các nhóm theo từ khóa...");
-		}
+		Log.d("Thread API: ", "Đang tìm kiếm các nhóm theo từ khóa...");
+		while (!ag.isComplete);
 
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<ConfessionGroupInfo>();
 		Log.d("Response", ag.response);
@@ -320,6 +325,7 @@ public class ConfessionGroup {
 		return groups;
 	}
 
+	// Done //
 	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member, String auth_token) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -331,9 +337,9 @@ public class ConfessionGroup {
 		ApiPost ap = new ApiPost("post/new", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang đăng bài...");
-		}
+
+		Log.d("Thread API: ", "Đang đăng bài...");
+		while (!ap.isComplete);
 
 		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
 		Log.d("Response", ap.response);
@@ -350,6 +356,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
+	// Done //
 	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
 		HashMap<String, String> params = new HashMap<>();
@@ -359,9 +366,8 @@ public class ConfessionGroup {
 		Thread t = new Thread(ag);
 		t.start();
 
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
-		}
+		Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
+		while (!ag.isComplete);
 
 		ArrayList<GroupPostInfo> posts = new ArrayList<>();
 		Log.e("Response", ag.response);
@@ -398,26 +404,31 @@ public class ConfessionGroup {
 		return null;
 	}
 
+	// Writr API later //
 	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token)
 	{
 		return null;
 	}
 
+	// Writr API later //
 	public boolean AcceptPost(String post_id, String auth_token)
 	{
 		return false;
 	}
 
+	// Writr API later //
 	public boolean RejectPost(String post_id, String auth_token)
 	{
 		return false;
 	}
 
+	// Writr API later //
 	public boolean PinPostToTop(String post_id, String auth_token)
 	{
 		return false;
 	}
 
+	// Writr API later //
 	public boolean RemovePost(String post_id, String auth_token)
 	{
 		return false;

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GroupPost {
-
 	protected final GroupPostInfo post_info;
 	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
@@ -50,19 +49,48 @@ public class GroupPost {
 		return post_info.id;
 	}
 
+	// Write API later //
 	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
 		return false;
 	}
 
-	public boolean React(BasicUserInfo user) {
+	public boolean React(BasicUserInfo user)
+	{
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token", User.GetAuthToken());
+		params.put("memberid", member.id);
+		params.put("postid", comment.id);
+		params.put("content", comment.content);
+
+		ApiPost ap = new ApiPost("post/comment/new", params);
+		Thread t = new Thread(ap);
+		t.start();
+
+		Log.d("Thread API: ", "Đang đăng bình luận...");
+		while (!ap.isComplete);
+
+		Log.d("Response", ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				return new PostComment(comment,this.post_info);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 		return false;
 	}
 
-	public PostComment[] GetComment() {
+	public PostComment[] GetComment()
+	{
+
 		return null;
 	}
 
-	public int GetReactionCount() {
+	public int GetReactionCount()
+	{
 		return 0;
 	}
 
@@ -74,6 +102,7 @@ public class GroupPost {
 		return group;
 	}
 
+	// Done //
 	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -85,9 +114,9 @@ public class GroupPost {
 		ApiPost ap = new ApiPost("post/comment/new", params);
 		Thread t = new Thread(ap);
 		t.start();
-		while (!ap.isComplete) {
-			Log.d("Thread API: ", "Đang đăng bình luận...");
-		}
+
+		Log.d("Thread API: ", "Đang đăng bình luận...");
+		while (!ap.isComplete);
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
