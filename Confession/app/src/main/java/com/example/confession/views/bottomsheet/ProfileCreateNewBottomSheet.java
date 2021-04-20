@@ -1,26 +1,17 @@
 package com.example.confession.views.bottomsheet;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.example.confession.R;
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
