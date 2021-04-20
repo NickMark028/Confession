@@ -331,6 +331,11 @@ public class User {
 		return false;
 	}
 
+	public boolean RemoveGroup(String group_id){
+		return false;
+	}
+
+
 	@Override
 	public String toString() {
 		return "User{" +
