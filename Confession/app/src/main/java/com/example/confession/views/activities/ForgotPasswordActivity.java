@@ -82,11 +82,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
     }
 
     @Override
-    public Context GetContext() {
-        return getApplicationContext();
-    }
-
-    @Override
     public void OnResetPasswordSuccess(User user) {
         //Notify success message
 
