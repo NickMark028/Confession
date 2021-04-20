@@ -195,7 +195,7 @@ public class User {
 		return false;
 	}
 
-
+	// Done //
 	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
@@ -270,6 +270,7 @@ public class User {
 		return null;
 	}
 
+	// Done //
 	public ArrayList<ConfessionGroupInfo> GetJoinedGroups()
 	{
 		ArrayList<ConfessionGroupInfo> joined_groups = GetFollowedGroups();
@@ -277,8 +278,46 @@ public class User {
 		return joined_groups;
 	}
 
-	public ArrayList<GroupPostInfo> GetNewsfeed() {
+	// Done //
+	public ArrayList<GroupPostInfo> GetNewsfeed()
+	{
+		ArrayList<GroupPostInfo> posts = new ArrayList<GroupPostInfo>();
+		HashMap params = new HashMap<String, String>();
+		params.put("token", User.GetAuthToken());
 
+		String url = "user/newsfeed";
+		ApiGet ag = new ApiGet(url, params);
+
+		Thread t = new Thread(ag);
+		t.start();
+		Log.d("Thread API: ", "Đang lấy Newsfeed...");
+		while (!ag.isComplete);
+
+		Log.d("Response", ag.response);
+
+		try {
+			JSONArray items = new JSONArray(ag.response);
+			if (!items.isNull(0)) {
+
+				for (int i = 0; i < items.length(); i++) {
+					JSONObject item = items.getJSONObject(i);
+
+					String shortname = item.getString("shortname");
+					String groupname = item.getString("groupname");
+					String avatar = item.getString("avatar");
+
+					String id = item.getString("_id");
+					String content = item.getString("content");
+					BasicUserInfo author = new BasicUserInfo("","","","");
+					BasicUserInfo approver = new BasicUserInfo("","","","");
+					GroupPostInfo post = new GroupPostInfo(id,author,approver,content);
+					posts.add(post);
+				}
+				return posts;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
