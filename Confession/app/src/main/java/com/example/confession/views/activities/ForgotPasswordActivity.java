@@ -78,10 +78,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
             }
         });
 
-
     }
-
-
 
     @Override
     public void OnResetPasswordSuccess(User user) {

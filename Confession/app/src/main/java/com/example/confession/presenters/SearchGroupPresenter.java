@@ -26,6 +26,7 @@ public class SearchGroupPresenter implements SearchTabBinder.Presenter {
 	@Override
 	public void HandleGetJoinedGroups() {
 
+
 	}
 
 //	@Override

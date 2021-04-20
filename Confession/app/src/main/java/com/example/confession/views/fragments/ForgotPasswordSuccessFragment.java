@@ -119,11 +119,7 @@ public class ForgotPasswordSuccessFragment extends Fragment implements ForgotPas
 
             }
         });
-
-
     }
-
-
 
     @Override
     public void OnResetPasswordSuccess(User user) {
