@@ -40,27 +40,32 @@ public class PostComment {
 		return comment_info.id;
 	}
 
+	// Không có làm chức năng trả lời bình luận //
 	public PostComment AddComment(PostCommentInfo comment, String auth_token)
 	{
 
 		return null;
 	}
 
+	// Không có làm chức năng trả lời bình luận //
 	public ArrayList<PostCommentInfo> GetComments(String auth_token)
 	{
 		return null;
 	}
 
+	// Write API later //
 	public boolean RemoveComment(String comment_id, String from_user_id, String auth_token)
 	{
 		return false;
 	}
 
+	// Bình luận không có chức năng thả cảm xúc //
 	public boolean React(String user_id, String auth_token)
 	{
 		return false;
 	}
 
+	// Bình luận không có chức năng thả cảm xúc //
 	public int GetReactionCount(String auth_token)
 	{
 		return 0;
