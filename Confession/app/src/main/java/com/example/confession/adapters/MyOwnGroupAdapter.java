@@ -25,11 +25,15 @@ public class MyOwnGroupAdapter extends BaseAdapter {
 
     Context context;
 
-    ArrayList<ConfessionGroup> groups;
+    ArrayList<ConfessionGroupInfo> groups;
     private ImageView iv_your_group_gr_avatar;
     private  TextView your_group_gr_name;
     private AppCompatButton your_group_del_btn;
 
+    public MyOwnGroupAdapter(Context context, ArrayList<ConfessionGroupInfo> groups){
+        this.context = context;
+        this.groups = groups;
+    }
 
     @Override
     public int getCount() {
@@ -54,7 +58,7 @@ public class MyOwnGroupAdapter extends BaseAdapter {
 
         InitView(row);
         InitListener();
-        //InitData(i);
+        InitData(position);
 
         return row;
     }
@@ -82,8 +86,8 @@ public class MyOwnGroupAdapter extends BaseAdapter {
     }
 
     public void InitData(int pos){
-        ConfessionGroup group = groups.get(pos);
-        ConfessionGroupInfo cgi = group.GetGroupInfo();
+
+        ConfessionGroupInfo cgi = groups.get(pos);
 
         your_group_gr_name.setText(cgi.name);
         //iv_your_group_gr_avatar.setImageResource(cgi.avatar); int # String - not match
