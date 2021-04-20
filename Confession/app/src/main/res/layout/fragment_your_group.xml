@@ -21,11 +21,23 @@
             app:defaultQueryHint="Your"
             />
 
+        <LinearLayout
+            android:id="@+id/ll_your_group_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:visibility="visible">
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
+
         <ListView
             android:id="@+id/lv_your_group_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/transparent"
+            android:visibility="invisible"
             />
     </LinearLayout>
 
