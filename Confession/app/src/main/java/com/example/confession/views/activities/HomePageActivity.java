@@ -9,7 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetListener;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
 import com.example.confession.views.fragments.ProfileFragment;
