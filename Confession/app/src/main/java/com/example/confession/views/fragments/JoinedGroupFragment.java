@@ -9,16 +9,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.confession.R;
+import com.example.confession.adapters.GroupListAdapter;
+import com.example.confession.adapters.MyJoinedGroupAdapter;
+import com.example.confession.adapters.MyOwnGroupAdapter;
+import com.example.confession.binders.JoinedGroupsTabBinder;
+import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.presenters.JoinedGroupsTabPresenter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link JoinedGroupFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JoinedGroupFragment extends Fragment {
+public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBinder.View{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +38,13 @@ public class JoinedGroupFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int mPage;
     private String mTitle;
+    private Thread newThread;
+    private JoinedGroupsTabBinder.Presenter presenter;
+    private MyJoinedGroupAdapter mAdapter;
 
     androidx.appcompat.widget.SearchView joined_gr_search;
     ListView lv_joined_group_item;
+    LinearLayout ll_joined_group_progress;
 
     public JoinedGroupFragment() {
         // Required empty public constructor
@@ -61,6 +75,8 @@ public class JoinedGroupFragment extends Fragment {
             mPage = getArguments().getInt(ARG_PARAM1);
             mTitle = getArguments().getString(ARG_PARAM2);
         }
+
+        presenter = new JoinedGroupsTabPresenter(this);
     }
 
     @Override
@@ -69,8 +85,11 @@ public class JoinedGroupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_joined_group, container, false);
 
-        joined_gr_search = view.findViewById(R.id.joined_gr_search);;
-        lv_joined_group_item = view.findViewById(R.id.lv_joined_group_item);;
+        joined_gr_search = view.findViewById(R.id.joined_gr_search);
+        lv_joined_group_item = view.findViewById(R.id.lv_joined_group_item);
+        ll_joined_group_progress = view.findViewById(R.id.ll_joined_group_progress);
+
+        //presenter.HandleGetFollowedGroups();
 
         InitListenser();
 
@@ -90,5 +109,59 @@ public class JoinedGroupFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+
+    private void UpdateListView() {
+
+        Runnable run = new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.notifyDataSetChanged();
+                lv_joined_group_item.invalidateViews();
+                lv_joined_group_item.refreshDrawableState();
+            }
+        };
+        run.run();
+    }
+
+    @Override
+    public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+        //Set visibility
+        ll_joined_group_progress.setVisibility(View.GONE);
+        lv_joined_group_item.setVisibility(View.VISIBLE);
+
+        //Set adapter
+        mAdapter = new MyJoinedGroupAdapter(getContext(), groups);
+        lv_joined_group_item.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void OnGetFollowedGroupsFailure(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+
+        //Set visibility
+        ll_joined_group_progress.setVisibility(View.GONE);
+        lv_joined_group_item.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+        //Not in use
+    }
+
+    @Override
+    public void OnGetCreatedGroupsFailure(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
+        //Not in use
+    }
+
+    @Override
+    public void OnLeaveGroupFailure(String error) {
+        //Not in use
     }
 }
