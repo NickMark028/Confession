@@ -54,6 +54,8 @@ public class GroupPost {
 		return false;
 	}
 
+
+
 	// Sửa lại API tự lấy member id từ user id mới chạy được //
 	public boolean React(BasicUserInfo user)
 	{
