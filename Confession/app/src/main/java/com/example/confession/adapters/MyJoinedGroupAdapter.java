@@ -26,11 +26,15 @@ public class MyJoinedGroupAdapter extends BaseAdapter {
 
     Context context;
 
-    ArrayList<ConfessionGroup> groups;
+    ArrayList<ConfessionGroupInfo> groups;
     private ImageView iv_joined_group_gr_avatar;
     private  TextView joined_group_gr_name;
     private AppCompatButton joined_group_leave_bn;
 
+    public MyJoinedGroupAdapter(Context context, ArrayList<ConfessionGroupInfo> groups){
+        this.context = context;
+        this.groups = groups;
+    }
 
     @Override
     public int getCount() {
@@ -55,7 +59,7 @@ public class MyJoinedGroupAdapter extends BaseAdapter {
 
         InitView(row);
         InitListener();
-        //InitData(i);
+        InitData(position);
 
         return row;
     }
@@ -83,8 +87,8 @@ public class MyJoinedGroupAdapter extends BaseAdapter {
     }
 
     public void InitData(int pos){
-        ConfessionGroup group = groups.get(pos);
-        ConfessionGroupInfo cgi = group.GetGroupInfo();
+
+        ConfessionGroupInfo cgi = groups.get(pos);
 
         joined_group_gr_name.setText(cgi.name);
         //iv_joined_group_gr_avatar.setImageResource(cgi.avatar); int # String - not match
