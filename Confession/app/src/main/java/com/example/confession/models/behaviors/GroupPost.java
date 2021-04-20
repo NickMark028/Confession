@@ -88,9 +88,31 @@ public class GroupPost {
 		return null;
 	}
 
+	// Done //
 	public int GetReactionCount()
 	{
-		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token", User.GetAuthToken());
+		params.put("postid", this.post_info.id);
+
+		ApiGet ag = new ApiGet("post/reactions", params);
+		Thread t = new Thread(ag);
+		t.start();
+
+		Log.d("Thread API: ", "Đang lấy số lượng tim...");
+		while (!ag.isComplete);
+
+		Log.d("Response", ag.response);
+		JSONObject obj = null;
+		try {
+			JSONArray items = new JSONArray(ag.response);
+			if (!items.isNull(0))
+			{
+				return items.length();
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
