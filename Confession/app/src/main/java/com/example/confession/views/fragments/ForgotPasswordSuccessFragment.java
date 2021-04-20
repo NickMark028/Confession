@@ -123,10 +123,7 @@ public class ForgotPasswordSuccessFragment extends Fragment implements ForgotPas
 
     }
 
-    @Override
-    public Context GetContext() {
-        return getContext();
-    }
+
 
     @Override
     public void OnResetPasswordSuccess(User user) {
