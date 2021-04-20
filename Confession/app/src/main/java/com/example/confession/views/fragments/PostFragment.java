@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.presenters.DoubleClickListener;
+import com.example.confession.listener.DoubleClickListener;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 
 public class PostFragment extends Fragment {
