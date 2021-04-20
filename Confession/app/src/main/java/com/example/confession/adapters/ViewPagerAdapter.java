@@ -15,7 +15,7 @@ import com.example.confession.views.fragments.YourGroupFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     private static final int NUM_PAGE = 2;
-    private final String[] tabTitles = new String[]{"Your pages", "Joined pages"};
+    private final String[] tabTitles = new String[]{"Own groups", "Following groups"};
     public ViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
@@ -44,6 +44,5 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         return tabTitles[position];
     }
-
 
 }
