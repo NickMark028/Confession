@@ -126,7 +126,7 @@
                             android:text="1"
                             android:textAlignment="center"
                             android:fontFamily="@font/nunito_semi_bold"
-                            android:textSize="14sp"/>
+                            android:textSize="15sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,7 +140,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="joined groups"
+                            android:text="follow groups"
                             android:textAlignment="center"
                             android:fontFamily="@font/nunito_light"
                             android:textSize="13sp"/>
@@ -152,7 +152,7 @@
                             android:text="3"
                             android:textAlignment="center"
                             android:fontFamily="@font/nunito_semi_bold"
-                            android:textSize="14sp"/>
+                            android:textSize="15sp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
