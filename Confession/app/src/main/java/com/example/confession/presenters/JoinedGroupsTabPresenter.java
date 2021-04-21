@@ -50,17 +50,5 @@ public class JoinedGroupsTabPresenter implements JoinedGroupsTabBinder.Presenter
 		});
 
 		newThread.run();
-
-	}
-
-	@Override
-	public void HandleLeaveGroup(ConfessionGroupInfo group) {
-
-		User user = User.GetInstance();
-
-		if (user.LeaveGroup(group.id))
-			view.OnLeaveGroupSuccess(group);
-		else
-			view.OnLeaveGroupFailure("Failed to leave group");
 	}
 }

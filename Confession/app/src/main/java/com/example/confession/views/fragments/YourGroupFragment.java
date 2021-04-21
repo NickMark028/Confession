@@ -150,14 +150,4 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
         ll_your_group_progress.setVisibility(View.GONE);
         lv_your_group_item.setVisibility(View.VISIBLE);
     }
-
-    @Override
-    public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
-        //Not in use
-    }
-
-    @Override
-    public void OnLeaveGroupFailure(String error) {
-        //Not in use
-    }
 }
