@@ -18,7 +18,7 @@ import com.example.confession.presenters.user_done.SignUpPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class SignUpActivity extends AppCompatActivity implements SignUpBinder.View {
+public abstract class SignUpActivity extends AppCompatActivity implements SignUpBinder.View {
 
 	SignUpPresenter presenter;
 	private TextInputEditText su_username, su_email, su_phone, su_password, su_confirm_pass;
