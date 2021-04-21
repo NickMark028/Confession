@@ -1,11 +1,22 @@
 package com.example.confession.views.fragments;
 
+import android.app.IntentService;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +32,10 @@ import com.example.confession.binders.JoinedGroupsTabBinder;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.JoinedGroupsTabPresenter;
 
+
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,8 +60,12 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
     ListView lv_joined_group_item;
     LinearLayout ll_joined_group_progress;
 
+
+
     public JoinedGroupFragment() {
         // Required empty public constructor
+        presenter = new JoinedGroupsTabPresenter(this);
+
     }
 
     /**
@@ -68,6 +86,8 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +96,7 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
             mTitle = getArguments().getString(ARG_PARAM2);
         }
 
-        presenter = new JoinedGroupsTabPresenter(this);
+
     }
 
     @Override
@@ -90,11 +110,26 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
         ll_joined_group_progress = view.findViewById(R.id.ll_joined_group_progress);
 
         //presenter.HandleGetFollowedGroups();
-
+        //Toast.makeText(getContext(), " Joined Group onCreateView", Toast.LENGTH_LONG).show();
         InitListenser();
 
 
+        CallPresenter();
+
+
+
         return view;
+    }
+
+    private void CallPresenter(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.HandleGetFollowedGroups();
+            }
+        }).start();
+
+        Toast.makeText(getContext(), " Joined Group on call presenter", Toast.LENGTH_LONG).show();
     }
 
     public void InitListenser(){
@@ -113,7 +148,6 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
 
 
     private void UpdateListView() {
-
         Runnable run = new Runnable() {
             @Override
             public void run() {
@@ -125,24 +159,44 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
         run.run();
     }
 
+
+
     @Override
     public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
-        //Set visibility
-        ll_joined_group_progress.setVisibility(View.GONE);
-        lv_joined_group_item.setVisibility(View.VISIBLE);
 
-        //Set adapter
-        mAdapter = new MyJoinedGroupAdapter(getContext(), groups);
-        lv_joined_group_item.setAdapter(mAdapter);
+        Log.e("Successssssssss JG", "Check FJG");
+        //newThread.interrupt();
+        this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getContext(), "Check on success ?? JG", Toast.LENGTH_SHORT).show();
+
+                //Set visibility
+                ll_joined_group_progress.setVisibility(View.GONE);
+                lv_joined_group_item.setVisibility(View.VISIBLE);
+
+                //Set adapter
+                mAdapter = new MyJoinedGroupAdapter(getContext(), groups);
+                lv_joined_group_item.setAdapter(mAdapter);
+            }
+        });
     }
 
     @Override
     public void OnGetFollowedGroupsFailure(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        //newThread.interrupt();
 
-        //Set visibility
-        ll_joined_group_progress.setVisibility(View.GONE);
-        lv_joined_group_item.setVisibility(View.VISIBLE);
+        Log.e("Failllllllll JG", "Check FJG");
+        this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+
+                //Set visibility
+                ll_joined_group_progress.setVisibility(View.GONE);
+                lv_joined_group_item.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -152,7 +206,8 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
 
     @Override
     public void OnGetCreatedGroupsFailure(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        //newThread.interrupt();
+        //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -164,4 +219,6 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
     public void OnLeaveGroupFailure(String error) {
         //Not in use
     }
+
+
 }
