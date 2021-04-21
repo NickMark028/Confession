@@ -1,6 +1,7 @@
 package com.example.confession.adapters;
 
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Log.e("Fragment positionnnnnnnnnnnnnnn: ", "Frag-"+position);
+        //Log.e("Fragment positionnnnnnnnnnnnnnn: ", "Frag-"+position);
         switch (position){
             case 0:
                 return YourGroupFragment.newInstance(0, "your-group");
@@ -45,4 +46,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
         return tabTitles[position];
     }
 
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        
+        return super.instantiateItem(container, position);
+    }
 }
