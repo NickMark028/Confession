@@ -1,10 +1,10 @@
-package com.example.confession.binders;
+package com.example.confession.binders.done;
 
 import com.example.confession.models.data.ConfessionGroupInfo;
 
 import java.util.ArrayList;
 
-public interface FollowedGroupsTabBinder {
+public interface FollowedGroupsBinder {
 
 	interface View {
 
