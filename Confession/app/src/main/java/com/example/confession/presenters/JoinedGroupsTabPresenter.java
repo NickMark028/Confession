@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class JoinedGroupsTabPresenter implements JoinedGroupsTabBinder.Presenter {
 
 	JoinedGroupsTabBinder.View view;
-	Thread newThread;
+
 	public JoinedGroupsTabPresenter(JoinedGroupsTabBinder.View view) {
 
 		this.view = view;
@@ -17,40 +17,24 @@ public class JoinedGroupsTabPresenter implements JoinedGroupsTabBinder.Presenter
 
 	@Override
 	public void HandleGetFollowedGroups() {
-		newThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				User user = User.GetInstance();
-				ArrayList<ConfessionGroupInfo> followed_groups = user.GetFollowedGroups();
+		User user = User.GetInstance();
+		ArrayList<ConfessionGroupInfo> followed_groups = user.GetFollowedGroups();
 
-				if (followed_groups != null)
-					view.OnGetFollowedGroupsSuccess(followed_groups);
-				else
-					view.OnGetFollowedGroupsFailure("Failed to get owned groups");
-			}
-		});
-
-		newThread.run();
-
+		if (followed_groups != null)
+			view.OnGetFollowedGroupsSuccess(followed_groups);
+		else
+			view.OnGetFollowedGroupsFailure("Failed to get owned groups");
 	}
 
 	@Override
 	public void HandleGetCreatedGroups() {
-		newThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				User user = User.GetInstance();
-				ArrayList<ConfessionGroupInfo> created_groups = user.GetCreatedGroups();
+		User user = User.GetInstance();
+		ArrayList<ConfessionGroupInfo> created_groups = user.GetCreatedGroups();
 
-				if (created_groups != null)
-					view.OnGetCreatedGroupsSuccess(created_groups);
-				else
-					view.OnGetCreatedGroupsFailure("Failed to get owned groups");
-			}
-		});
-
-		newThread.run();
-
+		if (created_groups != null)
+			view.OnGetCreatedGroupsSuccess(created_groups);
+		else
+			view.OnGetCreatedGroupsFailure("Failed to get owned groups");
 	}
 
 	@Override
