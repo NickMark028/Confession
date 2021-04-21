@@ -22,5 +22,6 @@ public class ApiGet implements Runnable{
         this.response=ac.get(this.url,this.params);
         Log.e("IsComplete: ",new  Boolean(this.isComplete).toString());
         this.isComplete=true;
+        Log.e("IsCompleteAfterSet: ",new  Boolean(this.isComplete).toString());
     }
 }
