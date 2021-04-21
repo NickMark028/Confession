@@ -6,7 +6,6 @@ import com.example.confession.models.data.ConfessionGroupInfo;
 import java.util.ArrayList;
 
 public interface GetMembersBinder {
-
 	interface View {
 
 		void OnGetMembersSuccess(ArrayList<BasicUserInfo> groups);

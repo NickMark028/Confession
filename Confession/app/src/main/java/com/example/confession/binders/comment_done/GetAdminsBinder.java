@@ -8,12 +8,11 @@ import java.util.ArrayList;
 public interface GetAdminsBinder {
     interface View {
 
-        void OnGetMembersSuccess(ArrayList<BasicUserInfo> groups);
-        void OnGetMembersFailure(String error);
+        void OnGetAdminsSuccess(ArrayList<BasicUserInfo> groups);
+        void OnGetAdminsFailure(String error);
     }
 
     interface Presenter {
-
         void HandleGetAdmins(ConfessionGroupInfo group_info);
     }
 }
