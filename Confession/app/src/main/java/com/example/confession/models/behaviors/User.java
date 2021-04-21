@@ -85,14 +85,16 @@ public class User {
 	}
 
 	// Done //
-	public synchronized static User Login(String username, String password) {
+	public static User Login(String username, String password) {
 
 		HashMap params = new HashMap<String, String>();
 		params.put("username", username);
 		params.put("password", password);
 		ApiPost ap = new ApiPost("user/login", params);
-		Thread t = new Thread(ap);
-		t.start();
+//		Thread t = new Thread(ap);
+//		t.start();
+		ap.run();
+
 		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
 		while (!ap.isComplete);
 
@@ -190,15 +192,16 @@ public class User {
 
 	// Done //
 	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
+
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
 
 		String url = "user/joinedconfnorole";
 		ApiGet ag = new ApiGet(url, params);
-
 		Thread t = new Thread(ag);
 		t.start();
+
 		Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
 		while (!ag.isComplete);
 

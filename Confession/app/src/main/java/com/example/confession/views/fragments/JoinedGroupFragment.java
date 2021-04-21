@@ -78,6 +78,7 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
      */
     // TODO: Rename and change types and number of parameters
     public static JoinedGroupFragment newInstance(int page, String title) {
+
         JoinedGroupFragment fragment = new JoinedGroupFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, page);
@@ -95,8 +96,6 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
             mPage = getArguments().getInt(ARG_PARAM1);
             mTitle = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override

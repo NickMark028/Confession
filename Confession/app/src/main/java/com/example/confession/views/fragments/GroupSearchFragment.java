@@ -37,6 +37,8 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 	Set<String> joined_groups;
 	GroupSearchAdapter mGroupSearchAdapter;
 
+	Thread thread;
+
 	public GroupSearchFragment() {
 
 		presenter = new SearchGroupPresenter(this);

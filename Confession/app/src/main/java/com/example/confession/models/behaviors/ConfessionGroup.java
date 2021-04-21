@@ -293,12 +293,14 @@ public class ConfessionGroup {
 
 	// Done //
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("keyword", name);
 		if(name.equals("")) return null;
 		ApiGet ag = new ApiGet("confession/search", params);
 		Thread t = new Thread(ag);
 		t.start();
+//		ag.run();
 
 		Log.d("Thread API: ", "Đang tìm kiếm các nhóm theo từ khóa...");
 		while (!ag.isComplete);
