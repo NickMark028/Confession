@@ -8,7 +8,8 @@ import com.example.confession.models.data.GroupPostInfo;
 
 import java.util.ArrayList;
 
-public class GetPendingPostsPresenter implements GetPendingPostsBinder {
+public class GetPendingPostsPresenter implements GetPendingPostsBinder.Presenter {
+
     private final GetPendingPostsBinder.View view;
 
     public GetPendingPostsPresenter(GetPendingPostsBinder.View view) {
@@ -19,12 +20,12 @@ public class GetPendingPostsPresenter implements GetPendingPostsBinder {
     public void HandleGetPendingPosts(ConfessionGroupInfo group_info) {
 
         ConfessionGroup group = new ConfessionGroup(group_info);
-        ArrayList<GroupPostInfo> users = group.GetPosts(User.GetAuthToken());
+        ArrayList<GroupPostInfo> posts = group.GetPosts(User.GetAuthToken());
 
-        if (users != null)
-            view.OnGetPendingPostsSuccess(users);
+        if (posts != null)
+            view.OnGetPendingPostsSuccess(posts);
         else
-            view.OnGetPendingPostsFailure("Failed to get members");
+            view.OnGetPendingPostsFailure("Failed to get posts");
     }
 
 

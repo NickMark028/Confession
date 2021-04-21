@@ -8,7 +8,8 @@ import com.example.confession.models.data.ConfessionGroupInfo;
 
 import java.util.ArrayList;
 
-public class GetAdminsPresenter implements GetAdminsBinder {
+public class GetAdminsPresenter implements GetAdminsBinder.Presenter {
+
     private final GetAdminsBinder.View view;
 
     public GetAdminsPresenter(GetAdminsBinder.View view) {
@@ -19,11 +20,11 @@ public class GetAdminsPresenter implements GetAdminsBinder {
     public void HandleGetAdmins(ConfessionGroupInfo group_info) {
 
         ConfessionGroup group = new ConfessionGroup(group_info);
-        ArrayList<BasicUserInfo> users = group.GetMembers(User.GetAuthToken());
+        ArrayList<BasicUserInfo> admins = group.GetMembers(User.GetAuthToken());
 
-        if (users != null)
-            view.OnGetAdminsSuccess(users);
+        if (admins != null)
+            view.OnGetAdminsSuccess(admins);
         else
-            view.OnGetAdminsFailure("Failed to get members");
+            view.OnGetAdminsFailure("Failed to get admins");
     }
 }

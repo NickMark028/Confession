@@ -184,7 +184,7 @@ public class ConfessionGroup {
 //		return false;
 //	}
 
-	// Done //
+	// -Done- //
 	public ArrayList<BasicUserInfo> GetMembers(String auth_token) {
 
 	HashMap<String, String> params = new HashMap<String, String>();
@@ -225,7 +225,7 @@ public class ConfessionGroup {
 	return members;
 }
 
-	// Done //
+	//- Done- //
 	public ArrayList<BasicUserInfo> GetAdmins(String auth_token) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
