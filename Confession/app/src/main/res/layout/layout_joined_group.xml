@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
         >
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -19,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/iv_joined_group_gr_avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@mipmap/img_avatar_test_round"
                 android:contentDescription="@string/description"
                 />
@@ -42,13 +43,14 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/joined_group_leave_bn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
 
             android:background="@drawable/custom_edit_text"
             android:text="LEAVE"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
 
     </LinearLayout>
