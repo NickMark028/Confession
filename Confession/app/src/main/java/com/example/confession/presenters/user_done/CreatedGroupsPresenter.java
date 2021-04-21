@@ -1,7 +1,7 @@
-package com.example.confession.presenters.done;
+package com.example.confession.presenters.user_done;
 
 import com.example.confession.binders.CreatePostGroupListBinder;
-import com.example.confession.binders.done.CreatedGroupsBinder;
+import com.example.confession.binders.user_done.CreatedGroupsBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 

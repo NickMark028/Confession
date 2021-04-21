@@ -1,7 +1,4 @@
-package com.example.confession.binders.done;
-
-import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.data.BasicUserInfo;
+package com.example.confession.binders.user_done;
 
 public interface JoinGroupBinder {
 

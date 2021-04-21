@@ -1,6 +1,6 @@
-package com.example.confession.presenters.done;
+package com.example.confession.presenters.user_done;
 
-import com.example.confession.binders.done.SignUpBinder;
+import com.example.confession.binders.user_done.SignUpBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.UserInfo;

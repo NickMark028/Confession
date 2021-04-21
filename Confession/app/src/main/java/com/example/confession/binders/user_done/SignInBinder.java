@@ -1,6 +1,4 @@
-package com.example.confession.binders.done;
-
-import android.content.Context;
+package com.example.confession.binders.user_done;
 
 import com.example.confession.models.behaviors.User;
 
