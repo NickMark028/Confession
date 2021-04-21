@@ -6,6 +6,8 @@ import com.example.confession.models.data.GroupPostInfo;
 import java.util.ArrayList;
 
 public interface GetPostsBinder {
+    void HandleGetPost(ConfessionGroupInfo group_info);
+
     interface View {
 
         void OnGetPostsSuccess(ArrayList<GroupPostInfo> groups);

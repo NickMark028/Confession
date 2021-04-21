@@ -6,6 +6,8 @@ import com.example.confession.models.data.ConfessionGroupInfo;
 import java.util.ArrayList;
 
 public interface GetAdminsBinder {
+    void HandleGetAdmins(ConfessionGroupInfo group_info);
+
     interface View {
 
         void OnGetAdminsSuccess(ArrayList<BasicUserInfo> groups);
