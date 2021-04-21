@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public interface GetPendingPostsBinder {
     void HandleGetPendingPosts(ConfessionGroupInfo group_info);
-
     interface View {
 
         void OnGetPendingPostsSuccess(ArrayList<GroupPostInfo> groups);
