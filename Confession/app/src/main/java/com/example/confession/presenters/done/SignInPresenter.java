@@ -1,12 +1,7 @@
-package com.example.confession.presenters;
+package com.example.confession.presenters.done;
 
-import android.content.Context;
-
-import com.example.confession.binders.SignInBinder;
+import com.example.confession.binders.done.SignInBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.utilities.Hashing;
-
-import java.util.HashMap;
 
 public class SignInPresenter implements SignInBinder.Presenter {
 

@@ -1,4 +1,4 @@
-package com.example.confession.binders;
+package com.example.confession.binders.done;
 
 public interface SignUpBinder {
 
