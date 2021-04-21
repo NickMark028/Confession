@@ -60,16 +60,16 @@ public class PostComment {
 	}
 
 	// Bình luận không có chức năng thả cảm xúc //
-	public boolean React(String user_id, String auth_token)
-	{
-		return false;
-	}
+//	public boolean React(String user_id, String auth_token)
+//	{
+//		return false;
+//	}
 
 	// Bình luận không có chức năng thả cảm xúc //
-	public int GetReactionCount(String auth_token)
-	{
-		return 0;
-	}
+//	public int GetReactionCount(String auth_token)
+//	{
+//		return 0;
+//	}
 
 	@Override
 	public String toString() {

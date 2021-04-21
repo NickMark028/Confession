@@ -1,11 +1,6 @@
-package com.example.confession.presenters;
+package com.example.confession.presenters.user_done;
 
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.media.Image;
-import android.widget.ImageView;
-
-import com.example.confession.binders.SignUpBinder;
+import com.example.confession.binders.user_done.SignUpBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.UserInfo;

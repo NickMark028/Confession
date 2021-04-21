@@ -266,6 +266,7 @@ public class ConfessionGroup {
 		return admins;
 	}
 
+// Testing
 //	public static ArrayList<ConfessionGroupInfo> GetAll() {
 //
 //		HashMap<String, String> params = new HashMap<>();

@@ -39,17 +39,6 @@ public class User {
 		return instance;
 	}
 
-//	public static User From(Bundle bundle) {
-//
-//		UserInfo user_info = (UserInfo) bundle.getSerializable("user_info");
-//		return new User(user_info);
-//	}
-//
-//	public void AddTo(Intent intent) {
-//
-//		intent.putExtra("user_info", this.user_info);
-//	}
-
 	//(An) add for getting Email and Phone
 	
 	public UserInfo GetUserInfo(){

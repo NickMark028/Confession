@@ -15,16 +15,11 @@ public interface JoinedGroupsTabBinder {
 
 		void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups);
 		void OnGetCreatedGroupsFailure(String error);
-
-		void OnLeaveGroupSuccess(ConfessionGroupInfo group);
-		void OnLeaveGroupFailure(String error);
-
 	}
 
 	interface Presenter {
 
 		void HandleGetFollowedGroups();
 		void HandleGetCreatedGroups();
-		void HandleLeaveGroup(ConfessionGroupInfo group);
 	}
 }

@@ -2,11 +2,8 @@ package com.example.confession.views.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,9 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.confession.R;
-import com.example.confession.binders.SignInBinder;
+import com.example.confession.binders.user_done.SignInBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.SignInPresenter;
+import com.example.confession.presenters.user_done.SignInPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends Activity implements SignInBinder.View {

@@ -197,6 +197,7 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 
     }
 
+
     @Override
     public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
         //Not in use
@@ -205,16 +206,5 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
     @Override
     public void OnLeaveGroupFailure(String error) {
         //Not in use
-    }
-
-    private class CallAPI extends AsyncTask<Void , Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Log.e("In background---------------------------", "Doing Task check");
-
-            presenter.HandleGetCreatedGroups();
-            return null;
-        }
     }
 }
