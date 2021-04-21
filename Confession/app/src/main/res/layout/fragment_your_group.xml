@@ -38,6 +38,8 @@
             android:layout_height="wrap_content"
             android:divider="@color/transparent"
             android:visibility="invisible"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             />
     </LinearLayout>
 
