@@ -21,7 +21,7 @@ public class CreatePostGroupListPresenter implements CreatePostGroupListBinder.P
 	public void HandleGetGroups() {
 
 		User user = User.GetInstance();
-		ArrayList<ConfessionGroupInfo> groups = user.GetFollowedGroups();
+		ArrayList<ConfessionGroupInfo> groups = user.GetJoinedGroups();
 
 		if (groups != null) {
 			view.OnGetGroupsSuccess(groups);
