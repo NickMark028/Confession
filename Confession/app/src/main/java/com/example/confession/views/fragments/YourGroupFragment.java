@@ -196,15 +196,4 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
         });
 
     }
-
-
-    @Override
-    public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
-        //Not in use
-    }
-
-    @Override
-    public void OnLeaveGroupFailure(String error) {
-        //Not in use
-    }
 }

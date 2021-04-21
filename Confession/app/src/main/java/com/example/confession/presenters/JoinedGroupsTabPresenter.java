@@ -36,15 +36,4 @@ public class JoinedGroupsTabPresenter implements JoinedGroupsTabBinder.Presenter
 		else
 			view.OnGetCreatedGroupsFailure("Failed to get owned groups");
 	}
-
-	@Override
-	public void HandleLeaveGroup(ConfessionGroupInfo group) {
-
-		User user = User.GetInstance();
-
-		if (user.LeaveGroup(group.id))
-			view.OnLeaveGroupSuccess(group);
-		else
-			view.OnLeaveGroupFailure("Failed to leave group");
-	}
 }

@@ -209,16 +209,4 @@ public class JoinedGroupFragment extends Fragment implements JoinedGroupsTabBind
         //newThread.interrupt();
         //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
-        //Not in use
-    }
-
-    @Override
-    public void OnLeaveGroupFailure(String error) {
-        //Not in use
-    }
-
-
 }

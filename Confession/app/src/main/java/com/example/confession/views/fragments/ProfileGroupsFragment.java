@@ -162,16 +162,4 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 	public void OnGetCreatedGroupsFailure(String error) {
 
 	}
-
-	@Override
-	public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
-
-	}
-
-	@Override
-	public void OnLeaveGroupFailure(String error) {
-
-	}
-
-
 }
