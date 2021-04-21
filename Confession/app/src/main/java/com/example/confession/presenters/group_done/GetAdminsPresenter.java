@@ -20,7 +20,7 @@ public class GetAdminsPresenter implements GetAdminsBinder.Presenter {
     public void HandleGetAdmins(ConfessionGroupInfo group_info) {
 
         ConfessionGroup group = new ConfessionGroup(group_info);
-        ArrayList<BasicUserInfo> admins = group.GetMembers(User.GetAuthToken());
+        ArrayList<BasicUserInfo> admins = group.GetAdmins(User.GetAuthToken());
 
         if (admins != null)
             view.OnGetAdminsSuccess(admins);

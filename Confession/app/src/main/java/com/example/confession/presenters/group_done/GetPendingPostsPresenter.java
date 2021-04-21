@@ -20,7 +20,7 @@ public class GetPendingPostsPresenter implements GetPendingPostsBinder.Presenter
     public void HandleGetPendingPosts(ConfessionGroupInfo group_info) {
 
         ConfessionGroup group = new ConfessionGroup(group_info);
-        ArrayList<GroupPostInfo> posts = group.GetPosts(User.GetAuthToken());
+        ArrayList<GroupPostInfo> posts = group.GetPendingPosts(User.GetAuthToken());
 
         if (posts != null)
             view.OnGetPendingPostsSuccess(posts);

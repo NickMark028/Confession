@@ -357,7 +357,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	// Done //
+	// -Done- //
 	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
 		HashMap<String, String> params = new HashMap<>();
@@ -405,7 +405,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	// Writr API later //
+	// -Writr API later- //
 	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token)
 	{
 		return null;
