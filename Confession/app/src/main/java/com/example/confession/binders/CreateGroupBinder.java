@@ -8,8 +8,7 @@ public interface CreateGroupBinder {
 	interface View {
 
 		void OnCreateGroupSuccess(ConfessionGroup group);
-
-		void OnCreateGroupFail(String error);
+		void OnCreateGroupFailure(String error);
 	}
 
 	interface Presenter {

@@ -1,5 +1,6 @@
-package com.example.confession.binders;
+package com.example.confession.presenters.done;
 
+import com.example.confession.binders.done.JoinGroupBinder;
 import com.example.confession.models.behaviors.User;
 
 public class JoinGroupPresenter implements JoinGroupBinder.Presenter {
