@@ -27,6 +27,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	private AlertDialog.Builder builder;
 	private AlertDialog progressDialog;
 	private Thread newT;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
