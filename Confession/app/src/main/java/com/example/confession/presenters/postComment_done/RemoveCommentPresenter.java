@@ -16,7 +16,7 @@ public class RemoveCommentPresenter implements RemoveCommentBinder.Presenter {
         }
         else
         {
-            view.OnRemoveCommentFail("False");
+            view.OnRemoveCommentFailure("False");
         }
     }
 }
