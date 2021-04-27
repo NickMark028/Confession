@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface GetCommentBinder {
     interface View{
         void OnGetCommentSuccess(ArrayList<PostCommentInfo> Comment);
-        void OngetCommentFail(String error);
+        void OnGetCommentFail(String error);
     }
     interface Presenter{
         void HandleGetComment(PostCommentInfo comment_info, GroupPostInfo post);

@@ -1,10 +1,8 @@
 package com.example.confession.binders.PostComent_done;
 
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
-
-
-import java.util.ArrayList;
 
 public interface AddCommentBinder {
     interface View {
@@ -14,7 +12,7 @@ public interface AddCommentBinder {
     }
 
     interface Presenter {
-        void HandleAddComment(PostCommentInfo comment);
+        void HandleAddComment(PostCommentInfo comment_info, GroupPostInfo post);
     }
 }
 

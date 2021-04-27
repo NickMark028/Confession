@@ -20,12 +20,12 @@ public class GetCommentPresenter implements GetCommentBinder.Presenter {
     @Override
     public void HandleGetComment(PostCommentInfo comment_info, GroupPostInfo post) {
         PostComment cmt = new PostComment(comment_info,post);
-        ArrayList<PostCommentInfo> comments = cmt.GetComments(User.GetAuthToken());
+        ArrayList<PostCommentInfo> comments = cmt.GetComments(PostComment.GetAuthToken());
         if(comments !=null){
             view.OnGetCommentSuccess(comments);
         }
         else{
-            view.OngetCommentFail("Failed to get comment!");
+            view.OnGetCommentFail("Failed to get comment!");
         }
 
     }

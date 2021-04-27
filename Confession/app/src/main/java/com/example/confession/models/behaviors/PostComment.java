@@ -13,11 +13,17 @@ public class PostComment {
 
 	protected final PostCommentInfo comment_info;
 	protected final GroupPostInfo post;
-
+	private static String auth_token = null;
 	public PostComment(PostCommentInfo comment_info, GroupPostInfo post) {
 
 		this.comment_info = comment_info;
 		this.post = post;
+	}
+
+	public static String GetAuthToken() {
+
+
+		return auth_token;
 	}
 
 	public static PostComment From(Bundle bundle) {
