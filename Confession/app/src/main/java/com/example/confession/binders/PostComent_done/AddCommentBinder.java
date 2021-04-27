@@ -6,15 +6,15 @@ import com.example.confession.models.data.PostCommentInfo;
 
 import java.util.ArrayList;
 
-public interface AddComment_binder {
+public interface AddCommentBinder {
     interface View {
 
-        void OnAddCommentSuccess(ArrayList<PostComment> Comment);
+        void OnAddCommentSuccess(PostComment Comment);
         void OnAddCommentFailure(String error);
     }
 
     interface Presenter {
-
         void HandleAddComment(PostCommentInfo comment);
     }
 }
+

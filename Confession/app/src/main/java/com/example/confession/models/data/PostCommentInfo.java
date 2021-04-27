@@ -24,6 +24,9 @@ public final class PostCommentInfo implements Serializable {
 		time_created = Calendar.getInstance().getTime();
 	}
 
+
+
+
 	@Override
 	public String toString() {
 		return "PostCommentInfo{" +
