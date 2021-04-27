@@ -60,7 +60,7 @@ public class PostComment {
 	}
 
 	// Write API later //
-	public boolean RemoveComment(String comment_id, String from_user_id, String auth_token)
+	public boolean RemoveComment (String comment_id, String from_user_id, String auth_token)
 	{
 		return false;
 	}
