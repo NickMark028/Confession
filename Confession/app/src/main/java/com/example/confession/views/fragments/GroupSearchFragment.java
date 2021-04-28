@@ -163,6 +163,7 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		list_group.clear();
 		list_group.addAll(groups);
 
+		
 		UpdateListView();
 	}
 
