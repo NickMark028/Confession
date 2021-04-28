@@ -331,6 +331,24 @@ public class User {
 		return false;
 	}
 
+	public static User UpdateUserInfo(UserInfo user_info, String auth_token)
+	{
+		User updated_user = null;
+
+		// Phong
+		// BEGIN
+
+		// END
+
+		// Update singleton
+		if (updated_user != null)
+			instance = updated_user;
+
+		return updated_user;
+	}
+
+
+
 
 	@Override
 	public String toString() {
