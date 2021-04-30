@@ -13,19 +13,18 @@ import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.CommentAdapter;
-import com.example.confession.binders.CommentBinder;
-import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.binders.AddCommentBinder;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.PostCommentInfo;
-import com.example.confession.presenters.CommentPresenter;
+import com.example.confession.presenters.AddCommentPresenter;
 
 import java.util.ArrayList;
 
-public class CommentActivity extends AppCompatActivity implements CommentBinder.View {
+public class CommentActivity extends AppCompatActivity implements AddCommentBinder.View {
 
     private ArrayList<PostCommentInfo> comments;
 
-	private CommentPresenter presenter;
+	private AddCommentPresenter presenter;
 	private TextView cmt_txt_post_cmt;
 	private EditText cmt_edit_txt_cmt;
 	private ImageView iv_cmt_back;
@@ -67,7 +66,7 @@ public class CommentActivity extends AppCompatActivity implements CommentBinder.
 
 	public void InitPresenter() {
 
-		this.presenter = new CommentPresenter(this);
+		this.presenter = new AddCommentPresenter(this);
 	}
 
 	public void InitView() {
@@ -121,12 +120,12 @@ public class CommentActivity extends AppCompatActivity implements CommentBinder.
 	}
 
 	@Override
-	public void OnPostCommentSuccess() {
+	public void OnAddCommentSuccess() {
 
 	}
 
 	@Override
-	public void OnPostCommentFailure(String error) {
+	public void OnAddCommentFailure(String error) {
 
 	}
 }

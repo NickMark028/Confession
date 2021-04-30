@@ -72,7 +72,6 @@ public class PostAdapter extends BaseAdapter {
 		return i;
 	}
 
-
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 

@@ -4,23 +4,23 @@ import com.example.confession.models.behaviors.GroupPost;
 
 import java.util.ArrayList;
 
-public interface NewsfeedTabBinder {
+public interface NewsfeedBinder {
 
 	interface View {
 
-		void OnGetPostsSuccess(ArrayList<GroupPost> posts);
-		void OnGetPostsFailure(int error_code);
+		void OnGetNewsfeedSuccess(ArrayList<GroupPost> posts);
+		void OnGetNewsfeedFailure(String error);
 
 		void OnReactPostSuccess(GroupPost post);
-		void OnReactPostFailure(int error_code);
+		void OnReactPostFailure(String error);
 
 		void OnGetCommentsSuccess(GroupPost post);
-		void OnGetCommentsFailure(int error_code);
+		void OnGetCommentsFailure(String error);
 	}
 
 	interface Presenter {
 
-		void HandleGetPosts();
+		void HandleGetNewsfeed();
 		void HandleReactPost(GroupPost post);
 		void HandleGetComments(GroupPost post);
 	}

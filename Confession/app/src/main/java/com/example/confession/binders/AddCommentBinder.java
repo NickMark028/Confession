@@ -3,16 +3,16 @@ package com.example.confession.binders;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.data.BasicUserInfo;
 
-public interface CommentBinder {
+public interface AddCommentBinder {
 
 	interface View {
 
-		void OnPostCommentSuccess();
-		void OnPostCommentFailure(String error);
+		void OnAddCommentSuccess();
+		void OnAddCommentFailure(String error);
 	}
 
 	interface Presenter {
 
-		void HandlePostComment(GroupPost post, BasicUserInfo user, String content);
+		void HandleAddComment(GroupPost post, String content);
 	}
 }

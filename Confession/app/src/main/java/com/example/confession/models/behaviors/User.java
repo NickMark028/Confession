@@ -40,18 +40,16 @@ public class User {
 	}
 
 	//(An) add for getting Email and Phone
-	
-	public UserInfo GetUserInfo(){
+
+	public UserInfo GetUserInfo() {
 		return user_info;
 	}
 
 	public static String GetAuthToken() {
-
 		return auth_token;
 	}
 
 	public BasicUserInfo GetBasicUserInfo() {
-
 		return user_info.basic_info;
 	}
 
@@ -69,7 +67,7 @@ public class User {
 		Thread t = new Thread(ap);
 		t.start();
 		Log.d("Thread API: ", "Đang đăng ký tài khoản...");
-		while (!ap.isComplete);
+		while (!ap.isComplete) ;
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -96,7 +94,7 @@ public class User {
 		ap.run();
 
 		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
-		while (!ap.isComplete);
+		while (!ap.isComplete) ;
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -122,8 +120,7 @@ public class User {
 		return null;
 	}
 
-	public String GetID()
-	{
+	public String GetID() {
 		return user_info.basic_info.id;
 	}
 
@@ -140,7 +137,7 @@ public class User {
 		Thread t = new Thread(ap);
 		t.start();
 		Log.d("Thread API: ", "Đang tạo confession...");
-		while (!ap.isComplete);
+		while (!ap.isComplete) ;
 
 		ConfessionGroup confession = null;
 		Log.d("Response", ap.response);
@@ -171,7 +168,7 @@ public class User {
 		Thread t = new Thread(ap);
 		t.start();
 		Log.d("Thread API: ", "Đang tham gia confession...");
-		while (!ap.isComplete);
+		while (!ap.isComplete) ;
 
 		Log.d("Response", ap.response);
 		try {
@@ -190,7 +187,7 @@ public class User {
 		return false;
 	}
 
-	// TODO FIX THIS
+	// TODO FIX THIS (URGENT)
 	// Done //
 	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 
@@ -204,7 +201,7 @@ public class User {
 		t.start();
 
 		Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
-		while (!ag.isComplete);
+		while (!ag.isComplete) ;
 
 		Log.d("Response", ag.response);
 
@@ -230,8 +227,7 @@ public class User {
 	}
 
 	// Done //
-	public ArrayList<ConfessionGroupInfo> GetCreatedGroups()
-	{
+	public ArrayList<ConfessionGroupInfo> GetCreatedGroups() {
 		ArrayList<ConfessionGroupInfo> groups = new ArrayList<>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
@@ -242,7 +238,7 @@ public class User {
 		Thread t = new Thread(ag);
 		t.start();
 		Log.d("Thread API: ", "Đang lấy danh sách các confession đang quản lý...");
-		while (!ag.isComplete);
+		while (!ag.isComplete) ;
 
 		Log.d("Response", ag.response);
 
@@ -268,8 +264,7 @@ public class User {
 	}
 
 	// Done //
-	public ArrayList<ConfessionGroupInfo> GetJoinedGroups()
-	{
+	public ArrayList<ConfessionGroupInfo> GetJoinedGroups() {
 		ArrayList<ConfessionGroupInfo> joined_groups = GetFollowedGroups();
 		ArrayList<ConfessionGroupInfo> created_groups = GetCreatedGroups();
 
@@ -281,8 +276,7 @@ public class User {
 	}
 
 	// Done //
-	public ArrayList<GroupPostInfo> GetNewsfeed()
-	{
+	public ArrayList<GroupPostInfo> GetNewsfeed() {
 		ArrayList<GroupPostInfo> posts = new ArrayList<GroupPostInfo>();
 		HashMap params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
@@ -293,7 +287,7 @@ public class User {
 		Thread t = new Thread(ag);
 		t.start();
 		Log.d("Thread API: ", "Đang lấy Newsfeed...");
-		while (!ag.isComplete);
+		while (!ag.isComplete) ;
 
 		Log.d("Response", ag.response);
 
@@ -310,9 +304,9 @@ public class User {
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
-					BasicUserInfo author = new BasicUserInfo("","","","");
-					BasicUserInfo approver = new BasicUserInfo("","","","");
-					GroupPostInfo post = new GroupPostInfo(id,author,approver,content);
+					BasicUserInfo author = new BasicUserInfo("", "", "", "");
+					BasicUserInfo approver = new BasicUserInfo("", "", "", "");
+					GroupPostInfo post = new GroupPostInfo(id, author, approver, content);
 					posts.add(post);
 				}
 				return posts;
@@ -333,12 +327,11 @@ public class User {
 		return false;
 	}
 
-	public boolean RemoveGroup(String group_id){
+	public boolean RemoveGroup(String group_id) {
 		return false;
 	}
 
-	public static User UpdateUserInfo(UserInfo user_info, String auth_token)
-	{
+	public static User UpdateUserInfo(UserInfo user_info, String auth_token) {
 		User updated_user = null;
 
 		// Phong
@@ -352,8 +345,6 @@ public class User {
 
 		return updated_user;
 	}
-
-
 
 
 	@Override
