@@ -1,14 +1,8 @@
 package com.example.confession.views.fragments;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,23 +13,20 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupListAdapter;
-import com.example.confession.adapters.MyJoinedGroupAdapter;
 import com.example.confession.adapters.MyOwnGroupAdapter;
-import com.example.confession.binders.JoinedGroupsTabBinder;
+import com.example.confession.binders.user.CreatedGroupsBinder;
+import com.example.confession.presenters.user.CreatedGroupsPresenter;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.JoinedGroupsTabPresenter;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link YourGroupFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder.View {
+public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.View {
 
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "mPage";
@@ -44,7 +35,7 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 	private int mPage;
 	private String mTitle;
 	private Thread newThread;
-	private JoinedGroupsTabBinder.Presenter presenter;
+	private CreatedGroupsBinder.Presenter presenter;
 	private MyOwnGroupAdapter mAdapter;
 
 
@@ -55,7 +46,7 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 
 	public YourGroupFragment() {
 		// Required empty public constructor
-		presenter = new JoinedGroupsTabPresenter(this);
+		presenter = new CreatedGroupsPresenter(this);
 	}
 
 	/**
@@ -66,7 +57,6 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 	 * @param title title of page.
 	 * @return A new instance of fragment YourGroupFragment.
 	 */
-	// TODO: Rename and change types and number of parameters
 	public static YourGroupFragment newInstance(int page, String title) {
 
 		YourGroupFragment fragment = new YourGroupFragment();
@@ -145,17 +135,6 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 		run.run();
 	}
 
-
-	@Override
-	public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
-		//Not in use
-	}
-
-	@Override
-	public void OnGetFollowedGroupsFailure(String error) {
-		//Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-	}
-
 	@Override
 	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 		//newThread.interrupt();
@@ -188,6 +167,5 @@ public class YourGroupFragment extends Fragment implements JoinedGroupsTabBinder
 				lv_your_group_item.setVisibility(View.VISIBLE);
 			}
 		});
-
 	}
 }

@@ -1,6 +1,5 @@
-package com.example.confession.presenters.user_done;
+package com.example.confession.presenters.user;
 
-import com.example.confession.binders.CreatePostGroupListBinder;
 import com.example.confession.binders.user.CreatedGroupsBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
@@ -9,9 +8,9 @@ import java.util.ArrayList;
 
 public class CreatedGroupsPresenter implements CreatedGroupsBinder.Presenter {
 
-	private final CreatePostGroupListBinder.View view;
+	private CreatedGroupsBinder.View view;
 
-	public CreatedGroupsPresenter(CreatePostGroupListBinder.View view) {
+	public CreatedGroupsPresenter(CreatedGroupsBinder.View view) {
 
 		this.view = view;
 	}
@@ -23,9 +22,8 @@ public class CreatedGroupsPresenter implements CreatedGroupsBinder.Presenter {
 		ArrayList<ConfessionGroupInfo> groups = user.GetCreatedGroups();
 
 		if (groups != null)
-			view.OnGetGroupsSuccess(groups);
+			view.OnGetCreatedGroupsSuccess(groups);
 		else
-			view.OnGetGroupsFailure("Failed to get created groups");
-
+			view.OnGetCreatedGroupsFailure("Failed to get groups");
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.confession.presenters.user_done;
+package com.example.confession.presenters.user;
 
 import com.example.confession.binders.user.FollowedGroupsBinder;
 import com.example.confession.models.behaviors.User;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class FollowedGroupsPresenter implements FollowedGroupsBinder.Presenter {
 
-	private final FollowedGroupsBinder.View view;
+	private FollowedGroupsBinder.View view;
 
 	public FollowedGroupsPresenter(FollowedGroupsBinder.View view) {
 
@@ -17,13 +17,12 @@ public class FollowedGroupsPresenter implements FollowedGroupsBinder.Presenter {
 
 	@Override
 	public void HandleGetFollowedGroups() {
-
 		User user = User.GetInstance();
 		ArrayList<ConfessionGroupInfo> groups = user.GetFollowedGroups();
 
 		if (groups != null)
 			view.OnGetFollowedGroupsSuccess(groups);
 		else
-			view.OnGetFollowedGroupsFailure("Failed to get followed groups");
+			view.OnGetFollowedGroupsFailure("Failed to get groups");
 	}
 }

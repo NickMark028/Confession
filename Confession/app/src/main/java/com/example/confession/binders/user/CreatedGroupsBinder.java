@@ -1,4 +1,4 @@
-package com.example.confession.binders.user_done;
+package com.example.confession.binders.user;
 
 import com.example.confession.models.data.ConfessionGroupInfo;
 

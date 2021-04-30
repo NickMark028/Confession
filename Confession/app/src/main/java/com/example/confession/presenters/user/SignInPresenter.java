@@ -1,6 +1,6 @@
-package com.example.confession.presenters.user_done;
+package com.example.confession.presenters.user;
 
-import com.example.confession.binders.user_done.SignInBinder;
+import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.models.behaviors.User;
 
 public class SignInPresenter implements SignInBinder.Presenter {
@@ -15,6 +15,13 @@ public class SignInPresenter implements SignInBinder.Presenter {
 	@Override
 	public void HandleLogin(String username, String password) {
 
+		// Todo On GUI create new thread bug
+		if (username.isEmpty() || password.isEmpty())
+		{
+			view.OnLoginFailure("Username and password can't be empty");
+			return;
+		}
+
 		User user = User.Login(username, password);
 
 		// Todo: Change to sha password
@@ -22,6 +29,6 @@ public class SignInPresenter implements SignInBinder.Presenter {
 		if (user != null)
 			view.OnLoginSuccess(user);
 		else
-			view.OnLoginFailure(1);
+			view.OnLoginFailure("User not exists");
 	}
 }

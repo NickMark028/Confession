@@ -1,4 +1,4 @@
-package com.example.confession.binders.user_done;
+package com.example.confession.binders.user;
 
 import com.example.confession.models.behaviors.User;
 
@@ -7,7 +7,7 @@ public interface SignInBinder {
 	interface View {
 
 		void OnLoginSuccess(User user);
-		void OnLoginFailure(int error_code);
+		void OnLoginFailure(String error);
 	}
 
 	interface Presenter {

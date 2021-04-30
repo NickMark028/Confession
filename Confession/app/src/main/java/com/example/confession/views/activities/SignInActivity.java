@@ -12,9 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.confession.R;
-import com.example.confession.binders.user_done.SignInBinder;
+import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.user_done.SignInPresenter;
+import com.example.confession.presenters.user.SignInPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends Activity implements SignInBinder.View {
@@ -134,7 +134,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 	@SuppressLint("ShowToast")
 	@Override
-	public void OnLoginFailure(int error_code) {
+	public void OnLoginFailure(String error) {
 		newT.interrupt();
 		progressDialog.dismiss();
 		this.runOnUiThread(new Runnable() {
