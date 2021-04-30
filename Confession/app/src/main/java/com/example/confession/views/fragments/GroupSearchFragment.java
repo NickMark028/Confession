@@ -8,26 +8,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupSearchAdapter;
-import com.example.confession.binders.JoinedGroupsTabBinder;
-import com.example.confession.binders.SearchTabBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.binders.group.SearchGroupBinder;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.JoinedGroupsTabPresenter;
-import com.example.confession.presenters.SearchGroupPresenter;
+import com.example.confession.presenters.group.SearchGroupPresenter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GroupSearchFragment extends Fragment implements SearchTabBinder.View {
+public class GroupSearchFragment extends Fragment implements SearchGroupBinder.View {
 
-	private final SearchTabBinder.Presenter presenter;
+	private final SearchGroupBinder.Presenter presenter;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
