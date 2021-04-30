@@ -190,6 +190,7 @@ public class User {
 		return false;
 	}
 
+	// TODO FIX THIS
 	// Done //
 	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 
@@ -270,7 +271,12 @@ public class User {
 	public ArrayList<ConfessionGroupInfo> GetJoinedGroups()
 	{
 		ArrayList<ConfessionGroupInfo> joined_groups = GetFollowedGroups();
-		joined_groups.addAll(GetCreatedGroups());
+		ArrayList<ConfessionGroupInfo> created_groups = GetCreatedGroups();
+
+		if (joined_groups == null || created_groups == null)
+			return null;
+
+		joined_groups.addAll(created_groups);
 		return joined_groups;
 	}
 

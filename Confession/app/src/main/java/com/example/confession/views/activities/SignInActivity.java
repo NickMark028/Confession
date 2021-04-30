@@ -52,9 +52,13 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		google_button = findViewById(R.id.google_button);
 		txt_su_click = findViewById(R.id.txt_su_click);
 		forgot_pass_click = findViewById(R.id.forgot_pass_click);
+
+		// Todo Debug
+		si_username.setText("admin");
+		si_password.setText("1");
 	}
 
-	private void InitProgressDialog(String msg){
+	private void InitProgressDialog(String msg) {
 		builder = new AlertDialog.Builder(SignInActivity.this);
 		builder.setCancelable(false);
 
@@ -113,13 +117,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
 			startActivity(myIntent);
 		});
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-
-
 	}
 
 	@SuppressLint("ShowToast")
