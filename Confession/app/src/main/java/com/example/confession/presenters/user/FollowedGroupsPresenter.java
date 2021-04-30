@@ -17,6 +17,7 @@ public class FollowedGroupsPresenter implements FollowedGroupsBinder.Presenter {
 
 	@Override
 	public void HandleGetFollowedGroups() {
+
 		User user = User.GetInstance();
 		ArrayList<ConfessionGroupInfo> groups = user.GetFollowedGroups();
 

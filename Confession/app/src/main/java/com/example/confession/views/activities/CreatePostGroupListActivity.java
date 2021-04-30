@@ -15,33 +15,38 @@ import android.widget.Toast;
 import com.example.confession.R;
 import com.example.confession.adapters.GroupListAdapter;
 import com.example.confession.binders.CreatePostGroupListBinder;
+import com.example.confession.binders.user.JoinedGroupsBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.CreatePostGroupListPresenter;
+import com.example.confession.presenters.user.JoinedGroupsPresenter;
 
 import java.util.ArrayList;
 
-public class CreatePostGroupListActivity extends AppCompatActivity implements CreatePostGroupListBinder.View {
-
-	private User user;
+public class CreatePostGroupListActivity extends AppCompatActivity implements JoinedGroupsBinder.View {
 
 	private ImageView iv_group_list_back;
 	private ListView lv_create_post_group_list;
-	private CreatePostGroupListBinder.Presenter presenter;
+	private JoinedGroupsBinder.Presenter presenter;
     private GroupListAdapter myAdapter;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_post_group_list);
 
-		presenter = new CreatePostGroupListPresenter(this);
 		InitView();
 		InitListener();
 
-		presenter.HandleGetGroups();
+		presenter = new JoinedGroupsPresenter(this);
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				presenter.HandleGetJoinedGroups();
+			}
+		});
 	}
 
 	public void InitView() {
@@ -80,14 +85,14 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	}
 
 	@Override
-	public void OnGetGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+	public void OnGetJoinedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 
 		myAdapter = new GroupListAdapter(this, groups);
 		lv_create_post_group_list.setAdapter(myAdapter);
 	}
 
 	@Override
-	public void OnGetGroupsFailure(String error) {
+	public void OnGetJoinedGroupsFailure(String error) {
 
 	}
 }
