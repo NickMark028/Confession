@@ -1,6 +1,6 @@
-package com.example.confession.presenters;
+package com.example.confession.presenters.user;
 
-import com.example.confession.binders.CreateGroupBinder;
+import com.example.confession.binders.user.CreateGroupBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;

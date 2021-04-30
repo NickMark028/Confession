@@ -3,21 +3,17 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupListAdapter;
-import com.example.confession.binders.CreateGroupBinder;
-import com.example.confession.models.behaviors.User;
+import com.example.confession.binders.user.CreateGroupBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.presenters.CreateGroupPresenter;
+import com.example.confession.presenters.user.CreateGroupPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupBinder.View {
@@ -26,7 +22,6 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     private ImageButton create_post_close_btn;
     private TextInputEditText create_group_name;
     private AppCompatButton create_group_btn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
