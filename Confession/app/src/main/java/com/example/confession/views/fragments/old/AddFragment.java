@@ -1,4 +1,4 @@
-package com.example.confession.views.fragments;
+package com.example.confession.views.fragments.old;
 
 import android.os.Bundle;
 
