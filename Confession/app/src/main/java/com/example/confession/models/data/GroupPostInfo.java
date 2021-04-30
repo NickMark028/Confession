@@ -7,6 +7,7 @@ import java.util.Date;
 public final class GroupPostInfo implements Serializable {
 
 	public final String id;
+	public final ConfessionGroupInfo group;      // TODO Them cai nay vao constructor
 	public final Date time_created;
 	private final BasicUserInfo author;
 	public final BasicUserInfo approver;
@@ -24,6 +25,17 @@ public final class GroupPostInfo implements Serializable {
 	public GroupPostInfo(String id, BasicUserInfo author, BasicUserInfo approver, String content) {
 
 		this.id = id;
+		this.group = null;          // TODO sua lai
+		this.time_created = Calendar.getInstance().getTime();       // Todo Temp
+		this.author = author;
+		this.approver = approver;
+		this.content = content;
+	}
+
+	public GroupPostInfo(String id, ConfessionGroupInfo group, BasicUserInfo author, BasicUserInfo approver, String content) {
+
+		this.id = id;
+		this.group = group;
 		this.time_created = Calendar.getInstance().getTime();       // Todo Temp
 		this.author = author;
 		this.approver = approver;
