@@ -3,10 +3,8 @@ package com.example.confession.views.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,18 +15,21 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.ViewPagerAdapter;
-import com.example.confession.binders.JoinedGroupsTabBinder;
+import com.example.confession.binders.user.CreatedGroupsBinder;
+import com.example.confession.binders.user.FollowedGroupsBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.JoinedGroupsTabPresenter;
+import com.example.confession.presenters.user.CreatedGroupsPresenter;
+import com.example.confession.presenters.user.FollowedGroupsPresenter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBinder.View {
+public class ProfileGroupsFragment extends Fragment implements FollowedGroupsBinder.View, CreatedGroupsBinder.View {
 
-	private JoinedGroupsTabBinder.Presenter presenter;
+	private FollowedGroupsBinder.Presenter followed_groups_presenter;
+	private CreatedGroupsBinder.Presenter created_groups_presenter;
+
 	private String mTag;
 	private ViewPager profile_group_viewpager;
 	private TextView profile_txt_username_click;
@@ -43,7 +44,8 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 
 		super.onCreate(savedInstanceState);
 
-		presenter = new JoinedGroupsTabPresenter(this);
+		followed_groups_presenter = new FollowedGroupsPresenter(this);
+		created_groups_presenter = new CreatedGroupsPresenter(this);
 		mTag = this.getTag();
 	}
 
@@ -75,14 +77,14 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				presenter.HandleGetFollowedGroups();
+				followed_groups_presenter.HandleGetFollowedGroups();
 			}
 		}).start();
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				presenter.HandleGetCreatedGroups();
+				created_groups_presenter.HandleGetCreatedGroups();
 			}
 		}).start();
 	}

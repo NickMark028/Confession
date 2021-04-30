@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class FollowedGroupsPresenter implements FollowedGroupsBinder.Presenter {
 
-	private FollowedGroupsBinder.View view;
+	private final FollowedGroupsBinder.View view;
 
 	public FollowedGroupsPresenter(FollowedGroupsBinder.View view) {
 
