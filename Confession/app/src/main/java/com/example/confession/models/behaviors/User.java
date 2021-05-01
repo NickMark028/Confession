@@ -188,11 +188,8 @@ public class User {
 
 		String url = "user/joinedconfnorole";
 		ApiGet ag = new ApiGet(url, params);
-		Thread t = new Thread(ag);
-		t.start();
-
 		Log.d("Thread API: ", "Đang lấy danh sách các confession đã tham gia...");
-		while (!ag.isComplete) ;
+		ag.run();
 
 		Log.d("Response", ag.response);
 
