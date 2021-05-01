@@ -158,10 +158,8 @@ public class User {
 		params.put("confession", group_id);
 
 		ApiPost ap = new ApiPost("confession/join", params);
-		Thread t = new Thread(ap);
-		t.start();
 		Log.d("Thread API: ", "Đang tham gia confession...");
-		while (!ap.isComplete) ;
+		ap.run();
 
 		Log.d("Response", ap.response);
 		try {
