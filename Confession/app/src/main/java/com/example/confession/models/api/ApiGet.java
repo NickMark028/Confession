@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-public class ApiGet implements Runnable {
+public class ApiGet{
 
 	public boolean isComplete = false;
 	public String response = "";
@@ -16,12 +16,9 @@ public class ApiGet implements Runnable {
 		this.params = params;
 	}
 
-	@Override
-	public void run() {
+	public String run() {
 		ApiController ac = new ApiController();
 		this.response = ac.get(this.url, this.params);
-		Log.e("IsComplete: ", new Boolean(this.isComplete).toString());
-		this.isComplete = true;
-		Log.e("IsCompleteAfterSet: ", new Boolean(this.isComplete).toString());
+		return response;
 	}
 }
