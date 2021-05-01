@@ -2,7 +2,7 @@ package com.example.confession.models.api;
 
 import java.util.HashMap;
 
-public class ApiPost implements Runnable {
+public class ApiPost{
 
 	public boolean isComplete = false;
 	public String response;
@@ -14,10 +14,10 @@ public class ApiPost implements Runnable {
 		this.params = params;
 	}
 
-	@Override
-	public void run() {
+
+	public String run() {
 		ApiController ac = new ApiController();
 		this.response = ac.post(this.url, this.params);
-		this.isComplete = true;
+		return this.response;
 	}
 }
