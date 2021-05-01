@@ -223,10 +223,8 @@ public class User {
 		String url = "user/joinedconfrole";
 		ApiGet ag = new ApiGet(url, params);
 
-		Thread t = new Thread(ag);
-		t.start();
 		Log.d("Thread API: ", "Đang lấy danh sách các confession đang quản lý...");
-		while (!ag.isComplete) ;
+		ag.run();
 
 		Log.d("Response", ag.response);
 
