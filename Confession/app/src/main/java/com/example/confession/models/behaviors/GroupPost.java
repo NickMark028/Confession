@@ -95,11 +95,8 @@ public class GroupPost {
 		params.put("postid", this.post_info.id);
 
 		ApiGet ag = new ApiGet("post/reactions", params);
-		Thread t = new Thread(ag);
-		t.start();
-
 		Log.d("Thread API: ", "Đang lấy số lượng tim...");
-		while (!ag.isComplete);
+		ag.run();
 
 		Log.d("Response", ag.response);
 		JSONObject obj = null;
