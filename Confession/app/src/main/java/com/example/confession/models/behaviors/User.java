@@ -129,10 +129,8 @@ public class User {
 		params.put("avatar", group.avatar);
 
 		ApiPost ap = new ApiPost("confession/new", params);
-		Thread t = new Thread(ap);
-		t.start();
 		Log.d("Thread API: ", "Đang tạo confession...");
-		while (!ap.isComplete) ;
+		ap.run();
 
 		ConfessionGroup confession = null;
 		Log.d("Response", ap.response);
