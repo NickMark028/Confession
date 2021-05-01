@@ -65,11 +65,8 @@ public class GroupPost {
 		params.put("postid", this.post_info.id);
 
 		ApiPost ap = new ApiPost("post/reaction/react", params);
-		Thread t = new Thread(ap);
-		t.start();
-
 		Log.d("Thread API: ", "Đang thả tim...");
-		while (!ap.isComplete);
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
