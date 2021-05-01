@@ -227,11 +227,8 @@ public class ConfessionGroup {
 		params.put("conf", this.group_info.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
-		Thread t = new Thread(ag);
-		t.start();
-
 		Log.d("Thread API: ", "Đang lấy danh sách thành admin...");
-		while (!ag.isComplete);
+		ag.run();
 
 		ArrayList<BasicUserInfo> admins = new ArrayList<BasicUserInfo>();
 		Log.d("Response", ag.response);
