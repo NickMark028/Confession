@@ -10,35 +10,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupSearchAdapter;
 import com.example.confession.binders.group.SearchGroupBinder;
+import com.example.confession.binders.user.JoinedGroupIDsBinder;
+import com.example.confession.presenters.user.JoinedGroupsIDPresenter;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.group.SearchGroupPresenter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GroupSearchFragment extends Fragment implements SearchGroupBinder.View {
+public class GroupSearchFragment extends Fragment implements SearchGroupBinder.View, JoinedGroupIDsBinder.View {
 
-	private final SearchGroupBinder.Presenter presenter;
+	private final SearchGroupBinder.Presenter search_presenter;
+	private final JoinedGroupIDsBinder.Presenter joined_presenter;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
 	ListView lv_search_item;
 
-	ArrayList<ConfessionGroupInfo> list_group;
-	Set<String> joined_groups;
-	GroupSearchAdapter mGroupSearchAdapter;
+	private ArrayList<ConfessionGroupInfo> list_group;
+	private Set<String> joined_groups;
+	private GroupSearchAdapter mGroupSearchAdapter;
 
 	Thread thread;
 
 	public GroupSearchFragment() {
 
-		presenter = new SearchGroupPresenter(this);
-		presenter.HandleGetJoinedGroups();
+		search_presenter = new SearchGroupPresenter(this);
+		joined_presenter = new JoinedGroupsIDPresenter(this);
+
+		joined_groups = new HashSet<>();
+		new Thread(() -> joined_presenter.HandleGetJoinedGroupIDs()).run();
 	}
 
 	@Override
@@ -65,7 +73,6 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
 
 		list_group = new ArrayList<>();
-		joined_groups = new HashSet<>();
 		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
 	}
@@ -91,7 +98,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 
-				presenter.HandleFindGroup(query);
+				search_presenter.HandleFindGroup(query);
 				return false;
 			}
 
@@ -158,35 +165,24 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 
 		list_group.clear();
 		list_group.addAll(groups);
-
 		
 		UpdateListView();
 	}
 
 	@Override
 	public void OnFindGroupFailure(String error) {
-
+		Toast.makeText(getContext(), "Failed to find group", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
-	public void OnGetJoinedGroupsSuccess(Set<String> joined_groups) {
+	public void OnGetJoinedGroupIDsSuccess(Collection<String> groups) {
 
 		this.joined_groups.clear();
-		this.joined_groups.addAll(joined_groups);
+		this.joined_groups.addAll(groups);
 	}
 
 	@Override
-	public void OnGetJoinedGroupsFailure(String error) {
-
+	public void OnGetJoinedGroupIDsFailure(String error) {
+		// Do nothing
 	}
-
-//	@Override
-//	public void OnJoinGroupSuccess(ConfessionGroup group) {
-//
-//	}
-//
-//	@Override
-//	public void OnJoinGroupFailure(String error) {
-//
-//	}
 }

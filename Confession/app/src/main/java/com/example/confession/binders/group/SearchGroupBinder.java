@@ -14,14 +14,10 @@ public interface SearchGroupBinder {
 
 		void OnFindGroupSuccess(ArrayList<ConfessionGroupInfo> groups);
 		void OnFindGroupFailure(String error);
-
-		void OnGetJoinedGroupsSuccess(Set<String> joined_groups);
-		void OnGetJoinedGroupsFailure(String error);
 	}
 
 	interface Presenter {
 
 		void HandleFindGroup(String group_name);
-		void HandleGetJoinedGroups();
 	}
 }

@@ -2,24 +2,17 @@ package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.GroupListAdapter;
-import com.example.confession.binders.CreatePostGroupListBinder;
 import com.example.confession.binders.user.JoinedGroupsBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.CreatePostGroupListPresenter;
 import com.example.confession.presenters.user.JoinedGroupsPresenter;
 
 import java.util.ArrayList;

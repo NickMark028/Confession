@@ -25,16 +25,4 @@ public class SearchGroupPresenter implements SearchGroupBinder.Presenter {
 		else
 			view.OnFindGroupFailure("Failed to get groups");
 	}
-
-	@Override
-	public void HandleGetJoinedGroups() {
-
-		User user = User.GetInstance();
-		ArrayList<ConfessionGroupInfo> groups = user.GetJoinedGroups();
-
-		if (groups != null)
-			view.OnFindGroupSuccess(groups);
-		else
-			view.OnFindGroupFailure("Failed to get user joined groups");
-	}
 }
