@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class PostAdapter extends BaseAdapter {
 
 	Context context;
-	ArrayList<GroupPost> posts;
+	ArrayList<GroupPostInfo> posts;
 
 	//layout variables
 	private EditText edit_txt_cmt;
@@ -52,7 +52,7 @@ public class PostAdapter extends BaseAdapter {
 
 	private String user_role = "ROLE_ADMIN";
 
-	public PostAdapter(Context context, ArrayList<GroupPost> posts) {
+	public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
 		this.context = context;
 		this.posts = posts;
 	}
@@ -118,8 +118,10 @@ public class PostAdapter extends BaseAdapter {
 
 	}
 
+	// TODO Fix this (urgent)
 	public void InitData(int position){
-		GroupPost post = posts.get(position);
+
+		GroupPost post = null;//posts.get(position);
 		GroupPostInfo post_info = post.GetPostInfo();
 		txt_group_name.setText(post.GetGroup().name);
 		txt_time_post.setText(post_info.time_created.toString());

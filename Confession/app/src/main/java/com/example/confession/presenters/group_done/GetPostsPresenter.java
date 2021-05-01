@@ -1,6 +1,6 @@
 package com.example.confession.presenters.group_done;
 
-import com.example.confession.binders.comment_done.GetPostsBinder;
+import com.example.confession.binders.group.GetPostsBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;

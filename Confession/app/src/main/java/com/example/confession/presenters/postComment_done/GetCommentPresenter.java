@@ -1,10 +1,7 @@
 package com.example.confession.presenters.postComment_done;
 
 import com.example.confession.binders.PostComent_done.GetCommentBinder;
-import com.example.confession.binders.comment_done.GetPostsBinder;
 import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.behaviors.User;
-import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
 

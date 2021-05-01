@@ -183,26 +183,31 @@
         </LinearLayout>
         <!--        Posts-->
 
-        <ScrollView
+        <ListView
+            android:id="@+id/lv_posts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"/>
 
-            <LinearLayout
-                android:id="@+id/ll_post_in_group"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
-                <include layout="@layout/layout_post" />
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_post_in_group"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="vertical">-->
 
-                <include layout="@layout/layout_post" />
+<!--                <include layout="@layout/layout_post" />-->
 
-                <include layout="@layout/layout_post" />
+<!--                <include layout="@layout/layout_post" />-->
+
+<!--                <include layout="@layout/layout_post" />-->
 
 
-            </LinearLayout>
-        </ScrollView>
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
 
     </LinearLayout>
 
