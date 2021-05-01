@@ -328,11 +328,9 @@ public class ConfessionGroup {
 		params.put("title", post.id);
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
-		Thread t = new Thread(ap);
-		t.start();
 
 		Log.d("Thread API: ", "Đang đăng bài...");
-		while (!ap.isComplete);
+		ap.run();
 
 		ArrayList<ConfessionGroupInfo> confessions = new ArrayList<ConfessionGroupInfo>();
 		Log.d("Response", ap.response);
