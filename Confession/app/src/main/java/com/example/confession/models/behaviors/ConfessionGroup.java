@@ -91,11 +91,9 @@ public class ConfessionGroup {
 		params.put("premem", user_id); // Có nguy cơ sai.
 
 		ApiPost ap = new ApiPost("confession/addmember", params);
-		Thread t = new Thread(ap);
-		t.start();
 
 		Log.d("Thread API: ", "Đang chấp nhận thành viên chờ...");
-		while (!ap.isComplete);
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
