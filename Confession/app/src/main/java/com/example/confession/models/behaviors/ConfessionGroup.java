@@ -354,11 +354,9 @@ public class ConfessionGroup {
 		params.put("conf", this.group_info.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
-		Thread t = new Thread(ag);
-		t.start();
 
 		Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
-		while (!ag.isComplete);
+		ag.run();
 
 		ArrayList<GroupPostInfo> posts = new ArrayList<>();
 		Log.e("Response", ag.response);
