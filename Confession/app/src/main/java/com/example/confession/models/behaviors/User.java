@@ -269,11 +269,8 @@ public class User {
 
 		String url = "user/newsfeed";
 		ApiGet ag = new ApiGet(url, params);
-
-		Thread t = new Thread(ag);
-		t.start();
 		Log.d("Thread API: ", "Đang lấy Newsfeed...");
-		while (!ag.isComplete) ;
+		ag.run();
 
 		Log.d("Response", ag.response);
 
