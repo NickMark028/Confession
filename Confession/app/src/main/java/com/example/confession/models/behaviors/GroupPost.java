@@ -152,11 +152,8 @@ public class GroupPost {
 		params.put("conf", this.group.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
-		Thread t = new Thread(ag);
-		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
-		}
+		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
+		ag.run();
 
 		ArrayList<PostComment> postComments = new ArrayList<PostComment>();
 		Log.d("Response", ag.response);
