@@ -130,11 +130,8 @@ public class GroupPost {
 		params.put("content", comment.content);
 
 		ApiPost ap = new ApiPost("post/comment/new", params);
-		Thread t = new Thread(ap);
-		t.start();
-
 		Log.d("Thread API: ", "Đang đăng bình luận...");
-		while (!ap.isComplete);
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
