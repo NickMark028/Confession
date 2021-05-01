@@ -18,7 +18,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO Check lai cac method signature trong class diagram
 public class GroupPost {
+
 	protected final GroupPostInfo post_info;
 	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
@@ -49,15 +51,17 @@ public class GroupPost {
 		return post_info.id;
 	}
 
+	public ConfessionGroupInfo GetGroupInfo() {
+		return group;
+	}
+
 	// Write API later //
 	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
 		return false;
 	}
 
-
-
 	// Sửa lại API tự lấy member id từ user id mới chạy được //
-	public boolean React(BasicUserInfo user)
+	public boolean React(String user_id, String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
