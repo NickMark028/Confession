@@ -64,10 +64,8 @@ public class User {
 		params.put("phone", user.phone);
 
 		ApiPost ap = new ApiPost("user/register", params);
-		Thread t = new Thread(ap);
-		t.start();
 		Log.d("Thread API: ", "Đang đăng ký tài khoản...");
-		while (!ap.isComplete) ;
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -89,12 +87,9 @@ public class User {
 		params.put("username", username);
 		params.put("password", password);
 		ApiPost ap = new ApiPost("user/login", params);
-//		Thread t = new Thread(ap);
-//		t.start();
 		ap.run();
 
 		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
-		while (!ap.isComplete) ;
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
