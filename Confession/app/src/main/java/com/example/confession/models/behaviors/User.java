@@ -39,14 +39,12 @@ public class User {
 		return instance;
 	}
 
-	//(An) add for getting Email and Phone
+	public static String GetAuthToken() {
+		return auth_token;
+	}
 
 	public UserInfo GetUserInfo() {
 		return user_info;
-	}
-
-	public static String GetAuthToken() {
-		return auth_token;
 	}
 
 	public BasicUserInfo GetBasicUserInfo() {
@@ -321,7 +319,7 @@ public class User {
 
 		// Phong
 		// BEGIN
-		String auth_token = User.auth_token;
+		String auth_token = instance.auth_token;
 		String username = instance.user_info.basic_info.username;
 
 //		updated_user = ...
@@ -341,7 +339,7 @@ public class User {
 
 		// Phong
 		// BEGIN
-		String auth_token = User.auth_token;
+		String auth_token = instance.auth_token;
 
 //		updated_user = ...
 		// END

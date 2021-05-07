@@ -1,4 +1,4 @@
-package com.example.confession.presenters.user_done;
+package com.example.confession.presenters.user_partially_done;
 
 import com.example.confession.binders.user_done.JoinGroupBinder;
 import com.example.confession.models.behaviors.User;
