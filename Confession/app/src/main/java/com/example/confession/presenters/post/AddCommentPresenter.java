@@ -1,5 +1,6 @@
-package com.example.confession.binders.post;
+package com.example.confession.presenters.post;
 
+import com.example.confession.binders.post.AddCommentBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
@@ -18,20 +19,19 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
 	@Override
 	public void HandleAddComment(GroupPostInfo post_info, String content) {
 
-		if (content.isEmpty())
-		{
+		if (content.isEmpty()) {
 			view.OnAddCommentFailure("Content can't be empty");
 			return;
 		}
 
 		User user = User.GetInstance();
 		GroupPost post = new GroupPost(post_info);
-		PostComment comment = post.AddComment();
+		PostCommentInfo comment_info = new PostCommentInfo(post_info, user.GetBasicUserInfo(), content);
+		PostComment comment = post.AddComment(comment_info);
 
 		if (post != null)
-			view.AddPostSuccess(post);
+			view.OnAddCommentSuccess(comment);
 		else
-			view.AddPostFailure("Failed to add post");
-	}
+			view.OnAddCommentFailure("Failed to add comment");
 	}
 }
