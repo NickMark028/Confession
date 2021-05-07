@@ -13,8 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.binders.user_done.SignUpBinder;
-import com.example.confession.presenters.user_partially_done.SignUpPresenter;
+import com.example.confession.binders.user.SignUpBinder;
+import com.example.confession.presenters.user.SignUpPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
