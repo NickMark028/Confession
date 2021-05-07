@@ -172,6 +172,7 @@ public class User {
 		return false;
 	}
 
+	// TODO
 	public boolean LeaveGroup(String group_id) {
 		return false;
 	}
@@ -303,6 +304,7 @@ public class User {
 		return null;
 	}
 
+	// TODO
 	public boolean IsAdmin(String group_id) {
 
 		return false;
@@ -312,7 +314,7 @@ public class User {
 		return false;
 	}
 
-	// Todo Phong
+	// TODO
 	public User UpdatePassword(String old_pass, String new_pass)
 	{
 		User updated_user = null;
@@ -332,7 +334,7 @@ public class User {
 		return updated_user;
 	}
 
-	// Todo Phong
+	// TODO
 	public User UpdateUserInfo(UserInfo user_info) {
 
 		User updated_user = null;
@@ -350,7 +352,6 @@ public class User {
 
 		return updated_user;
 	}
-
 
 	@Override
 	public String toString() {
