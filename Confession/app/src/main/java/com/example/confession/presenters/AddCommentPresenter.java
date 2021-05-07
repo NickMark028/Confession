@@ -1,12 +1,6 @@
 package com.example.confession.presenters;
 
-import com.example.confession.binders.AddCommentBinder;
-import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.behaviors.User;
-import com.example.confession.models.data.BasicUserInfo;
-import com.example.confession.models.data.GroupPostInfo;
-import com.example.confession.models.data.PostCommentInfo;
+import com.example.confession.binders.post.AddCommentBinder;
 
 public class AddCommentPresenter implements AddCommentBinder.Presenter {
 
