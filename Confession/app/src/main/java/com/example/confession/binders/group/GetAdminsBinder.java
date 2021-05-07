@@ -1,4 +1,4 @@
-package com.example.confession.binders.comment_done;
+package com.example.confession.binders.group;
 
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
@@ -9,7 +9,7 @@ public interface GetAdminsBinder {
 
     interface View {
 
-        void OnGetAdminsSuccess(ArrayList<BasicUserInfo> groups);
+        void OnGetAdminsSuccess(ArrayList<BasicUserInfo> admins);
         void OnGetAdminsFailure(String error);
     }
 
