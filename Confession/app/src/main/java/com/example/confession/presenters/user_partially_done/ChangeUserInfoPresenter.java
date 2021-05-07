@@ -1,6 +1,5 @@
 package com.example.confession.presenters.user_partially_done;
 
-import com.example.confession.binders.user.ChangePasswordBinder;
 import com.example.confession.binders.user.ChangeUserInfoBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
@@ -8,9 +7,9 @@ import com.example.confession.models.data.UserInfo;
 
 public class ChangeUserInfoPresenter implements ChangeUserInfoBinder.Presenter {
 
-	private final ChangePasswordBinder.View view;
+	private final ChangeUserInfoBinder.View view;
 
-	public ChangeUserInfoPresenter(ChangePasswordBinder.View view) {
+	public ChangeUserInfoPresenter(ChangeUserInfoBinder.View view) {
 		this.view = view;
 	}
 
@@ -24,8 +23,8 @@ public class ChangeUserInfoPresenter implements ChangeUserInfoBinder.Presenter {
 		user = user.UpdateUserInfo(info);
 
 		if (user != null)
-			view.OnChangePasswordSuccess(user);
+			view.OnChangeUserInfoSuccess(user);
 		else
-			view.OnChangePasswordFailure("Failed to change password");
+			view.OnChangeUserInfoFailure("Failed to change password");
 	}
 }
