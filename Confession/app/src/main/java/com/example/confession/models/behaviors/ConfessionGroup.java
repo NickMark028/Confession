@@ -301,12 +301,12 @@ public class ConfessionGroup {
 	}
 
 	// DONE //
-	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member, String auth_token) {
+	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo author, String auth_token) {
 
 		HashMap<String, String> params = new HashMap<>();
 		params.put("token", User.GetAuthToken());
 		params.put("confessionid", this.group_info.id);
-		params.put("memberid", member.id);
+		params.put("memberid", author.id);
 		params.put("title", post.id);
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);

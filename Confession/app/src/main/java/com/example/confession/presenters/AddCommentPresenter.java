@@ -17,17 +17,17 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
 		this.view = view;
 	}
 
-	@Override
-	public void HandleAddComment(GroupPostInfo post_info, String content) {
-
-		BasicUserInfo basic_user_info = User.GetInstance().GetBasicUserInfo();
-		GroupPost post = new GroupPost(post_info, )
-		PostCommentInfo comment_info = new PostCommentInfo(post_info, basic_user_info, content);
-		PostComment comment = post.AddComment(comment_info, basic_user_info);
-
-		if (comment != null)
-			view.OnAddCommentSuccess();
-		else
-			view.OnAddCommentFailure("Failed to add comment");
-	}
+//	@Override
+//	public void HandleAddComment(GroupPostInfo post_info, String content) {
+//
+//		BasicUserInfo basic_user_info = User.GetInstance().GetBasicUserInfo();
+//		GroupPost post = new GroupPost(post_info, )
+//		PostCommentInfo comment_info = new PostCommentInfo(post_info, basic_user_info, content);
+//		PostComment comment = post.AddComment(comment_info, basic_user_info);
+//
+//		if (comment != null)
+//			view.OnAddCommentSuccess();
+//		else
+//			view.OnAddCommentFailure("Failed to add comment");
+//	}
 }
