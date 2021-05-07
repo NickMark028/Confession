@@ -85,11 +85,11 @@ public class User {
 		params.put("username", username);
 		params.put("password", password);
 		ApiPost ap = new ApiPost("user/login", params);
-		ap.run();
 
 		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
-
+		ap.run();
 		Log.d("Response", ap.response);
+
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
@@ -101,7 +101,7 @@ public class User {
 				String phone = obj.getString("phone");
 
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
-				UserInfo info = new UserInfo(basic_info, email, phone, token);
+				UserInfo info = new UserInfo(basic_info, email, phone);
 				instance = new User(info);
 				auth_token = token;
 

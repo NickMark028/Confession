@@ -20,9 +20,10 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
 	@Override
 	public void HandleAddComment(GroupPostInfo post_info, String content) {
 
-		User user = User.GetInstance();
-		PostCommentInfo comment_info = new PostCommentInfo(post_info, user.GetBasicUserInfo(), content);
-		PostComment comment = new GroupPost(post_info, ).AddComment(comment_info, user.GetBasicUserInfo());
+		BasicUserInfo basic_user_info = User.GetInstance().GetBasicUserInfo();
+		GroupPost post = new GroupPost(post_info, )
+		PostCommentInfo comment_info = new PostCommentInfo(post_info, basic_user_info, content);
+		PostComment comment = post.AddComment(comment_info, basic_user_info);
 
 		if (comment != null)
 			view.OnAddCommentSuccess();
