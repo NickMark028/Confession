@@ -1,4 +1,4 @@
-package com.example.confession.presenters.user_partially_done;
+package com.example.confession.presenters.user;
 
 import com.example.confession.binders.user.ChangeUserInfoBinder;
 import com.example.confession.models.behaviors.User;
