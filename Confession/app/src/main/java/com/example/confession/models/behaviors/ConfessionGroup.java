@@ -309,10 +309,10 @@ public class ConfessionGroup {
 		return groups;
 	}
 
-	// Done //
+	// TODO tham so input, output bi thieu
 	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member, String auth_token) {
 
-		HashMap<String, String> params = new HashMap<String, String>();
+		HashMap<String, String> params = new HashMap<>();
 		params.put("token", User.GetAuthToken());
 		params.put("confessionid", this.group_info.id);
 		params.put("memberid", member.id);
@@ -338,7 +338,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	// -Done- //
+	// TODO Tham so bi thieu
 	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
 		HashMap<String, String> params = new HashMap<>();
@@ -366,14 +366,16 @@ public class ConfessionGroup {
 					String posterid = poster.getString("_id");
 					String username = poster.getString("username");
 					String fullname = poster.getString("fullname");
+					String content = item.getString("content");
+
 					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
 
 					// TODO: Change approver to the one who approved the post
 					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
 
-					String content = item.getString("content");
+					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
+					GroupPostInfo post_info = new GroupPostInfo(id, null, author, approver, content, 0, false);
 
-					GroupPostInfo post_info = new GroupPostInfo(id, author, approver, content);
 					posts.add(post_info);
 				}
 				return posts;

@@ -286,9 +286,13 @@ public class User {
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
+
+					// TODO thay thanh gia tri hop le
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
 					BasicUserInfo approver = new BasicUserInfo("", "", "", "");
-					GroupPostInfo post = new GroupPostInfo(id, author, approver, content);
+
+					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
+					GroupPostInfo post = new GroupPostInfo(id, null, author, approver, content, 0, false);
 					posts.add(post);
 				}
 				return posts;
