@@ -1,5 +1,7 @@
 package com.example.confession.models.data;
 
+import android.content.Intent;
+
 import com.example.confession.models.behaviors.GroupPost;
 
 import java.io.Serializable;
@@ -26,5 +28,13 @@ public final class PostCommentInfo implements Serializable {
 		this.commenter = commenter;
 		this.content = content;
 		time_created = Calendar.getInstance().getTime();        // TODO might fix this for later
+	}
+
+	public void AddDataTo(Intent intent) {
+		intent.putExtra("pci", this);
+	}
+
+	public static PostCommentInfo From(Intent intent) {
+		return (PostCommentInfo) intent.getSerializableExtra("pci");
 	}
 }
