@@ -113,15 +113,6 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	@Deprecated
-	public ConfessionGroupInfo GetGroupInfo() {
-		return group_info;
-	}
-
-	// Todo change for later
-	public int GetMemberCount() {
-		return members.size();
-	}
 	//	public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
