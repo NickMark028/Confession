@@ -97,7 +97,7 @@ public class GroupPost {
 		return post_info;
 	}
 
-	// Done //
+	// DONE //
 	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -115,7 +115,7 @@ public class GroupPost {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				return new PostComment(comment,this.post_info);
+				return new PostComment(comment);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -123,6 +123,7 @@ public class GroupPost {
 		return null;
 	}
 
+	// TODO sua lai tham so null thanh tham so thich hop
 	public ArrayList<PostComment> GetComments()
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -156,7 +157,7 @@ public class GroupPost {
 							// TODO sua lai tham so null thanh tham so thich hop
 							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
 
-							PostComment comment_info = new PostComment(postCommentInfo,this.post_info);
+							PostComment comment_info = new PostComment(postCommentInfo);
 							postComments.add(comment_info);
 						}
 					}

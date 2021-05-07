@@ -300,7 +300,7 @@ public class ConfessionGroup {
 		return groups;
 	}
 
-	// TODO tham so input, output bi thieu
+	// DONE //
 	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member, String auth_token) {
 
 		HashMap<String, String> params = new HashMap<>();
@@ -320,7 +320,7 @@ public class ConfessionGroup {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				GroupPost groupPost = new GroupPost(post, this.group_info);
+				GroupPost groupPost = new GroupPost(post);
 				return groupPost;
 			}
 		} catch (JSONException e) {
