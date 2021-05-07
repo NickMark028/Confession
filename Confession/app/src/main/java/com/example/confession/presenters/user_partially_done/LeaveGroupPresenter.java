@@ -6,10 +6,9 @@ import com.example.confession.models.behaviors.User;
 
 public class LeaveGroupPresenter implements LeaveGroupBinder.Presenter {
 
-	private final JoinGroupBinder.View view;
+	private final LeaveGroupBinder.View view;
 
-	public LeaveGroupPresenter(JoinGroupBinder.View view) {
-
+	public LeaveGroupPresenter(LeaveGroupBinder.View view) {
 		this.view = view;
 	}
 
@@ -19,8 +18,8 @@ public class LeaveGroupPresenter implements LeaveGroupBinder.Presenter {
 		User user = User.GetInstance();
 
 		if (!user.LeaveGroup(group_id))
-			view.OnJoinGroupSuccess();
+			view.OnLeaveGroupSuccess();
 		else
-			view.OnJoinGroupFailure("Failed to leave group");
+			view.OnLeaveGroupFailure("Failed to leave group");
 	}
 }
