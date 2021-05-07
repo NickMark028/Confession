@@ -1,5 +1,7 @@
 package com.example.confession.models.data;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,5 +40,13 @@ public final class GroupPostInfo implements Serializable {
 		this.content = content;
 		this.reaction_count = reaction_count;
 		this.react = react;
+	}
+
+	public void AddDataTo(Intent intent) {
+		intent.putExtra("gpi", this);
+	}
+
+	public static GroupPostInfo From(Intent intent) {
+		return (GroupPostInfo) intent.getSerializableExtra("gpi");
 	}
 }
