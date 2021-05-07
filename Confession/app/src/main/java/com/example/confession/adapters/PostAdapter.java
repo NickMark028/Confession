@@ -118,14 +118,12 @@ public class PostAdapter extends BaseAdapter {
 
 	}
 
-	// TODO Fix this (urgent)
 	public void InitData(int position){
 
-		GroupPost post = null;//posts.get(position);
-		GroupPostInfo post_info = post.GetPostInfo();
-		txt_group_name.setText(post.GetGroup().name);
+		GroupPostInfo post_info = posts.get(position);
+		txt_group_name.setText(post_info.group.name);
 		txt_time_post.setText(post_info.time_created.toString());
-		txt_content.setText(post_info.content.toString());
+		txt_content.setText(post_info.content);
 	}
 
 	public void InitListener(){
