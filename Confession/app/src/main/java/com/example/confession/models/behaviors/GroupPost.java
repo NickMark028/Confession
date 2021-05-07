@@ -22,37 +22,14 @@ import java.util.HashMap;
 public class GroupPost {
 
 	protected final GroupPostInfo post_info;
-	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
 
-	public GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
-
+	public GroupPost(GroupPostInfo post_info) {
 		this.post_info = post_info;
-		this.group = group;
-	}
-
-	public static GroupPost From(Bundle bundle) {
-
-		GroupPostInfo post_info = (GroupPostInfo) bundle.getSerializable("post_info");
-		ConfessionGroupInfo group = (ConfessionGroupInfo) bundle.getSerializable("group");
-
-		return new GroupPost(post_info, group);
-	}
-
-	public Bundle ToBundle() {
-
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("post_info", this.post_info);
-		bundle.putSerializable("group", this.group);
-		return bundle;
 	}
 
 	public String GetID(){
 		return post_info.id;
-	}
-
-	public ConfessionGroupInfo GetGroupInfo() {
-		return group;
 	}
 
 	// Write API later //
@@ -120,10 +97,6 @@ public class GroupPost {
 		return post_info;
 	}
 
-	public ConfessionGroupInfo GetGroup() {
-		return group;
-	}
-
 	// Done //
 	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
 	{
@@ -153,7 +126,7 @@ public class GroupPost {
 	public ArrayList<PostComment> GetComments()
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("conf", this.group.id);
+		params.put("conf", post_info.group.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
 		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
