@@ -180,7 +180,9 @@ public class GroupPost {
 							String comment_id = comment.getString("_id");
 							String content = comment.getString("content");
 
-							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id,new BasicUserInfo("","","",""),content);
+							// TODO sua lai tham so null thanh tham so thich hop
+							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
+
 							PostComment comment_info = new PostComment(postCommentInfo,this.post_info);
 							postComments.add(comment_info);
 						}

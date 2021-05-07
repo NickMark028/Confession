@@ -11,12 +11,12 @@ public final class BasicUserInfo implements Serializable {
 
 	public BasicUserInfo(String username, String name) {
 
-		this("", username, name, "");
+		this(null, username, name, null);
 	}
 
 	public BasicUserInfo(String username, String name, Object avatar) {
 
-		this("", username, name, avatar);
+		this(null, username, name, avatar);
 	}
 
 	public BasicUserInfo(String id, String username, String name, Object avatar) {
@@ -25,15 +25,5 @@ public final class BasicUserInfo implements Serializable {
 		this.username = username;
 		this.name = name;
 		this.avatar = avatar;
-	}
-
-	@Override
-	public String toString() {
-		return "BasicUserInfo{" +
-				"id='" + id + '\'' +
-				", username='" + username + '\'' +
-				", name='" + name + '\'' +
-				", avatar='" + avatar + '\'' +
-				'}';
 	}
 }

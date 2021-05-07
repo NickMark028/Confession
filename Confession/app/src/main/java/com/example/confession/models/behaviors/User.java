@@ -117,7 +117,7 @@ public class User {
 		return user_info.basic_info.id;
 	}
 
-	// Done //
+	// TODO sua lai tham so ben trong
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 
 		HashMap params = new HashMap<String, String>();
@@ -140,7 +140,10 @@ public class User {
 				String shortname = obj.getString("shortname");
 				String groupname = obj.getString("groupname");
 				String avatar = obj.getString("avatar");
-				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+				// TODO sua lai member_count la gia tri cu the thay vi 0
+				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
+
 				confession = new ConfessionGroup(confession_info);
 			}
 		} catch (JSONException e) {
@@ -202,7 +205,9 @@ public class User {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					// TODO sua lai tham so 0 la member_count
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
 					groups.add(group_info);
 				}
 				return groups;
@@ -237,7 +242,9 @@ public class User {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					// TODO sua lai tham so member_count thay vi de la 0
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
 					groups.add(group_info);
 				}
 				return groups;

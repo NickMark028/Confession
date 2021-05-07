@@ -5,6 +5,7 @@ import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
+import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
 
 public class AddCommentPresenter implements AddCommentBinder.Presenter {
@@ -17,11 +18,11 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
 	}
 
 	@Override
-	public void HandleAddComment(GroupPost post, String content) {
+	public void HandleAddComment(GroupPostInfo post_info, String content) {
 
 		User user = User.GetInstance();
-		PostCommentInfo info = new PostCommentInfo(user.GetBasicUserInfo(), content);
-		PostComment comment = post.AddComment(info, user.GetBasicUserInfo());
+		PostCommentInfo comment_info = new PostCommentInfo(post_info, user.GetBasicUserInfo(), content);
+		PostComment comment = new GroupPost(post_info, ).AddComment(comment_info, user.GetBasicUserInfo());
 
 		if (comment != null)
 			view.OnAddCommentSuccess();

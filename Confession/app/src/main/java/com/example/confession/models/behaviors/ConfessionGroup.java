@@ -274,7 +274,7 @@ public class ConfessionGroup {
 //		return null;
 //	} // Check lại api không trả ra []
 
-	// Done //
+	// TODO sua lai tham so input
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -299,7 +299,9 @@ public class ConfessionGroup {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					// TODO sua lai tham so member_count <> 0
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
 					groups.add(group_info);
 				}
 			}
