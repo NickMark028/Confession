@@ -1,6 +1,6 @@
-package com.example.confession.presenters.user_partially_done;
+package com.example.confession.presenters.user;
 
-import com.example.confession.binders.user_done.NewsfeedBinder;
+import com.example.confession.binders.user.NewsfeedBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
 
@@ -11,7 +11,6 @@ public class NewsfeedPresenter implements NewsfeedBinder.Presenter {
 	private final NewsfeedBinder.View view;
 
 	public NewsfeedPresenter(NewsfeedBinder.View view) {
-
 		this.view = view;
 	}
 
