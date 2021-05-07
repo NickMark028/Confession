@@ -25,21 +25,10 @@ public class ConfessionGroup {
 
 	protected ArrayList<GroupPost> posts;
 	protected ArrayList<BasicUserInfo> members;
+	protected ArrayList<BasicUserInfo> admins;
 
 	public ConfessionGroup(ConfessionGroupInfo group_info) {
-
 		this.group_info = group_info;
-	}
-
-	public void AddTo(Intent intent)
-	{
-		intent.putExtra("group_info", group_info);
-	}
-
-	public static ConfessionGroup From(Bundle bundle) {
-
-		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
-		return new ConfessionGroup(info);
 	}
 
 	public String GetID() {
