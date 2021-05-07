@@ -16,12 +16,10 @@ import android.widget.ListView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.PostAdapter;
-import com.example.confession.binders.GroupBinder;
 import com.example.confession.binders.group.GetPostsBinder;
-import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
-import com.example.confession.presenters.group_done.GetPostsPresenter;
+import com.example.confession.presenters.group.GetPostsPresenter;
 import com.example.confession.views.bottomsheet.GroupUserManageBottomSheet;
 
 import java.util.ArrayList;
