@@ -11,43 +11,29 @@ public final class ConfessionGroupInfo implements Serializable {
 	public final String short_name;     // TODO ????
 	public final String name;
 	public final String avatar;
-	public int members = 110;
+	public int member_count;
 
 	public ConfessionGroupInfo(String short_name, String name) {
 
-		this("", short_name, name, "");
+		this(short_name, name, null);
 	}
 
 	public ConfessionGroupInfo(String short_name, String name, String avatar) {
 
-		this("", short_name, name, avatar);
+		this(null, short_name, name, avatar, 0);
 	}
 
-	public ConfessionGroupInfo(String id, String short_name, String name, String avatar) {
+	public ConfessionGroupInfo(String id, String short_name, String name, String avatar, int member_count) {
 
-		this.short_name = short_name;
 		this.id = id;
+		this.short_name = short_name;
 		this.name = name;
 		this.avatar = avatar;
+		this.member_count = member_count;
 	}
 
 	public static ConfessionGroupInfo From(Bundle bundle) {
 
 		return (ConfessionGroupInfo) bundle.getSerializable("group_info");
-	}
-
-	public int getMembers() {
-		return members;
-	}
-
-	@Override
-	public String toString() {
-		return "ConfessionGroupInfo{" +
-				"id='" + id + '\'' +
-				", short_name='" + short_name + '\'' +
-				", name='" + name + '\'' +
-				", avatar='" + avatar + '\'' +
-				", members=" + members +
-				'}';
 	}
 }

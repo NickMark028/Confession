@@ -12,9 +12,7 @@ import android.widget.TextView;
 import com.example.confession.R;
 import com.example.confession.models.data.ConfessionGroupInfo;
 
-import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 public class GroupSearchAdapter extends BaseAdapter {
@@ -81,7 +79,7 @@ public class GroupSearchAdapter extends BaseAdapter {
 
 		//search_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 		search_gr_name.setText(cgi.name);
-		search_gr_member.setText(Integer.toString(cgi.members));
+		search_gr_member.setText(Integer.toString(cgi.member_count));
 
 		if (joined_groups.contains(cgi.id)) {
 			search_gr_user_state.setText("Joined");
