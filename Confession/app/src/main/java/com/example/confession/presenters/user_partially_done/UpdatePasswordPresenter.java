@@ -23,7 +23,7 @@ public class UpdatePasswordPresenter implements UpdatePasswordBinder.Presenter {
 		old_pass = Hashing.SHA512(old_pass);
 		new_pass = Hashing.SHA512(new_pass);
 		User user = User.GetInstance().UpdatePassword(old_pass, new_pass);
-		
+
 		if (user != null)
 			view.OnUpdatePasswordSuccess(user);
 		else
