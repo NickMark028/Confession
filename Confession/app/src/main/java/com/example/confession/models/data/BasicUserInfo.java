@@ -1,5 +1,7 @@
 package com.example.confession.models.data;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 
 public final class BasicUserInfo implements Serializable {
@@ -11,7 +13,7 @@ public final class BasicUserInfo implements Serializable {
 
 	public BasicUserInfo(String username, String name) {
 
-		this(null, username, name, null);
+		this(username, name, null);
 	}
 
 	public BasicUserInfo(String username, String name, Object avatar) {
@@ -25,5 +27,13 @@ public final class BasicUserInfo implements Serializable {
 		this.username = username;
 		this.name = name;
 		this.avatar = avatar;
+	}
+
+	public void AddDataTo(Intent intent) {
+		intent.putExtra("bui", this);
+	}
+
+	public static BasicUserInfo From(Intent intent) {
+		return (BasicUserInfo) intent.getSerializableExtra("bui");
 	}
 }
