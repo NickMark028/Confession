@@ -19,9 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.example.confession.R;
@@ -33,38 +35,31 @@ import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends BaseAdapter {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 	Context context;
 	ArrayList<GroupPostInfo> posts;
 
-	//layout variables
-	private EditText edit_txt_cmt;
-	private TextView txt_post_cmt, txt_group_name,
-			txt_time_post, txt_content, txt_likes,
-			post_see_all_cmt;
-	private ImageView heart_cover, iv_react,iv_admin_manage_btn;
-	private AnimatedVectorDrawableCompat avd;
-	private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
-	private ConstraintLayout feed_content_layout;
-	private Drawable drawable;
-	private boolean full = false;
-
-	private String user_role = "ROLE_ADMIN";
+	private String user_role = "ROLE_NORMAL";
 
 	public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
 		this.context = context;
 		this.posts = posts;
 	}
 
+
+	@NonNull
 	@Override
-	public int getCount() {
-		return posts.size();
+	public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View view = LayoutInflater.from(context).inflate(R.layout.layout_post, parent, false);
+		return new PostAdapter.ViewHolder(view);
 	}
 
 	@Override
-	public Object getItem(int i) {
-		return posts.get(i);
+	public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+		holder.InitData(position);
+
+
 	}
 
 	@Override
@@ -73,84 +68,91 @@ public class PostAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
-
-		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-		@SuppressLint("ViewHolder")
-		View row = inflater.inflate(R.layout.layout_post, null);
-
-		//  Init view
-		InitView(row);
-		//Init listener
-		InitListener();
-		// Init data
-		InitData(i);
-
-		// TODO background here + react
-//		iv_content.setBackgroundResource(post_info.time_created.toString());
-
-		return row;
+	public int getItemCount() {
+		return posts.size();
 	}
 
-	@SuppressLint("UseCompatLoadingForDrawables")
-	public void InitView(View view){
-		edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
-		txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
-		txt_group_name = view.findViewById(R.id.txt_group_name);
-		txt_time_post = view.findViewById(R.id.txt_time_post);
-		txt_content = view.findViewById(R.id.txt_content);
-		txt_likes = view.findViewById(R.id.txt_likes);
-		post_see_all_cmt = view.findViewById(R.id.post_see_all_cmt);
 
-		heart_cover = view.findViewById(R.id.heart_cover);
-		iv_react = view.findViewById(R.id.iv_react);
-		iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
+	public class ViewHolder extends RecyclerView.ViewHolder{
+		//layout variables
+		private EditText edit_txt_cmt;
+		private TextView txt_post_cmt, txt_group_name,
+				txt_time_post, txt_content, txt_likes,
+				post_see_all_cmt;
+		private ImageView heart_cover, iv_react,iv_admin_manage_btn;
+		private AnimatedVectorDrawableCompat avd;
+		private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
+		private ConstraintLayout feed_content_layout;
+		private Drawable drawable;
+		private boolean full = false;
 
-		feed_content_layout = view.findViewById(R.id.feed_content_layout);
+		public ViewHolder(@NonNull View itemView) {
+			super(itemView);
 
-		drawable = heart_cover.getDrawable();
-		empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
-		fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
-
-		if(!user_role.equals("ROLE_ADMIN")){
-			iv_admin_manage_btn.setVisibility(View.GONE);
+			//  Init view
+			InitView(itemView);
+			//Init listener
+			InitListener();
 		}
 
-	}
+		@SuppressLint("UseCompatLoadingForDrawables")
+		public void InitView(View view){
+			edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
+			txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
+			txt_group_name = view.findViewById(R.id.txt_group_name);
+			txt_time_post = view.findViewById(R.id.txt_time_post);
+			txt_content = view.findViewById(R.id.txt_content);
+			txt_likes = view.findViewById(R.id.txt_likes);
+			post_see_all_cmt = view.findViewById(R.id.post_see_all_cmt);
 
-	// TODO Fix this (urgent)
-	public void InitData(int position){
+			heart_cover = view.findViewById(R.id.heart_cover);
+			iv_react = view.findViewById(R.id.iv_react);
+			iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
 
-		GroupPost post = null;//posts.get(position);
-		GroupPostInfo post_info = post.GetPostInfo();
-		txt_group_name.setText(post.GetGroup().name);
-		txt_time_post.setText(post_info.time_created.toString());
-		txt_content.setText(post_info.content.toString());
-	}
+			feed_content_layout = view.findViewById(R.id.feed_content_layout);
 
-	public void InitListener(){
-		iv_react.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				HeartAnimate(v);
+			drawable = heart_cover.getDrawable();
+			empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
+			fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
+
+			if(!user_role.equals("ROLE_ADMIN")){
+				iv_admin_manage_btn.setVisibility(View.GONE);
 			}
-		});
 
-		post_see_all_cmt.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
-				context.startActivity(myIntent);
-				//context.startActivity(myIntent, Bundle);
-			}
-		});
+		}
 
-		feed_content_layout.setOnClickListener(new DoubleClickListener() {
-			@Override
-			public void onDoubleClick() {
-				if(!full){
+		// TODO Fix this (urgent)
+		public void InitData(int position){
+
+			GroupPostInfo post_info = posts.get(position);
+			txt_group_name.setText(post_info.id);
+			txt_time_post.setText("5 mins ago");
+			txt_content.setText(post_info.content.toString());
+			txt_likes.setText("150");
+		}
+
+		public void InitListener(){
+			iv_react.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					HeartAnimate(v);
+				}
+			});
+
+			post_see_all_cmt.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
+					context.startActivity(myIntent);
+					//context.startActivity(myIntent, Bundle);
+				}
+			});
+
+			feed_content_layout.setOnClickListener(new DoubleClickListener() {
+				@Override
+				public void onDoubleClick() {
+
 					heart_cover.setAlpha(0.70f);
-
 					if (drawable instanceof AnimatedVectorDrawableCompat) {
 						avd = (AnimatedVectorDrawableCompat) drawable;
 						avd.start();
@@ -159,73 +161,79 @@ public class PostAdapter extends BaseAdapter {
 						avd2.start();
 					}
 
-					iv_react.performClick();
+					if(!full){
+						iv_react.performClick();
+					}
+
 				}
-			}
-		});
+			});
 
 
-		edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					txt_post_cmt.setVisibility(View.VISIBLE);
-				} else {
-					txt_post_cmt.setVisibility(View.INVISIBLE);
+			edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						txt_post_cmt.setVisibility(View.VISIBLE);
+					} else {
+						txt_post_cmt.setVisibility(View.INVISIBLE);
+					}
 				}
-			}
-		});
+			});
 
-		edit_txt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEND) {
+			edit_txt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					if (actionId == EditorInfo.IME_ACTION_SEND) {
+						String msg = edit_txt_cmt.getText().toString();
+						Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+						edit_txt_cmt.setText("");
+						edit_txt_cmt.clearFocus();
+
+						InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+						return true;
+					}
+					return false;
+				}
+			});
+
+			txt_post_cmt.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
 					String msg = edit_txt_cmt.getText().toString();
 					Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
 					edit_txt_cmt.setText("");
 					edit_txt_cmt.clearFocus();
 
 					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-					return true;
 				}
-				return false;
-			}
-		});
+			});
 
-		txt_post_cmt.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String msg = edit_txt_cmt.getText().toString();
-				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+			iv_admin_manage_btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					GroupAdminManagePostBottomSheet bottomSheet = new GroupAdminManagePostBottomSheet();
+					FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
+					bottomSheet.show(fm, "action_admin_manage_post");
+				}
+			});
+		}
 
-				edit_txt_cmt.setText("");
-				edit_txt_cmt.clearFocus();
-
-				InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-			}
-		});
-
-		iv_admin_manage_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				GroupAdminManagePostBottomSheet bottomSheet = new GroupAdminManagePostBottomSheet();
-				FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
-				bottomSheet.show(fm, "action_admin_manage_post");
-			}
-		});
-	}
-
-	private void HeartAnimate(View view) {
-		AnimatedVectorDrawable drawable
-				= full
-				? empty_heart
-				: fill_heart;
-		iv_react.setImageDrawable(drawable);
-		drawable.start();
-		full = !full;
+		private void HeartAnimate(View view) {
+			AnimatedVectorDrawable drawable
+					= full
+					? empty_heart
+					: fill_heart;
+			iv_react.setImageDrawable(drawable);
+			drawable.start();
+			full = !full;
 //		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
+		}
 	}
+
+
+
 }
