@@ -24,6 +24,5 @@ public class GetCommentPresenter implements GetCommentBinder.Presenter {
         else{
             view.OnGetCommentFailure("Failed to get comment!");
         }
-
     }
 }

@@ -22,6 +22,6 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
             view.OnAddCommentSuccess(comments);
         }
         else {
-        view.OnAddCommentFailure("Failed to Add Comment!");
+        view.OnAddCommentFailure("Failed to add comment!");
     }}
 }

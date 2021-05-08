@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,24 +28,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.example.confession.R;
+import com.example.confession.binders.PostComent_done.AddCommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
+import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.listener.DoubleClickListener;
+import com.example.confession.models.data.PostCommentInfo;
+import com.example.confession.presenters.postComment_done.AddCommentPresenter;
 import com.example.confession.views.activities.CommentActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements AddCommentBinder.View {
 
 	Context context;
 	ArrayList<GroupPostInfo> posts;
-
+	private AddCommentBinder.Presenter presenter;
 	private String user_role = "ROLE_NORMAL";
 
 	public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
 		this.context = context;
 		this.posts = posts;
+		presenter = new AddCommentPresenter(this);
 	}
 
 
@@ -58,8 +65,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 	@Override
 	public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
 		holder.InitData(position);
-
-
 	}
 
 	@Override
@@ -67,9 +72,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		return i;
 	}
 
+
 	@Override
 	public int getItemCount() {
 		return posts.size();
+	}
+
+
+	//Presenter methods
+	@Override
+	public void OnAddCommentSuccess(PostComment Comment) {
+
+		((Activity)context).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+				Toast.makeText(context, "Sent Successfully", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
+	@Override
+	public void OnAddCommentFailure(String error) {
+		((Activity)context).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 
 
@@ -85,14 +115,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		private ConstraintLayout feed_content_layout;
 		private Drawable drawable;
 		private boolean full = false;
+		private long position;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
+			position = getLayoutPosition();
 
 			//  Init view
 			InitView(itemView);
 			//Init listener
 			InitListener();
+
+		}
+
+		public void SendComment(String msg){
+
+			PostCommentInfo pci = new PostCommentInfo(User.GetInstance().GetBasicUserInfo(), msg);
+			//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
+			GroupPostInfo gpi = posts.get(getLayoutPosition());
+
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					presenter.HandleAddComment(pci, gpi);
+				}
+			}).start();
 		}
 
 		@SuppressLint("UseCompatLoadingForDrawables")
@@ -128,7 +176,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 			txt_group_name.setText(post_info.id);
 			txt_time_post.setText("5 mins ago");
 			txt_content.setText(post_info.content.toString());
-			txt_likes.setText("150");
+			txt_likes.setText("150 likes");
 		}
 
 		public void InitListener(){
@@ -185,7 +233,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 					if (actionId == EditorInfo.IME_ACTION_SEND) {
 						String msg = edit_txt_cmt.getText().toString();
-						Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+//						Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+						SendComment(msg);
+
 						edit_txt_cmt.setText("");
 						edit_txt_cmt.clearFocus();
 
