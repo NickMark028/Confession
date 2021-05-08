@@ -14,6 +14,6 @@ public interface NewsfeedBinder {
 
 	interface Presenter {
 
-		void HandleGetNewsfeed(String group_id);
+		void HandleGetNewsfeed();
 	}
 }
