@@ -30,10 +30,18 @@
                 android:textSize="26sp" />
         </com.google.android.material.card.MaterialCardView>
 
-        <ListView
-            android:id="@+id/lv_posts"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_posts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 <!--        <ScrollView-->
 <!--            android:layout_width="match_parent"-->
