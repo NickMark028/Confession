@@ -62,7 +62,8 @@ public class GroupPost {
 		return false;
 	}
 
-	public PostComment[] GetComment()
+	// TODO
+	public ArrayList<PostComment> GetComment()
 	{
 
 		return null;
