@@ -45,8 +45,8 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 		search_presenter = new SearchGroupPresenter(this);
 		joined_presenter = new JoinedGroupsIDPresenter(this);
 
-		joined_groups = new HashSet<>();
-		new Thread(() -> joined_presenter.HandleGetJoinedGroupIDs()).run();
+		//joined_groups = new HashSet<>();
+		//new Thread(() -> joined_presenter.HandleGetJoinedGroupIDs()).start();
 	}
 
 	@Override
@@ -98,7 +98,12 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 
-				search_presenter.HandleFindGroup(query);
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						search_presenter.HandleFindGroup(query);
+					}
+				}).start();
 				return false;
 			}
 
@@ -117,47 +122,20 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 				//presenter.HandleFindGroup(newText);
 				return true;
 			}
-//			@Override
-//			public boolean onQueryTextSubmit(String query) {
-//
-//				UpdateListView();
-//				txt_search_result.setText(String.format("Results for %s", query));
-//				Toast.makeText(getActivity(), "Search found " + search_item.size(), Toast.LENGTH_SHORT).show();
-//
-//				return false;
-//			}
-//
-//			@Override
-//			public boolean onQueryTextChange(String newText) {
-//
-//				if (newText.isEmpty()) {
-//					txt_search_result.setText(String.format("No Results", newText));
-//					search_item.clear();
-//					UpdateListView();
-//					return true;
-//				}
-//
-//				txt_search_result.setText(String.format("Searching for %s", newText));
-//
-//				if (search_item.size() > 0) {
-//					search_item.clear();
-//				}
-//				return true;
-//			}
+
 		});
 	}
 
 	private void UpdateListView() {
-
-		Runnable run = new Runnable() {
+		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				mGroupSearchAdapter.notifyDataSetChanged();
 				lv_search_item.invalidateViews();
 				lv_search_item.refreshDrawableState();
 			}
-		};
-		run.run();
+		});
+
 	}
 
 	@Override
