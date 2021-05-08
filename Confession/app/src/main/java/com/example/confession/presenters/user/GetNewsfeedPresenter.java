@@ -1,22 +1,22 @@
-package com.example.confession.presenters.user_partially_done;
+package com.example.confession.presenters.user;
 
-import com.example.confession.binders.user_done.NewsfeedBinder;
+import com.example.confession.binders.user.GetNewsfeedBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
 
 import java.util.ArrayList;
 
-public class NewsfeedPresenter implements NewsfeedBinder.Presenter {
+public class GetNewsfeedPresenter implements GetNewsfeedBinder.Presenter {
 
-	private final NewsfeedBinder.View view;
+	private final GetNewsfeedBinder.View view;
 
-	public NewsfeedPresenter(NewsfeedBinder.View view) {
+	public GetNewsfeedPresenter(GetNewsfeedBinder.View view) {
 
 		this.view = view;
 	}
 
 	@Override
-	public void HandleGetNewsfeed(String group_id) {
+	public void HandleGetNewsfeed() {
 
 		User user = User.GetInstance();
 		ArrayList<GroupPostInfo> posts = user.GetNewsfeed();
