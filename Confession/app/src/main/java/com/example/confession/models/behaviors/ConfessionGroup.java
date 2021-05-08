@@ -290,7 +290,9 @@ public class ConfessionGroup {
 					String avatar = item.getString("avatar");
 
 					// TODO sua lai tham so member_count <> 0
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
+					JSONArray members = item.getJSONArray("members");
+					int member_count = members.length();
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 			}
@@ -365,7 +367,17 @@ public class ConfessionGroup {
 					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
 
 					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
-					GroupPostInfo post_info = new GroupPostInfo(id, null, author, approver, content, 0, false);
+					String groupid = obj.getString("_id");
+					String shortname = obj.getString("shortname");
+					String groupname = obj.getString("groupname");
+					String avatar = obj.getString("avatar");
+					JSONArray members = obj.getJSONArray("members");
+					int member_count = members.length();
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,member_count);
+
+					JSONArray reactions =item.getJSONArray("reactions");
+					int reaction_count = reactions.length();
+					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 
 					posts.add(post_info);
 				}

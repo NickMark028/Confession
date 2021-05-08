@@ -206,8 +206,11 @@ public class User {
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
 
+					JSONArray members = item.getJSONArray("members"); // moi them
+					int member_count = members.length(); // moi them
+
 					// TODO sua lai tham so 0 la member_count
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 				return groups;
@@ -244,7 +247,10 @@ public class User {
 					String avatar = item.getString("avatar");
 
 					// TODO sua lai tham so member_count thay vi de la 0
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
+					JSONArray members = item.getJSONArray("members"); // moi them
+					int member_count = members.length(); // moi them
+
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 				return groups;
@@ -287,6 +293,7 @@ public class User {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 
+					String groupid = item.getString("groupid");
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
@@ -296,10 +303,12 @@ public class User {
 
 					// TODO thay thanh gia tri hop le
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
-					BasicUserInfo approver = new BasicUserInfo("", "", "", "");
-
+					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
+					JSONArray reactions = item.getJSONArray("reactions");
+					int reaction_count = reactions.length();
 					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
-					GroupPostInfo post = new GroupPostInfo(id, null, author, approver, content, 0, false);
+					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 					posts.add(post);
 				}
 				return posts;
