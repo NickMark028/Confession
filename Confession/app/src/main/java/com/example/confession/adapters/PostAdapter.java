@@ -253,7 +253,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 				@Override
 				public void onClick(View v) {
 					String msg = edit_txt_cmt.getText().toString();
-					Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+//					Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+					SendComment(msg);
 
 					edit_txt_cmt.setText("");
 					edit_txt_cmt.clearFocus();
