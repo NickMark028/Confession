@@ -108,7 +108,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		});
 
 		txt_su_click.setOnClickListener(view -> {
-			Intent myIntent = new Intent(SignInActivity.this, SignUpActivity.class);
+			Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
 			startActivity(myIntent);
 		});
 
