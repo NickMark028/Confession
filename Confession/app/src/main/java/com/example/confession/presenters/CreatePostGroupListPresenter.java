@@ -28,6 +28,6 @@ public class CreatePostGroupListPresenter implements CreatePostGroupListBinder.P
 			Log.e("-", "-----------------------------------------");
 		}
 		else
-			view.OnGetGroupsFailure("Failed to get followed groups");
+			view.OnGetGroupsFailure("Failed to get groups");
 	}
 }
