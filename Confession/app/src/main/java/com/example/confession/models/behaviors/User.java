@@ -360,7 +360,8 @@ public class User {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				UserInfo userInfo = new UserInfo(instance.user_info.basic_info,instance.user_info.email,instance.user_info.phone);
+				BasicUserInfo basicUserInfo = new BasicUserInfo(instance.user_info.basic_info.id,instance.user_info.basic_info.username,fullname,instance.user_info.basic_info.avatar);
+				UserInfo userInfo = new UserInfo(basicUserInfo,instance.user_info.email,instance.user_info.phone);
 				updated_user = new User(userInfo);
 			}
 		} catch (JSONException e) {
