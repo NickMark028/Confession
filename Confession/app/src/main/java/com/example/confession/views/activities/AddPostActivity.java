@@ -88,9 +88,6 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         add_post_loading = findViewById(R.id.add_post_loading);
 
         addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
-//        if(User.GetInstance().GetBasicUserInfo() != null){
-//            addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
-//        }
     }
 
     private void InitListener() {
