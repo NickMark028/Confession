@@ -342,7 +342,41 @@ public class User {
 		// Phong
 		// BEGIN
 		String auth_token = instance.auth_token;
-		String username = instance.user_info.basic_info.username;
+		String fullname = instance.user_info.basic_info.name;
+
+
+		///////////////////////////////////////////////////////////////////////////
+		HashMap params = new HashMap<String, String>();
+		params.put("token", auth_token);
+		params.put("fullname", fullname);
+		params.put("password", new_pass);
+		ApiPost ap = new ApiPost("user/profile", params);
+
+		Log.d("Thread API: ", "Đang cập nhật thông tin cá nhân...");
+		ap.run();
+		Log.d("Response", ap.response);
+
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				String id = obj.getString("_id");
+				String name = obj.getString("fullname");
+				String token = obj.getString("token");
+				String email = obj.getString("email");
+				String phone = obj.getString("phone");
+
+				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
+				UserInfo info = new UserInfo(basic_info, email, phone);
+				instance = new User(info);
+				auth_token = token;
+
+				return instance;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		///////////////////////////////////////////////////////////////////////////
 
 //		updated_user = ...
 		// END
