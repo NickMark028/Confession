@@ -124,7 +124,7 @@ public class GroupPost {
 	}
 
 	// TODO sua lai tham so null thanh tham so thich hop
-	public ArrayList<PostComment> GetComments()
+	public ArrayList<PostComment> GetComments(String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", post_info.group.id);
