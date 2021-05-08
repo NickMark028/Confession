@@ -3,6 +3,7 @@ package com.example.confession.presenters.user_done;
 import com.example.confession.binders.user_done.NewsfeedBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
+import com.example.confession.views.fragments.NewfeedsFragment;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class NewsfeedPresenter implements NewsfeedBinder.Presenter {
 	}
 
 	@Override
-	public void HandleGetNewsfeed(String group_id) {
+	public void HandleGetNewsfeed() {
 
 		User user = User.GetInstance();
 		ArrayList<GroupPostInfo> posts = user.GetNewsfeed();
