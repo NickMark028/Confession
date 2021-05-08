@@ -1,10 +1,10 @@
-package com.example.confession.binders.user_done;
+package com.example.confession.binders.user;
 
 import com.example.confession.models.data.GroupPostInfo;
 
 import java.util.ArrayList;
 
-public interface NewsfeedBinder {
+public interface GetNewsfeedBinder {
 
 	interface View {
 
