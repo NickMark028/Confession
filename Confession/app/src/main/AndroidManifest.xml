@@ -17,12 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Confession"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activities.CreatePostGroupListActivity"></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".views.activities.AddPostActivity"
             />
+
+        <activity android:name=".views.activities.CreatePostGroupListActivity"/>
+
         <activity android:name=".views.activities.CreateGroupActivity"
             android:noHistory="true"/>
         <activity android:name=".views.activities.CoverActivity"
