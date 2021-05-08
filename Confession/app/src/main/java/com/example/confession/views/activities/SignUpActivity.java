@@ -3,6 +3,7 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,7 +19,7 @@ import com.example.confession.presenters.user_done.SignUpPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public abstract class SignUpActivity extends AppCompatActivity implements SignUpBinder.View {
+public class SignUpActivity extends AppCompatActivity implements SignUpBinder.View {
 
 	SignUpPresenter presenter;
 	private TextInputEditText su_username, su_email, su_phone, su_password, su_confirm_pass;
