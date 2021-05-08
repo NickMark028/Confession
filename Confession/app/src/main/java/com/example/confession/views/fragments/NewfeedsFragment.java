@@ -69,7 +69,7 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 			}
 		}).start();
 		srl_refresh.setRefreshing(true);
-		Toast.makeText(getContext(), " Newsfeed on call presenter", Toast.LENGTH_LONG).show();
+		Toast.makeText(getContext(), "Loading...", Toast.LENGTH_LONG).show();
 	}
 
 	private void InitView(View view){
