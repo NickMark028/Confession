@@ -360,18 +360,8 @@ public class User {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				String id = obj.getString("_id");
-				String name = obj.getString("fullname");
-				String token = obj.getString("token");
-				String email = obj.getString("email");
-				String phone = obj.getString("phone");
-
-				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
-				UserInfo info = new UserInfo(basic_info, email, phone);
-				instance = new User(info);
-				auth_token = token;
-
-				return instance;
+				UserInfo userInfo = new UserInfo(instance.user_info.basic_info,instance.user_info.email,instance.user_info.phone);
+				updated_user = new User(userInfo);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
