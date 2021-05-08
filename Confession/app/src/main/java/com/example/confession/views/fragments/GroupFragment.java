@@ -135,8 +135,8 @@ public class GroupFragment extends Fragment implements GetPostsBinder.View {
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				adapter = new PostAdapter(getContext(), posts);
-				lv_posts.setAdapter(adapter);
+//				adapter = new PostAdapter(getContext(), posts);
+//				lv_posts.setAdapter(adapter);
 			}
 		});
 	}
