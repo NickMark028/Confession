@@ -89,12 +89,7 @@ public class CommentActivity extends AppCompatActivity implements AddCommentBind
 			}
 		});
 
-		iv_cmt_back.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// action send cmt
-			}
-		});
+
 
 		cmt_edit_txt_cmt.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -117,6 +112,12 @@ public class CommentActivity extends AppCompatActivity implements AddCommentBind
 			}
 		});
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
 	}
 
 	@Override
