@@ -254,10 +254,18 @@ public class User {
 		ArrayList<ConfessionGroupInfo> joined_groups = GetFollowedGroups();
 		ArrayList<ConfessionGroupInfo> created_groups = GetCreatedGroups();
 
-		if (joined_groups == null || created_groups == null)
+		if (joined_groups == null && created_groups == null)
 			return null;
 
-		joined_groups.addAll(created_groups);
+		if(joined_groups == null){
+			joined_groups = new ArrayList<>();
+		}
+
+		try{
+			joined_groups.addAll(created_groups);
+		}catch (NullPointerException exc){
+			Log.e("NullExc", exc.getMessage());
+		}
 		return joined_groups;
 	}
 
@@ -281,9 +289,9 @@ public class User {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 
-					String shortname = item.getString("shortname");
-					String groupname = item.getString("groupname");
-					String avatar = item.getString("avatar");
+					//String shortname = item.getString("shortname");
+					//String groupname = item.getString("groupname");
+					//String avatar = item.getString("avatar");
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
