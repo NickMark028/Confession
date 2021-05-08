@@ -101,7 +101,7 @@ public class GroupPost {
 	public PostComment AddComment(PostCommentInfo comment, String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
+		params.put("token", auth_token); //User.GetAuthToken()
 		params.put("memberid", comment.commenter.id);
 		params.put("postid", comment.id);
 		params.put("content", comment.content);
