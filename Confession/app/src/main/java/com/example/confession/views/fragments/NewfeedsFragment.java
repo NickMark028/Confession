@@ -17,18 +17,18 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.PostAdapter;
-import com.example.confession.binders.user_done.NewsfeedBinder;
-import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.behaviors.User;
+import com.example.confession.binders.user.GetNewsfeedBinder;
+
 import com.example.confession.models.data.GroupPostInfo;
-import com.example.confession.presenters.user_done.NewsfeedPresenter;
+import com.example.confession.presenters.user.GetNewsfeedPresenter;
+
 
 import java.util.ArrayList;
 
-public class NewfeedsFragment extends Fragment implements NewsfeedBinder.View{
+public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View {
 
 	//IN-USE VARIABLES
-	private NewsfeedBinder.Presenter presenter;
+	private GetNewsfeedBinder.Presenter presenter;
 	private SwipeRefreshLayout srl_refresh;
 	private ListView lv_posts;
 	private ArrayList<GroupPostInfo> nf_posts;
@@ -36,7 +36,7 @@ public class NewfeedsFragment extends Fragment implements NewsfeedBinder.View{
 	private RecyclerView rv_posts;
 
 	public NewfeedsFragment(){
-		presenter = new NewsfeedPresenter(this);
+		presenter = new GetNewsfeedPresenter(this);
 	}
 
 	@Override
