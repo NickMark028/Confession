@@ -16,11 +16,13 @@ import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.user.SignInPresenter;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class SignInActivity extends Activity implements SignInBinder.View {
 
 	private SignInBinder.Presenter presenter;
 
+	private TextInputLayout til_si_username, til_si_password;
 	private TextInputEditText si_username, si_password;
 	private Button si_button, fb_button, google_button;
 	private TextView txt_su_click, forgot_pass_click;
@@ -47,6 +49,9 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 		si_username = findViewById(R.id.si_username);
 		si_password = findViewById(R.id.si_password);
+		til_si_username = findViewById(R.id.til_si_username);
+		til_si_password = findViewById(R.id.til_si_password);
+
 		si_button = findViewById(R.id.si_button);
 		fb_button = findViewById(R.id.fb_button);
 		google_button = findViewById(R.id.google_button);
@@ -77,6 +82,12 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		si_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				if(!ValidateUsername() | !ValidatePass()){
+					Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_LONG).show();
+					return;
+				}
+
 				newT = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -117,6 +128,31 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			Intent myIntent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
 			startActivity(myIntent);
 		});
+	}
+
+	private boolean ValidateUsername(){
+		String username = si_username.getText().toString();
+
+		if(username.isEmpty()){
+			til_si_username.setError("Field can't be empty");
+			return false;
+		}
+
+		til_si_username.setError(null);
+		return true;
+	}
+
+	private boolean ValidatePass(){
+		String pass = si_password.getText().toString();
+
+		if(pass.isEmpty()){
+			til_si_password.setError("Field can't be empty");
+			til_si_password.setErrorIconDrawable(null);
+			return false;
+		}
+
+		til_si_password.setError(null);
+		return true;
 	}
 
 	@SuppressLint("ShowToast")
