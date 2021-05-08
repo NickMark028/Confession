@@ -20,8 +20,10 @@ import com.example.confession.binders.ProfileTabBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.presenters.ForgotPasswordPresenter;
+import com.example.confession.views.activities.ChangePasswordActivity;
 import com.example.confession.views.activities.CreateGroupActivity;
 import com.example.confession.views.activities.SignInActivity;
+import com.example.confession.views.activities.UpdateProfileActivity;
 import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -149,6 +151,8 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getContext(), "Edit account", Toast.LENGTH_SHORT).show();
+				Intent myIntent = new Intent(getContext(), UpdateProfileActivity.class);
+				startActivity(myIntent);
 			}
 		});
 
@@ -156,7 +160,8 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getContext(), "Change password", Toast.LENGTH_SHORT).show();
-
+				Intent myIntent = new Intent(getContext(), ChangePasswordActivity.class);
+				startActivity(myIntent);
 			}
 		});
 
