@@ -83,10 +83,10 @@ public class GroupSearchAdapter extends BaseAdapter {
 		search_gr_name.setText(cgi.name);
 		search_gr_member.setText(Integer.toString(cgi.members));
 
-		if (joined_groups.contains(cgi.id)) {
-			search_gr_user_state.setText("Joined");
-		} else {
-			search_gr_user_state.setText("");
-		}
+//		if (joined_groups.contains(cgi.id)) {
+//			search_gr_user_state.setText("Joined");
+//		} else {
+//			search_gr_user_state.setText("");
+//		}
 	}
 }
