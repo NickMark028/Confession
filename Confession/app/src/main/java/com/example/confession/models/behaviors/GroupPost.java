@@ -69,10 +69,10 @@ public class GroupPost {
 	}
 
 	// Done //
-	public int GetReactionCount()
+	public int GetReactionCount(String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
+		params.put("token", auth_token); // User.GetAuthToken()
 		params.put("postid", this.post_info.id);
 
 		ApiGet ag = new ApiGet("post/reactions", params);
