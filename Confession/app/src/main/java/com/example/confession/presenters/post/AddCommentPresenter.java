@@ -27,7 +27,7 @@ public class AddCommentPresenter implements AddCommentBinder.Presenter {
 		User user = User.GetInstance();
 		GroupPost post = new GroupPost(post_info);
 		PostCommentInfo comment_info = new PostCommentInfo(post_info, user.GetBasicUserInfo(), content);
-		PostComment comment = post.AddComment(comment_info);
+		PostComment comment = post.AddComment(comment_info, User.GetAuthToken());
 
 		if (post != null)
 			view.OnAddCommentSuccess(comment);
