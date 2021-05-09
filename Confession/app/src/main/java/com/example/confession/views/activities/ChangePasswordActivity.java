@@ -24,6 +24,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
     private TextInputLayout til_cp_curr_pass, til_cp_new_pass, til_cp_confirm_pass;
     private ImageButton change_pass_close_btn, change_pass_confirm;
     private ProgressBar change_pass_loading;
+    private Thread newThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +84,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
 
     //Call presenter to update password here
     private void UpdatePassword(String currpass, String newpass){
-        new Thread(new Runnable() {
+        newThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 presenter.HandleUpdatePassword(currpass, newpass);
             }
-        }).start();
+        });
+        newThread.start();
     }
 
     //Validate Password
@@ -138,12 +140,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
             return false;
         }
 
-        if(password.length() < 6){
-            til_cp_confirm_pass.setError("Password must have at least 6 characters");
-            til_cp_confirm_pass.setErrorIconDrawable(null);
-            return false;
-        }
-
         if(!new_pass.equals(password)){
             til_cp_confirm_pass.setError("Password not match");
             til_cp_confirm_pass.setErrorIconDrawable(null);
@@ -160,6 +156,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(newThread != null && newThread.isAlive()){newThread.interrupt();}
     }
 
     @Override
