@@ -389,31 +389,31 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	// -Writr API later- //
+	// Write API later- //
 	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token)
 	{
 		return null;
 	}
 
-	// Writr API later //
+	// Write API later //
 	public boolean AcceptPost(String post_id, String auth_token)
 	{
 		return false;
 	}
 
-	// Writr API later //
+	// Write API later //
 	public boolean RejectPost(String post_id, String auth_token)
 	{
 		return false;
 	}
 
-	// Writr API later //
+	// Write API later //
 	public boolean PinPostToTop(String post_id, String auth_token)
 	{
 		return false;
 	}
 
-	// Writr API later //
+	// Write API later //
 	public boolean RemovePost(String post_id, String auth_token)
 	{
 		return false;
