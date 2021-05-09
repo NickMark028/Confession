@@ -337,7 +337,7 @@ public class User {
 	// TODO
 	public boolean IsAdmin(String group_id) {
 
-		return false;
+		return true;
 	}
 
 	public boolean RemoveGroup(String group_id) {
