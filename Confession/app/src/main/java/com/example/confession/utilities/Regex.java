@@ -26,3 +26,4 @@ public class Regex {
 					"[\\w.]" +					//
 					"{3,25}$");
 }
+
