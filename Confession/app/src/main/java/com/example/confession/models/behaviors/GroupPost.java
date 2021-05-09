@@ -125,7 +125,7 @@ public class GroupPost {
 	}
 
 	// TODO sua lai tham so null thanh tham so thich hop
-	public ArrayList<PostComment> GetComments(String auth_token)
+	public ArrayList<PostCommentInfo> GetComments(String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", post_info.group.id);
@@ -134,7 +134,7 @@ public class GroupPost {
 		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
 		ag.run();
 
-		ArrayList<PostComment> postComments = new ArrayList<PostComment>();
+		ArrayList<PostCommentInfo> postComments = new ArrayList<PostCommentInfo>();
 		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
@@ -158,8 +158,8 @@ public class GroupPost {
 							// TODO sua lai tham so null thanh tham so thich hop
 							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
 
-							PostComment comment_info = new PostComment(postCommentInfo);
-							postComments.add(comment_info);
+//							PostComment comment_info = new PostComment(postCommentInfo);
+							postComments.add(postCommentInfo);
 						}
 					}
 				}
