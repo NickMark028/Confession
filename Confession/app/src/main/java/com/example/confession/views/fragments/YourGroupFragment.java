@@ -98,12 +98,14 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	}
 
 	private void CallPresenter() {
-		new Thread(new Runnable() {
+		newThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				presenter.HandleGetCreatedGroups();
 			}
-		}).start();
+		});
+
+		newThread.start();
 
 		Toast.makeText(getContext(), " Your Group on call presenter", Toast.LENGTH_LONG).show();
 	}
@@ -136,8 +138,23 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if(newThread.isAlive()){
+			newThread.interrupt();
+		}
+	}
+
+	@Override
 	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 		//newThread.interrupt();
+
+		if(getActivity() == null){
+			Log.e("Check Activityyyyyyyy", "NULLLLLLLLLLLLL");
+			return;
+		}
+
 		Log.e("Successssssssss YG", "Check YYG");
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
@@ -157,6 +174,10 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
 		//newThread.interrupt();
+		if(getActivity() == null){
+			Log.e("Check Activityyyyyyyy", "NULLLLLLLLLLLLL");
+			return;
+		}
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
