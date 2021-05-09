@@ -30,6 +30,7 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	private ListView lv_create_post_group_list;
     private GroupListAdapter myAdapter;
 	private ArrayList<ConfessionGroupInfo> list_groups;
+	private Thread newThread;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,12 +42,13 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 		InitPresenter();
 
 		//Get joined groups in new thread
-		new Thread(new Runnable() {
+		newThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				presenter.HandleGetGroups();
 			}
-		}).start();
+		});
+		newThread.start();
 
 		Toast.makeText(this, "After call HandleGetGroups", Toast.LENGTH_LONG).show();
 	}
@@ -93,6 +95,13 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 				finish();
 			}
 		});
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if(newThread != null && newThread.isAlive()){newThread.interrupt();}
 	}
 
 	@Override
