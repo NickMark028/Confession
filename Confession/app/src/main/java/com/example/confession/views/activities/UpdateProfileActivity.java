@@ -29,6 +29,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements ChangeUs
     private TextInputLayout til_up_fullname, til_up_email, til_up_phone;
     private ImageButton up_close_btn, up_confirm;
     private ProgressBar up_loading;
+    private Thread newThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +94,13 @@ public class UpdateProfileActivity extends AppCompatActivity implements ChangeUs
 
     //Call presenter to update profile here
     private void UpdateProfile(String fname, String email, String phone){
-        new Thread(new Runnable() {
+        newThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 presenter.HandleChangeUserInfo(fname, email, phone);
             }
-        }).start();
+        });
+        newThread.start();
     }
 
     //Validate data
@@ -151,6 +153,19 @@ public class UpdateProfileActivity extends AppCompatActivity implements ChangeUs
 
         til_up_phone.setError(null);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(newThread != null && newThread.isAlive()){newThread.interrupt();}
     }
 
     @Override
