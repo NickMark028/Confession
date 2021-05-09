@@ -106,7 +106,7 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 	public void onDestroy() {
 		super.onDestroy();
 
-		if(newThread.isAlive()){
+		if(newThread != null && newThread.isAlive()){
 			newThread.interrupt();
 		}
 	}
