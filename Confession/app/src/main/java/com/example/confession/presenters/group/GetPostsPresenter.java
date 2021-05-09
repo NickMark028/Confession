@@ -25,6 +25,6 @@ public class GetPostsPresenter implements GetPostsBinder.Presenter {
         if (posts != null)
             view.OnGetPostsSuccess(posts);
         else
-            view.OnGetPostsFailure("Failed to get members");
+            view.OnGetPostsFailure("Failed to get posts");
     }
 }
