@@ -30,7 +30,7 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 	//IN-USE VARIABLES
 	private GetNewsfeedBinder.Presenter presenter;
 	private SwipeRefreshLayout srl_refresh;
-	private ListView lv_posts;
+
 	private ArrayList<GroupPostInfo> nf_posts;
 	private PostAdapter postAdapter;
 	private RecyclerView rv_posts;
