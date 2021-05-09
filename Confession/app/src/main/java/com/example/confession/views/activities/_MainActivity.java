@@ -31,7 +31,7 @@ public class _MainActivity extends Activity {
 		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
 		share = this.getPreferences(MODE_PRIVATE);
-		token = share.get
+		token = share.getString("token", "");
 
 		Intent intent = new Intent(this, SignInActivity.class);
 		startActivity(intent);

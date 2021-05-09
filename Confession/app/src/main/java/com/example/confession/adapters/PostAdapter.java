@@ -172,10 +172,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		public void InitData(int position){
 
 			GroupPostInfo post_info = posts.get(position);
-			txt_group_name.setText(post_info.id);
-			txt_time_post.setText("5 mins ago");
+			txt_group_name.setText(post_info.group.name);
+			txt_time_post.setText(post_info.time_created.toString());
 			txt_content.setText(post_info.content.toString());
-			txt_likes.setText("150 likes");
+			txt_likes.setText(post_info.reaction_count + " likes");
 		}
 
 		public void InitListener(){
