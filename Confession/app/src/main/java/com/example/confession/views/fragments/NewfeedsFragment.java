@@ -34,6 +34,7 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 	private ArrayList<GroupPostInfo> nf_posts;
 	private PostAdapter postAdapter;
 	private RecyclerView rv_posts;
+	private Thread newThread;
 
 	public NewfeedsFragment(){
 		presenter = new GetNewsfeedPresenter(this);
@@ -62,12 +63,15 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 	}
 
 	private void CallPresenter() {
-		new Thread(new Runnable() {
+		newThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				presenter.HandleGetNewsfeed();
 			}
-		}).start();
+		});
+
+		newThread.start();
+
 		srl_refresh.setRefreshing(true);
 		Toast.makeText(getContext(), "Loading...", Toast.LENGTH_LONG).show();
 	}
@@ -98,12 +102,21 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 	}
 
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 
+		if(newThread.isAlive()){
+			newThread.interrupt();
+		}
+	}
 
 	@Override
 	public void OnGetNewsfeedSuccess(ArrayList<GroupPostInfo> posts) {
 		nf_posts.clear();
 		nf_posts.addAll(posts);
+
+		if(getActivity() == null){ return; }
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
@@ -119,6 +132,9 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 
 	@Override
 	public void OnGetNewsfeedFailure(String error) {
+
+		if(getActivity() == null){ return; }
+
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
