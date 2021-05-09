@@ -62,6 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		return new PostAdapter.ViewHolder(view);
 	}
 
+
 	@Override
 	public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
 		holder.InitData(position);
@@ -82,7 +83,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 	//Presenter methods
 	@Override
 	public void OnAddCommentSuccess(PostComment Comment) {
-
 		((Activity)context).runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -102,7 +102,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		});
 	}
 
-
 	public class ViewHolder extends RecyclerView.ViewHolder{
 		//layout variables
 		private EditText edit_txt_cmt;
@@ -116,6 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		private Drawable drawable;
 		private boolean full = false;
 		private long position;
+		private Thread newThread;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -132,12 +132,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 			//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
 			GroupPostInfo gpi = posts.get(getLayoutPosition());
 
-			new Thread(new Runnable() {
+			newThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					presenter.HandleAddComment(gpi, msg);
 				}
-			}).start();
+			});
+
+			newThread.start();
 		}
 
 		@SuppressLint("UseCompatLoadingForDrawables")
@@ -190,6 +192,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 				@Override
 				public void onClick(View v) {
 					Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
+
+					myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
+
 					context.startActivity(myIntent);
 					//context.startActivity(myIntent, Bundle);
 				}
@@ -272,6 +277,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 				}
 			});
 		}
+
+
 
 		private void HeartAnimate(View view) {
 			AnimatedVectorDrawable drawable
