@@ -14,9 +14,10 @@ import android.widget.TextView;
 import com.example.confession.R;
 import com.example.confession.adapters.CommentAdapter;
 import com.example.confession.binders.post.AddCommentBinder;
+import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.PostCommentInfo;
-import com.example.confession.presenters.AddCommentPresenter;
+import com.example.confession.presenters.post.AddCommentPresenter;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class CommentActivity extends AppCompatActivity implements AddCommentBind
 
     private ArrayList<PostCommentInfo> comments;
 
-	private AddCommentPresenter presenter;
+	private AddCommentBinder.Presenter presenter;
 	private TextView cmt_txt_post_cmt;
 	private EditText cmt_edit_txt_cmt;
 	private ImageView iv_cmt_back;
@@ -47,21 +48,21 @@ public class CommentActivity extends AppCompatActivity implements AddCommentBind
     {
         comments = new ArrayList<>(100);
 
-        comments.add(new PostCommentInfo("1" , new BasicUserInfo("user #1" , "Nguyen Minh A1" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("2" , new BasicUserInfo("user #2" , "Nguyen Minh A2" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("3" , new BasicUserInfo("user #3" , "Nguyen Minh A3" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("4" , new BasicUserInfo("user #4" , "Nguyen Minh A4" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("5" , new BasicUserInfo("user #5" , "Nguyen Minh A5" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("6" , new BasicUserInfo("user #6" , "Nguyen Minh A6" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("7" , new BasicUserInfo("user #7" , "Nguyen Minh A7" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("8" , new BasicUserInfo("user #8" , "Nguyen Minh A8" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("9" , new BasicUserInfo("user #9" , "Nguyen Minh A9" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("10", new BasicUserInfo("user #10", "Nguyen Minh A10"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("11", new BasicUserInfo("user #11", "Nguyen Minh A11"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("12", new BasicUserInfo("user #12", "Nguyen Minh A12"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("13", new BasicUserInfo("user #13", "Nguyen Minh A13"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("14", new BasicUserInfo("user #14", "Nguyen Minh A14"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
-        comments.add(new PostCommentInfo("15", new BasicUserInfo("user #15", "Nguyen Minh A15"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #1" , "Nguyen Minh A1" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #2" , "Nguyen Minh A2" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #3" , "Nguyen Minh A3" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #4" , "Nguyen Minh A4" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #5" , "Nguyen Minh A5" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #6" , "Nguyen Minh A6" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #7" , "Nguyen Minh A7" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #8" , "Nguyen Minh A8" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #9" , "Nguyen Minh A9" ), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #10", "Nguyen Minh A10"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #11", "Nguyen Minh A11"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #12", "Nguyen Minh A12"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #13", "Nguyen Minh A13"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #14", "Nguyen Minh A14"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
+//        comments.add(new PostCommentInfo(new BasicUserInfo("user #15", "Nguyen Minh A15"), "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede."));
    }
 
 	public void InitPresenter() {
@@ -120,8 +121,9 @@ public class CommentActivity extends AppCompatActivity implements AddCommentBind
 		finish();
 	}
 
+
 	@Override
-	public void OnAddCommentSuccess() {
+	public void OnAddCommentSuccess(PostComment comment) {
 
 	}
 
