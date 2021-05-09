@@ -66,7 +66,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
             @Override
             public void onClick(View v) {
 
-                if(!ValidateNewPassword() | !ValidateCurrentPassword() | !ValidateConfirmPassword()){
+                if(!ValidateCurrentPassword() | !ValidateNewPassword() |  !ValidateConfirmPassword()){
                     Toast.makeText(getApplicationContext(), "Update failed", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -103,24 +103,21 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
             return false;
         }
 
-
-
         til_cp_curr_pass.setError(null);
         til_cp_curr_pass.setErrorIconDrawable(null);
         return true;
     }
 
     private boolean ValidateNewPassword(){
-        String password = change_pass_curr_pass.getText().toString();
+        String new_password = change_pass_new_pass.getText().toString();
 
-        if(password.isEmpty()){
+        if(new_password.isEmpty()){
             til_cp_new_pass.setError("Field can't be empty");
             til_cp_new_pass.setErrorIconDrawable(null);
             return false;
         }
 
-
-        if(!Regex.PASSWORD_PATTERN.matcher(password).matches()){
+        if(!Regex.PASSWORD_PATTERN.matcher(new_password).matches()){
             til_cp_new_pass.setError("Password too weak");
             til_cp_new_pass.setErrorIconDrawable(null);
             return false;
