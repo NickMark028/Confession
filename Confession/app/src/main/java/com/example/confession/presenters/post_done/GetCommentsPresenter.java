@@ -22,7 +22,7 @@ public class GetCommentsPresenter implements GetCommentsBinder.Presenter {
 	public void HandleGetComments(GroupPostInfo info) {
 
 		GroupPost post = new GroupPost(info);
-		ArrayList<PostComment> comments = post.GetComments(User.GetAuthToken());
+		ArrayList<PostCommentInfo> comments = post.GetComments(User.GetAuthToken());
 
 		if (comments != null)
 			view.OnGetCommentsSuccess(comments);
