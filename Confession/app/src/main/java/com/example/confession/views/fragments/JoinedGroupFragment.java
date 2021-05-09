@@ -94,12 +94,14 @@ public class JoinedGroupFragment extends Fragment implements FollowedGroupsBinde
 	}
 
 	private void CallPresenter() {
-		new Thread(new Runnable() {
+		newThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				presenter.HandleGetFollowedGroups();
 			}
-		}).start();
+		});
+
+		newThread.start();
 
 		Toast.makeText(getContext(), " Joined Group on call presenter", Toast.LENGTH_LONG).show();
 	}
@@ -131,7 +133,17 @@ public class JoinedGroupFragment extends Fragment implements FollowedGroupsBinde
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if (newThread.isAlive()){
+			newThread.interrupt();
+		}
+	}
+
+	@Override
 	public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+		if(getActivity() == null){ return; }
 
 		Log.e("Successssssssss JG", "Check FJG");
 		//newThread.interrupt();
@@ -154,6 +166,7 @@ public class JoinedGroupFragment extends Fragment implements FollowedGroupsBinde
 	@Override
 	public void OnGetFollowedGroupsFailure(String error) {
 		//newThread.interrupt();
+		if(getActivity() == null){ return; }
 
 		Log.e("Failllllllll JG", "Check FJG");
 		this.getActivity().runOnUiThread(new Runnable() {
