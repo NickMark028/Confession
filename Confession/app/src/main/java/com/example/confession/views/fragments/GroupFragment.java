@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.PostAdapter;
 import com.example.confession.binders.group.GetPostsBinder;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.presenters.group.GetPostsPresenter;
@@ -32,16 +38,23 @@ import java.util.ArrayList;
 public class GroupFragment extends Fragment implements GetPostsBinder.View {
 
 	private GetPostsBinder.Presenter presenter;
-	private PostAdapter adapter;
 	private ConfessionGroupInfo cgi;
 
 	private String mTag;
 
 	private String user_role = "ROLE_ADMIN";
 	private LinearLayout /* ll_post_in_group, */ll_noti_join_group;
-	private ListView lv_posts;
+	private TextView txt_gr_name;
+
+	private RecyclerView rv_group_posts;
+	private SwipeRefreshLayout srl_group_posts;
+	private PostAdapter postAdapter;
+	private ArrayList<GroupPostInfo> gr_posts;
+
 	private ImageView iv_group_back_btn, iv_group_setting_btn;
 	private AppCompatButton btn_join_group;
+
+	private Thread newThread;
 
 	public static GroupFragment newInstance(ConfessionGroupInfo cgi) {
 
@@ -61,6 +74,8 @@ public class GroupFragment extends Fragment implements GetPostsBinder.View {
 		}
 		mTag = this.getTag();
 		//User.GetInstance().IsAdmin(cgi.id);
+
+
 	}
 
 	@Override
@@ -72,33 +87,72 @@ public class GroupFragment extends Fragment implements GetPostsBinder.View {
 		presenter = new GetPostsPresenter(this);
 		InitView(view);
 		InitListener();
+		InitData();
 
 		return view;
 	}
 
 	public void InitView(View view) {
 
-		lv_posts = view.findViewById(R.id.lv_posts);
+		txt_gr_name = view.findViewById(R.id.txt_gr_name);
+
 //		ll_post_in_group = view.findViewById(R.id.ll_post_in_group);
 		ll_noti_join_group = view.findViewById(R.id.ll_noti_join_group);
 		iv_group_back_btn = view.findViewById(R.id.iv_group_back_btn);
 		iv_group_setting_btn = view.findViewById(R.id.iv_group_setting_btn);
 		btn_join_group = view.findViewById(R.id.btn_join_group);
 
+		//Init RecyclerView and SwipeRefreshLayout
+		srl_group_posts = view.findViewById(R.id.srl_group_posts);
+		rv_group_posts = view.findViewById(R.id.rv_group_posts);
+		LinearLayoutManager llm = new LinearLayoutManager(getContext());
+		llm.setReverseLayout(true);
+		llm.setStackFromEnd(true);
+		rv_group_posts.setLayoutManager(llm);
+
+		gr_posts = new ArrayList<>();
+		postAdapter = new PostAdapter(getContext(), gr_posts);
+		rv_group_posts.setAdapter(postAdapter);
+
 		if (mTag.equals("TAQ_GROUP_NOT_JOIN")) {
 
 			btn_join_group.setVisibility(View.VISIBLE);
 			ll_noti_join_group.setVisibility(View.VISIBLE);
 //			ll_post_in_group.setVisibility(View.INVISIBLE);
-			lv_posts.setVisibility(View.INVISIBLE);
-		} else {
-
-			new Thread(() -> presenter.HandleGetPosts(cgi));
+			rv_group_posts.setVisibility(View.GONE);
+			iv_group_setting_btn.setVisibility(View.GONE);
 		}
+
+	}
+
+	public void InitData(){
+		txt_gr_name.setText(cgi.name);
+	}
+
+	public void LoadGroupPosts(){
+		newThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				presenter.HandleGetPosts(cgi);
+			}
+		});
+
+		newThread.start();
+
+		srl_group_posts.setRefreshing(true);
+//		Toast.makeText(getContext(), "Loading...", Toast.LENGTH_LONG).show();
 	}
 
 	public void InitListener() {
 		iv_group_back_btn.setOnClickListener(v -> getFragmentManager().popBackStack());
+
+		srl_group_posts.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				//Do sth
+				LoadGroupPosts();
+			}
+		});
 
 		btn_join_group.setOnClickListener(new View.OnClickListener() {
 			@SuppressLint("SetTextI18n")
@@ -110,9 +164,6 @@ public class GroupFragment extends Fragment implements GetPostsBinder.View {
 				btn_join_group.setVisibility(View.GONE);
 				ll_noti_join_group.setVisibility(View.GONE);
 //				ll_post_in_group.setVisibility(View.VISIBLE);
-				lv_posts.setVisibility(View.VISIBLE);
-
-				new Thread(() -> presenter.HandleGetPosts(cgi));
 			}
 		});
 
@@ -127,20 +178,42 @@ public class GroupFragment extends Fragment implements GetPostsBinder.View {
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if (newThread != null && newThread.isAlive()){newThread.interrupt();}
+	}
+
+	@Override
 	public void OnGetPostsSuccess(ArrayList<GroupPostInfo> posts) {
 
-		// TODO UI adapter update?
+		if (getActivity() == null) return;
+
+		gr_posts.clear();
+		gr_posts.addAll(posts);
+
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-//				adapter = new PostAdapter(getContext(), posts);
-//				lv_posts.setAdapter(adapter);
+				srl_group_posts.setRefreshing(false);
+
+				postAdapter.notifyDataSetChanged();
+				rv_group_posts.invalidateItemDecorations();
+				rv_group_posts.refreshDrawableState();
 			}
 		});
 	}
 
 	@Override
 	public void OnGetPostsFailure(String error) {
-		Log.i("Failure", "GetPosts");
+		if (getActivity() == null) return;
+
+		getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				srl_group_posts.setRefreshing(false);
+				Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }
