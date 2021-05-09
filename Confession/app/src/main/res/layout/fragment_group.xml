@@ -28,6 +28,7 @@
                 android:src="@drawable/back" />
 
             <TextView
+                android:id="@+id/txt_gr_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -183,31 +184,19 @@
         </LinearLayout>
         <!--        Posts-->
 
-        <ListView
-            android:id="@+id/lv_posts"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_group_posts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/ll_post_in_group"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <include layout="@layout/layout_post" />-->
-
-<!--                <include layout="@layout/layout_post" />-->
-
-<!--                <include layout="@layout/layout_post" />-->
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_group_posts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
 
     </LinearLayout>
 
