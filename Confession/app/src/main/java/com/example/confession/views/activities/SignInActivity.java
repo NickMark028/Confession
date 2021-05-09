@@ -59,8 +59,10 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		forgot_pass_click = findViewById(R.id.forgot_pass_click);
 
 		// Todo Debug
-		si_username.setText("admin");
-		si_password.setText("1");
+
+		//admin - 1
+		si_username.setText("tphong175");
+		si_password.setText("123456789");
 	}
 
 	private void InitProgressDialog(String msg) {
