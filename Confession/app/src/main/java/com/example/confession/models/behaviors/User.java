@@ -85,11 +85,11 @@ public class User {
 		params.put("username", username);
 		params.put("password", password);
 		ApiPost ap = new ApiPost("user/login", params);
-		ap.run();
 
 		Log.d("Thread API: ", "Đang kiểm tra thông tin đăng nhập...");
-
+		ap.run();
 		Log.d("Response", ap.response);
+
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
@@ -101,7 +101,7 @@ public class User {
 				String phone = obj.getString("phone");
 
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
-				UserInfo info = new UserInfo(basic_info, email, phone, token);
+				UserInfo info = new UserInfo(basic_info, email, phone);
 				instance = new User(info);
 				auth_token = token;
 
@@ -117,7 +117,7 @@ public class User {
 		return user_info.basic_info.id;
 	}
 
-	// Done //
+	// TODO sua lai tham so ben trong
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 
 		HashMap params = new HashMap<String, String>();
@@ -140,7 +140,10 @@ public class User {
 				String shortname = obj.getString("shortname");
 				String groupname = obj.getString("groupname");
 				String avatar = obj.getString("avatar");
-				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+				// TODO sua lai member_count la gia tri cu the thay vi 0
+				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
+
 				confession = new ConfessionGroup(confession_info);
 			}
 		} catch (JSONException e) {
@@ -172,6 +175,7 @@ public class User {
 		return false;
 	}
 
+	// TODO
 	public boolean LeaveGroup(String group_id) {
 		return false;
 	}
@@ -201,7 +205,12 @@ public class User {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					JSONArray members = item.getJSONArray("members"); // moi them
+					int member_count = members.length(); // moi them
+
+					// TODO sua lai tham so 0 la member_count
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 				return groups;
@@ -236,7 +245,12 @@ public class User {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					// TODO sua lai tham so member_count thay vi de la 0
+					JSONArray members = item.getJSONArray("members"); // moi them
+					int member_count = members.length(); // moi them
+
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 				return groups;
@@ -287,15 +301,24 @@ public class User {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 
-					//String shortname = item.getString("shortname");
-					//String groupname = item.getString("groupname");
-					//String avatar = item.getString("avatar");
+
+					String groupid = item.getString("groupid");
+					String shortname = item.getString("shortname");
+					String groupname = item.getString("groupname");
+					String avatar = item.getString("avatar");
+
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
+
+					// TODO thay thanh gia tri hop le
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
-					BasicUserInfo approver = new BasicUserInfo("", "", "", "");
-					GroupPostInfo post = new GroupPostInfo(id, author, approver, content);
+					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
+					JSONArray reactions = item.getJSONArray("reactions");
+					int reaction_count = reactions.length();
+					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
+					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 					posts.add(post);
 				}
 				return posts;
@@ -311,6 +334,7 @@ public class User {
 		return null;
 	}
 
+	// TODO
 	public boolean IsAdmin(String group_id) {
 
 		return false;
@@ -320,7 +344,7 @@ public class User {
 		return false;
 	}
 
-	// Todo Phong
+	// TODO
 	public User UpdatePassword(String old_pass, String new_pass)
 	{
 		User updated_user = null;
@@ -328,7 +352,32 @@ public class User {
 		// Phong
 		// BEGIN
 		String auth_token = instance.auth_token;
-		String username = instance.user_info.basic_info.username;
+		String fullname = instance.user_info.basic_info.name;
+
+
+		///////////////////////////////////////////////////////////////////////////
+		HashMap params = new HashMap<String, String>();
+		params.put("token", auth_token);
+		params.put("fullname", fullname);
+		params.put("password", new_pass);
+		ApiPost ap = new ApiPost("user/profile", params);
+
+		Log.d("Thread API: ", "Đang cập nhật thông tin cá nhân...");
+		ap.run();
+		Log.d("Response", ap.response);
+
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				BasicUserInfo basicUserInfo = new BasicUserInfo(instance.user_info.basic_info.id,instance.user_info.basic_info.username,fullname,instance.user_info.basic_info.avatar);
+				UserInfo userInfo = new UserInfo(basicUserInfo,instance.user_info.email,instance.user_info.phone);
+				updated_user = new User(userInfo);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		///////////////////////////////////////////////////////////////////////////
 
 //		updated_user = ...
 		// END
@@ -340,7 +389,7 @@ public class User {
 		return updated_user;
 	}
 
-	// Todo Phong
+	// TODO
 	public User UpdateUserInfo(UserInfo user_info) {
 
 		User updated_user = null;
@@ -358,7 +407,6 @@ public class User {
 
 		return updated_user;
 	}
-
 
 	@Override
 	public String toString() {

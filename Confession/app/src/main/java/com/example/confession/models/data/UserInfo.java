@@ -10,22 +10,8 @@ public final class UserInfo implements Serializable {
 
 	public UserInfo(BasicUserInfo basic_info, String email, String phone) {
 
-		this(basic_info, email, phone, "");
-	}
-
-	public UserInfo(BasicUserInfo basic_info, String email, String phone, String auth_token) {
-
 		this.basic_info = basic_info;
 		this.email = email;
 		this.phone = phone;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfo{" +
-				"basic_info=" + basic_info +
-				", email='" + email + '\'' +
-				", phone='" + phone + '\'' +
-				'}';
 	}
 }

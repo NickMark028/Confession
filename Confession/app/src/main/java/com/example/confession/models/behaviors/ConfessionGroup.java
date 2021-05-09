@@ -25,21 +25,10 @@ public class ConfessionGroup {
 
 	protected ArrayList<GroupPost> posts;
 	protected ArrayList<BasicUserInfo> members;
+	protected ArrayList<BasicUserInfo> admins;
 
 	public ConfessionGroup(ConfessionGroupInfo group_info) {
-
 		this.group_info = group_info;
-	}
-
-	public void AddTo(Intent intent)
-	{
-		intent.putExtra("group_info", group_info);
-	}
-
-	public static ConfessionGroup From(Bundle bundle) {
-
-		ConfessionGroupInfo info = (ConfessionGroupInfo) bundle.getSerializable("group_info");
-		return new ConfessionGroup(info);
 	}
 
 	public String GetID() {
@@ -113,15 +102,6 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	@Deprecated
-	public ConfessionGroupInfo GetGroupInfo() {
-		return group_info;
-	}
-
-	// Todo change for later
-	public int GetMemberCount() {
-		return members.size();
-	}
 	//	public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
@@ -283,7 +263,7 @@ public class ConfessionGroup {
 //		return null;
 //	} // Check lại api không trả ra []
 
-	// Done //
+	// TODO sua lai tham so input
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -308,7 +288,11 @@ public class ConfessionGroup {
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar);
+
+					// TODO sua lai tham so member_count <> 0
+					JSONArray members = item.getJSONArray("members");
+					int member_count = members.length();
+					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
 			}
@@ -318,13 +302,13 @@ public class ConfessionGroup {
 		return groups;
 	}
 
-	// Done //
-	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo member, String auth_token) {
+	// DONE //
+	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo author, String auth_token) {
 
-		HashMap<String, String> params = new HashMap<String, String>();
+		HashMap<String, String> params = new HashMap<>();
 		params.put("token", User.GetAuthToken());
 		params.put("confessionid", this.group_info.id);
-		params.put("memberid", member.id);
+		params.put("memberid", author.id);
 		params.put("title", post.id);
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
@@ -338,7 +322,7 @@ public class ConfessionGroup {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				GroupPost groupPost = new GroupPost(post, this.group_info);
+				GroupPost groupPost = new GroupPost(post);
 				return groupPost;
 			}
 		} catch (JSONException e) {
@@ -347,7 +331,7 @@ public class ConfessionGroup {
 		return null;
 	}
 
-	// -Done- //
+	// TODO Tham so bi thieu
 	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
 		HashMap<String, String> params = new HashMap<>();
@@ -375,14 +359,26 @@ public class ConfessionGroup {
 					String posterid = poster.getString("_id");
 					String username = poster.getString("username");
 					String fullname = poster.getString("fullname");
+					String content = item.getString("content");
+
 					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
 
 					// TODO: Change approver to the one who approved the post
 					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
 
-					String content = item.getString("content");
+					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
+					String groupid = obj.getString("_id");
+					String shortname = obj.getString("shortname");
+					String groupname = obj.getString("groupname");
+					String avatar = obj.getString("avatar");
+					JSONArray members = obj.getJSONArray("members");
+					int member_count = members.length();
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,member_count);
 
-					GroupPostInfo post_info = new GroupPostInfo(id, author, approver, content);
+					JSONArray reactions =item.getJSONArray("reactions");
+					int reaction_count = reactions.length();
+					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
+
 					posts.add(post_info);
 				}
 				return posts;

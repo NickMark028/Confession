@@ -1,5 +1,7 @@
 package com.example.confession.models.data;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,22 +19,18 @@ public final class GroupPostInfo implements Serializable {
 	public int reaction_count;
 	public boolean react;
 
-	public GroupPostInfo(BasicUserInfo author, BasicUserInfo approver, String content) {
+	public GroupPostInfo(ConfessionGroupInfo group, BasicUserInfo author, String content) {
 
-		this("", author, approver, content);
+		this(null, group, author, null, content, 0, false);
 	}
 
-	public GroupPostInfo(String id, BasicUserInfo author, BasicUserInfo approver, String content) {
-
-		this.id = id;
-		this.group = null;          // TODO sua lai
-		this.time_created = Calendar.getInstance().getTime();       // Todo Temp
-		this.author = author;
-		this.approver = approver;
-		this.content = content;
-	}
-
-	public GroupPostInfo(String id, ConfessionGroupInfo group, BasicUserInfo author, BasicUserInfo approver, String content) {
+	public GroupPostInfo(String id,
+	                     ConfessionGroupInfo group,
+	                     BasicUserInfo author,
+	                     BasicUserInfo approver,
+	                     String content,
+	                     int reaction_count,
+	                     boolean react) {
 
 		this.id = id;
 		this.group = group;
@@ -40,16 +38,15 @@ public final class GroupPostInfo implements Serializable {
 		this.author = author;
 		this.approver = approver;
 		this.content = content;
+		this.reaction_count = reaction_count;
+		this.react = react;
 	}
 
-	@Override
-	public String toString() {
-		return "GroupPostInfo{" +
-				"id='" + id + '\'' +
-				", time_created=" + time_created +
-				", author=" + author +
-				", approver=" + approver +
-				", content='" + content + '\'' +
-				'}';
+	public void AddDataTo(Intent intent) {
+		intent.putExtra("gpi", this);
+	}
+
+	public static GroupPostInfo From(Intent intent) {
+		return (GroupPostInfo) intent.getSerializableExtra("gpi");
 	}
 }

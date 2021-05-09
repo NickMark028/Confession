@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.confession.R;
 import com.example.confession.adapters.CommentAdapter;
-import com.example.confession.binders.AddCommentBinder;
+import com.example.confession.binders.post.AddCommentBinder;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.PostCommentInfo;
 import com.example.confession.presenters.AddCommentPresenter;

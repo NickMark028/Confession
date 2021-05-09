@@ -22,37 +22,14 @@ import java.util.HashMap;
 public class GroupPost {
 
 	protected final GroupPostInfo post_info;
-	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
 
-	public GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
-
+	public GroupPost(GroupPostInfo post_info) {
 		this.post_info = post_info;
-		this.group = group;
-	}
-
-	public static GroupPost From(Bundle bundle) {
-
-		GroupPostInfo post_info = (GroupPostInfo) bundle.getSerializable("post_info");
-		ConfessionGroupInfo group = (ConfessionGroupInfo) bundle.getSerializable("group");
-
-		return new GroupPost(post_info, group);
-	}
-
-	public Bundle ToBundle() {
-
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("post_info", this.post_info);
-		bundle.putSerializable("group", this.group);
-		return bundle;
 	}
 
 	public String GetID(){
 		return post_info.id;
-	}
-
-	public ConfessionGroupInfo GetGroupInfo() {
-		return group;
 	}
 
 	// Write API later //
@@ -85,17 +62,18 @@ public class GroupPost {
 		return false;
 	}
 
-	public PostComment[] GetComment()
+	// TODO
+	public ArrayList<PostComment> GetComment()
 	{
 
 		return null;
 	}
 
 	// Done //
-	public int GetReactionCount()
+	public int GetReactionCount(String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
+		params.put("token", auth_token); // User.GetAuthToken()
 		params.put("postid", this.post_info.id);
 
 		ApiGet ag = new ApiGet("post/reactions", params);
@@ -120,16 +98,12 @@ public class GroupPost {
 		return post_info;
 	}
 
-	public ConfessionGroupInfo GetGroup() {
-		return group;
-	}
-
-	// Done //
-	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
+	// DONE //
+	public PostComment AddComment(PostCommentInfo comment, String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
-		params.put("memberid", member.id);
+		params.put("token", auth_token); //User.GetAuthToken()
+		params.put("memberid", comment.commenter.id);
 		params.put("postid", comment.id);
 		params.put("content", comment.content);
 
@@ -142,7 +116,7 @@ public class GroupPost {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				return new PostComment(comment,this.post_info);
+				return new PostComment(comment);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -150,10 +124,11 @@ public class GroupPost {
 		return null;
 	}
 
-	public ArrayList<PostComment> GetComments()
+	// TODO sua lai tham so null thanh tham so thich hop
+	public ArrayList<PostComment> GetComments(String auth_token)
 	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("conf", this.group.id);
+		params.put("conf", post_info.group.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
 		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
@@ -180,8 +155,10 @@ public class GroupPost {
 							String comment_id = comment.getString("_id");
 							String content = comment.getString("content");
 
-							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id,new BasicUserInfo("","","",""),content);
-							PostComment comment_info = new PostComment(postCommentInfo,this.post_info);
+							// TODO sua lai tham so null thanh tham so thich hop
+							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
+
+							PostComment comment_info = new PostComment(postCommentInfo);
 							postComments.add(comment_info);
 						}
 					}

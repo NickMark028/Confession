@@ -1,5 +1,7 @@
 package com.example.confession.models.data;
 
+import android.content.Intent;
+
 import com.example.confession.models.behaviors.GroupPost;
 
 import java.io.Serializable;
@@ -9,23 +11,14 @@ import java.util.Date;
 public final class PostCommentInfo implements Serializable {
 
 	public final String id;
-	public final GroupPostInfo post;         // TODO them cai nay vao constructor
+	public final GroupPostInfo post;
 	public final BasicUserInfo commenter;
 	public final String content;
 	public final Date time_created;
 
-	public PostCommentInfo(BasicUserInfo commenter, String content) {
+	public PostCommentInfo(GroupPostInfo post, BasicUserInfo commenter, String content) {
 
-		this("", commenter, content);
-	}
-
-	public PostCommentInfo(String id, BasicUserInfo commenter, String content) {
-
-		this.id = id;
-		this.post = null;            // TODO Sua lai
-		this.commenter = commenter;
-		this.content = content;
-		time_created = Calendar.getInstance().getTime();
+		this(null, post, commenter, content);
 	}
 
 	public PostCommentInfo(String id, GroupPostInfo post, BasicUserInfo commenter, String content) {
@@ -34,15 +27,14 @@ public final class PostCommentInfo implements Serializable {
 		this.post = post;
 		this.commenter = commenter;
 		this.content = content;
-		time_created = Calendar.getInstance().getTime();
+		time_created = Calendar.getInstance().getTime();        // TODO might fix this for later
 	}
 
-	@Override
-	public String toString() {
-		return "PostCommentInfo{" +
-				"id='" + id + '\'' +
-				", commenter=" + commenter +
-				", content='" + content + '\'' +
-				'}';
+	public void AddDataTo(Intent intent) {
+		intent.putExtra("pci", this);
+	}
+
+	public static PostCommentInfo From(Intent intent) {
+		return (PostCommentInfo) intent.getSerializableExtra("pci");
 	}
 }

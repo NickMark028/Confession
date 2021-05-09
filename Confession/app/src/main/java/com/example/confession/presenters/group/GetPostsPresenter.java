@@ -1,4 +1,4 @@
-package com.example.confession.presenters.group_done;
+package com.example.confession.presenters.group;
 
 import com.example.confession.binders.group.GetPostsBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;

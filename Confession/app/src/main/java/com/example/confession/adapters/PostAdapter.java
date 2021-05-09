@@ -28,14 +28,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.example.confession.R;
-import com.example.confession.binders.PostComent_done.AddCommentBinder;
+import com.example.confession.binders.post.AddCommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.listener.DoubleClickListener;
 import com.example.confession.models.data.PostCommentInfo;
-import com.example.confession.presenters.postComment_done.AddCommentPresenter;
+import com.example.confession.presenters.post.AddCommentPresenter;
 import com.example.confession.views.activities.CommentActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 
@@ -129,16 +129,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		}
 
 		public void SendComment(String msg){
-
-			PostCommentInfo pci = new PostCommentInfo(User.GetInstance().GetBasicUserInfo(), msg);
 			//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
 			GroupPostInfo gpi = posts.get(getLayoutPosition());
-
 
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					presenter.HandleAddComment(pci, gpi);
+					presenter.HandleAddComment(gpi, msg);
 				}
 			}).start();
 		}
@@ -153,11 +150,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 			txt_likes = view.findViewById(R.id.txt_likes);
 			post_see_all_cmt = view.findViewById(R.id.post_see_all_cmt);
 
+
 			heart_cover = view.findViewById(R.id.heart_cover);
 			iv_react = view.findViewById(R.id.iv_react);
 			iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
 
 			feed_content_layout = view.findViewById(R.id.feed_content_layout);
+
 
 			drawable = heart_cover.getDrawable();
 			empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
