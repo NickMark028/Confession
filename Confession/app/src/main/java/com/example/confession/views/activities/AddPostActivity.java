@@ -221,7 +221,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         else if (requestCode == 1999 && resultCode == RESULT_OK)
         {
 
-            cgi = ConfessionGroupInfo.From(data.getExtras());
+            cgi = ConfessionGroupInfo.From(data);
 
 //            Log.e("-------------101----------------", cgi.name);
             ap_get_gr_list_btn.setText(cgi.name);
