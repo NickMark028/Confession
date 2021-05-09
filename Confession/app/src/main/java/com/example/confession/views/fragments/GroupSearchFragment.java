@@ -38,7 +38,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	private Set<String> joined_groups;
 	private GroupSearchAdapter mGroupSearchAdapter;
 
-	Thread thread;
+	private Thread newThread;
 
 	public GroupSearchFragment() {
 
@@ -98,12 +98,15 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 
-				new Thread(new Runnable() {
+				newThread = new Thread(new Runnable() {
 					@Override
 					public void run() {
 						search_presenter.HandleFindGroup(query);
 					}
-				}).start();
+				});
+
+				newThread.start();
+
 				return false;
 			}
 
@@ -127,6 +130,8 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	}
 
 	private void UpdateListView() {
+		if(getActivity() == null){ return; }
+
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -136,6 +141,15 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 			}
 		});
 
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if(newThread!=null && newThread.isAlive()){
+			newThread.interrupt();
+		}
 	}
 
 	@Override
