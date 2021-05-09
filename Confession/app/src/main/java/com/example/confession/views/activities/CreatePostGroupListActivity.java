@@ -82,7 +82,8 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 
 				view.setSelected(true);
 				ConfessionGroupInfo cgi = (ConfessionGroupInfo) adapterView.getItemAtPosition(i);
-				data.putExtra("group_info", cgi);
+				//data.putExtra("group_info", cgi);
+				cgi.AddDataTo(data);
 				setResult(RESULT_OK, data);
 				finish();
 				//Toast.makeText(getApplicationContext(), cgi.name, Toast.LENGTH_LONG).show();
