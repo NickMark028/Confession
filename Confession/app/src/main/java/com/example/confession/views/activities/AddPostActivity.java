@@ -58,7 +58,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     private ImageView addp_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
     private File imgOut = null;
-
+    private Thread newThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +119,15 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                     post_txt_btn.setEnabled(false);
                     post_txt_btn.setVisibility(View.INVISIBLE);
                     add_post_loading.setVisibility(View.VISIBLE);
-                    presenter.HandleAddPost(cgi, User.GetAuthToken());
+
+                    newThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.HandleAddPost(cgi, User.GetAuthToken());
+                        }
+                    });
+
+                    newThread.start();
                 }
             }
         });
@@ -226,17 +234,36 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(newThread != null && newThread.isAlive()){
+            newThread.interrupt();
+        }
+    }
+
+    @Override
     public void AddPostSuccess(GroupPost post) {
-        Toast.makeText(this, "Create Post Successfully", Toast.LENGTH_SHORT).show();
-        finish();
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Create Post Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     @Override
     public void AddPostFailure(String error) {
-        Toast.makeText(this, "Create Post Failure", Toast.LENGTH_SHORT).show();
-        add_post_loading.setVisibility(View.GONE);
-        post_txt_btn.setEnabled(true);
-        post_txt_btn.setVisibility(View.VISIBLE);
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Create Post Failure", Toast.LENGTH_SHORT).show();
+                add_post_loading.setVisibility(View.GONE);
+                post_txt_btn.setEnabled(true);
+                post_txt_btn.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 }
