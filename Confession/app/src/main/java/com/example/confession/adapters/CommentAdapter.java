@@ -15,12 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.PostCommentInfo;
 
 import java.text.SimpleDateFormat;
@@ -28,18 +33,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CommentAdapter extends BaseAdapter {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
 	Context context;
 	ArrayList<PostCommentInfo> comments;
 
-	private LinearLayout ll_cmt_cover;
-	private ImageView iv_ava_user_cmt, iv_cmt_react;
-	private TextView txt_username_message, txt_cmt_time, txt_cmt_likes;
-	private AnimatedVectorDrawable empty_heart, fill_heart;
-	private Drawable drawable;
-	private boolean full = false;
-	private ActionBar actionBar;
 
 	public CommentAdapter(Context context, ArrayList<PostCommentInfo> comments) {
 
@@ -47,14 +45,17 @@ public class CommentAdapter extends BaseAdapter {
 		this.comments = comments;
 	}
 
+
+	@NonNull
 	@Override
-	public int getCount() {
-		return comments.size();
+	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View view = LayoutInflater.from(context).inflate(R.layout.layout_comment, parent, false);
+		return new CommentAdapter.ViewHolder(view);
 	}
 
 	@Override
-	public Object getItem(int i) {
-		return comments.get(i);
+	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+		holder.InitData(position);
 	}
 
 	@Override
@@ -63,72 +64,88 @@ public class CommentAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
-
-		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-		View row = inflater.inflate(R.layout.layout_comment, null);
-
-		InitView(row);
-		InitProperty(i);
-		//InitListener();
-
-		return row;
+	public int getItemCount() {
+		return comments.size();
 	}
 
-	public void InitView(View view) {
-
-		ll_cmt_cover = view.findViewById(R.id.ll_cmt_cover);
-		iv_ava_user_cmt = view.findViewById(R.id.iv_ava_user_cmt);
-		iv_cmt_react = view.findViewById(R.id.iv_cmt_react);
-		txt_username_message = view.findViewById(R.id.txt_username_message);
-		txt_cmt_time = view.findViewById(R.id.txt_cmt_time);
-		txt_cmt_likes = view.findViewById(R.id.txt_cmt_likes);
-
-		empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
-		fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
-	}
-
-	private void InitProperty(int i) {
-
-		PostCommentInfo comment = comments.get(i);
-		txt_username_message.setText(Html.fromHtml(String.format("<b> %s </b> %s", comment.commenter.name, comment.content)));
 
 
-		SimpleDateFormat formatter = new SimpleDateFormat("d");
+	public class ViewHolder extends RecyclerView.ViewHolder{
+		private LinearLayout ll_cmt_cover;
+		private ImageView iv_ava_user_cmt, iv_cmt_react;
+		private TextView txt_username_message, txt_cmt_time, txt_cmt_likes;
+		private AnimatedVectorDrawable empty_heart, fill_heart;
+		private Drawable drawable;
+		private boolean full = false;
+		private ActionBar actionBar;
 
-		Date now = Calendar.getInstance().getTime();
+		public ViewHolder(@NonNull View itemView) {
+			super(itemView);
 
-		txt_cmt_time.setText(formatter.format(comment.time_created.getTime() - now.getTime()) + "d ago");
+			InitView(itemView);
+			InitListener();
+		}
 
-		// Todo Add avatar here
-	}
+		public void InitView(View view) {
 
-	public void InitListener(){
-		iv_cmt_react.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				HeartAnimate(v);
-			}
-		});
+			ll_cmt_cover = view.findViewById(R.id.ll_cmt_cover);
+			iv_ava_user_cmt = view.findViewById(R.id.iv_ava_user_cmt);
+			iv_cmt_react = view.findViewById(R.id.iv_cmt_react);
+			txt_username_message = view.findViewById(R.id.txt_username_message);
+			txt_cmt_time = view.findViewById(R.id.txt_cmt_time);
+			txt_cmt_likes = view.findViewById(R.id.txt_cmt_likes);
 
-		ll_cmt_cover.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
+			empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
+			fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
+		}
 
-			}
-		});
+		private void InitData(int i) {
+
+			PostCommentInfo comment = comments.get(i);
+			txt_username_message.setText(
+					Html.fromHtml(String.format("<b> %s </b> %s",
+							comment.commenter.username,
+							comment.content)));
 
 
-	}
+			SimpleDateFormat formatter = new SimpleDateFormat("d");
 
-	private void HeartAnimate(View view) {
-		AnimatedVectorDrawable drawable
-				= full
-				? empty_heart
-				: fill_heart;
-		iv_cmt_react.setImageDrawable(drawable);
-		drawable.start();
-		full = !full;
+			Date now = Calendar.getInstance().getTime();
+			//formatter.format(comment.time_created.getTime() - now.getTime()) + "d ago"
+			txt_cmt_time.setText("1d ago");
+
+			// Todo Add avatar here
+		}
+
+		public void InitListener(){
+			iv_cmt_react.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					HeartAnimate(v);
+				}
+			});
+
+			ll_cmt_cover.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+				}
+			});
+		}
+
+		private void HeartAnimate(View view) {
+			AnimatedVectorDrawable drawable
+					= full
+					? empty_heart
+					: fill_heart;
+			iv_cmt_react.setImageDrawable(drawable);
+			drawable.start();
+			full = !full;
 //		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
+		}
+
+
 	}
+
+
 }
