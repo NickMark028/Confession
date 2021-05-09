@@ -4,6 +4,7 @@ import com.example.confession.binders.PostComent_done.AddCommentBinder;
 import com.example.confession.binders.post.GetCommentsBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
 
@@ -21,7 +22,7 @@ public class GetCommentsPresenter implements GetCommentsBinder.Presenter {
 	public void HandleGetComments(GroupPostInfo info) {
 
 		GroupPost post = new GroupPost(info);
-		ArrayList<PostComment> comments = post.GetComments();
+		ArrayList<PostComment> comments = post.GetComments(User.GetAuthToken());
 
 		if (comments != null)
 			view.OnGetCommentsSuccess(comments);
