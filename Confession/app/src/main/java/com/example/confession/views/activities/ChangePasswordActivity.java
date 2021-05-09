@@ -137,6 +137,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements UpdateP
 
         if(password.isEmpty()){
             til_cp_confirm_pass.setError("Field can't be empty");
+            til_cp_confirm_pass.setErrorIconDrawable(null);
             return false;
         }
 
