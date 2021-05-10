@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Confession"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity_GroupPendingMembers"></activity>
+        <activity android:name=".activity_group_pending_members"></activity>
+        <activity android:name=".activity_GroupPendingMembers" />
         <activity android:name=".views.activities.UpdateProfileActivity" />
         <activity android:name=".views.activities.ChangePasswordActivity" />
         <activity
