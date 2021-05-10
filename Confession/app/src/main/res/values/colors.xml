@@ -27,4 +27,5 @@
     <color name="profile_gr_theme">#C9DBF9</color>
     <color name="press_overlay">#EEEEEE</color>
 
+    <color name="colorAccent">#FFA000</color>
 </resources>

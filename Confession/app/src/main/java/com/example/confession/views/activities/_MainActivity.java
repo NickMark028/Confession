@@ -20,6 +20,7 @@ import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
+import com.example.confession.service.MyFirebasePushNotificationService;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
@@ -59,6 +60,8 @@ public class _MainActivity extends Activity {
 			}, 5000);
 		}
 	}
+
+
 
 	@Override
 	public void onBackPressed() {

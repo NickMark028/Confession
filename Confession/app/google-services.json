@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "261408026523",
-    "project_id": "logingg-8c46e",
-    "storage_bucket": "logingg-8c46e.appspot.com"
+    "project_number": "2672679733",
+    "firebase_url": "https://confession-group14-default-rtdb.firebaseio.com",
+    "project_id": "confession-group14",
+    "storage_bucket": "confession-group14.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:261408026523:android:dfd268dd845b7c0f39bb3e",
+        "mobilesdk_app_id": "1:2672679733:android:b3f4403d53d672cae50a7c",
         "android_client_info": {
           "package_name": "com.example.confession"
         }
       },
       "oauth_client": [
         {
-          "client_id": "261408026523-4k63fc7tpa3vkkqmnfv5n9n5cii80ind.apps.googleusercontent.com",
+          "client_id": "2672679733-1efqef8romr1vlm2hdksbn5rvr5v37kk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.confession",
-            "certificate_hash": "d7760decb81412f292d71f1b718f781e940a1f92"
+            "certificate_hash": "1447b652a99f01e4cf7323418d5b2cbed10eddfb"
           }
         },
         {
-          "client_id": "261408026523-sr1dqa8u55hcp105ufq68eoomqmrhkk9.apps.googleusercontent.com",
+          "client_id": "2672679733-i2imq4s1crfrikprrti7pr4ptfjn8rfg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCClkEH61UAx8sUZpmAwQRcajsIcE5_Tg0"
+          "current_key": "AIzaSyDLcGvptLhy-azf5YZOD1kjeEbs4P55H3U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "261408026523-sr1dqa8u55hcp105ufq68eoomqmrhkk9.apps.googleusercontent.com",
+              "client_id": "2672679733-i2imq4s1crfrikprrti7pr4ptfjn8rfg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

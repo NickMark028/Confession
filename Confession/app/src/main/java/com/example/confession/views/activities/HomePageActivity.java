@@ -5,18 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.service.MyFirebasePushNotificationService;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
 import com.example.confession.views.fragments.ProfileFragment;
 import com.example.confession.views.fragments.GroupSearchFragment;
 
 import com.example.confession.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 
@@ -65,6 +70,28 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		});
 
 		SetFragment(new NewfeedsFragment());
+
+		InitService();
+		firebaseSubscribeTopic();
+	}
+
+	public void InitService(){
+		Intent intentBGService = new Intent(this, MyFirebasePushNotificationService.class);
+		startService(intentBGService);
+	}
+
+	private void firebaseSubscribeTopic(){
+		FirebaseMessaging.getInstance().subscribeToTopic("pending")
+				.addOnCompleteListener(new OnCompleteListener<Void>() {
+					@Override
+					public void onComplete(@NonNull Task<Void> task) {
+						String msg = "Done";
+
+						if(!task.isSuccessful()){
+							msg = "Failed";
+						}
+					}
+				});
 	}
 
 	@Override
