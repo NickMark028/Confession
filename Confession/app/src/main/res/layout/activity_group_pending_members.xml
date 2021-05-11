@@ -106,7 +106,19 @@
 <!--            </LinearLayout>-->
 <!--        </LinearLayout>-->
 
-
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh_pending"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pending_item"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@color/transparent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

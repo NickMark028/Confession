@@ -1,8 +1,10 @@
 package com.example.confession.views.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +75,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         accept_pending_member =findViewById(R.id.accept_pending_member);
         reject_pending_members = findViewById(R.id.reject_pending_members);
         pending_member_name = findViewById(R.id.pending_member_name);
-
+        srl_refresh_pending = findViewById(R.id.srl_refresh_pending);
         rv_pending_item.findViewById(R.id.rv_cmt_item);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -90,19 +92,60 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     }
 
     public void InitListener() {
+        iv_pending_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        srl_refresh_pending.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //Do sth
+                LoadPendingMember();
+            }
+        });
+
     }
-
-
-
 
 
     @Override
-    public void OnGetPendingMembersSuccess(ArrayList<BasicUserInfo> members) {
+    public void OnGetPendingMembersSuccess(ArrayList<BasicUserInfo> users_pending) {
+        users_info.clear();
+        users_info.addAll(users_pending);
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                srl_refresh_pending.setRefreshing(false);
+                pendingAdapter.notifyDataSetChanged();
+                rv_pending_item.invalidateItemDecorations();
+                rv_pending_item.refreshDrawableState();
+            }
+        });
 
     }
+
+    @Override
+    public void OnGetPendingMembersSuccess(BasicUserInfo members) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GroupPendingMembersActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                LoadPendingMember();
+            }
+        });
+    }
+
 
     @Override
     public void OnGetPendingMembersFailure(String error) {
-
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GroupPendingMembersActivity.this, "Sent Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 }
