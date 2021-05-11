@@ -101,10 +101,10 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         srl_refresh_pending.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //Do sth
                 LoadPendingMember();
             }
         });
+
 
     }
 
