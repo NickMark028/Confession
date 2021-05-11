@@ -90,11 +90,18 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         rv_pending_item.setAdapter(pendingAdapter);
 
         iv_pending_back.setClickable(false);
-       iv_accept_all.setClickable(false);
+        iv_accept_all.setClickable(false);
     }
 
     public void InitListener() {
         iv_pending_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        iv_accept_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
