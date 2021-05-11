@@ -1,6 +1,7 @@
 package com.example.confession.views.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,6 +66,12 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
     }
 
     public void InitListener() {
+        iv_members_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void InitView() {
@@ -82,12 +89,10 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
         rv_members_joined_item.setLayoutManager(llm);
         members_info = new ArrayList<>();
         membersAdapter = new MemberJoinedGroupAdapter(MembersJoinedGroupActivity.this, members_info);
-        rv_pending_item.setAdapter(pendingAdapter);
+        rv_members_joined_item.setAdapter(membersAdapter);
 
-        iv_pending_back.setClickable(false);
-        iv_accept_all.setClickable(false);
-        accept_pending_member.setClickable(false);
-        reject_pending_members.setClickable(false);
+        iv_members_back.setClickable(false);
+
     }
 
     public void InitPresenter() {
