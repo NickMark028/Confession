@@ -11,16 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
+import com.example.confession.models.data.BasicUserInfo;
+import com.example.confession.models.data.UserInfo;
 
 import java.util.ArrayList;
 
 public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendingMembersAdapter.ViewHolder> {
     Context context;
-    ArrayList<GroupPendingMembersAdapter> groupPending;
+    ArrayList<BasicUserInfo> groupPendingUser;
 
-    public GroupPendingMembersAdapter(Context context, ArrayList<GroupPendingMembersAdapter> groupPending){
+    public GroupPendingMembersAdapter(Context context, ArrayList<BasicUserInfo> groupPending){
         this.context = context;
-        this.groupPending = groupPending;
+        this.groupPendingUser = groupPendingUser;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.InitDate(position);
+        holder.InitData(position);
 
     }
     @Override
@@ -41,7 +43,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
     }
     @Override
     public int getItemCount() {
-        return groupPending.size() ;
+        return groupPendingUser.size() ;
     }
 
 
@@ -63,18 +65,27 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
             pending_member_name = view.findViewById(R.id.pending_member_name);
         }
 
-        public void InitDate(int position) {
 
+        public void InitData(int i) {
+        BasicUserInfo user_info = groupPendingUser.get(i);
+        ava_user_pending.setImageResource((Integer) user_info.avatar);
+        pending_member_name.setText(user_info.name);
+        //check and reject chua lafm
+        }
+        public void InitListener(View view) {
+            accept_pending_member.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }){
+
+            };
         }
 
         public void InitListener(View view) {
 
         }
-
-        public void InitListener(View view) {
-
-        }
-
 
 
 
