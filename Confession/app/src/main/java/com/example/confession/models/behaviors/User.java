@@ -338,7 +338,7 @@ public class User {
 	// TODO
 	public UserState GetState(String group_id) {
 
-		return UserState.NonMember;
+		return UserState.Undefined;
 	}
 
 	public boolean RemoveGroup(String group_id) {
