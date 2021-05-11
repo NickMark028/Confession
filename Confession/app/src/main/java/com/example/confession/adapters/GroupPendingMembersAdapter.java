@@ -78,14 +78,17 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
                 public void onClick(View v) {
 
                 }
-            }){
+            });
+            reject_pending_members.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            };
+                }
+            });
+
         }
 
-        public void InitListener(View view) {
 
-        }
 
 
 
