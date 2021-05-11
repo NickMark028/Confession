@@ -12,13 +12,18 @@ import androidx.annotation.Nullable;
 
 import com.example.confession.R;
 import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
-    BottomSheetListener mListener;
+    BottomSheetManageGroupListener mListener;
 
     private Button group_user_leave_btn, group_user_member_btn;
     private int result = -1;
+
+    public GroupUserManageBottomSheet(BottomSheetManageGroupListener listener){
+        mListener = listener;
+    }
 
     @Override
     public int getTheme() {
@@ -47,7 +52,7 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 result = 1;
-                //mListener.onButtonClicked("action_user_leave_group");
+                mListener.onButtonUserClicked(result);
             }
         });
 
@@ -55,23 +60,23 @@ public class GroupUserManageBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 result = 0;
-                //mListener.onButtonClicked("action_user_member");
+                mListener.onButtonUserClicked(result);
             }
         });
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            mListener = (BottomSheetListener) context;
-        }
-        catch(ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
-        }
-
-    }
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//
+//        try {
+//            mListener = (BottomSheetManageGroupListener) context;
+//        }
+//        catch(ClassCastException e){
+//            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
+//        }
+//
+//    }
 
     public int GetResult(){return result;}
 }
