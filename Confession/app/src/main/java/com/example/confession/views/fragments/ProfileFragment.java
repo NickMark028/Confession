@@ -109,9 +109,8 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 				int result = bottomSheet.GetResult();
 
 				if (result == 1) {
-//                    Intent mIntent = new Intent(getActivity().getApplicationContext(), CreateGroupActivity.class);
-//                    user.AddTo(mIntent);
-//                    startActivity(mIntent);
+					Intent mIntent = new Intent(getContext().getApplicationContext(), CreateGroupActivity.class);
+					startActivity(mIntent);
 				}
 			}
 		});
