@@ -109,6 +109,13 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
 
             }
         });
+
+        accept_pending_member.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         srl_refresh_pending.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
