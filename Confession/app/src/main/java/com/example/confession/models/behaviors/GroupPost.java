@@ -40,10 +40,27 @@ public class GroupPost {
 	// Sửa lại API tự lấy member id từ user id mới chạy được //
 	public boolean React(String user_id, String auth_token)
 	{
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token",auth_token);
+		temp_params.put("groupid",this.post_info.group.id);
+		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+		ag.run();
+		Log.d("MemberID Res: ", ag.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("MemberID: ", memberid);
+
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
-		params.put("memberid", "6059a449abdfae07a4e77646"); // Sửa lại API
+		params.put("memberid", memberid); // Sửa lại API
 		params.put("postid", this.post_info.id);
+
 
 		ApiPost ap = new ApiPost("post/reaction/react", params);
 		Log.d("Thread API: ", "Đang thả tim...");
@@ -101,10 +118,25 @@ public class GroupPost {
 	// DONE //
 	public PostComment AddComment(PostCommentInfo comment, String auth_token)
 	{
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token",auth_token);
+		temp_params.put("groupid",comment.post.group.id);
+		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+		ag.run();
+		Log.d("MemberID Res: ", ag.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("MemberID: ", memberid);
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", auth_token); //User.GetAuthToken()
-		params.put("memberid", comment.commenter.id);
-		params.put("postid", comment.id);
+		params.put("memberid", memberid);
+		params.put("postid", comment.post.id);
 		params.put("content", comment.content);
 
 		ApiPost ap = new ApiPost("post/comment/new", params);
