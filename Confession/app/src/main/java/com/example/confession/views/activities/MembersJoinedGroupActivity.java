@@ -113,6 +113,11 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
 
     @Override
     public void OnGetMembersFailure(String error) {
-
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MembersJoinedGroupActivity.this, "Sent Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
