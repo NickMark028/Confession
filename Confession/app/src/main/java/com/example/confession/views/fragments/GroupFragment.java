@@ -25,6 +25,8 @@ import com.example.confession.adapters.PostAdapter;
 import com.example.confession.binders.group.GetPostsBinder;
 import com.example.confession.binders.user.GetUserState;
 import com.example.confession.binders.user.JoinGroupBinder;
+import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
@@ -33,6 +35,7 @@ import com.example.confession.presenters.group.GetPostsPresenter;
 import com.example.confession.presenters.user.GetUserStatePresenter;
 import com.example.confession.presenters.user.JoinGroupPresenter;
 import com.example.confession.views.activities.GroupPendingMembersActivity;
+import com.example.confession.views.activities.MembersJoinedGroupActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManageGroupBottomSheet;
 import com.example.confession.views.bottomsheet.GroupUserManageBottomSheet;
 
@@ -44,7 +47,11 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class GroupFragment extends Fragment
-		implements GetPostsBinder.View, GetUserState.View, JoinGroupBinder.View {
+		implements
+		GetPostsBinder.View,
+		GetUserState.View,
+		JoinGroupBinder.View,
+		BottomSheetManageGroupListener {
 
 	private GetPostsBinder.Presenter presenter;
 	private GetUserState.Presenter presenterUserState;
@@ -66,6 +73,9 @@ public class GroupFragment extends Fragment
 
 	private ImageView iv_group_back_btn, iv_group_setting_btn;
 	private AppCompatButton btn_join_group;
+
+	private GroupAdminManageGroupBottomSheet bottomSheetAdmin;
+	private GroupUserManageBottomSheet bottomSheetUser;
 
 	private Thread newThread;
 
@@ -95,6 +105,7 @@ public class GroupFragment extends Fragment
 
 		InitPresenter();
 		InitView(view);
+		InitBottomSheet();
 		InitListener();
 		InitData();
 
@@ -117,6 +128,11 @@ public class GroupFragment extends Fragment
 		presenter = new GetPostsPresenter(this);
 		presenterUserState = new GetUserStatePresenter(this);
 		presenterJoinGroup = new JoinGroupPresenter(this);
+	}
+
+	private void InitBottomSheet() {
+		bottomSheetAdmin = new GroupAdminManageGroupBottomSheet(this);
+		bottomSheetUser = new GroupUserManageBottomSheet(this);
 	}
 
 	public void InitView(View view) {
@@ -207,34 +223,32 @@ public class GroupFragment extends Fragment
 			@Override
 			public void onClick(View v) {
 				if(userState == UserState.Admin){
-					GroupAdminManageGroupBottomSheet bottomSheet = new GroupAdminManageGroupBottomSheet();
 					assert getFragmentManager() != null;
-					bottomSheet.show(getFragmentManager(), "admin_settings");
-
-					HandleResultFromAdminManagerBottomSheet(bottomSheet.GetResult());
-
+					bottomSheetAdmin.show(getFragmentManager(), "admin_settings");
 				}else if(userState == UserState.Following){
-					GroupUserManageBottomSheet bottomSheet = new GroupUserManageBottomSheet();
 					assert getFragmentManager() != null;
-					bottomSheet.show(getFragmentManager(), "user_settings");
+					bottomSheetUser.show(getFragmentManager(), "user_settings");
 
-					HandleResultFromUserManagerBottomSheet(bottomSheet.GetResult());
 				}
 			}
 		});
 	}
 
 	private void HandleResultFromAdminManagerBottomSheet(int result){
+		Toast.makeText(getContext(), "Check result - " + result, Toast.LENGTH_LONG).show();
 		switch (result){
 			case 0: //Open pending member
-				Intent myItent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
-				startActivity(myItent);
+				Intent pendingItent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
+				startActivity(pendingItent);
 				break;
 
 			case 1: // Open member
+				Intent memberIntent = new Intent(getContext().getApplicationContext(), MembersJoinedGroupActivity.class);
+				startActivity(memberIntent);
 				break;
 
 			case 2: // Delete group
+				bottomSheetAdmin.dismiss();
 				break;
 
 			case -1:
@@ -245,10 +259,12 @@ public class GroupFragment extends Fragment
 	private void HandleResultFromUserManagerBottomSheet(int result){
 		switch (result){
 			case 0: //Open members
-				
+				Intent memberIntent = new Intent(getContext().getApplicationContext(), MembersJoinedGroupActivity.class);
+				startActivity(memberIntent);
 				break;
 
 			case 1: // Leave group
+				bottomSheetUser.dismiss();
 				break;
 
 			case -1:
@@ -395,5 +411,16 @@ public class GroupFragment extends Fragment
 				Toast.makeText(getContext(), "Failed to join group", Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+
+
+	@Override
+	public void onButtonUserClicked(int result) {
+		HandleResultFromUserManagerBottomSheet(result);
+	}
+
+	@Override
+	public void onButtonAdminClicked(int result) {
+		HandleResultFromAdminManagerBottomSheet(result);
 	}
 }
