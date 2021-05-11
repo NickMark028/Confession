@@ -34,16 +34,13 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     private void InitPresenter() {
-
         this.presenter = new CreateGroupPresenter(this);
     }
 
     public void InitView(){
-
         create_post_close_btn = findViewById(R.id.create_post_close_btn);
         create_group_name = findViewById(R.id.create_group_name);
         create_group_btn = findViewById(R.id.create_group_btn);
-
 
         create_group_btn.setEnabled(false);
     }
