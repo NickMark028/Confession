@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,7 +102,13 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
 
     @Override
     public void OnGetMembersSuccess(ArrayList<BasicUserInfo> members) {
-
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MembersJoinedGroupActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                LoadMembersJoined();
+            }
+        });
     }
 
     @Override
