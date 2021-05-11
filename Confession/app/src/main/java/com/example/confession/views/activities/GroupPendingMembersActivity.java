@@ -91,6 +91,8 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
 
         iv_pending_back.setClickable(false);
         iv_accept_all.setClickable(false);
+        accept_pending_member.setClickable(false);
+        reject_pending_members.setClickable(false);
     }
 
     public void InitListener() {
