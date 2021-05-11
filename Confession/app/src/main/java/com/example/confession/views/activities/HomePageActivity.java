@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.example.confession.service.MyFirebasePushNotificationService;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
@@ -127,4 +128,9 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 		}
 	}
+
+//	@Override
+//	public void onButtonUserClicked(int result) {}
+//	@Override
+//	public void onButtonAdminClicked(int result) {}
 }
