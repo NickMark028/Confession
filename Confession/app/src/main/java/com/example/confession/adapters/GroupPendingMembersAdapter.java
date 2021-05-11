@@ -57,6 +57,9 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
             InitView(itemView);
             InitListener();
         }
+
+
+
         public void InitView(View view) {
             ll_group_pending_members = view.findViewById(R.id.ll_group_pending_members);
             ava_user_pending = view.findViewById(R.id.ava_user_pending);
@@ -72,7 +75,9 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
         pending_member_name.setText(user_info.name);
         //check and reject chua lafm
         }
-        public void InitListener(View view) {
+
+
+        public void InitListener() {
             accept_pending_member.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
