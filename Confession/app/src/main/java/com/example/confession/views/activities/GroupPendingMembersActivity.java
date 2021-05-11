@@ -30,6 +30,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
 
     private SwipeRefreshLayout srl_refresh_pending;
     private ConfessionGroupInfo cgi;
+    private ImageView iv_pending_back;
     private TextView pending_member_name;
     private ImageView ava_user_pending,accept_pending_member,reject_pending_members;
     private RecyclerView rv_pending_item;
@@ -84,6 +85,8 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         users_info = new ArrayList<>();
         pendingAdapter = new GroupPendingMembersAdapter(GroupPendingMembersActivity.this, users_info);
         rv_pending_item.setAdapter(pendingAdapter);
+
+        iv_pending_back.setClickable(false);
     }
 
     public void InitListener() {
