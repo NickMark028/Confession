@@ -14,6 +14,7 @@ import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.UserInfo;
+import com.example.confession.models.data.UserState;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -335,9 +336,9 @@ public class User {
 	}
 
 	// TODO
-	public boolean IsAdmin(String group_id) {
+	public UserState GetState(String group_id) {
 
-		return true;
+		return UserState.Undefined;
 	}
 
 	public boolean RemoveGroup(String group_id) {

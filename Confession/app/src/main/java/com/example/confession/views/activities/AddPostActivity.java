@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -30,19 +29,19 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.binders.AddPostTabBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.binders.group.AddPostBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.AddPostPresenter;
+import com.example.confession.presenters.group.AddPostPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.IOException;
 
-public class AddPostActivity extends AppCompatActivity implements AddPostTabBinder.View {
+public class AddPostActivity extends AppCompatActivity implements AddPostBinder.View {
 
-    private AddPostPresenter presenter;
+    private AddPostBinder.Presenter presenter;
 
     private Uri imageUri;
     private String myURL = "";
