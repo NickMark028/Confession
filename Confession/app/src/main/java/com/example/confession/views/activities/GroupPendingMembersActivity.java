@@ -72,7 +72,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         this.presenterGetPendingMember = new GetPendingMembersPresenter(this);
     }
     public void InitView() {
-        ava_user_pending = findViewById(R.id.ava_user_pending);
+
         accept_pending_member =findViewById(R.id.accept_pending_member);
         reject_pending_members = findViewById(R.id.reject_pending_members);
         pending_member_name = findViewById(R.id.pending_member_name);
