@@ -96,7 +96,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     public void InitListener() {
         iv_pending_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { finish();
 
             }
         });
