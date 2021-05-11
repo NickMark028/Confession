@@ -151,7 +151,7 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getContext(), "Edit account", Toast.LENGTH_SHORT).show();
-				Intent myIntent = new Intent(getContext(), UpdateProfileActivity.class);
+				Intent myIntent = new Intent(getContext().getApplicationContext(), UpdateProfileActivity.class);
 				startActivity(myIntent);
 			}
 		});
@@ -160,7 +160,7 @@ public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getContext(), "Change password", Toast.LENGTH_SHORT).show();
-				Intent myIntent = new Intent(getContext(), ChangePasswordActivity.class);
+				Intent myIntent = new Intent(getContext().getApplicationContext(), ChangePasswordActivity.class);
 				startActivity(myIntent);
 			}
 		});
