@@ -36,7 +36,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     private TextView pending_member_name;
     private ImageView ava_user_pending,accept_pending_member,reject_pending_members;
     private RecyclerView rv_pending_item;
-    private  TextView iv_accept_all;
+    private  TextView txt_accept_all;
     private ItemTouchHelper ith;
 
     private Thread newThread;
@@ -77,7 +77,10 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         reject_pending_members = findViewById(R.id.reject_pending_members);
         pending_member_name = findViewById(R.id.pending_member_name);
         srl_refresh_pending = findViewById(R.id.srl_refresh_pending);
-        rv_pending_item = findViewById(R.id.rv_cmt_item);
+        rv_pending_item = findViewById(R.id.rv_pending_item);
+
+        iv_pending_back = findViewById(R.id.iv_pending_back);
+        txt_accept_all = findViewById(R.id.txt_accept_all);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
 
@@ -85,14 +88,15 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         llm.setStackFromEnd(true);
 
         rv_pending_item.setLayoutManager(llm);
+
         users_info = new ArrayList<>();
         pendingAdapter = new GroupPendingMembersAdapter(GroupPendingMembersActivity.this, users_info);
         rv_pending_item.setAdapter(pendingAdapter);
 
-        iv_pending_back.setClickable(false);
-        iv_accept_all.setClickable(false);
-        accept_pending_member.setClickable(false);
-        reject_pending_members.setClickable(false);
+
+        txt_accept_all.setEnabled(false);
+//        accept_pending_member.setEnabled(false);
+//        reject_pending_members.setEnabled(false);
     }
 
     public void InitListener() {
@@ -103,25 +107,13 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
             }
         });
 
-        iv_accept_all.setOnClickListener(new View.OnClickListener() {
+        txt_accept_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        accept_pending_member.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        reject_pending_members.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         srl_refresh_pending.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -155,7 +147,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
             @Override
             public void run() {
                 Toast.makeText(GroupPendingMembersActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
-                LoadPendingMember();
+                //LoadPendingMember();
             }
         });
     }
