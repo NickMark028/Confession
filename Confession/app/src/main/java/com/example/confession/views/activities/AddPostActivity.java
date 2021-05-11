@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 
 import com.example.confession.R;
-import com.example.confession.binders.AddPostTabBinder;
 import com.example.confession.binders.group.AddPostBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;

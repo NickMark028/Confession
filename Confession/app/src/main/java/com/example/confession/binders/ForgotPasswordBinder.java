@@ -9,7 +9,7 @@ public interface ForgotPasswordBinder {
     interface View {
 
         void OnResetPasswordSuccess(User user);
-        void OnResetPasswordFailure(int error_code);
+        void OnResetPasswordFailure(String error);
     }
 
     interface Presenter {

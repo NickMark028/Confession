@@ -32,8 +32,9 @@ public class GroupPost {
 		return post_info.id;
 	}
 
-	// Write API later //
-	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
+	// TODO //
+	public boolean RemoveComment(PostCommentInfo comment, BasicUserInfo from, String auth_token) {
+
 		return false;
 	}
 
