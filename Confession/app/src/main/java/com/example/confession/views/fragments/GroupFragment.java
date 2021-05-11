@@ -1,6 +1,7 @@
 package com.example.confession.views.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -31,6 +32,7 @@ import com.example.confession.models.data.UserState;
 import com.example.confession.presenters.group.GetPostsPresenter;
 import com.example.confession.presenters.user.GetUserStatePresenter;
 import com.example.confession.presenters.user.JoinGroupPresenter;
+import com.example.confession.views.activities.GroupPendingMembersActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManageGroupBottomSheet;
 import com.example.confession.views.bottomsheet.GroupUserManageBottomSheet;
 
@@ -84,7 +86,6 @@ public class GroupFragment extends Fragment
 			cgi = (ConfessionGroupInfo) getArguments().getSerializable("group_info");
 		}
 		mTag = this.getTag();
-		//User.GetInstance().IsAdmin(cgi.id);
 	}
 
 	@Override
@@ -123,7 +124,6 @@ public class GroupFragment extends Fragment
 		txt_gr_name = view.findViewById(R.id.txt_gr_name);
 		txt_group_mem_count = view.findViewById(R.id.txt_group_mem_count);
 
-//		ll_post_in_group = view.findViewById(R.id.ll_post_in_group);
 		ll_noti_join_group = view.findViewById(R.id.ll_noti_join_group);
 		ll_group_member = view.findViewById(R.id.ll_group_member);
 		ll_group_loading = view.findViewById(R.id.ll_group_loading);
@@ -210,15 +210,53 @@ public class GroupFragment extends Fragment
 					GroupAdminManageGroupBottomSheet bottomSheet = new GroupAdminManageGroupBottomSheet();
 					assert getFragmentManager() != null;
 					bottomSheet.show(getFragmentManager(), "admin_settings");
+
+					HandleResultFromAdminManagerBottomSheet(bottomSheet.GetResult());
+
 				}else if(userState == UserState.Following){
 					GroupUserManageBottomSheet bottomSheet = new GroupUserManageBottomSheet();
 					assert getFragmentManager() != null;
 					bottomSheet.show(getFragmentManager(), "user_settings");
+
+					HandleResultFromUserManagerBottomSheet(bottomSheet.GetResult());
 				}
 			}
 		});
 	}
 
+	private void HandleResultFromAdminManagerBottomSheet(int result){
+		switch (result){
+			case 0: //Open pending member
+				Intent myItent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
+				startActivity(myItent);
+				break;
+
+			case 1: // Open member
+				break;
+
+			case 2: // Delete group
+				break;
+
+			case -1:
+				break;
+		}
+	}
+
+	private void HandleResultFromUserManagerBottomSheet(int result){
+		switch (result){
+			case 0: //Open members
+				
+				break;
+
+			case 1: // Leave group
+				break;
+
+			case -1:
+				break;
+		}
+	}
+
+	//Setup UI base on USER ROLE
 	public void SetupAdminUI(){
 		ll_group_loading.setVisibility(View.GONE);
 		srl_group_posts.setVisibility(View.VISIBLE);
@@ -242,8 +280,14 @@ public class GroupFragment extends Fragment
 
 		btn_join_group.setText("Requesting");
 		btn_join_group.setVisibility(View.VISIBLE);
+		btn_join_group.setEnabled(false);
+
 		ll_noti_join_group.setVisibility(View.VISIBLE);
 	}
+
+	/*
+		OVERRIDE FUNCTION IMPLEMENTATION HERE...
+	*/
 
 	@Override
 	public void onDestroy() {
@@ -333,7 +377,7 @@ public class GroupFragment extends Fragment
 				btn_join_group.setText("Requesting");
 
 				//btn_join_group.setVisibility(View.GONE);
-				ll_noti_join_group.setVisibility(View.GONE);
+//				ll_noti_join_group.setVisibility(View.GONE);
 				btn_join_group.setEnabled(false);
 			}
 		});
