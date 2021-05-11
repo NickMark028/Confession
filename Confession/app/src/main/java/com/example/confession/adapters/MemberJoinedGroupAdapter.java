@@ -21,6 +21,7 @@ public class MemberJoinedGroupAdapter extends RecyclerView.Adapter<MemberJoinedG
     Context context;
     ArrayList<BasicUserInfo> membersJoinedGroup;
 
+
     public MemberJoinedGroupAdapter(Context context, ArrayList<BasicUserInfo> membersJoinedGroup){
         this.context = context;
         this.membersJoinedGroup = membersJoinedGroup;
@@ -58,6 +59,7 @@ public class MemberJoinedGroupAdapter extends RecyclerView.Adapter<MemberJoinedG
             ll_members_joined_group= view.findViewById(R.id.ll_members_joined_group);
             ava_member_joined= view.findViewById(R.id.ava_member_joined);
             name_member_joined=view.findViewById(R.id.name_member_joined);
+
         }
         public void InitData(int position) {
             BasicUserInfo member_info = membersJoinedGroup.get(position);

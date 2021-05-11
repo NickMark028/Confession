@@ -77,7 +77,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         reject_pending_members = findViewById(R.id.reject_pending_members);
         pending_member_name = findViewById(R.id.pending_member_name);
         srl_refresh_pending = findViewById(R.id.srl_refresh_pending);
-        rv_pending_item.findViewById(R.id.rv_cmt_item);
+        rv_pending_item = findViewById(R.id.rv_cmt_item);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
 
