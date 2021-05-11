@@ -35,7 +35,11 @@
             android:noHistory="true" />
         <activity
             android:name=".views.activities.CommentActivity"
-            android:noHistory="true" />
+            />
+
+        <activity android:name=".views.activities.GroupPendingMembersActivity"/>
+        <activity android:name=".views.activities.MembersJoinedGroupActivity"/>
+
         <activity
             android:name=".views.activities.ForgotPasswordActivity"
             android:noHistory="true" />
