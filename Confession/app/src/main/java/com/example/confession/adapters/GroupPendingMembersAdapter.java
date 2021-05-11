@@ -73,6 +73,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
         BasicUserInfo user_info = groupPendingUser.get(i);
         ava_user_pending.setImageResource((Integer) user_info.avatar);
         pending_member_name.setText(user_info.name);
+
         //check and reject chua lafm
         }
 
