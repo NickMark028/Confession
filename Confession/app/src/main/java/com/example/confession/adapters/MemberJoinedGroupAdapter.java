@@ -65,7 +65,7 @@ public class MemberJoinedGroupAdapter extends RecyclerView.Adapter<MemberJoinedG
             name_member_joined.setText(member_info.name);
         }
         public void InitListener() {
-
+            // nothing
         }
 
 
