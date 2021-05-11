@@ -12,10 +12,11 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.confession.R;
 import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment {
-    BottomSheetListener mListener;
+    BottomSheetManageGroupListener mListener;
 
     private AppCompatButton group_admin_join_request_btn,
             group_admin_member_btn,
@@ -30,6 +31,10 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
         2 -    Delete Groups
     */
     private int result = -1;
+
+    public GroupAdminManageGroupBottomSheet(BottomSheetManageGroupListener listener){
+        mListener = listener;
+    }
 
     @Override
     public int getTheme() {
@@ -60,7 +65,7 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
             @Override
             public void onClick(View v) {
                 result = 0;
-                //mListener.onButtonClicked("action_admin_join_request");
+                mListener.onButtonAdminClicked(result);
             }
         });
 
@@ -68,7 +73,7 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
             @Override
             public void onClick(View v) {
                 result = 1;
-                //mListener.onButtonClicked("action_admin_member");
+                mListener.onButtonAdminClicked(result);
             }
         });
 
@@ -76,7 +81,7 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
             @Override
             public void onClick(View v) {
                 result = 2;
-                //mListener.onButtonClicked("action_admin_del_group");
+                mListener.onButtonAdminClicked(result);
             }
         });
 
@@ -103,12 +108,12 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        try {
-            mListener = (BottomSheetListener) context;
-        }
-        catch(ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
-        }
+//        try {
+//            mListener = (BottomSheetManageGroupListener) context;
+//        }
+//        catch(ClassCastException e){
+//            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
+//        }
 
     }
 
