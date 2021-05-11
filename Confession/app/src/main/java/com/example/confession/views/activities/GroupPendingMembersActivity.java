@@ -36,6 +36,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     private TextView pending_member_name;
     private ImageView ava_user_pending,accept_pending_member,reject_pending_members;
     private RecyclerView rv_pending_item;
+    private  TextView iv_accept_all;
     private ItemTouchHelper ith;
 
     private Thread newThread;
@@ -89,6 +90,7 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         rv_pending_item.setAdapter(pendingAdapter);
 
         iv_pending_back.setClickable(false);
+       iv_accept_all.setClickable(false);
     }
 
     public void InitListener() {
