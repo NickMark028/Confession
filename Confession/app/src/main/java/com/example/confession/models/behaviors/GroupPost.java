@@ -121,6 +121,8 @@ public class GroupPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+
+
 		return null;
 	}
 
