@@ -86,6 +86,8 @@ public class AddPostActivity extends AppCompatActivity implements AddPostBinder.
         add_post_loading = findViewById(R.id.add_post_loading);
 
         addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
+
+        post_txt_btn.setEnabled(false);
     }
 
     private void InitListener() {
@@ -121,7 +123,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostBinder.
                     newThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            presenter.HandleAddPost(cgi, User.GetAuthToken());
+                            presenter.HandleAddPost(cgi, addp_user_status.getText().toString());
                         }
                     });
 
@@ -166,12 +168,15 @@ public class AddPostActivity extends AppCompatActivity implements AddPostBinder.
                 if(s.length() == 0){
                     hint = true;
                     addp_user_status.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                    post_txt_btn.setEnabled(false);
                 }
                 else if(hint){
                     hint = false;
                     addp_user_status.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     addp_user_status.setTextColor(Color.BLACK);
+
                 }
+                post_txt_btn.setEnabled(true);
             }
 
             @Override

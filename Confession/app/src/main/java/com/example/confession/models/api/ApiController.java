@@ -28,7 +28,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class ApiController {
 
 	final String apiURL = "https://confessionapi2021.herokuapp.com/";
-
+	//final String apiURL = "http://10.0.2.2:3000/";
 	private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
 
 	    StringBuilder result = new StringBuilder();

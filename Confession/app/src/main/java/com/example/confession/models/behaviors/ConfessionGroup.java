@@ -322,11 +322,17 @@ public class ConfessionGroup {
 
 		HashMap<String, String> params = new HashMap<>();
 		params.put("token", auth_token);
-		params.put("confessionid", this.group_info.id);
-		params.put("memberid", author.id);
-		params.put("title", post.id);
+		params.put("confessionid", post.group.id);
+		params.put("memberid", memberid);
+		params.put("title", "");
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
+
+		Log.d("token", auth_token);
+		Log.d("confessid", post.group.id);
+		Log.d("memid", memberid);
+		Log.d("title", "");
+		Log.d("content", post.content);
 
 		Log.d("Thread API: ", "Đang đăng bài...");
 		ap.run();

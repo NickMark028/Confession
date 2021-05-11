@@ -81,8 +81,8 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 		srl_refresh = view.findViewById(R.id.srl_refresh);
 		LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
-		llm.setReverseLayout(true);
-		llm.setStackFromEnd(true);
+//		llm.setReverseLayout(true);
+//		llm.setStackFromEnd(true);
 
 		rv_posts.setLayoutManager(llm);
 
