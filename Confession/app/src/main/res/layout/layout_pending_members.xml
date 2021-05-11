@@ -1,53 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_group_pending_members"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <!--        Header-->
-        <LinearLayout
-            android:id="@+id/ll_posts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/iv_group_back_btn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="@string/description"
-                android:src="@drawable/back" />
-
-            <TextView
-                android:id="@+id/txt_pending_member"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="0dp"
-                android:layout_weight="2"
-                android:text="Pending members"
-                android:textColor="@color/main_theme"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/txt_accept_all"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
-                android:layout_weight="1"
-                android:onClick="Onclick"
-                android:text="Accept all"
-                android:textColor="@color/green"
-                android:textSize="18sp" />
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +30,7 @@
                 app:cardCornerRadius="999dp">
 
                 <ImageView
-                    android:id=""
+                    android:id="@+id/ava_user_pending"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@string/description"
@@ -79,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/pending_member"
+                    android:id="@+id/pending_member_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
