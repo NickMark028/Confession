@@ -1,7 +1,6 @@
 package com.example.confession.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.confession.R;
-import com.example.confession.binders.ForgotPasswordBinder;
+import com.example.confession.binders.user.ForgotPasswordBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.ForgotPasswordPresenter;
+import com.example.confession.presenters.user.ForgotPasswordPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements ForgotPasswordBinder.View {

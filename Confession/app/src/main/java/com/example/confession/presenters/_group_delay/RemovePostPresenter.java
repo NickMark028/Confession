@@ -1,10 +1,7 @@
-package com.example.confession.presenters.group_done;
-
-import android.telephony.CellSignalStrength;
+package com.example.confession.presenters._group_delay;
 
 import com.example.confession.binders.post.RemoveCommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
-import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.PostCommentInfo;

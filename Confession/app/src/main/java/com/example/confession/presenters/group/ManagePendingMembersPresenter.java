@@ -22,11 +22,21 @@ public class ManagePendingMembersPresenter implements ManagePendingMembersBinder
 
 		ConfessionGroup group = new ConfessionGroup(group_info);
 
-		Boolean pending_members = group.AcceptUser(user_info.id, User.GetAuthToken());
-
-		if (pending_members)
+		if (group.AcceptUser(user_info.id, User.GetAuthToken()))
 			view.OnAcceptPendingMembersSuccess();
 		else
-			view.OnAcceptPendingMembersFailure("Failed to get pending members");
+			view.OnAcceptPendingMembersFailure("Failed to accept pending members");
+	}
+
+	@Override
+	public void HandleRejectPendingMembers(BasicUserInfo user_info, ConfessionGroupInfo group_info) {
+
+		ConfessionGroup group = new ConfessionGroup(group_info);
+
+		if (group.RejectPost(user_info.id, User.GetAuthToken()))
+			view.OnAcceptPendingMembersSuccess();
+		else
+			view.OnAcceptPendingMembersFailure("Failed to reject pending members");
+
 	}
 }

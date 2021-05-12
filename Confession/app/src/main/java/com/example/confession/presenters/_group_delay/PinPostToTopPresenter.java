@@ -1,6 +1,6 @@
-package com.example.confession.presenters.group_done;
+package com.example.confession.presenters._group_delay;
 
-import com.example.confession.binders.comment_done.PinPostToTopBinder;
+import com.example.confession.binders._group_delay.PinPostToTopBinder;
 
 public class PinPostToTopPresenter implements PinPostToTopBinder.Presenter {
     private final PinPostToTopBinder.View view;

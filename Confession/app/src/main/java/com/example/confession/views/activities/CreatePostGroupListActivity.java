@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.group.GroupListAdapter;
-import com.example.confession.binders.CreatePostGroupListBinder;
+import com.example.confession.binders.group.CreatePostGroupListBinder;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.CreatePostGroupListPresenter;
+import com.example.confession.presenters.group.CreatePostGroupListPresenter;
 
 import java.util.ArrayList;
 

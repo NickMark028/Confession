@@ -18,7 +18,7 @@ import com.example.confession.adapters.user.MemberJoinedGroupAdapter;
 import com.example.confession.binders.group.GetMembersBinder;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.group_done.GetMembersPresenter;
+import com.example.confession.presenters.group.GetMembersPresenter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.confession.binders.comment_done;
+package com.example.confession.binders._group_delay;
 
 public interface PinPostToTopBinder {
     interface View{
