@@ -49,8 +49,8 @@ public class GroupPost {
 		HashMap<String, String> temp_params = new HashMap<String, String>();
 		temp_params.put("token",auth_token);
 		temp_params.put("groupid",this.post_info.group.id);
-		Log.d("Token: ", auth_token);
-		Log.d("GroupID React: ", this.post_info.group.id);
+//		Log.d("Token: ", auth_token);
+//		Log.d("GroupID React: ", this.post_info.group.id);
 		ApiGet ag = new ApiGet("user/memberid/", temp_params);
 		ag.run();
 		Log.d("MemberID Res: ", ag.response);
