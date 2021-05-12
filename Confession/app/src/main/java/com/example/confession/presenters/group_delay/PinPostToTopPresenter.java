@@ -1,4 +1,4 @@
-package com.example.confession.presenters.group_done;
+package com.example.confession.presenters.group_delay;
 
 import com.example.confession.binders.comment_done.PinPostToTopBinder;
 
