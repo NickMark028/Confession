@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.example.confession.service.MyFirebasePushNotificationService;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
@@ -123,17 +124,13 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 			View view = bottomNavigationView.findViewById(R.id.navigation_add_post);
 			view.performClick();
-		}
-
-		if (text.equals("create_group")) {
-
-			Toast.makeText(getApplicationContext(), "Create Group", Toast.LENGTH_SHORT).show();
-
-			Intent mIntent = new Intent(getApplicationContext(), CreateGroupActivity.class);
-			startActivity(mIntent);
-
 		} else {
 			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 		}
 	}
+
+//	@Override
+//	public void onButtonUserClicked(int result) {}
+//	@Override
+//	public void onButtonAdminClicked(int result) {}
 }

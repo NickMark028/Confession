@@ -372,7 +372,7 @@ public class ConfessionGroup {
 				JSONArray items = obj.getJSONArray("posts");
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
-					String id = item.getString("_id");
+					String id = item.getString("_id"); // post id;
 
 //					JSONObject poster = item.getJSONObject("memberid");
 //					poster = poster.getJSONObject("userid");
@@ -388,7 +388,7 @@ public class ConfessionGroup {
 					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
 
 					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
-					String groupid = obj.getString("_id");
+					String groupid = obj.getString("_id"); // group id
 					String shortname = obj.getString("shortname");
 					String groupname = obj.getString("groupname");
 					String avatar = obj.getString("avatar");
@@ -398,10 +398,12 @@ public class ConfessionGroup {
 
 					JSONArray reactions =item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
+					Log.e("Content post in group: ",content);
 					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 
 					posts.add(post_info);
 				}
+				Log.e("Posts length: ",Integer.toString(posts.size()));
 				return posts;
 			}
 		} catch (JSONException e) {

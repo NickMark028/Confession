@@ -87,6 +87,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_group_member"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -94,6 +95,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txt_group_mem_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"
@@ -184,11 +186,25 @@
         </LinearLayout>
         <!--        Posts-->
 
+        <LinearLayout
+            android:id="@+id/ll_group_loading"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+            <ProgressBar
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+        </LinearLayout>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_group_posts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:visibility="gone"
             >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_group_posts"

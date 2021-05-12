@@ -55,7 +55,7 @@ public class ProfileCreateNewBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 result = 1;
-                mListener.onButtonClicked("create_group");
+                //mListener.onButtonClicked("create_group");
             }
         });
     }

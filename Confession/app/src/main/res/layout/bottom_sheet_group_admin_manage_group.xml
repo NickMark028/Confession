@@ -58,29 +58,29 @@
                 android:paddingEnd="15dp"
                 android:textAlignment="textStart"
                 android:stateListAnimator="@null"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#DCDBDB"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/group_admin_pending_post_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_bg_press_btn"
-                android:fontFamily="@font/nunito_regular"
-                android:text="Pending posts"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textAlignment="textStart"
-                android:stateListAnimator="@null"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:background="#DCDBDB"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                />-->
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/group_admin_pending_post_btn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/custom_bg_press_btn"-->
+<!--                android:fontFamily="@font/nunito_regular"-->
+<!--                android:text="Pending posts"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:stateListAnimator="@null"/>-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -104,29 +104,29 @@
                 android:paddingEnd="15dp"
                 android:textAlignment="textStart"
                 android:stateListAnimator="@null"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#DCDBDB"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/group_admin_leave_group_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_bg_press_btn"
-                android:fontFamily="@font/nunito_regular"
-                android:text="Leave group"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textAlignment="textStart"
-                android:stateListAnimator="@null"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:background="#DCDBDB"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                />-->
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/group_admin_leave_group_btn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/custom_bg_press_btn"-->
+<!--                android:fontFamily="@font/nunito_regular"-->
+<!--                android:text="Leave group"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:stateListAnimator="@null"/>-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
