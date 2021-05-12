@@ -1,4 +1,4 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.post;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,8 +40,6 @@ import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 import com.example.confession.views.fragments.GroupFragment;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements AddCommentBinder.View, ReactPostBinder.View {
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupSearchAdapter;
+import com.example.confession.adapters.group.GroupSearchAdapter;
 import com.example.confession.binders.group.SearchGroupBinder;
 import com.example.confession.binders.user.JoinedGroupIDsBinder;
 import com.example.confession.presenters.user.JoinedGroupsIDPresenter;
@@ -22,7 +22,6 @@ import com.example.confession.presenters.group.SearchGroupPresenter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 public class GroupSearchFragment extends Fragment implements SearchGroupBinder.View, JoinedGroupIDsBinder.View {

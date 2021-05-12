@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.MyJoinedGroupAdapter;
+import com.example.confession.adapters.group.MyJoinedGroupAdapter;
 import com.example.confession.binders.user.FollowedGroupsBinder;
 import com.example.confession.presenters.user.FollowedGroupsPresenter;
 import com.example.confession.models.data.ConfessionGroupInfo;

@@ -4,22 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupListAdapter;
+import com.example.confession.adapters.group.GroupListAdapter;
 import com.example.confession.binders.CreatePostGroupListBinder;
-import com.example.confession.binders.user.JoinedGroupsBinder;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.CreatePostGroupListPresenter;
-import com.example.confession.presenters.user.JoinedGroupsPresenter;
-import com.example.confession.presenters.user.SignInPresenter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.user;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
 import com.example.confession.models.data.BasicUserInfo;
-import com.example.confession.models.data.UserInfo;
 
 import java.util.ArrayList;
 

@@ -1,31 +1,21 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.comment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
-import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.PostCommentInfo;
 
 import java.text.SimpleDateFormat;

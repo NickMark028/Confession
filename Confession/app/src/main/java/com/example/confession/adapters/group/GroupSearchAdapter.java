@@ -1,4 +1,4 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.group;
 
 import android.app.Activity;
 import android.content.Context;

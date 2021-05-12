@@ -1,4 +1,4 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.group;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,19 +18,20 @@ import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.views.bottomsheet.UserDeleteGroupBottomSheet;
+import com.example.confession.views.bottomsheet.UserLeaveGroupBottomSheet;
 
 import java.util.ArrayList;
 
-public class MyOwnGroupAdapter extends BaseAdapter {
+public class MyJoinedGroupAdapter extends BaseAdapter {
 
     Context context;
 
     ArrayList<ConfessionGroupInfo> groups;
-    private ImageView iv_your_group_gr_avatar;
-    private  TextView your_group_gr_name;
-    private AppCompatButton your_group_del_btn;
+    private ImageView iv_joined_group_gr_avatar;
+    private  TextView joined_group_gr_name;
+    private AppCompatButton joined_group_leave_bn;
 
-    public MyOwnGroupAdapter(Context context, ArrayList<ConfessionGroupInfo> groups){
+    public MyJoinedGroupAdapter(Context context, ArrayList<ConfessionGroupInfo> groups){
         this.context = context;
         this.groups = groups;
     }
@@ -54,7 +55,7 @@ public class MyOwnGroupAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         @SuppressLint("ViewHolder")
-        View row = inflater.inflate(R.layout.layout_your_group, null);
+        View row = inflater.inflate(R.layout.layout_joined_group, null);
 
         InitView(row);
         InitListener();
@@ -64,21 +65,21 @@ public class MyOwnGroupAdapter extends BaseAdapter {
     }
 
     public void InitView(View row){
-        iv_your_group_gr_avatar = row.findViewById(R.id.iv_your_group_gr_avatar);
-        your_group_gr_name = row.findViewById(R.id.your_group_gr_name);
-        your_group_del_btn = row.findViewById(R.id.your_group_del_btn);
+        iv_joined_group_gr_avatar = row.findViewById(R.id.iv_joined_group_gr_avatar);
+        joined_group_gr_name = row.findViewById(R.id.joined_group_gr_name);
+        joined_group_leave_bn = row.findViewById(R.id.joined_group_leave_bn);
     }
 
     public void InitListener(){
-        your_group_del_btn.setOnClickListener(new View.OnClickListener() {
+        joined_group_leave_bn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserDeleteGroupBottomSheet bottomSheet = new UserDeleteGroupBottomSheet();
+                UserLeaveGroupBottomSheet bottomSheet = new UserLeaveGroupBottomSheet();
                 FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
-                bottomSheet.show(fm, "DeleteGroup");
+                bottomSheet.show(fm, "LeaveGroup");
 
                 if(bottomSheet.GetResult() == 0){
-                    //... DeletePost
+                    //... LeavePost
                 }
 
             }
@@ -89,7 +90,7 @@ public class MyOwnGroupAdapter extends BaseAdapter {
 
         ConfessionGroupInfo cgi = groups.get(pos);
 
-        your_group_gr_name.setText(cgi.name);
-        //iv_your_group_gr_avatar.setImageResource(cgi.avatar); int # String - not match
+        joined_group_gr_name.setText(cgi.name);
+        //iv_joined_group_gr_avatar.setImageResource(cgi.avatar); int # String - not match
     }
 }

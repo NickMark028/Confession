@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupPendingMembersAdapter;
-import com.example.confession.binders.group.GetMembersBinder;
+import com.example.confession.adapters.user.GroupPendingMembersAdapter;
 import com.example.confession.binders.group.GetPendingMembersBinder;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;

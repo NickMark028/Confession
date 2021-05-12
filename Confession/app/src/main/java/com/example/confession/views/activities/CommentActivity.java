@@ -1,6 +1,5 @@
 package com.example.confession.views.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,31 +7,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.CommentAdapter;
+import com.example.confession.adapters.comment.CommentAdapter;
 import com.example.confession.binders.post.AddCommentBinder;
 import com.example.confession.binders.post.GetCommentsBinder;
 import com.example.confession.models.behaviors.PostComment;
-import com.example.confession.models.data.BasicUserInfo;
-import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.models.data.PostCommentInfo;
 import com.example.confession.presenters.post.AddCommentPresenter;
