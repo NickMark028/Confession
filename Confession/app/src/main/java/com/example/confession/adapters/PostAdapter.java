@@ -216,7 +216,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 @Override
                 public void onClick(View v) {
 
-                    GroupPostInfo post = posts.get(getLayoutPosition());
+                    GroupPostInfo post = posts.get(getAdapterPosition());
                     if(newThread != null && newThread.isAlive()) {
                         newThread.interrupt();
 

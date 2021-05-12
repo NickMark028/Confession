@@ -44,6 +44,8 @@ public class GroupPost {
 		HashMap<String, String> temp_params = new HashMap<String, String>();
 		temp_params.put("token",auth_token);
 		temp_params.put("groupid",this.post_info.group.id);
+		Log.d("Token: ", auth_token);
+		Log.d("GroupID React: ", this.post_info.group.id);
 		ApiGet ag = new ApiGet("user/memberid/", temp_params);
 		ag.run();
 		Log.d("MemberID Res: ", ag.response);
@@ -54,14 +56,16 @@ public class GroupPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		//Log.d("MemberID: ", memberid);
+
 
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
 		params.put("memberid", memberid); // Sửa lại API
 		params.put("postid", this.post_info.id);
-
+		Log.d("Token: ", User.GetAuthToken());
+		Log.d("MemberID: ", memberid);
+		Log.d("PostID: ", this.post_info.id);
 
 		ApiPost ap = new ApiPost("post/reaction/react", params);
 		Log.d("Thread API: ", "Đang thả tim...");
