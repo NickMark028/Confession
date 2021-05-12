@@ -213,28 +213,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 @Override
                 public void onClick(View v) {
 
-                    GroupPostInfo post = posts.get((int) position);
+                    GroupPostInfo post = posts.get(getLayoutPosition());
 
-                    if (newThread != null)
-                        newThread.stop();
-
-                    newThread = new Thread(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                Thread.sleep(5000);
-                                presenter_like.HandleReactPost(post);
-                            } catch (Exception e) {
-                            } finally {
-                                newThread = null;
-                            }
+                            presenter_like.HandleReactPost(post);
                         }
-                    });
+                    }).start();
 
                     // Toggle react
                     int react_count = post.reaction_count;
-                    txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
+                  txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
                     HeartAnimate(v);
+
                 }
             });
 
