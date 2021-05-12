@@ -7,8 +7,7 @@
     android:orientation="horizontal"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,6 +68,31 @@
                     android:layout_weight="1"
                     android:onClick="close_click"
                     android:src="@drawable/close" />
+                <ProgressBar
+                    android:id="@+id/pending_mem_checking"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_pending_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/light_green"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/txt_peding_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Accepted"
+                        android:textColor="@color/green"
+                        android:background="@color/transparent"/>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </LinearLayout>
 

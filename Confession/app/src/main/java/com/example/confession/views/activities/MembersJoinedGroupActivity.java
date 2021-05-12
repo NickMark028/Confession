@@ -70,7 +70,14 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
         iv_members_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
 
+        srl_refresh_members_joined.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LoadMembersJoined();
             }
         });
     }
@@ -84,10 +91,11 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
 
-        llm.setReverseLayout(true);
-        llm.setStackFromEnd(true);
+//        llm.setReverseLayout(true);
+//        llm.setStackFromEnd(true);
 
         rv_members_joined_item.setLayoutManager(llm);
+
         members_info = new ArrayList<>();
         membersAdapter = new MemberJoinedGroupAdapter(MembersJoinedGroupActivity.this, members_info);
         rv_members_joined_item.setAdapter(membersAdapter);
@@ -101,12 +109,32 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(newThread!=null && newThread.isAlive()){newThread.interrupt();}
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     public void OnGetMembersSuccess(ArrayList<BasicUserInfo> members) {
+        members_info.clear();
+        members_info.addAll(members);
+
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MembersJoinedGroupActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
-                LoadMembersJoined();
+                Toast.makeText(MembersJoinedGroupActivity.this, "Get Successfully", Toast.LENGTH_SHORT).show();
+//                LoadMembersJoined();
+                srl_refresh_members_joined.setRefreshing(false);
+
+                membersAdapter.notifyDataSetChanged();
+                rv_members_joined_item.invalidateItemDecorations();
+                rv_members_joined_item.refreshDrawableState();
             }
         });
     }
@@ -116,7 +144,7 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MembersJoinedGroupActivity.this, "Sent Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MembersJoinedGroupActivity.this, "Get Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

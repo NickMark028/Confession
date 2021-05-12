@@ -14,7 +14,13 @@
 
     <color name="fb_theme">#C5DDFF</color>
     <color name="fb_text">#2F80ED</color>
+
     <color name="green">#00861D</color>
+    <color name="light_green">#AE02A826</color>
+
+    <color name="red">#FF0000</color>
+    <color name="light_red">#A9FF0000</color>
+
     <color name="gg_theme">#FDDBC3</color>
     <color name="gg_text">#F2994A</color>
     <color name="navigation_icon">#130F26</color>

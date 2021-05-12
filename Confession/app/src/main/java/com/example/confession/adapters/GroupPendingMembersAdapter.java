@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +20,12 @@ import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
 import com.example.confession.presenters.group.ManagePendingMembersPresenter;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
 public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendingMembersAdapter.ViewHolder>
-    implements ManagePendingMembersBinder.View {
+     {
 
     Context context;
     ArrayList<BasicUserInfo> groupPendingUser;
@@ -36,7 +38,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
         this.groupPendingUser = groupPending;
         this.group_info = group_info;
 
-        presenter = new ManagePendingMembersPresenter(this);
     }
 
     @NonNull
@@ -59,43 +60,21 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
         return groupPendingUser.size() ;
     }
 
-    @Override
-    public void OnAcceptAllPendingMembersSuccess() {
-
-    }
-
-    @Override
-    public void OnAcceptPendingMembersSuccess() {
-        ((Activity)context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, "Accept Successfully", Toast.LENGTH_SHORT).show();
-
-                groupPendingUser.remove(removePosition);
-                groupPendingUser.notifyAll();
-            }
-        });
-    }
-
-    @Override
-    public void OnAcceptPendingMembersFailure(String error) {
-        ((Activity)context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                removePosition = -1;
-                Toast.makeText(context, "Failed to accpect", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements ManagePendingMembersBinder.View{
         private LinearLayout ll_group_pending_members;
         private ImageView ava_user_pending, accept_pending_member, reject_pending_members;
-        private TextView pending_member_name;
-
+        private TextView pending_member_name, txt_peding_status;
+        private MaterialCardView mcv_pending_status;
+        private ProgressBar pending_mem_checking;
+        private boolean checkPendingAcceptClick = false;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            presenter = new ManagePendingMembersPresenter(this);
+
             InitView(itemView);
             InitListener();
         }
@@ -108,6 +87,10 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
             accept_pending_member = view.findViewById(R.id.accept_pending_member);
             reject_pending_members = view.findViewById(R.id.reject_pending_members);
             pending_member_name = view.findViewById(R.id.pending_member_name);
+
+            txt_peding_status = view.findViewById(R.id.txt_peding_status);
+            mcv_pending_status = view.findViewById(R.id.mcv_pending_status);
+            pending_mem_checking = view.findViewById(R.id.pending_mem_checking);
         }
 
 
@@ -115,8 +98,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
             BasicUserInfo user_info = groupPendingUser.get(i);
             //ava_user_pending.setImageResource((Integer) user_info.avatar);
             pending_member_name.setText(user_info.name);
-
-        //check and reject chua lafm
+            //check and reject chua lam
         }
 
 
@@ -133,6 +115,12 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
                             );
                         }
                     }).start();
+                    checkPendingAcceptClick = true;
+
+
+                    accept_pending_member.setVisibility(View.GONE);
+                    reject_pending_members.setVisibility(View.GONE);
+                    pending_mem_checking.setVisibility(View.VISIBLE);
 
                     removePosition = getLayoutPosition();
                 }
@@ -146,11 +134,33 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 
         }
 
+        @Override
+        public void OnAcceptAllPendingMembersSuccess() {
 
+        }
 
+        @Override
+        public void OnAcceptPendingMembersSuccess() {
 
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, "Accept Successfully", Toast.LENGTH_SHORT).show();
+//                groupPendingUser.remove(removePosition);
+//                groupPendingUser.notifyAll();
+                }
+            });
+        }
 
+        @Override
+        public void OnAcceptPendingMembersFailure(String error) {
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    removePosition = -1;
+                    Toast.makeText(context, "Failed to accpect", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
-
-
 }

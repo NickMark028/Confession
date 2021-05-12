@@ -245,6 +245,7 @@ public class GroupFragment extends Fragment
 
 			case 1: // Open member
 				Intent memberIntent = new Intent(getContext().getApplicationContext(), MembersJoinedGroupActivity.class);
+				memberIntent.putExtra("cgi", cgi);
 				startActivity(memberIntent);
 				break;
 
@@ -261,6 +262,7 @@ public class GroupFragment extends Fragment
 		switch (result){
 			case 0: //Open members
 				Intent memberIntent = new Intent(getContext().getApplicationContext(), MembersJoinedGroupActivity.class);
+				memberIntent.putExtra("cgi", cgi);
 				startActivity(memberIntent);
 				break;
 
