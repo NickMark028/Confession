@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +33,12 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
 	ListView lv_search_item;
+	LinearLayout ll_progress_bar;
 
 	private ArrayList<ConfessionGroupInfo> list_group;
 	private Set<String> joined_groups;
 	private GroupSearchAdapter mGroupSearchAdapter;
-
+	private String searchQuery;
 	private Thread newThread;
 
 	public GroupSearchFragment() {
@@ -67,6 +69,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 
 	private void InitFragment(View view) {
 
+		ll_progress_bar = view.findViewById(R.id.ll_progress_bar);
 		txt_search = view.findViewById(R.id.txt_search);
 		txt_search_result = view.findViewById(R.id.txt_search_result);
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
@@ -74,6 +77,8 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 		list_group = new ArrayList<>();
 		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
+
+		ll_progress_bar.setVisibility(View.GONE);
 	}
 
 	private void InitListener() {
@@ -93,9 +98,16 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 		});
 
 		txt_search.setOnClickListener(v -> txt_search.onActionViewExpanded());
+
 		txt_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
+				searchQuery = query;
+				ll_progress_bar.setVisibility(View.VISIBLE);
+
+				if(newThread!=null && newThread.isAlive()){
+					newThread.interrupt();
+				}
 
 				newThread = new Thread(new Runnable() {
 					@Override
@@ -113,7 +125,6 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 			public boolean onQueryTextChange(String newText) {
 
 				if (newText.isEmpty()) {
-					txt_search_result.setText(String.format("No Results", newText));
 					list_group.clear();
 					UpdateListView();
 					return true;
@@ -121,7 +132,6 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 
 				txt_search_result.setText(String.format("Searching for %s", newText));
 
-				//presenter.HandleFindGroup(newText);
 				return true;
 			}
 
@@ -129,11 +139,27 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	}
 
 	private void UpdateListView() {
+		ll_progress_bar.setVisibility(View.GONE);
+		lv_search_item.setVisibility(View.GONE);
+
+		txt_search_result.setText(String.format("No Results"));
+
+		mGroupSearchAdapter.notifyDataSetChanged();
+		lv_search_item.invalidateViews();
+		lv_search_item.refreshDrawableState();
+	}
+
+	private void UpdateListViewOnUIThread() {
 		if(getActivity() == null){ return; }
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				ll_progress_bar.setVisibility(View.GONE);
+				lv_search_item.setVisibility(View.VISIBLE);
+
+				txt_search_result.setText(String.format("Results for %s", searchQuery));
+
 				mGroupSearchAdapter.notifyDataSetChanged();
 				lv_search_item.invalidateViews();
 				lv_search_item.refreshDrawableState();
@@ -156,20 +182,31 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 
 		list_group.clear();
 		list_group.addAll(groups);
-		
-		UpdateListView();
+
+		UpdateListViewOnUIThread();
 	}
 
 	@Override
 	public void OnFindGroupFailure(String error) {
-		Toast.makeText(getContext(), "Failed to find group", Toast.LENGTH_LONG).show();
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getContext(), "Failed to find group", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 
 	@Override
 	public void OnGetJoinedGroupIDsSuccess(Collection<String> groups) {
-
 		this.joined_groups.clear();
 		this.joined_groups.addAll(groups);
+
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				//Do sth in UI
+			}
+		});
 	}
 
 	@Override
