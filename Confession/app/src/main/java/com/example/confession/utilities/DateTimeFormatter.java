@@ -9,8 +9,9 @@ public final class DateTimeFormatter {
 	public static String FormatDateTillNow(Date date) {
 
 		Date now = Calendar.getInstance().getTime();
-		long day = TimeUnit.DAYS.convert(now.getTime() - date.getTime(), TimeUnit.MILLISECONDS);
-		return day + "d ago";
+		long difference = now.getTime() - date.getTime();
+		long day = TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+		long hour = TimeUnit.HOURS.convert(difference, TimeUnit.MILLISECONDS);
+		return hour < 24 ? hour + "h ago" : day + "d ago";
 	}
-
 }
