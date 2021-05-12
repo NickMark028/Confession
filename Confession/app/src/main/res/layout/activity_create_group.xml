@@ -31,6 +31,18 @@
             android:text="Create new group"
             android:textColor="@color/main_theme"
             android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/create_group_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_check_24" />
+
+        <ProgressBar
+            android:id="@+id/create_group_progress"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,14 +65,16 @@
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_create_post_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:theme="@style/EditTextLabel"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            
+            app:errorEnabled="true"
+            app:counterMaxLength="25"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +86,8 @@
                 android:fontFamily="@font/nunito_regular"
                 android:hint="Name"
                 android:inputType="text"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:maxLength="25"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--Privacy-->
@@ -81,13 +96,14 @@
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
             android:text="Privacy"
-            android:layout_marginTop="10dp"
+
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/nunito_bold"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
@@ -95,7 +111,8 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:startIconDrawable="@drawable/ic_lock_black">
+            app:startIconDrawable="@drawable/ic_lock_black"
+            android:background="@drawable/custom_edit_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/create_group_mode"
@@ -105,28 +122,58 @@
                 android:fontFamily="@font/nunito_regular"
                 android:hint="Private"
                 android:text="Private"
-                android:editable="false"
-                android:inputType="text" />
+                android:inputType="text"
+                android:enabled="false"
+                />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:padding="10dp"
-        android:gravity="bottom">
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/create_group_btn"
+        android:orientation="vertical">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_bg_btn"
+            android:layout_height="wrap_content"
+            android:text="Group name"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No _ or . at the beginning"
+            android:textSize="14sp"
             android:fontFamily="@font/nunito_regular"
-            android:text="Create group"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No __ or _. or ._ or .. inside"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_regular"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allowed characters(a-z, A-Z, 0-9)"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_regular"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No _ or . at the end"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_regular"
+            android:padding="5dp"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
+
+
 </LinearLayout>
