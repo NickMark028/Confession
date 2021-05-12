@@ -1,4 +1,4 @@
-package com.example.confession.binders.group_delay;
+package com.example.confession.binders._group_delay;
 
 public interface RemovePostBinder {
     interface View{

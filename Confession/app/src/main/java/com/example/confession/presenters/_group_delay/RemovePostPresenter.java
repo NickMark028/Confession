@@ -1,4 +1,4 @@
-package com.example.confession.presenters.group_delay;
+package com.example.confession.presenters._group_delay;
 
 import com.example.confession.binders.post.RemoveCommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
