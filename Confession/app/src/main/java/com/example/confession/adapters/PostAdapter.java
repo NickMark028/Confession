@@ -43,6 +43,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.widget.Toast.*;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements AddCommentBinder.View, ReactPostBinder.View {
 
     Context context;
@@ -91,7 +93,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             @Override
             public void run() {
 
-                Toast.makeText(context, "Sent Successfully", Toast.LENGTH_LONG).show();
+                makeText(context, "Sent Successfully", LENGTH_LONG).show();
             }
         });
     }
@@ -101,7 +103,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+                makeText(context, error, LENGTH_LONG).show();
             }
         });
     }
@@ -214,7 +216,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 public void onClick(View v) {
 
                     GroupPostInfo post = posts.get(getLayoutPosition());
-
+                    
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -225,6 +227,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                     // Toggle react
                     int react_count = post.reaction_count;
                   txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
+
                     HeartAnimate(v);
 
                 }
