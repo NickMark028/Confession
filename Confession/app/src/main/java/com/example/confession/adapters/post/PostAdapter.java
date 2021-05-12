@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +83,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         return posts.size();
     }
 
-
     //Presenter methods
     @Override
     public void OnAddCommentSuccess(PostComment Comment) {
@@ -129,6 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         private boolean full = false;
         private long position;
         private Thread newThread;
+        private boolean waiting_react = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -207,33 +209,57 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 }
             });
 
-            iv_react.setOnClickListener(new View.OnClickListener() {
+            iv_react.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-
                     GroupPostInfo post = posts.get((int) position);
-
-                    if (newThread != null)
-                        newThread.stop();
-
-                    newThread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(5000);
-                                presenter_like.HandleReactPost(post);
-                            } catch (Exception e) {
-                            } finally {
-                                newThread = null;
-                            }
-                        }
-                    });
-
-                    // Toggle react
-                    int react_count = post.reaction_count;
-                    txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
-                    HeartAnimate(v);
+                    presenter_like.HandleReactPost(post);
+                    
                 }
+
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        GroupPostInfo post = posts.get((int) position);
+//                        presenter_like.HandleReactPost(post);
+//                    }
+               // }).start();
+//                if (waiting_react) return;
+//                waiting_react = true;
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        GroupPostInfo post = posts.get((int) position);
+//                        waiting_react = false;
+//                        SystemClock.sleep(3000);
+//                        presenter_like.HandleReactPost(post);
+//                    }
+//                }).start();
+
+//
+//                if (newThread != null)
+//                    newThread.stop();
+//
+//                newThread = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(5000);
+//                            presenter_like.HandleReactPost(post);
+//                        } catch (Exception e) {
+//                        } finally {
+////                            newThread = null;
+//                        }
+//                    }
+//                });
+//                newThread.start();
+//
+//                // Toggle react
+//                int react_count = post.reaction_count;
+//                txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
+//              HeartAnimate(v);
             });
 
             iv_comment.setOnClickListener(new View.OnClickListener() {
