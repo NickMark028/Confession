@@ -17,6 +17,7 @@ public class ApiGet{
 	}
 
 	public String run() {
+
 		ApiController ac = new ApiController();
 		this.response = ac.get(this.url, this.params);
 		return response;

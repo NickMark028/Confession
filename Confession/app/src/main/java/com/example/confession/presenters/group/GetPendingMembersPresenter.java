@@ -21,7 +21,7 @@ public class GetPendingMembersPresenter implements GetPendingMembersBinder.Prese
 
 		ConfessionGroup group = new ConfessionGroup(group_info);
 
-		ArrayList<BasicUserInfo> pending_members = group.GetPendingUsers(User.GetAuthToken());
+		ArrayList<BasicUserInfo> pending_members = group.GetPendingUsers(User.GetAuthToken(), group.GetID());
 
 		if (pending_members != null)
 			view.OnGetPendingMembersSuccess(pending_members);

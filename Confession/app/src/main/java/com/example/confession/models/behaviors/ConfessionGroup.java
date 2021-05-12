@@ -37,18 +37,20 @@ public class ConfessionGroup {
 	}
 
 	// Done //
-	public ArrayList<BasicUserInfo> GetPendingUsers(String auth_token) {
+	public ArrayList<BasicUserInfo> GetPendingUsers(String auth_token,String groupid) {
 
-		HashMap<String, String> params = new HashMap<>();
-		params.put("conf", this.group_info.id);
+//		Log.e("Group ID Pending: ",groupid);
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", groupid);
 
 		ApiGet ag = new ApiGet("confession/id", params);
 
 		Log.d("Thread API: ", "Đang lấy danh sách thành viên chờ...");
 		ag.run();
 
-		ArrayList<BasicUserInfo> users = new ArrayList<>();
+		ArrayList<BasicUserInfo> users = new ArrayList<BasicUserInfo>();
 		Log.d("Response", ag.response);
+
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ag.response);
@@ -57,9 +59,13 @@ public class ConfessionGroup {
 
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
+					item = item.getJSONObject("userid");
 					String id = item.getString("_id");
 					String username = item.getString("username");
 					String name = item.getString("fullname");
+					Log.e("User ID: ",id);
+					Log.e("User: ",username);
+					Log.e("Name: ",name);
 					String avatar = "";
 					BasicUserInfo user = new BasicUserInfo(id, username, name, "");
 					users.add(user);
@@ -68,16 +74,35 @@ public class ConfessionGroup {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+
 		return users;
 	}
 
 	// Done //
 	public boolean AcceptUser(String user_id, String auth_token) {
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		Log.e("Token: ",auth_token);
+		Log.e("User id: ",user_id);
+		Log.e("G id: ",this.group_info.id);
+		temp_params.put("token",auth_token);
+		temp_params.put("userid",user_id);
+		temp_params.put("groupid",this.group_info.id);
+		ApiGet ag = new ApiGet("user/prememid/", temp_params);
+		ag.run();
+		Log.d("PreMemberID Res: ", ag.response);
+		String prememberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			prememberid  = temp_obj.getString("prememid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("PreMemberID: ", prememberid);
 
 		HashMap<String, String> params = new HashMap<>();
 		params.put("token", User.GetAuthToken());
 		params.put("confession", this.group_info.id);
-		params.put("premem", user_id); // Có nguy cơ sai.
+		params.put("premem", prememberid); // Có nguy cơ sai.
 
 		ApiPost ap = new ApiPost("confession/addmember", params);
 

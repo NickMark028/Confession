@@ -238,8 +238,9 @@ public class GroupFragment extends Fragment
 		Toast.makeText(getContext(), "Check result - " + result, Toast.LENGTH_LONG).show();
 		switch (result){
 			case 0: //Open pending member
-				Intent pendingItent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
-				startActivity(pendingItent);
+				Intent pendingIntent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
+				pendingIntent.putExtra("cgi", cgi);
+				startActivity(pendingIntent);
 				break;
 
 			case 1: // Open member
@@ -324,7 +325,7 @@ public class GroupFragment extends Fragment
 			@Override
 			public void run() {
 				srl_group_posts.setRefreshing(false);
-				Log.e("Check adapter content 17", gr_posts.get(17).content);
+
 				postAdapter.notifyDataSetChanged();
 				rv_group_posts.invalidateItemDecorations();
 				rv_group_posts.refreshDrawableState();
@@ -416,11 +417,13 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void onButtonUserClicked(int result) {
+
 		HandleResultFromUserManagerBottomSheet(result);
 	}
 
 	@Override
 	public void onButtonAdminClicked(int result) {
+
 		HandleResultFromAdminManagerBottomSheet(result);
 	}
 }

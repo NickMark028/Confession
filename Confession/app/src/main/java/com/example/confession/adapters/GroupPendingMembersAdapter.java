@@ -1,4 +1,5 @@
 package com.example.confession.adapters;
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,23 +7,36 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
+import com.example.confession.binders.group.ManagePendingMembersBinder;
+import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.BasicUserInfo;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserInfo;
+import com.example.confession.presenters.group.ManagePendingMembersPresenter;
 
 import java.util.ArrayList;
 
-public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendingMembersAdapter.ViewHolder> {
+public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendingMembersAdapter.ViewHolder>
+    implements ManagePendingMembersBinder.View {
+
     Context context;
     ArrayList<BasicUserInfo> groupPendingUser;
+    ConfessionGroupInfo group_info;
+    ManagePendingMembersBinder.Presenter presenter;
+    int removePosition = -1;
 
-    public GroupPendingMembersAdapter(Context context, ArrayList<BasicUserInfo> groupPending){
+    public GroupPendingMembersAdapter(Context context, ArrayList<BasicUserInfo> groupPending, ConfessionGroupInfo group_info){
         this.context = context;
-        this.groupPendingUser = groupPendingUser;
+        this.groupPendingUser = groupPending;
+        this.group_info = group_info;
+
+        presenter = new ManagePendingMembersPresenter(this);
     }
 
     @NonNull
@@ -35,7 +49,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.InitData(position);
-
     }
     @Override
     public long getItemId(int i) {
@@ -44,6 +57,35 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
     @Override
     public int getItemCount() {
         return groupPendingUser.size() ;
+    }
+
+    @Override
+    public void OnAcceptAllPendingMembersSuccess() {
+
+    }
+
+    @Override
+    public void OnAcceptPendingMembersSuccess() {
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, "Accept Successfully", Toast.LENGTH_SHORT).show();
+
+                groupPendingUser.remove(removePosition);
+                groupPendingUser.notifyAll();
+            }
+        });
+    }
+
+    @Override
+    public void OnAcceptPendingMembersFailure(String error) {
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                removePosition = -1;
+                Toast.makeText(context, "Failed to accpect", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -70,9 +112,9 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 
 
         public void InitData(int i) {
-        BasicUserInfo user_info = groupPendingUser.get(i);
-        ava_user_pending.setImageResource((Integer) user_info.avatar);
-        pending_member_name.setText(user_info.name);
+            BasicUserInfo user_info = groupPendingUser.get(i);
+            //ava_user_pending.setImageResource((Integer) user_info.avatar);
+            pending_member_name.setText(user_info.name);
 
         //check and reject chua lafm
         }
@@ -82,7 +124,17 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
             accept_pending_member.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.HandleAcceptPendingMembers(
+                                    groupPendingUser.get(getLayoutPosition()),
+                                    group_info
+                            );
+                        }
+                    }).start();
 
+                    removePosition = getLayoutPosition();
                 }
             });
             reject_pending_members.setOnClickListener(new View.OnClickListener() {

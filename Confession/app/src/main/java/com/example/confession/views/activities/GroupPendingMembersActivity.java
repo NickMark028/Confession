@@ -1,6 +1,7 @@
 package com.example.confession.views.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,7 +54,6 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         InitListener();
 
         LoadPendingMember();
-
     }
 
     public void LoadPendingMember() {
@@ -90,9 +90,8 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
         rv_pending_item.setLayoutManager(llm);
 
         users_info = new ArrayList<>();
-        pendingAdapter = new GroupPendingMembersAdapter(GroupPendingMembersActivity.this, users_info);
+        pendingAdapter = new GroupPendingMembersAdapter(GroupPendingMembersActivity.this, users_info, cgi);
         rv_pending_item.setAdapter(pendingAdapter);
-
 
         txt_accept_all.setEnabled(false);
 //        accept_pending_member.setEnabled(false);
@@ -129,10 +128,12 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     public void OnGetPendingMembersSuccess(ArrayList<BasicUserInfo> users_pending) {
         users_info.clear();
         users_info.addAll(users_pending);
+        Log.e("user pending", Integer.toString(users_pending.size()));
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 srl_refresh_pending.setRefreshing(false);
+
                 pendingAdapter.notifyDataSetChanged();
                 rv_pending_item.invalidateItemDecorations();
                 rv_pending_item.refreshDrawableState();
