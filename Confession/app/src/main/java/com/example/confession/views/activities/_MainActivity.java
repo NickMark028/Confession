@@ -57,7 +57,7 @@ public class _MainActivity extends Activity {
 						startActivity(intent, options.toBundle());
 					}catch (Exception exc){exc.printStackTrace();}
 				}
-			}, 5000);
+			}, 1000);	// TODO
 		}
 	}
 

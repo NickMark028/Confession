@@ -1,7 +1,6 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.user;
 
 import android.content.Context;
-import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

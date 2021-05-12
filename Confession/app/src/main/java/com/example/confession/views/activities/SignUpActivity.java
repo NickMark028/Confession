@@ -246,9 +246,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 			}
 		});
 
-		Intent myIntent = new Intent(this, SignInActivity.class);
-		startActivity(myIntent);
-
 		finish();
 	}
 

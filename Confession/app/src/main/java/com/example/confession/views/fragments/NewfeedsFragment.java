@@ -12,11 +12,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.PostAdapter;
+import com.example.confession.adapters.post.PostAdapter;
 import com.example.confession.binders.user.GetNewsfeedBinder;
 
 import com.example.confession.models.data.GroupPostInfo;
