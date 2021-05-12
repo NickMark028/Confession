@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -216,20 +217,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 public void onClick(View v) {
 
                     GroupPostInfo post = posts.get(getLayoutPosition());
-                    
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+
                             presenter_like.HandleReactPost(post);
                         }
                     }).start();
 
-                    // Toggle react
-                    int react_count = post.reaction_count;
-                  txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
+                    post.reaction_count += post.react ? -1 : +1;
+                    post.react = !post.react;
 
+                    txt_likes.setText((post.reaction_count + " likes"));
+                    Log.e("Bug", post.reaction_count + "");
                     HeartAnimate(v);
-
                 }
             });
 
