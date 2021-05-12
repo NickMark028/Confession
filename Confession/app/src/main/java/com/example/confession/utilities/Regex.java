@@ -19,11 +19,21 @@ public class Regex {
 
 	public static final Pattern USERNAME_PATTERN =
 			Pattern.compile("^" +
-					"(?!.*\\.\\.)" +			//
-					"(?!.*\\.$)" +				//
-					"(^[A-Z])" +				// no uppercase
-					"[^\\W]" +					// reject all characters that not a word
-					"[\\w.]" +					//
-					"{3,25}$");
+					"(?!.*\\.\\.)" +
+					"(?!.*\\.$)" +
+					"[^\\W]" +
+					"[\\w.]" +
+					"{3,25}" +
+					"$");
+
+	public static final Pattern GROUPNAME_PATTERN =
+			Pattern.compile("^" +
+					"(?=.{3,25}$)" +			//3-25 characters long
+					"(?![_.])" +				//no _ or . at the beginning
+					"(?!.*[_.]{2})" +			//no __ or _. or ._ or .. inside
+					"[a-zA-Z0-9._]" +			//allowed characters
+					"+" +						//
+					"(?<![_.])" +				//no _ or . at the end
+					"$");
 }
 
