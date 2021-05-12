@@ -1,9 +1,6 @@
 package com.example.confession.presenters;
 
-import android.util.Log;
-
-import com.example.confession.binders.CreatePostGroupListBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.binders.group.CreatePostGroupListBinder;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 

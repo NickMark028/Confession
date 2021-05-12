@@ -15,7 +15,6 @@ public class SignInPresenter implements SignInBinder.Presenter {
 	@Override
 	public void HandleLogin(String username, String password) {
 
-		// Todo On GUI create new thread bug
 		if (username.isEmpty() || password.isEmpty())
 		{
 			view.OnLoginFailure("Username and password can't be empty");
@@ -31,4 +30,14 @@ public class SignInPresenter implements SignInBinder.Presenter {
 		else
 			view.OnLoginFailure("User not exists");
 	}
+	public void HandleLogin(String token)
+	{
+		User user = User.Login(token);
+
+		if (user != null)
+			view.OnLoginSuccess(user);
+		else
+			view.OnLoginFailure("User not exists");
+	}
+
 }

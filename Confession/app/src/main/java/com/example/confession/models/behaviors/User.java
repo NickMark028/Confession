@@ -1,6 +1,7 @@
 package com.example.confession.models.behaviors;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -111,6 +112,11 @@ public class User {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public static User Login(String auth_token)
+	{
 		return null;
 	}
 
