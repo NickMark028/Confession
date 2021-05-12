@@ -54,7 +54,7 @@ public class GroupPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Log.d("MemberID: ", memberid);
+		//Log.d("MemberID: ", memberid);
 
 
 		HashMap<String, String> params = new HashMap<String, String>();
