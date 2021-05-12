@@ -42,6 +42,25 @@ public final class GroupPostInfo implements Serializable {
 		this.react = react;
 	}
 
+	public GroupPostInfo(String id,
+						 ConfessionGroupInfo group,
+						 int time_created,
+						 BasicUserInfo author,
+						 BasicUserInfo approver,
+						 String content,
+						 int reaction_count,
+						 boolean react) {
+
+		this.id = id;
+		this.group = group;
+		this.time_created =  new Date(time_created);
+		this.author = author;
+		this.approver = approver;
+		this.content = content;
+		this.reaction_count = reaction_count;
+		this.react = react;
+	}
+
 	public void AddDataTo(Intent intent) {
 		intent.putExtra("gpi", this);
 	}

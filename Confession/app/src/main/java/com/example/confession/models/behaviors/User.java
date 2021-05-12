@@ -352,7 +352,7 @@ public class User {
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
-
+					int createAt =  item.getInt("createAt");
 					// TODO thay thanh gia tri hop le
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
 					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
