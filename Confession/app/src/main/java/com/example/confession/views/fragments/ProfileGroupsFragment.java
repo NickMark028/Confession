@@ -99,7 +99,7 @@ public class ProfileGroupsFragment extends Fragment implements FollowedGroupsBin
 
 			@Override
 			public void onPageSelected(int position) {
-				Toast.makeText(getContext(), "Frag-Pos-" + position, Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getContext(), "Frag-Pos-" + position, Toast.LENGTH_SHORT).show();
 				//CallPresenter(position);
 			}
 
@@ -112,7 +112,7 @@ public class ProfileGroupsFragment extends Fragment implements FollowedGroupsBin
 		group_tab_layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
-				Toast.makeText(getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
