@@ -219,8 +219,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                     GroupPostInfo post = posts.get(getAdapterPosition());
                     if(newThread != null && newThread.isAlive()) {
                         newThread.interrupt();
-
                     }
+
                     newThread= new Thread(new Runnable() {
                     @Override
                     public void run() {
