@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.confession.R;
 import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.views.bottomsheet.UserDeleteGroupBottomSheet;
+import com.example.confession.views.fragments.GroupFragment;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,7 @@ public class MyOwnGroupAdapter extends BaseAdapter {
         View row = inflater.inflate(R.layout.layout_your_group, null);
 
         InitView(row);
-        InitListener();
+        //InitListener();
         InitData(position);
 
         return row;
@@ -83,6 +85,8 @@ public class MyOwnGroupAdapter extends BaseAdapter {
 
             }
         });
+
+
     }
 
     public void InitData(int pos){
