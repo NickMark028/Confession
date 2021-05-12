@@ -216,7 +216,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
 
 
-                    
+
                 }
 
 //                new Thread(new Runnable() {
