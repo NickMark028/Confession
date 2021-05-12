@@ -1,4 +1,4 @@
-package com.example.confession.presenters;
+package com.example.confession.presenters.group;
 
 import com.example.confession.binders.group.CreatePostGroupListBinder;
 import com.example.confession.models.behaviors.User;
