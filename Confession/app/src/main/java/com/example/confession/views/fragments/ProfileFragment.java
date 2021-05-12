@@ -16,19 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.binders.ProfileTabBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.presenters.ForgotPasswordPresenter;
 import com.example.confession.views.activities.ChangePasswordActivity;
 import com.example.confession.views.activities.CreateGroupActivity;
-import com.example.confession.views.activities.SignInActivity;
 import com.example.confession.views.activities.UpdateProfileActivity;
 import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class ProfileFragment extends Fragment implements ProfileTabBinder.View {
+public class ProfileFragment extends Fragment {
 
 	// IN-USE VARIABLES
 
