@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +17,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
+import com.example.confession.adapters.group.MyOwnGroupAdapter;
+import com.example.confession.binders.user.CreatedGroupsBinder;
+import com.example.confession.binders.user.FollowedGroupsBinder;
+import com.example.confession.listener.BottomSheetCreateNewListener;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
+import com.example.confession.presenters.user.CreatedGroupsPresenter;
+import com.example.confession.presenters.user.FollowedGroupsPresenter;
+import com.example.confession.views.activities.AddPostActivity;
 import com.example.confession.views.activities.ChangePasswordActivity;
 import com.example.confession.views.activities.CreateGroupActivity;
 import com.example.confession.views.activities.UpdateProfileActivity;
 import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 
-public class ProfileFragment extends Fragment {
+import java.util.ArrayList;
+
+public class ProfileFragment extends Fragment
+	implements
+		FollowedGroupsBinder.View,
+		CreatedGroupsBinder.View,
+		BottomSheetCreateNewListener {
 
 	// IN-USE VARIABLES
+	private ProfileCreateNewBottomSheet bottomSheet;
+
+	private  FollowedGroupsBinder.Presenter followedGroupPresenter;
+	private  CreatedGroupsBinder.Presenter createdGroupPresenter;
 
 	private TextView profile_txt_username_click;
 	private ImageButton profile_open_post_btn;
 	private LinearLayout profile_joined_group, profile_your_group,
 			profile_edit_account_btn, profile_change_pass_btn, profile_faq_btn, profile_contact_us_btn;
-	private TextView profile_fullname, profile_email, profile_phone;
+	private TextView profile_fullname, profile_email, profile_phone,txt_ygroup_count ,txt_fgroup_count;
+	private Thread createdGroupThread, followGroupThread;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,15 +71,53 @@ public class ProfileFragment extends Fragment {
 
 		InitPresenter();
 		InitView();
+		InitBottomSheet();
 		InitListener();
+
+		HandleGetFollowedGroup();
+		HandleGetCreatedGroup();
 	}
 
 	private void InitPresenter() {
 		//presenter = new ProfilePresenter(this);
+		followedGroupPresenter = new FollowedGroupsPresenter(this);
+		createdGroupPresenter = new CreatedGroupsPresenter(this);
+	}
+
+	private void InitBottomSheet(){
+		bottomSheet = new ProfileCreateNewBottomSheet(this);
+	}
+
+	private void HandleGetFollowedGroup(){
+		try{
+			followGroupThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					followedGroupPresenter.HandleGetFollowedGroups();
+				}
+			});
+
+			followGroupThread.start();
+		}catch (Exception e){Log.e("In Follow Thread", e.getMessage());}
+	}
+
+	private void HandleGetCreatedGroup(){
+		try{
+			createdGroupThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					createdGroupPresenter.HandleGetCreatedGroups();
+				}
+			});
+
+			createdGroupThread.start();
+		}catch (Exception e){Log.e("In Follow Thread", e.getMessage());}
 	}
 
 	private void InitView() {
 		profile_txt_username_click = getView().findViewById(R.id.profile_txt_username_click);
+		txt_ygroup_count = getView().findViewById(R.id.txt_ygroup_count);
+		txt_fgroup_count = getView().findViewById(R.id.txt_fgroup_count);
 		profile_fullname = getView().findViewById(R.id.profile_fullname);
 		profile_email = getView().findViewById(R.id.profile_email);
 		profile_phone = getView().findViewById(R.id.profile_phone);
@@ -86,7 +144,6 @@ public class ProfileFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
-				ProfileUsernameBottomSheet bottomSheet = new ProfileUsernameBottomSheet();
 				assert getFragmentManager() != null;
 				bottomSheet.show(getFragmentManager(), "username");
 			}
@@ -97,16 +154,9 @@ public class ProfileFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Toast.makeText(getContext(), "bottom sheet open post", Toast.LENGTH_SHORT).show();
-				ProfileCreateNewBottomSheet bottomSheet = new ProfileCreateNewBottomSheet();
 				assert getFragmentManager() != null;
 				bottomSheet.show(getFragmentManager(), "create_new");
 
-				int result = bottomSheet.GetResult();
-
-				if (result == 1) {
-					Intent mIntent = new Intent(getContext().getApplicationContext(), CreateGroupActivity.class);
-					startActivity(mIntent);
-				}
 			}
 		});
 
@@ -144,7 +194,7 @@ public class ProfileFragment extends Fragment {
 		profile_edit_account_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getContext(), "Edit account", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getContext(), "Edit account", Toast.LENGTH_SHORT).show();
 				Intent myIntent = new Intent(getContext().getApplicationContext(), UpdateProfileActivity.class);
 				startActivity(myIntent);
 			}
@@ -153,7 +203,7 @@ public class ProfileFragment extends Fragment {
 		profile_change_pass_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getContext(), "Change password", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getContext(), "Change password", Toast.LENGTH_SHORT).show();
 				Intent myIntent = new Intent(getContext().getApplicationContext(), ChangePasswordActivity.class);
 				startActivity(myIntent);
 			}
@@ -162,16 +212,80 @@ public class ProfileFragment extends Fragment {
 		profile_faq_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getContext(), "FAQ", Toast.LENGTH_SHORT).show();
-
+				Toast.makeText(getContext(), "New feature", Toast.LENGTH_SHORT).show();
 			}
 		});
 
 		profile_contact_us_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getContext(), "Contact us", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), "New feature", Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if(followGroupThread!= null && followGroupThread.isAlive()){followGroupThread.interrupt();}
+
+		if(createdGroupThread!= null && createdGroupThread.isAlive()){createdGroupThread.interrupt();}
+	}
+
+	@Override
+	public void onButtonCreatePostClicked(int result) {
+		Intent addPostIntent = new Intent(getContext().getApplicationContext(), AddPostActivity.class);
+		startActivity(addPostIntent);
+	}
+
+	@Override
+	public void onButtonCreateGroupClicked(int result) {
+		Intent createGroupIntent = new Intent(getContext().getApplicationContext(), CreateGroupActivity.class);
+		startActivity(createGroupIntent);
+	}
+
+	@Override
+	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+		if(getActivity() == null){
+			return;
+		}
+
+		int count = groups.size();
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				txt_ygroup_count.setText(Integer.toString(count));
+			}
+		});
+	}
+
+	@Override
+	public void OnGetCreatedGroupsFailure(String error) {
+		if(getActivity() == null){
+			return;
+		}
+	}
+
+	@Override
+	public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
+		if(getActivity() == null){
+			return;
+		}
+
+		int count = groups.size();
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				txt_fgroup_count.setText(Integer.toString(count));
+			}
+		});
+	}
+
+	@Override
+	public void OnGetFollowedGroupsFailure(String error) {
+		if(getActivity() == null){
+			return;
+		}
 	}
 }
