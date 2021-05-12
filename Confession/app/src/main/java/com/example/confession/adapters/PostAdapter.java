@@ -23,6 +23,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
@@ -32,12 +34,14 @@ import com.example.confession.binders.post.AddCommentBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.PostComment;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.GroupPostInfo;
 import com.example.confession.listener.DoubleClickListener;
 import com.example.confession.models.data.PostCommentInfo;
 import com.example.confession.presenters.post.AddCommentPresenter;
 import com.example.confession.views.activities.CommentActivity;
 import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
+import com.example.confession.views.fragments.GroupFragment;
 
 import java.util.ArrayList;
 
@@ -108,7 +112,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		private TextView txt_post_cmt, txt_group_name,
 				txt_time_post, txt_content, txt_likes,
 				post_see_all_cmt;
-		private ImageView heart_cover, iv_react,iv_admin_manage_btn;
+		private ImageView heart_cover, iv_react,iv_admin_manage_btn,iv_comment;
 		private AnimatedVectorDrawableCompat avd;
 		private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
 		private ConstraintLayout feed_content_layout;
@@ -156,6 +160,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 			heart_cover = view.findViewById(R.id.heart_cover);
 			iv_react = view.findViewById(R.id.iv_react);
 			iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
+			iv_comment = view.findViewById(R.id.iv_comment);
 
 			feed_content_layout = view.findViewById(R.id.feed_content_layout);
 
@@ -181,10 +186,35 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		}
 
 		public void InitListener(){
+			txt_group_name.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ConfessionGroupInfo cgi = (ConfessionGroupInfo) posts.get(getLayoutPosition()).group;
+					Fragment fragment = GroupFragment.newInstance(cgi);
+
+					((AppCompatActivity)context).getSupportFragmentManager()
+							.beginTransaction()
+							.replace(R.id.fragment_container, fragment, "group_info")
+							.addToBackStack("group_info")
+							.commit();
+				}
+			});
+
 			iv_react.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					HeartAnimate(v);
+				}
+			});
+
+			iv_comment.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
+
+					myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
+
+					context.startActivity(myIntent);
 				}
 			});
 
@@ -196,6 +226,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 					myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
 
 					context.startActivity(myIntent);
+
 					//context.startActivity(myIntent, Bundle);
 				}
 			});

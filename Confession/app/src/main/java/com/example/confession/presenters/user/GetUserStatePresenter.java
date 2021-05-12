@@ -1,5 +1,6 @@
-package com.example.confession.binders.user;
+package com.example.confession.presenters.user;
 
+import com.example.confession.binders.user.GetUserState;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.models.data.UserState;

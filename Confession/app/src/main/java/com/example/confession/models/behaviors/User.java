@@ -337,6 +337,28 @@ public class User {
 
 	// TODO
 	public UserState GetState(String group_id) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("token",auth_token);
+		params.put("groupid",group_id);
+		ApiGet ag = new ApiGet("user/states/", params);
+		ag.run();
+		Log.d("State: ", ag.response);
+
+		try {
+			JSONObject obj = new JSONObject(ag.response);
+			boolean isAdmin = obj.getBoolean("isAdmin");
+			boolean isMember = obj.getBoolean("isMember");
+			boolean isPending = obj.getBoolean("isPending");
+			UserState userState;
+			if(isAdmin) userState=UserState.Admin;
+			else if(isMember) userState=UserState.Following;
+			else if (isPending) userState=UserState.Pening;
+			else userState=UserState.NonMember;
+			Log.e("State: ",userState.toString());
+			return userState;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 		return UserState.Undefined;
 	}

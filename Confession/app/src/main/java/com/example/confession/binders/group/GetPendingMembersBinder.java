@@ -10,6 +10,9 @@ public interface GetPendingMembersBinder {
 	interface View {
 
 		void OnGetPendingMembersSuccess(ArrayList<BasicUserInfo> members);
+
+		void OnGetPendingMembersSuccess(BasicUserInfo members);
+
 		void OnGetPendingMembersFailure(String error);
 	}
 

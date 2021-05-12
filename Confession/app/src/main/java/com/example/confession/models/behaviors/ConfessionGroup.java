@@ -304,14 +304,35 @@ public class ConfessionGroup {
 
 	// DONE //
 	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo author, String auth_token) {
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token",auth_token);
+		temp_params.put("groupid",post.group.id);
+		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+		ag.run();
+		Log.d("MemberID Res: ", ag.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("MemberID: ", memberid);
+
 
 		HashMap<String, String> params = new HashMap<>();
-		params.put("token", User.GetAuthToken());
-		params.put("confessionid", this.group_info.id);
-		params.put("memberid", author.id);
-		params.put("title", post.id);
+		params.put("token", auth_token);
+		params.put("confessionid", post.group.id);
+		params.put("memberid", memberid);
+		params.put("title", "");
 		params.put("content", post.content);
 		ApiPost ap = new ApiPost("post/new", params);
+
+		Log.d("token", auth_token);
+		Log.d("confessid", post.group.id);
+		Log.d("memid", memberid);
+		Log.d("title", "");
+		Log.d("content", post.content);
 
 		Log.d("Thread API: ", "Đang đăng bài...");
 		ap.run();
@@ -351,23 +372,23 @@ public class ConfessionGroup {
 				JSONArray items = obj.getJSONArray("posts");
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
-					String id = item.getString("_id");
+					String id = item.getString("_id"); // post id;
 
-					JSONObject poster = item.getJSONObject("memberid");
-					poster = poster.getJSONObject("userid");
+//					JSONObject poster = item.getJSONObject("memberid");
+//					poster = poster.getJSONObject("userid");
 
-					String posterid = poster.getString("_id");
-					String username = poster.getString("username");
-					String fullname = poster.getString("fullname");
+//					String posterid = poster.getString("_id");
+//					String username = poster.getString("username");
+//					String fullname = poster.getString("fullname");
 					String content = item.getString("content");
 
-					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
-
+//					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
+					BasicUserInfo author = new BasicUserInfo("", "", "", "");
 					// TODO: Change approver to the one who approved the post
 					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
 
 					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
-					String groupid = obj.getString("_id");
+					String groupid = obj.getString("_id"); // group id
 					String shortname = obj.getString("shortname");
 					String groupname = obj.getString("groupname");
 					String avatar = obj.getString("avatar");
@@ -377,10 +398,12 @@ public class ConfessionGroup {
 
 					JSONArray reactions =item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
+					Log.e("Content post in group: ",content);
 					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 
 					posts.add(post_info);
 				}
+				Log.e("Posts length: ",Integer.toString(posts.size()));
 				return posts;
 			}
 		} catch (JSONException e) {
