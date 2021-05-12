@@ -120,10 +120,11 @@
                             android:textSize="13sp"/>
 
                         <TextView
+                            android:id="@+id/txt_ygroup_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="1"
+                            android:text="0"
                             android:textAlignment="center"
                             android:fontFamily="@font/nunito_semi_bold"
                             android:textSize="15sp"/>
@@ -146,10 +147,11 @@
                             android:textSize="13sp"/>
 
                         <TextView
+                            android:id="@+id/txt_fgroup_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="3"
+                            android:text="0"
                             android:textAlignment="center"
                             android:fontFamily="@font/nunito_semi_bold"
                             android:textSize="15sp"/>
