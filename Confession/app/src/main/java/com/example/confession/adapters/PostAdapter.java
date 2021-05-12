@@ -233,7 +233,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                     post.react = !post.react;
 
                     txt_likes.setText((post.reaction_count + " likes"));
-                    Log.e("Bug", post.reaction_count + "");
+                  //  Log.e("Bug", post.reaction_count + "");
                     HeartAnimate(v);
                 }
             });
