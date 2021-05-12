@@ -100,7 +100,6 @@ public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View
 		});
 	}
 
-
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
