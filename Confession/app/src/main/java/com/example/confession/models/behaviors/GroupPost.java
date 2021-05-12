@@ -41,30 +41,30 @@ public class GroupPost {
 	// Sửa lại API tự lấy member id từ user id mới chạy được //
 	public boolean React(String user_id, String auth_token)
 	{
-		HashMap<String, String> temp_params = new HashMap<String, String>();
-		temp_params.put("token",auth_token);
-		temp_params.put("groupid",this.post_info.group.id);
-		Log.d("Token: ", auth_token);
-		Log.d("GroupID React: ", this.post_info.group.id);
-		ApiGet ag = new ApiGet("user/memberid/", temp_params);
-		ag.run();
-		Log.d("MemberID Res: ", ag.response);
-		String memberid = null;
-		try {
-			JSONObject temp_obj = new JSONObject(ag.response);
-			memberid = temp_obj.getString("memberid");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+//		HashMap<String, String> temp_params = new HashMap<String, String>();
+//		temp_params.put("token",auth_token);
+//		temp_params.put("groupid",this.post_info.group.id);
+//		Log.d("Token: ", auth_token);
+//		Log.d("GroupID React: ", this.post_info.group.id);
+//		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+//		ag.run();
+//		Log.d("MemberID Res: ", ag.response);
+//		String memberid = null;
+//		try {
+//			JSONObject temp_obj = new JSONObject(ag.response);
+//			memberid = temp_obj.getString("memberid");
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
 
 
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
-		params.put("memberid", memberid); // Sửa lại API
+		params.put("memberid", user_id); // Sửa lại API
 		params.put("postid", this.post_info.id);
 		Log.d("Token: ", User.GetAuthToken());
-		Log.d("MemberID: ", memberid);
+		//Log.d("MemberID: ", memberid);
 		Log.d("PostID: ", this.post_info.id);
 
 		ApiPost ap = new ApiPost("post/reaction/react", params);
