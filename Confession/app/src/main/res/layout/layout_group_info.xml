@@ -78,5 +78,6 @@
         android:paddingStart="0dp"
         android:paddingEnd="10dp"
         android:textAlignment="textEnd"
+        android:visibility="invisible"
         />
 </LinearLayout>
