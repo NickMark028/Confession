@@ -79,7 +79,13 @@ public class GroupSearchAdapter extends BaseAdapter {
 
 		//search_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 		search_gr_name.setText(cgi.name);
-		search_gr_member.setText(Integer.toString(cgi.member_count));
+
+		String members = Integer.toString(cgi.member_count);
+		if(cgi.member_count > 1){
+			members += " members";
+		}else {members += " member";}
+
+		search_gr_member.setText(members);
 
 //		if (joined_groups.contains(cgi.id)) {
 //			search_gr_user_state.setText("Joined");
