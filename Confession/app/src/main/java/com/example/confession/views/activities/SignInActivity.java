@@ -163,7 +163,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 		progressDialog.dismiss();
 
-		SharedPreferences share = getPreferences(MODE_PRIVATE);
+		SharedPreferences share = getSharedPreferences("USERDATA",MODE_PRIVATE);
 		SharedPreferences.Editor editor = share.edit();
 		editor.putString("token", User.GetAuthToken());
 		editor.apply();

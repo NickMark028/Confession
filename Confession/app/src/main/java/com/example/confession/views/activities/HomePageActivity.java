@@ -1,6 +1,7 @@
 package com.example.confession.views.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.confession.listener.BottomSheetListener;
 import com.example.confession.listener.BottomSheetManageGroupListener;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.service.MyFirebasePushNotificationService;
 import com.example.confession.views.fragments.FollowFragment;
 import com.example.confession.views.fragments.NewfeedsFragment;
@@ -113,6 +115,11 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 	public void onButtonClicked(String text) {
 		if (text.equals("logout")) {
 			Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+
+			SharedPreferences share = getSharedPreferences("USERDATA",MODE_PRIVATE);
+			SharedPreferences.Editor editor = share.edit();
+			editor.putString("token", "");
+			editor.apply();
 
 			Intent myIntent = new Intent(getApplicationContext(), SignInActivity.class);
 			startActivity(myIntent);

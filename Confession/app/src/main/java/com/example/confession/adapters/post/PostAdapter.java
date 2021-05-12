@@ -185,7 +185,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
             GroupPostInfo post_info = posts.get(position);
 
-            full = post_info.react;
+            //full = post_info.react;
 
             txt_group_name.setText(post_info.group.name);
             txt_time_post.setText(post_info.time_created.toString());
@@ -193,7 +193,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             txt_likes.setText(post_info.reaction_count + " likes");
 
             if (post_info.react)
-                HeartAnimate(post_info);
+                HeartAnimate();
         }
 
         public void InitListener() {
@@ -214,8 +214,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             iv_react.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GroupPostInfo post = posts.get((int) position);
-                    presenter_like.HandleReactPost(post);
+//                    GroupPostInfo post = posts.get((int) position);
+//                    presenter_like.HandleReactPost(post);
 
                     try {
                         GroupPostInfo post = posts.get(getAdapterPosition());
@@ -236,7 +236,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
                         txt_likes.setText((post.reaction_count + " likes"));
                         //  Log.e("Bug", post.reaction_count + "");
-                        HeartAnimate(v);
+                        HeartAnimate();
                     }
                     catch (Exception e) {}
                 }
@@ -383,9 +383,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             });
         }
 
-        private void HeartAnimate(GroupPostInfo post) {
+        private void HeartAnimate() {
             AnimatedVectorDrawable drawable
-                    = post.react ? fill_heart : empty_heart;
+                    = posts.get(getLayoutPosition()).react ? fill_heart : empty_heart;
             iv_react.setImageDrawable(drawable);
             drawable.start();
 //		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();

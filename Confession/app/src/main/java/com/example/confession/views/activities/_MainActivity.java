@@ -52,16 +52,18 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 
 		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-		share = this.getPreferences(MODE_PRIVATE);
+		share = getSharedPreferences("USERDATA",MODE_PRIVATE);
 		token = share.getString("token", "");
 
-		if (token.isEmpty()) {
+		Log.e("token cua t dau ???", token);
+
+		if (token.length()<10) {
 			mWait.postDelayed(new Runnable() {
 				@Override
 				public void run() {
 					StartLogin();
 				}
-			}, 1000);    // TODO
+			}, 3000);    // TODO
 		} else {
 			thread = new Thread(new Runnable() {
 				@Override
@@ -92,12 +94,14 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 	@Override
 	public void OnLoginSuccess(User user) {
 
+		Intent intent = new Intent(_MainActivity.this, HomePageActivity.class);
+		startActivity(intent);
+
 		Activity this_activity = this;
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Intent intent = new Intent(this_activity, HomePageActivity.class);
-				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Check Token thanh cong", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -105,8 +109,9 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 	@Override
 	public void OnLoginFailure(String error) {
 		runOnUiThread(() -> {
+			Toast.makeText(getApplicationContext(), "Check Token that cmn bai", Toast.LENGTH_SHORT).show();
+
 			StartLogin();
-			Toast.makeText(this, "1", Toast.LENGTH_LONG);
 		});
 	}
 }
