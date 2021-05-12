@@ -131,7 +131,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
         private ConstraintLayout feed_content_layout;
         private Drawable drawable;
-        private boolean full = false;
+        private boolean full;
         private long position;
         private Thread newThread;
 
@@ -191,6 +191,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         public void InitData(int position) {
 
             GroupPostInfo post_info = posts.get(position);
+
+            full = post_info.react;
+
             txt_group_name.setText(post_info.group.name);
             txt_time_post.setText(post_info.time_created.toString());
             txt_content.setText(post_info.content.toString());
@@ -216,25 +219,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 @Override
                 public void onClick(View v) {
 
-                    GroupPostInfo post = posts.get(getAdapterPosition());
-                    if(newThread != null && newThread.isAlive()) {
-                        newThread.interrupt();
+                    try {
+                        GroupPostInfo post = posts.get(getAdapterPosition());
+                        if (newThread != null && newThread.isAlive()) {
+                            newThread.interrupt();
+                        }
+
+                        newThread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                presenter_like.HandleReactPost(post);
+                            }
+                        });
+                        newThread.start();
+
+                        post.reaction_count += post.react ? -1 : +1;
+                        post.react = !post.react;
+
+                        txt_likes.setText((post.reaction_count + " likes"));
+                        //  Log.e("Bug", post.reaction_count + "");
+                        HeartAnimate(v);
                     }
-
-                    newThread= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter_like.HandleReactPost(post);
-                    }
-                    });
-                    newThread.start();
-
-                    post.reaction_count += post.react ? -1 : +1;
-                    post.react = !post.react;
-
-                    txt_likes.setText((post.reaction_count + " likes"));
-                  //  Log.e("Bug", post.reaction_count + "");
-                    HeartAnimate(v);
+                    catch (Exception e) {}
                 }
             });
 
@@ -342,10 +348,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
 
         private void HeartAnimate(View view) {
-            AnimatedVectorDrawable drawable
-                    = full
-                    ? empty_heart
-                    : fill_heart;
+            AnimatedVectorDrawable drawable = full ? empty_heart : fill_heart;
             iv_react.setImageDrawable(drawable);
             drawable.start();
             full = !full;
