@@ -8,6 +8,7 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,350 +46,307 @@ import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements AddCommentBinder.View, ReactPostBinder.View {
 
-    Context context;
-    ArrayList<GroupPostInfo> posts;
-    private AddCommentBinder.Presenter presenter_comment;
-    private ReactPostBinder.Presenter presenter_like;
-    private String user_role = "ROLE_NORMAL";
+	Context context;
+	ArrayList<GroupPostInfo> posts;
+	private AddCommentBinder.Presenter presenter_comment;
+	private ReactPostBinder.Presenter presenter_like;
+	private String user_role = "ROLE_NORMAL";
 
-    public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
-        this.context = context;
-        this.posts = posts;
-        presenter_comment = new AddCommentPresenter(this);
-        presenter_like = new ReactPostPresenter(this);
-    }
+	public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
 
-    @NonNull
-    @Override
-    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_post, parent, false);
-        return new PostAdapter.ViewHolder(view);
-    }
+		this.context = context;
+		this.posts = posts;
+		presenter_comment = new AddCommentPresenter(this);
+		presenter_like = new ReactPostPresenter(this);
+	}
 
-    @Override
-    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-        holder.InitData(position);
-    }
+	@NonNull
+	@Override
+	public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View view = LayoutInflater.from(context).inflate(R.layout.layout_post, parent, false);
+		return new PostAdapter.ViewHolder(view);
+	}
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+	@Override
+	public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+		holder.InitData(position);
+	}
 
-    @Override
-    public int getItemCount() {
-        return posts.size();
-    }
+	@Override
+	public long getItemId(int i) {
+		return i;
+	}
 
-    //Presenter methods
-    @Override
-    public void OnAddCommentSuccess(PostComment Comment) {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+	@Override
+	public int getItemCount() {
+		return posts.size();
+	}
 
-                Toast.makeText(context, "Sent Successfully", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+	public class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public void OnAddCommentFailure(String error) {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, error, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+		//layout variables
+		private EditText edit_txt_cmt;
+		private TextView txt_post_cmt, txt_group_name,
+				txt_time_post, txt_content, txt_likes,
+				post_see_all_cmt;
+		private ImageView heart_cover, iv_react, iv_admin_manage_btn, iv_comment;
+		private AnimatedVectorDrawableCompat avd;
+		private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
+		private ConstraintLayout feed_content_layout;
+		private Drawable drawable;
+		private long position;
+		private Thread newThread;
+		private boolean waiting_react = false;
 
-    @Override
-    public void OnReactPostSuccess(boolean check) {
+		public ViewHolder(@NonNull View itemView) {
+			super(itemView);
+			position = getLayoutPosition();
 
-    }
+			//  Init view
+			InitView(itemView);
 
-    @Override
-    public void OnReactPostFailure(String error) {
+			//Init listener
+			InitListener();
+		}
 
-    }
+		public void SendComment(String msg) {
+			//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
+			GroupPostInfo gpi = posts.get(getLayoutPosition());
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					presenter_comment.HandleAddComment(gpi, msg);
+				}
+			}).start();
+		}
 
-        //layout variables
-        private EditText edit_txt_cmt;
-        private TextView txt_post_cmt, txt_group_name,
-                txt_time_post, txt_content, txt_likes,
-                post_see_all_cmt;
-        private ImageView heart_cover, iv_react, iv_admin_manage_btn, iv_comment;
-        private AnimatedVectorDrawableCompat avd;
-        private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
-        private ConstraintLayout feed_content_layout;
-        private Drawable drawable;
-        private long position;
-        private Thread newThread;
-        private boolean waiting_react = false;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            position = getLayoutPosition();
-
-            //  Init view
-            InitView(itemView);
-            //Init listener
-            InitListener();
-
-        }
-
-        public void SendComment(String msg) {
-            //Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
-            GroupPostInfo gpi = posts.get(getLayoutPosition());
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    presenter_comment.HandleAddComment(gpi, msg);
-                }
-            }).start();
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
-        public void InitView(View view) {
-            edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
-            txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
-            txt_group_name = view.findViewById(R.id.txt_group_name);
-            txt_time_post = view.findViewById(R.id.txt_time_post);
-            txt_content = view.findViewById(R.id.txt_content);
-            txt_likes = view.findViewById(R.id.txt_likes);
-            post_see_all_cmt = view.findViewById(R.id.post_see_all_cmt);
+		@SuppressLint("UseCompatLoadingForDrawables")
+		public void InitView(View view) {
+			edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
+			txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
+			txt_group_name = view.findViewById(R.id.txt_group_name);
+			txt_time_post = view.findViewById(R.id.txt_time_post);
+			txt_content = view.findViewById(R.id.txt_content);
+			txt_likes = view.findViewById(R.id.txt_likes);
+			post_see_all_cmt = view.findViewById(R.id.post_see_all_cmt);
 
 
-            heart_cover = view.findViewById(R.id.heart_cover);
-            iv_react = view.findViewById(R.id.iv_react);
+			heart_cover = view.findViewById(R.id.heart_cover);
+			iv_react = view.findViewById(R.id.iv_react);
 
-            iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
-            iv_comment = view.findViewById(R.id.iv_comment);
+			iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
+			iv_comment = view.findViewById(R.id.iv_comment);
 
-            feed_content_layout = view.findViewById(R.id.feed_content_layout);
+			feed_content_layout = view.findViewById(R.id.feed_content_layout);
 
 
-            drawable = heart_cover.getDrawable();
-            empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
-            fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
+			drawable = heart_cover.getDrawable();
+			empty_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_empty);
+			fill_heart = (AnimatedVectorDrawable) context.getResources().getDrawable(R.drawable.avd_heart_fill);
 
-            if (!user_role.equals("ROLE_ADMIN")) {
-                iv_admin_manage_btn.setVisibility(View.GONE);
-            }
+			if (!user_role.equals("ROLE_ADMIN")) {
+				iv_admin_manage_btn.setVisibility(View.GONE);
+			}
 
-        }
+		}
 
-        public void InitData(int position) {
+		public void InitData(int position) {
 
-            GroupPostInfo post_info = posts.get(position);
+			GroupPostInfo post_info = posts.get(position);
 
-            full = post_info.react;
+			txt_group_name.setText(post_info.group.name);
+			txt_time_post.setText(post_info.time_created.toString());
+			txt_content.setText(post_info.content);
+			txt_likes.setText(post_info.reaction_count + " likes");
 
-            txt_group_name.setText(post_info.group.name);
-            txt_time_post.setText(post_info.time_created.toString());
-            txt_content.setText(post_info.content.toString());
-            txt_likes.setText(post_info.reaction_count + " likes");
+			if (post_info.react)
+				iv_react.setImageDrawable(fill_heart);
+			else
+				iv_react.setImageDrawable(empty_heart);
+		}
 
-            if (post_info.react)
-                HeartAnimate(post_info);
-        }
+		public void InitListener() {
+			txt_group_name.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ConfessionGroupInfo cgi = (ConfessionGroupInfo) posts.get(getLayoutPosition()).group;
+					Fragment fragment = GroupFragment.newInstance(cgi);
 
-        public void InitListener() {
-            txt_group_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ConfessionGroupInfo cgi = (ConfessionGroupInfo) posts.get(getLayoutPosition()).group;
-                    Fragment fragment = GroupFragment.newInstance(cgi);
+					((AppCompatActivity) context).getSupportFragmentManager()
+							.beginTransaction()
+							.replace(R.id.fragment_container, fragment, "group_info")
+							.addToBackStack("group_info")
+							.commit();
+				}
+			});
 
-                    ((AppCompatActivity) context).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, fragment, "group_info")
-                            .addToBackStack("group_info")
-                            .commit();
-                }
-            });
+			iv_react.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
 
-            iv_react.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    GroupPostInfo post = posts.get((int) position);
-                    presenter_like.HandleReactPost(post);
+					GroupPostInfo post = posts.get((int) getLayoutPosition());
 
-                    try {
-                        GroupPostInfo post = posts.get(getAdapterPosition());
-                        if (newThread != null && newThread.isAlive()) {
-                            newThread.interrupt();
-                        }
+					try {
+//						if (newThread != null && newThread.isAlive()) {
+//							newThread.interrupt();
+//						}
 
-                        newThread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter_like.HandleReactPost(post);
-                            }
-                        });
-                        newThread.start();
+						newThread = new Thread(new Runnable() {
+							@Override
+							public void run() {
+								Log.i("......", "-------------------------------------------------");
+								presenter_like.HandleReactPost(post);
+								Log.i("......", "-------------------------------------------------");
+							}
+						});
+						newThread.start();
 
-                        post.reaction_count += post.react ? -1 : +1;
-                        post.react = !post.react;
+						post.reaction_count += post.react ? -1 : +1;
+						post.react = !post.react;
 
-                        txt_likes.setText((post.reaction_count + " likes"));
-                        //  Log.e("Bug", post.reaction_count + "");
-                        HeartAnimate(v);
-                    }
-                    catch (Exception e) {}
-                }
+						txt_likes.setText((post.reaction_count + " likes"));
+						//  Log.e("Bug", post.reaction_count + "");
+						HeartAnimate();
 
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        GroupPostInfo post = posts.get((int) position);
-//                        presenter_like.HandleReactPost(post);
-//                    }
-                // }).start();
-//                if (waiting_react) return;
-//                waiting_react = true;
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        GroupPostInfo post = posts.get((int) position);
-//                        waiting_react = false;
-//                        SystemClock.sleep(3000);
-//                        presenter_like.HandleReactPost(post);
-//                    }
-//                }).start();
+					} catch (Exception e) {
+					}
+				}
+			});
 
-//
-//                if (newThread != null)
-//                    newThread.stop();
-//
-//                newThread = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            Thread.sleep(5000);
-//                            presenter_like.HandleReactPost(post);
-//                        } catch (Exception e) {
-//                        } finally {
-////                            newThread = null;
-//                        }
-//                    }
-//                });
-//                newThread.start();
-//
-//                // Toggle react
-//                int react_count = post.reaction_count;
-//                txt_likes.setText((react_count + (post.react ? -1 : +1) + "likes"));
-//              HeartAnimate(v);
-            });
+			iv_comment.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
 
-            iv_comment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
+					myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
 
-                    myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
+					context.startActivity(myIntent);
+				}
+			});
 
-                    context.startActivity(myIntent);
-                }
-            });
+			post_see_all_cmt.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
 
-            post_see_all_cmt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent(context.getApplicationContext(), CommentActivity.class);
+					myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
 
-                    myIntent.putExtra("gpi", posts.get(getLayoutPosition()));
+					context.startActivity(myIntent);
 
-                    context.startActivity(myIntent);
+					//context.startActivity(myIntent, Bundle);
+				}
+			});
 
-                    //context.startActivity(myIntent, Bundle);
-                }
-            });
+			feed_content_layout.setOnClickListener(new DoubleClickListener() {
+				@Override
+				public void onDoubleClick() {
 
-            feed_content_layout.setOnClickListener(new DoubleClickListener() {
-                @Override
-                public void onDoubleClick() {
+					heart_cover.setAlpha(0.70f);
+					if (drawable instanceof AnimatedVectorDrawableCompat) {
+						avd = (AnimatedVectorDrawableCompat) drawable;
+						avd.start();
+					} else if (drawable instanceof AnimatedVectorDrawable) {
+						avd2 = (AnimatedVectorDrawable) drawable;
+						avd2.start();
+					}
+				}
+			});
 
-                    heart_cover.setAlpha(0.70f);
-                    if (drawable instanceof AnimatedVectorDrawableCompat) {
-                        avd = (AnimatedVectorDrawableCompat) drawable;
-                        avd.start();
-                    } else if (drawable instanceof AnimatedVectorDrawable) {
-                        avd2 = (AnimatedVectorDrawable) drawable;
-                        avd2.start();
-                    }
+			edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (hasFocus) {
+						txt_post_cmt.setVisibility(View.VISIBLE);
+					} else {
+						txt_post_cmt.setVisibility(View.INVISIBLE);
+					}
+				}
+			});
 
-                }
-            });
-
-            edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        txt_post_cmt.setVisibility(View.VISIBLE);
-                    } else {
-                        txt_post_cmt.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-            edit_txt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEND) {
-                        String msg = edit_txt_cmt.getText().toString();
+			edit_txt_cmt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					if (actionId == EditorInfo.IME_ACTION_SEND) {
+						String msg = edit_txt_cmt.getText().toString();
 //						Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
-                        SendComment(msg);
+						SendComment(msg);
 
-                        edit_txt_cmt.setText("");
-                        edit_txt_cmt.clearFocus();
+						edit_txt_cmt.setText("");
+						edit_txt_cmt.clearFocus();
 
-                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+						InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+						imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                        return true;
-                    }
-                    return false;
-                }
-            });
+						return true;
+					}
+					return false;
+				}
+			});
 
-            txt_post_cmt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String msg = edit_txt_cmt.getText().toString();
+			txt_post_cmt.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String msg = edit_txt_cmt.getText().toString();
 //					Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-                    SendComment(msg);
+					SendComment(msg);
 
-                    edit_txt_cmt.setText("");
-                    edit_txt_cmt.clearFocus();
+					edit_txt_cmt.setText("");
+					edit_txt_cmt.clearFocus();
 
-                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            });
+					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+				}
+			});
 
-            iv_admin_manage_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    GroupAdminManagePostBottomSheet bottomSheet = new GroupAdminManagePostBottomSheet();
-                    FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                    bottomSheet.show(fm, "action_admin_manage_post");
-                }
-            });
-        }
+			iv_admin_manage_btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					GroupAdminManagePostBottomSheet bottomSheet = new GroupAdminManagePostBottomSheet();
+					FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+					bottomSheet.show(fm, "action_admin_manage_post");
+				}
+			});
+		}
 
-        private void HeartAnimate(GroupPostInfo post) {
-            AnimatedVectorDrawable drawable
-                    = post.react ? fill_heart : empty_heart;
-            iv_react.setImageDrawable(drawable);
-            drawable.start();
+		private void HeartAnimate() {
+			AnimatedVectorDrawable drawable = posts.get(getLayoutPosition()).react ? fill_heart : empty_heart;
+			iv_react.setImageDrawable(drawable);
+			drawable.start();
 //		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
-        }
-    }
+		}
+	}
+
+	//Presenter methods
+	@Override
+	public void OnAddCommentSuccess(PostComment Comment) {
+		((Activity) context).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+				Toast.makeText(context, "Sent Successfully", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
+	@Override
+	public void OnAddCommentFailure(String error) {
+		((Activity) context).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
+	@Override
+	public void OnReactPostSuccess(boolean check) {
+
+	}
+
+	@Override
+	public void OnReactPostFailure(String error) {
+
+	}
 }
