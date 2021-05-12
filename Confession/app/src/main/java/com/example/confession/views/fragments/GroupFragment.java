@@ -208,11 +208,6 @@ public class GroupFragment extends Fragment
 					}
 				});
 				newThread.start();
-//				btn_join_group.setText("Requesting");
-//
-//				btn_join_group.setVisibility(View.GONE);
-//				ll_noti_join_group.setVisibility(View.GONE);
-//				ll_post_in_group.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -225,14 +220,13 @@ public class GroupFragment extends Fragment
 				}else if(userState == UserState.Following){
 					assert getFragmentManager() != null;
 					bottomSheetUser.show(getFragmentManager(), "user_settings");
-
 				}
 			}
 		});
 	}
 
 	private void HandleResultFromAdminManagerBottomSheet(int result){
-		Toast.makeText(getContext(), "Check result - " + result, Toast.LENGTH_LONG).show();
+//		Toast.makeText(getContext(), "Check result - " + result, Toast.LENGTH_LONG).show();
 		switch (result){
 			case 0: //Open pending member
 				Intent pendingIntent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
@@ -358,8 +352,10 @@ public class GroupFragment extends Fragment
 				if(user_state.equals(UserState.Admin)){
 					Log.e("Port: ","Admin if");
 					SetupAdminUI();
+					LoadGroupPosts();
 				}else if (user_state == UserState.Following){
 					SetupFollowingUI();
+					LoadGroupPosts();
 				}else if(user_state == UserState.NonMember){
 					SetupNonMemberUI();
 				}else if (user_state == UserState.Pening){
@@ -416,13 +412,11 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void onButtonUserClicked(int result) {
-
 		HandleResultFromUserManagerBottomSheet(result);
 	}
 
 	@Override
 	public void onButtonAdminClicked(int result) {
-
 		HandleResultFromAdminManagerBottomSheet(result);
 	}
 }
