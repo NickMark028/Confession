@@ -3,6 +3,7 @@ package com.example.confession.views.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.confession.R;
 import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.models.behaviors.User;
+import com.example.confession.models.data.UserState;
 import com.example.confession.presenters.user.SignInPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,7 +30,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	private TextView txt_su_click, forgot_pass_click;
 	private AlertDialog.Builder builder;
 	private AlertDialog progressDialog;
-	private Thread newT;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,21 +86,20 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			@Override
 			public void onClick(View view) {
 
-				if(!ValidateUsername() | !ValidatePass()){
+				if (!ValidateUsername() | !ValidatePass()) {
 					Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_LONG).show();
 					return;
 				}
 
-				newT = new Thread(new Runnable() {
+				new Thread(new Runnable() {
 					@Override
 					public void run() {
+
 						presenter.HandleLogin(
 								si_username.getText().toString(),
 								si_password.getText().toString());
 					}
-				});
-
-				newT.start();
+				}).start();
 
 				//Init Dialog
 				InitProgressDialog("Logging in");
@@ -132,10 +132,10 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		});
 	}
 
-	private boolean ValidateUsername(){
+	private boolean ValidateUsername() {
 		String username = si_username.getText().toString();
 
-		if(username.isEmpty()){
+		if (username.isEmpty()) {
 			til_si_username.setError("Field can't be empty");
 			return false;
 		}
@@ -144,10 +144,10 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		return true;
 	}
 
-	private boolean ValidatePass(){
+	private boolean ValidatePass() {
 		String pass = si_password.getText().toString();
 
-		if(pass.isEmpty()){
+		if (pass.isEmpty()) {
 			til_si_password.setError("Field can't be empty");
 			til_si_password.setErrorIconDrawable(null);
 			return false;
@@ -160,8 +160,14 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginSuccess(User user) {
-		newT.interrupt();
+
 		progressDialog.dismiss();
+
+		SharedPreferences share = getPreferences(MODE_PRIVATE);
+		SharedPreferences.Editor editor = share.edit();
+		editor.putString("token", User.GetAuthToken());
+		editor.apply();
+
 		Intent myIntent = new Intent(this, HomePageActivity.class);
 		startActivity(myIntent);
 		finish();
@@ -170,15 +176,8 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginFailure(String error) {
-		newT.interrupt();
+
 		progressDialog.dismiss();
-		this.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show();
-			}
-		});
-
-
+		this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show());
 	}
 }

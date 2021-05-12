@@ -1,6 +1,6 @@
 package com.example.confession.presenters;
 
-import com.example.confession.binders.ForgotPasswordBinder;
+import com.example.confession.binders.user.ForgotPasswordBinder;
 import com.example.confession.models.behaviors.User;
 
 public class ForgotPasswordPresenter implements ForgotPasswordBinder.Presenter {
