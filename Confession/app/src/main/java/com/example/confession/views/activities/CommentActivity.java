@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class CommentActivity extends AppCompatActivity
 	private GroupPostInfo gpi;
 	private TextView cmt_txt_post_cmt;
 	private EditText cmt_edit_txt_cmt;
+	private ProgressBar cmt_progress_bar;
 	private ImageView iv_cmt_back;
 	private RecyclerView rv_cmt_item;
 	private ItemTouchHelper ith;
@@ -63,6 +65,11 @@ public class CommentActivity extends AppCompatActivity
 	}
 
 	public void LoadComment(){
+		if(newThread!=null && newThread.isAlive()){
+			Toast.makeText(CommentActivity.this, "Please wait! Ur so fast", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		newThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -87,6 +94,9 @@ public class CommentActivity extends AppCompatActivity
 		});
 
 		newThread.start();
+
+		cmt_txt_post_cmt.setVisibility(View.GONE);
+		cmt_progress_bar.setVisibility(View.VISIBLE);
 	}
 
 	public void InitPresenter() {
@@ -100,6 +110,8 @@ public class CommentActivity extends AppCompatActivity
 		cmt_txt_post_cmt = findViewById(R.id.cmt_txt_post_cmt);
 		cmt_edit_txt_cmt = findViewById(R.id.cmt_edit_txt_cmt);
 		iv_cmt_back = findViewById(R.id.iv_cmt_back);
+		cmt_progress_bar = findViewById(R.id.cmt_progress_bar);
+
 		srl_refresh_cmt = findViewById(R.id.srl_refresh_cmt);
 
 		rv_cmt_item = findViewById(R.id.rv_cmt_item);
@@ -134,13 +146,14 @@ public class CommentActivity extends AppCompatActivity
 			}
 		});
 
+
 		cmt_edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					cmt_txt_post_cmt.setVisibility(View.VISIBLE);
 				} else {
-					cmt_txt_post_cmt.setVisibility(View.INVISIBLE);
+					cmt_txt_post_cmt.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -166,7 +179,17 @@ public class CommentActivity extends AppCompatActivity
 			}
 		});
 
-
+		cmt_txt_post_cmt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String msg = cmt_edit_txt_cmt.getText().toString();
+				if(!msg.isEmpty()){
+					SendComment(msg);
+				}else{
+					Toast.makeText(CommentActivity.this, "What is y'message?", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -181,6 +204,7 @@ public class CommentActivity extends AppCompatActivity
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				cmt_progress_bar.setVisibility(View.GONE);
 				Toast.makeText(CommentActivity.this, "Sent Succesfully", Toast.LENGTH_SHORT).show();
 				LoadComment();
 			}
