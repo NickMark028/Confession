@@ -24,8 +24,10 @@ import java.util.ArrayList;
 
 public class MembersJoinedGroupActivity extends AppCompatActivity implements GetMembersBinder.View {
    private GetMembersBinder.Presenter presenterGetMembers;
+
    private MemberJoinedGroupAdapter membersAdapter;
    private ArrayList<BasicUserInfo> members_info;
+
    private SwipeRefreshLayout srl_refresh_members_joined;
    private ConfessionGroupInfo cgi;
    private ImageView iv_members_back;
@@ -83,6 +85,8 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
         srl_refresh_members_joined = findViewById(R.id.srl_refresh_pending);
         ava_member_joined = findViewById(R.id.ava_member_joined);
         name_member_joined = findViewById(R.id.name_member_joined);
+        iv_members_back = findViewById(R.id.iv_members_back);
+        srl_refresh_members_joined = findViewById(R.id.srl_refresh_members_joined);
 
         rv_members_joined_item = findViewById(R.id.rv_members_joined_item);
 
@@ -96,8 +100,6 @@ public class MembersJoinedGroupActivity extends AppCompatActivity implements Get
         members_info = new ArrayList<>();
         membersAdapter = new MemberJoinedGroupAdapter(MembersJoinedGroupActivity.this, members_info);
         rv_members_joined_item.setAdapter(membersAdapter);
-
-        iv_members_back.setClickable(false);
 
     }
 

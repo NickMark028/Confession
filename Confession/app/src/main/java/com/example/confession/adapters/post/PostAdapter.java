@@ -58,14 +58,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         presenter_like = new ReactPostPresenter(this);
     }
 
-
     @NonNull
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_post, parent, false);
         return new PostAdapter.ViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
@@ -76,7 +74,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     public long getItemId(int i) {
         return i;
     }
-
 
     @Override
     public int getItemCount() {
@@ -127,7 +124,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         private AnimatedVectorDrawable avd2, empty_heart, fill_heart;
         private ConstraintLayout feed_content_layout;
         private Drawable drawable;
-        private boolean full = false;
         private long position;
         private Thread newThread;
         private boolean waiting_react = false;
@@ -168,6 +164,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
             heart_cover = view.findViewById(R.id.heart_cover);
             iv_react = view.findViewById(R.id.iv_react);
+
             iv_admin_manage_btn = view.findViewById(R.id.iv_admin_manage_btn);
             iv_comment = view.findViewById(R.id.iv_comment);
 
@@ -184,7 +181,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
         }
 
-        // TODO Fix this (urgent)
         public void InitData(int position) {
 
             GroupPostInfo post_info = posts.get(position);
@@ -192,6 +188,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             txt_time_post.setText(post_info.time_created.toString());
             txt_content.setText(post_info.content.toString());
             txt_likes.setText(post_info.reaction_count + " likes");
+
+            if (post_info.react)
+                HeartAnimate(post_info);
         }
 
         public void InitListener() {
@@ -209,11 +208,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 }
             });
 
-            iv_react.setOnClickListener(new View.OnClickListener(){
+            iv_react.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     GroupPostInfo post = posts.get((int) position);
                     presenter_like.HandleReactPost(post);
+
+
+
                     
                 }
 
@@ -223,7 +225,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 //                        GroupPostInfo post = posts.get((int) position);
 //                        presenter_like.HandleReactPost(post);
 //                    }
-               // }).start();
+                // }).start();
 //                if (waiting_react) return;
 //                waiting_react = true;
 //
@@ -299,13 +301,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                         avd2.start();
                     }
 
-                    if (!full) {
-                        iv_react.performClick();
-                    }
-
                 }
             });
-
 
             edit_txt_cmt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -364,15 +361,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             });
         }
 
-
-        private void HeartAnimate(View view) {
+        private void HeartAnimate(GroupPostInfo post) {
             AnimatedVectorDrawable drawable
-                    = full
-                    ? empty_heart
-                    : fill_heart;
+                    = post.react ? fill_heart : empty_heart;
             iv_react.setImageDrawable(drawable);
             drawable.start();
-            full = !full;
 //		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
         }
     }

@@ -37,8 +37,6 @@ public class MemberJoinedGroupAdapter extends RecyclerView.Adapter<MemberJoinedG
         holder.InitData(position);
     }
 
-
-
     @Override
     public int getItemCount() {
         return membersJoinedGroup.size();
@@ -62,7 +60,7 @@ public class MemberJoinedGroupAdapter extends RecyclerView.Adapter<MemberJoinedG
         }
         public void InitData(int position) {
             BasicUserInfo member_info = membersJoinedGroup.get(position);
-            ava_member_joined.setImageResource((Integer) member_info.avatar);
+            //ava_member_joined.setImageResource((Integer) member_info.avatar);
             name_member_joined.setText(member_info.name);
         }
         public void InitListener() {

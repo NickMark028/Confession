@@ -41,6 +41,11 @@ public class GroupPost {
 	// Sửa lại API tự lấy member id từ user id mới chạy được //
 	public boolean React(String user_id, String auth_token)
 	{
+		// Data update
+		post_info.react = !post_info.react;
+		post_info.reaction_count += post_info.react ? 1 : -1;
+
+		// API Update
 		HashMap<String, String> temp_params = new HashMap<String, String>();
 		temp_params.put("token",auth_token);
 		temp_params.put("groupid",this.post_info.group.id);
@@ -56,12 +61,10 @@ public class GroupPost {
 		}
 		Log.d("MemberID: ", memberid);
 
-
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
 		params.put("memberid", memberid); // Sửa lại API
 		params.put("postid", this.post_info.id);
-
 
 		ApiPost ap = new ApiPost("post/reaction/react", params);
 		Log.d("Thread API: ", "Đang thả tim...");

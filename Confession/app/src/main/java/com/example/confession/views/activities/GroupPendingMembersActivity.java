@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.confession.R;
+
+
 import com.example.confession.adapters.user.GroupPendingMembersAdapter;
 import com.example.confession.binders.group.GetPendingMembersBinder;
 import com.example.confession.models.data.BasicUserInfo;
@@ -122,12 +124,23 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(newThread!=null && newThread.isAlive()){newThread.interrupt();}
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     public void OnGetPendingMembersSuccess(ArrayList<BasicUserInfo> users_pending) {
         users_info.clear();
         users_info.addAll(users_pending);
-        Log.e("user pending", Integer.toString(users_pending.size()));
+
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
