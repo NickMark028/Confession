@@ -80,6 +80,41 @@ public class User {
 		return false;
 	}
 
+	// Cookie //
+	public static User checkToken(String token) {
+
+		HashMap params = new HashMap<String, String>();
+		params.put("token", token);
+		ApiGet ag = new ApiGet("user/islogin/", params);
+
+		Log.d("Thread API: ", "Token check validation...");
+		ag.run();
+		Log.d("Response", ag.response);
+
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if (!obj.has("error")) {
+				String id = obj.getString("_id");
+				String name = obj.getString("fullname");
+				String username = obj.getString("username");
+				//String token = obj.getString("token");
+				String email = obj.getString("email");
+				String phone = obj.getString("phone");
+
+				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
+				UserInfo info = new UserInfo(basic_info, email, phone);
+				instance = new User(info);
+				auth_token=token;
+				return instance;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
 	// Done //
 	public static User Login(String username, String password) {
 

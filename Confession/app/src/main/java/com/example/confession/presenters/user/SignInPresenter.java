@@ -32,7 +32,7 @@ public class SignInPresenter implements SignInBinder.Presenter {
 	}
 	public void HandleLogin(String token)
 	{
-		User user = User.Login(token);
+		User user = User.checkToken(token);
 
 		if (user != null)
 			view.OnLoginSuccess(user);
