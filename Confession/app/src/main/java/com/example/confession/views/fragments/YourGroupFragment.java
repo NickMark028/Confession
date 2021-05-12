@@ -2,17 +2,20 @@ package com.example.confession.views.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.confession.R;
+import com.example.confession.adapters.group.MyJoinedGroupAdapter;
 import com.example.confession.adapters.group.MyOwnGroupAdapter;
 import com.example.confession.binders.user.CreatedGroupsBinder;
 import com.example.confession.presenters.user.CreatedGroupsPresenter;
@@ -37,7 +40,10 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	private Thread newThread;
 	private CreatedGroupsBinder.Presenter presenter;
 	private MyOwnGroupAdapter mAdapter;
+	private ArrayList<ConfessionGroupInfo> groups_list;
 
+	private ArrayList<ConfessionGroupInfo> origin_item;
+	private ArrayList<ConfessionGroupInfo> search_item;
 
 	androidx.appcompat.widget.SearchView your_gr_search;
 	ListView lv_your_group_item;
@@ -87,7 +93,11 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		lv_your_group_item = view.findViewById(R.id.lv_your_group_item);
 		ll_your_group_progress = view.findViewById(R.id.ll_your_group_progress);
 
-		Toast.makeText(getContext(), " Your Group onCreateView", Toast.LENGTH_LONG).show();
+		search_item = new ArrayList<>();
+		origin_item = new ArrayList<>();
+		groups_list = new ArrayList<>();
+		mAdapter = new MyOwnGroupAdapter(getContext(), groups_list);
+		lv_your_group_item.setAdapter(mAdapter);
 
 		InitListenser();
 		CallPresenter();
@@ -96,6 +106,8 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 
 		return view;
 	}
+
+
 
 	private void CallPresenter() {
 		newThread = new Thread(new Runnable() {
@@ -111,30 +123,61 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	}
 
 	public void InitListenser() {
+
+		lv_your_group_item.setOnItemClickListener(((parent, view, position, id) -> {
+			view.setSelected(true);
+
+//			Toast.makeText(getContext(), "check click", Toast.LENGTH_SHORT).show();
+
+			ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
+			Fragment fragment = GroupFragment.newInstance(cgi);
+
+			((AppCompatActivity)getContext()).getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.fragment_container, fragment, "group_info")
+					.addToBackStack("group_info")
+					.commit();
+		}));
+
 		your_gr_search.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				return false;
-			}
+				groups_list.clear();
+				origin_item.forEach(e -> {
+					if(e.name.contains(query)){
+						groups_list.add(e);
+					}
+				});
 
-			@Override
-			public boolean onQueryTextChange(String newText) {
-				return false;
-			}
-		});
-	}
-
-	private void UpdateListView() {
-
-		Runnable run = new Runnable() {
-			@Override
-			public void run() {
 				mAdapter.notifyDataSetChanged();
 				lv_your_group_item.invalidateViews();
 				lv_your_group_item.refreshDrawableState();
+
+				return false;
 			}
-		};
-		run.run();
+
+			@Override
+				public boolean onQueryTextChange(String newText) {
+					if(newText.isEmpty()){
+						search_item.clear();
+						UpdateOriginalListView();
+						return true;
+					}
+					return true;
+			}
+		});
+
+		your_gr_search.setOnClickListener(v -> your_gr_search.onActionViewExpanded());
+	}
+
+	private void UpdateOriginalListView() {
+		groups_list.clear();
+		groups_list.addAll(origin_item);
+
+		mAdapter.notifyDataSetChanged();
+		lv_your_group_item.invalidateViews();
+		lv_your_group_item.refreshDrawableState();
+
 	}
 
 	@Override
@@ -151,11 +194,9 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		//newThread.interrupt();
 
 		if(getActivity() == null){
-			Log.e("Check Activityyyyyyyy", "NULLLLLLLLLLLLL");
 			return;
 		}
 
-		Log.e("Successssssssss YG", "Check YYG");
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -163,9 +204,9 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 				ll_your_group_progress.setVisibility(View.GONE);
 				lv_your_group_item.setVisibility(View.VISIBLE);
 
-				//set adapter
-				mAdapter = new MyOwnGroupAdapter(getContext(), groups);
-				lv_your_group_item.setAdapter(mAdapter);
+				mAdapter.notifyDataSetChanged();
+				lv_your_group_item.invalidateViews();
+				lv_your_group_item.refreshDrawableState();
 			}
 		});
 
@@ -173,9 +214,8 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
-		//newThread.interrupt();
+
 		if(getActivity() == null){
-			Log.e("Check Activityyyyyyyy", "NULLLLLLLLLLLLL");
 			return;
 		}
 
