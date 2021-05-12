@@ -218,13 +218,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
                     GroupPostInfo post = posts.get(getLayoutPosition());
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            presenter_like.HandleReactPost(post);
-                        }
-                    }).start();
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            presenter_like.HandleReactPost(post);
+//                        }
+//                    }).start();
 
                     post.reaction_count += post.react ? -1 : +1;
                     post.react = !post.react;
