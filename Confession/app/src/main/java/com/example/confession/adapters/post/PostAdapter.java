@@ -48,13 +48,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements AddCommentBinder.View, ReactPostBinder.View {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
+		implements
+		AddCommentBinder.View,
+		ReactPostBinder.View {
 
 	Context context;
 	ArrayList<GroupPostInfo> posts;
 	private AddCommentBinder.Presenter presenter_comment;
 	private ReactPostBinder.Presenter presenter_like;
 	private String user_role = "ROLE_NORMAL";
+
 
 	public PostAdapter(Context context, ArrayList<GroupPostInfo> posts) {
 
@@ -102,6 +106,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		private Thread newThread;
 		private boolean waiting_react = false;
 
+
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			position = getLayoutPosition();
@@ -114,7 +119,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		}
 
 		public void SendComment(String msg) {
-			//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
 			GroupPostInfo gpi = posts.get(getLayoutPosition());
 
 			new Thread(new Runnable() {
@@ -164,10 +168,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 			txt_content.setText(post_info.content);
 			txt_likes.setText(post_info.reaction_count + " likes");
 
-			if (post_info.react)
-				iv_react.setImageDrawable(fill_heart);
-			else
-				iv_react.setImageDrawable(empty_heart);
+
+			AnimatedVectorDrawable drawable;
+			if (post_info.react){
+				drawable = fill_heart;
+			}
+			else {
+				drawable = empty_heart;
+			}
+			iv_react.setImageDrawable(drawable);
+			drawable.start();
+
 		}
 
 		public void InitListener() {
@@ -199,21 +210,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 						newThread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-								Log.i("......", "-------------------------------------------------");
 								presenter_like.HandleReactPost(post);
-								Log.i("......", "-------------------------------------------------");
 							}
 						});
 						newThread.start();
 
-						post.reaction_count += post.react ? -1 : +1;
-						post.react = !post.react;
-
-						txt_likes.setText((post.reaction_count + " likes"));
-						//  Log.e("Bug", post.reaction_count + "");
+					} catch (Exception e) {Log.e("In New Thread Exception", e.getMessage());}
+					finally {
 						HeartAnimate();
 
-					} catch (Exception e) {
+						post.reaction_count += post.react ? -1 : +1;
+						post.react = !post.react;
+						txt_likes.setText((post.reaction_count + " likes"));
 					}
 				}
 			});
@@ -245,7 +253,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 			feed_content_layout.setOnClickListener(new DoubleClickListener() {
 				@Override
 				public void onDoubleClick() {
-
 					heart_cover.setAlpha(0.70f);
 					if (drawable instanceof AnimatedVectorDrawableCompat) {
 						avd = (AnimatedVectorDrawableCompat) drawable;
@@ -253,6 +260,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 					} else if (drawable instanceof AnimatedVectorDrawable) {
 						avd2 = (AnimatedVectorDrawable) drawable;
 						avd2.start();
+					}
+
+					GroupPostInfo post = posts.get((int) getLayoutPosition());
+					if(!post.react){
+						iv_react.performClick();
 					}
 				}
 			});
@@ -315,10 +327,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 		}
 
 		private void HeartAnimate() {
-			AnimatedVectorDrawable drawable = posts.get(getLayoutPosition()).react ? fill_heart : empty_heart;
+			AnimatedVectorDrawable drawable = posts.get(getLayoutPosition()).react ? empty_heart : fill_heart;
 			iv_react.setImageDrawable(drawable);
 			drawable.start();
-//		Toast.makeText(context, full ? "HeartFill" : "HeartEmpty", Toast.LENGTH_SHORT).show();
 		}
 	}
 
