@@ -1,4 +1,4 @@
-package com.example.confession.presenters;
+package com.example.confession.presenters.user;
 
 import com.example.confession.binders.user.ForgotPasswordBinder;
 import com.example.confession.models.behaviors.User;

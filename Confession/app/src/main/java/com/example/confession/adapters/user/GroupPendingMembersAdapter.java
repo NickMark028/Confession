@@ -1,4 +1,4 @@
-package com.example.confession.adapters;
+package com.example.confession.adapters.user;
 
 import android.app.Activity;
 import android.content.Context;
@@ -79,7 +79,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 			InitListener();
 		}
 
-
 		public void InitView(View view) {
 			ll_group_pending_members = view.findViewById(R.id.ll_group_pending_members);
 			ava_user_pending = view.findViewById(R.id.ava_user_pending);
@@ -92,14 +91,12 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 			pending_mem_checking = view.findViewById(R.id.pending_mem_checking);
 		}
 
-
 		public void InitData(int i) {
 			BasicUserInfo user_info = groupPendingUser.get(i);
 			//ava_user_pending.setImageResource((Integer) user_info.avatar);
 			pending_member_name.setText(user_info.name);
 			//check and reject chua lam
 		}
-
 
 		public void InitListener() {
 			accept_pending_member.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +127,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 
 				}
 			});
-
-		}
-
-		@Override
-		public void OnAcceptAllPendingMembersSuccess() {
 
 		}
 
