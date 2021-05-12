@@ -106,6 +106,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         });
     }
 
+    @Override
+    public void OnReactPostSuccess(boolean check) {
+
+    }
+
+    @Override
+    public void OnReactPostFailure(String error) {
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         //layout variables
