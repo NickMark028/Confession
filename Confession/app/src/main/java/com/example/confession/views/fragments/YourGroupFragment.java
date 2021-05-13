@@ -195,6 +195,10 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 			return;
 		}
 
+		groups_list.clear();
+		groups_list.addAll(groups);
+		origin_item.addAll(groups);
+
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
