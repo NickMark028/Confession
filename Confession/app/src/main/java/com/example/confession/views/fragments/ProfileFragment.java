@@ -1,6 +1,7 @@
 package com.example.confession.views.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.group.MyOwnGroupAdapter;
 import com.example.confession.binders.user.CreatedGroupsBinder;
 import com.example.confession.binders.user.FollowedGroupsBinder;
 import com.example.confession.listener.BottomSheetCreateNewListener;
+import com.example.confession.listener.BottomSheetLogoutListener;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
 import com.example.confession.presenters.user.CreatedGroupsPresenter;
@@ -28,20 +29,25 @@ import com.example.confession.presenters.user.FollowedGroupsPresenter;
 import com.example.confession.views.activities.AddPostActivity;
 import com.example.confession.views.activities.ChangePasswordActivity;
 import com.example.confession.views.activities.CreateGroupActivity;
+import com.example.confession.views.activities.SignInActivity;
 import com.example.confession.views.activities.UpdateProfileActivity;
 import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ProfileFragment extends Fragment
 	implements
 		FollowedGroupsBinder.View,
 		CreatedGroupsBinder.View,
-		BottomSheetCreateNewListener {
+		BottomSheetCreateNewListener,
+		BottomSheetLogoutListener {
 
 	// IN-USE VARIABLES
-	private ProfileCreateNewBottomSheet bottomSheet;
+	private ProfileCreateNewBottomSheet bottomSheetCreateNew;
+	private ProfileUsernameBottomSheet bottomSheetLogout;
 
 	private  FollowedGroupsBinder.Presenter followedGroupPresenter;
 	private  CreatedGroupsBinder.Presenter createdGroupPresenter;
@@ -85,7 +91,8 @@ public class ProfileFragment extends Fragment
 	}
 
 	private void InitBottomSheet(){
-		bottomSheet = new ProfileCreateNewBottomSheet(this);
+		bottomSheetCreateNew = new ProfileCreateNewBottomSheet(this);
+		bottomSheetLogout = new ProfileUsernameBottomSheet(this);
 	}
 
 	private void HandleGetFollowedGroup(){
@@ -145,7 +152,7 @@ public class ProfileFragment extends Fragment
 			public void onClick(View view) {
 				//presenter.HandleLogin(si_username.getText().toString(), si_password.getText().toString());
 				assert getFragmentManager() != null;
-				bottomSheet.show(getFragmentManager(), "username");
+				bottomSheetLogout.show(getFragmentManager(), "username");
 			}
 		});
 
@@ -155,7 +162,7 @@ public class ProfileFragment extends Fragment
 			public void onClick(View view) {
 				//Toast.makeText(getContext(), "bottom sheet open post", Toast.LENGTH_SHORT).show();
 				assert getFragmentManager() != null;
-				bottomSheet.show(getFragmentManager(), "create_new");
+				bottomSheetCreateNew.show(getFragmentManager(), "create_new");
 
 			}
 		});
@@ -246,6 +253,19 @@ public class ProfileFragment extends Fragment
 	}
 
 	@Override
+	public void onButtonLogoutClicked(int result) {
+		SharedPreferences share = getActivity().getSharedPreferences("USERDATA",MODE_PRIVATE);
+		SharedPreferences.Editor editor = share.edit();
+		editor.putString("token", "");
+		editor.apply();
+
+		Intent myIntent = new Intent(getContext().getApplicationContext(), SignInActivity.class);
+		startActivity(myIntent);
+
+		getActivity().finish();
+	}
+
+	@Override
 	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 		if(getActivity() == null){
 			return;
@@ -288,4 +308,6 @@ public class ProfileFragment extends Fragment
 			return;
 		}
 	}
+
+
 }
