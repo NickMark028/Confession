@@ -101,8 +101,6 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 
 		InitListenser();
 		CallPresenter();
-		//new CallAPI().execute();
-
 
 		return view;
 	}
@@ -119,7 +117,7 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 
 		newThread.start();
 
-		Toast.makeText(getContext(), " Your Group on call presenter", Toast.LENGTH_LONG).show();
+//		Toast.makeText(getContext(), " Your Group on call presenter", Toast.LENGTH_LONG).show();
 	}
 
 	public void InitListenser() {
