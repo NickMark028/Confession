@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
@@ -22,10 +24,13 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 
 	private CreatePostGroupListBinder.Presenter presenter;
 	private ImageView iv_group_list_back;
+	private TextView txt_get_gr_notice;
 	private ListView lv_create_post_group_list;
+	private LinearLayout ll_create_post_gr_loading;
     private GroupListAdapter myAdapter;
 	private ArrayList<ConfessionGroupInfo> list_groups;
 	private Thread newThread;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,7 +50,7 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 		});
 		newThread.start();
 
-		Toast.makeText(this, "After call HandleGetGroups", Toast.LENGTH_LONG).show();
+//		Toast.makeText(this, "After call HandleGetGroups", Toast.LENGTH_LONG).show();
 	}
 
 	private void InitPresenter() {
@@ -55,8 +60,10 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 
 	public void InitView() {
 
+		txt_get_gr_notice = findViewById(R.id.txt_get_gr_notice);
 		iv_group_list_back = findViewById(R.id.iv_group_list_back);
 		lv_create_post_group_list = findViewById(R.id.lv_create_post_group_list);
+		ll_create_post_gr_loading = findViewById(R.id.ll_create_post_gr_loading);
 
 //		list_groups = new ArrayList<>();
 //		myAdapter = new GroupListAdapter(getApplicationContext(), list_groups);
@@ -105,6 +112,8 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				ll_create_post_gr_loading.setVisibility(View.GONE);
+				lv_create_post_group_list.setVisibility(View.VISIBLE);
 				lv_create_post_group_list.setAdapter(new GroupListAdapter(CreatePostGroupListActivity.this, groups));
 			}
 		});
@@ -115,6 +124,9 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				ll_create_post_gr_loading.setVisibility(View.GONE);
+				txt_get_gr_notice.setVisibility(View.VISIBLE);
+
 				Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
 			}
 		});
