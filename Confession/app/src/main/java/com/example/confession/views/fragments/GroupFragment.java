@@ -57,11 +57,12 @@ public class GroupFragment extends Fragment
 	private ConfessionGroupInfo cgi;
 
 	private String mTag;
+	private int numberOfPosts;
 	private UserState userState;
 
 	private String user_role = "ROLE_ADMIN";
 	private LinearLayout ll_noti_join_group, ll_group_member,ll_group_loading;
-	private TextView txt_gr_name, txt_group_mem_count;
+	private TextView txt_gr_name, txt_group_mem_count,txt_group_post_count;
 
 	private RecyclerView rv_group_posts;
 	private SwipeRefreshLayout srl_group_posts;
@@ -74,7 +75,7 @@ public class GroupFragment extends Fragment
 	private GroupAdminManageGroupBottomSheet bottomSheetAdmin;
 	private GroupUserManageBottomSheet bottomSheetUser;
 
-	private Thread newThread;
+	private Thread newThread, loadPostThread;
 
 	public static GroupFragment newInstance(ConfessionGroupInfo cgi) {
 
@@ -107,6 +108,7 @@ public class GroupFragment extends Fragment
 		InitData();
 
 		CheckUserInGroup();
+		LoadGroupPosts();
 		return view;
 	}
 
@@ -136,6 +138,7 @@ public class GroupFragment extends Fragment
 
 		txt_gr_name = view.findViewById(R.id.txt_gr_name);
 		txt_group_mem_count = view.findViewById(R.id.txt_group_mem_count);
+		txt_group_post_count = view.findViewById(R.id.txt_group_post_count);
 
 		ll_noti_join_group = view.findViewById(R.id.ll_noti_join_group);
 		ll_group_member = view.findViewById(R.id.ll_group_member);
@@ -171,14 +174,14 @@ public class GroupFragment extends Fragment
 	}
 
 	public void LoadGroupPosts(){
-		newThread = new Thread(new Runnable() {
+		loadPostThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				presenter.HandleGetPosts(cgi);
 			}
 		});
 
-		newThread.start();
+		loadPostThread.start();
 
 		srl_group_posts.setRefreshing(true);
 //		Toast.makeText(getContext(), "Loading...", Toast.LENGTH_LONG).show();
@@ -304,6 +307,7 @@ public class GroupFragment extends Fragment
 		super.onDestroy();
 
 		if (newThread != null && newThread.isAlive()){newThread.interrupt();}
+		if (loadPostThread != null && loadPostThread.isAlive()){loadPostThread.interrupt();}
 	}
 
 	@Override
@@ -323,6 +327,7 @@ public class GroupFragment extends Fragment
 				rv_group_posts.invalidateItemDecorations();
 				rv_group_posts.refreshDrawableState();
 
+				txt_group_post_count.setText(Integer.toString(posts.size()));
 			}
 		});
 	}
@@ -352,10 +357,10 @@ public class GroupFragment extends Fragment
 				if(user_state.equals(UserState.Admin)){
 					Log.e("Port: ","Admin if");
 					SetupAdminUI();
-					LoadGroupPosts();
+					//LoadGroupPosts();
 				}else if (user_state == UserState.Following){
 					SetupFollowingUI();
-					LoadGroupPosts();
+					//LoadGroupPosts();
 				}else if(user_state == UserState.NonMember){
 					SetupNonMemberUI();
 				}else if (user_state == UserState.Pening){
