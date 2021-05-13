@@ -136,8 +136,4 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		}
 	}
 
-//	@Override
-//	public void onButtonUserClicked(int result) {}
-//	@Override
-//	public void onButtonAdminClicked(int result) {}
 }
