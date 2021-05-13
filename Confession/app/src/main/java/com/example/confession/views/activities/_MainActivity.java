@@ -55,7 +55,7 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 		share = getSharedPreferences("USERDATA",MODE_PRIVATE);
 		token = share.getString("token", "");
 
-		Log.e("token cua t dau ???", token);
+//		Log.e("token cua t dau ???", token);
 
 		if (token.length()<10) {
 			mWait.postDelayed(new Runnable() {
@@ -97,11 +97,10 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 		Intent intent = new Intent(_MainActivity.this, HomePageActivity.class);
 		startActivity(intent);
 
-		Activity this_activity = this;
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(getApplicationContext(), "Check Token thanh cong", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Check Token thanh cong", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -109,8 +108,7 @@ public class _MainActivity extends Activity implements SignInBinder.View {
 	@Override
 	public void OnLoginFailure(String error) {
 		runOnUiThread(() -> {
-			Toast.makeText(getApplicationContext(), "Check Token that cmn bai", Toast.LENGTH_SHORT).show();
-
+//			Toast.makeText(getApplicationContext(), "Check Token that cmn bai", Toast.LENGTH_SHORT).show();
 			StartLogin();
 		});
 	}
