@@ -185,6 +185,11 @@ public class CommentActivity extends AppCompatActivity
 				String msg = cmt_edit_txt_cmt.getText().toString();
 				if(!msg.isEmpty()){
 					SendComment(msg);
+					cmt_edit_txt_cmt.setText("");
+					cmt_edit_txt_cmt.clearFocus();
+
+					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				}else{
 					Toast.makeText(CommentActivity.this, "What is y'message?", Toast.LENGTH_SHORT).show();
 				}
