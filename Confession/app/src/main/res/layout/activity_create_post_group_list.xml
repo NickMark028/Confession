@@ -31,11 +31,35 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txt_get_gr_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No group found"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:id="@+id/ll_create_post_gr_loading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal"
+        >
+        <ProgressBar
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lv_create_post_group_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@color/transparent"/>
+        android:divider="@color/transparent"
+        android:visibility="gone"/>
 
 </LinearLayout>
