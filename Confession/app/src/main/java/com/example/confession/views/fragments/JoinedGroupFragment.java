@@ -112,7 +112,7 @@ public class JoinedGroupFragment extends Fragment implements FollowedGroupsBinde
 
 		newThread.start();
 
-		Toast.makeText(getContext(), " Joined Group on call presenter", Toast.LENGTH_LONG).show();
+//		Toast.makeText(getContext(), " Joined Group on call presenter", Toast.LENGTH_LONG).show();
 	}
 
 	public void InitListenser() {
