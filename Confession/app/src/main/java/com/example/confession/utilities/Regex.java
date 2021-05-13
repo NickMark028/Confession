@@ -23,7 +23,7 @@ public class Regex {
 					"(?!.*\\.$)" +
 					"[^\\W]" +
 					"[\\w.]" +
-					"{3,25}" +
+					"{3,25}" +					//3-25 characters long
 					"$");
 
 	public static final Pattern GROUPNAME_PATTERN =
