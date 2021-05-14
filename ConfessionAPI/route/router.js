@@ -6,7 +6,7 @@ class Router
     route(app)
     {
         app.get('/', (req,res)=>{
-            res.send('Confession API');
+            res.send('Confession API'); // 
         })
         
         app.use('/user', userRouter);
