@@ -49,7 +49,7 @@ class UserController
         })
     }
 
-    login(req,res)
+    login(req,res) //
     {
         //console.log(req.body);
         let data={
