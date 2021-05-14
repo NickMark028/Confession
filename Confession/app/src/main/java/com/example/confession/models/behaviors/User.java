@@ -405,11 +405,7 @@ public class User {
 //		updated_user = ...
 		// END
 
-		// Update singleton
-		if (updated_user != null)
-			instance = updated_user;
-
-		return updated_user;
+	
 	}
 
 	// TODO
