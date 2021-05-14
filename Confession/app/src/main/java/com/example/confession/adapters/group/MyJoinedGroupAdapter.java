@@ -78,7 +78,9 @@ public class MyJoinedGroupAdapter extends BaseAdapter {
                 FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
                 bottomSheet.show(fm, "LeaveGroup");
 
-              
+                if(bottomSheet.GetResult() == 0){
+                    //... LeavePost
+                }
 
             }
         });
