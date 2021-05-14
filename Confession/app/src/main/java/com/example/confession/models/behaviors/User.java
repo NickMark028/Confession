@@ -436,7 +436,7 @@ public class User {
 		return updated_user;
 	}
 
-	// TODO
+	// DONE
 	public User UpdateUserInfo(UserInfo user_info) {
 		User updated_user = null;
 

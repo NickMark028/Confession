@@ -309,7 +309,7 @@ public class ConfessionGroup {
 //		return null;
 //	} // Check lại api không trả ra []
 
-	// TODO sua lai tham so input
+	// Done
 	public static ArrayList<ConfessionGroupInfo> Find(String name) {
 
 		HashMap<String, String> params = new HashMap<String, String>();
