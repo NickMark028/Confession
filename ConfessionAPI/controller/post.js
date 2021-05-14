@@ -69,7 +69,7 @@ class PostController
     }   
     
     
-    newComment(req,res)
+    newComment(req,res) // 
     {
         let token = req.body.token;
         if(Token.isValid(token))
@@ -107,7 +107,7 @@ class PostController
         }
     }
 
-    react(req,res)
+    react(req,res) //
     {
         let token = req.body.token;
         if(Token.isValid(token))
@@ -129,7 +129,7 @@ class PostController
     }
 
 
-    getComments(req,res)
+    getComments(req,res) //
     {
         let token=req.query.token;
         let postid = req.query.postid;
@@ -162,7 +162,7 @@ class PostController
         }
     }
 
-    getReactions(req,res)
+    getReactions(req,res) //
     {
         let token=req.query.token;
         let postid = req.query.postid;
@@ -196,7 +196,7 @@ class PostController
     }
 
 
-    removePost(req,res)
+    removePost(req,res) //
     {
         let token = req.body.token;
         let postid = req.body.postid;
@@ -225,7 +225,7 @@ class PostController
         }
     }
 
-    isReact(req, res)
+    isReact(req, res) //
     {
         let token=req.query.token;
         let memberid = req.query.memberid;
