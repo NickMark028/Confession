@@ -4,7 +4,7 @@ public interface RemoveGroupBinder {
 
 	interface View {
 
-		
+
 		void OnRemoveGroupFailure(String error);
 	}
 
