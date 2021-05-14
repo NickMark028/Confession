@@ -17,6 +17,8 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 	@Override
 	public void HandleSignUp(String name, String username, String email, String phone, String password, String confirm_pass, Object avatar) {
 
+
+
 		if (!password.equals(confirm_pass)) {
 			view.OnSignUpFailure("Password doesn't match");
 			return;
