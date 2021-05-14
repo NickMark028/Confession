@@ -8,5 +8,5 @@ public interface SignUpBinder {
         void OnSignUpFailure(String error);
     }
 
-   
+
 }
