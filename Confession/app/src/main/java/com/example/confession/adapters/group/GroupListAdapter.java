@@ -78,8 +78,4 @@ public class GroupListAdapter extends BaseAdapter {
 		//iv_group_item_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 	}
 
-	//Kiem tra User co trong Group khong
-	private boolean checkIsUserInGroup(){
-		return true;
-	}
-}
+
