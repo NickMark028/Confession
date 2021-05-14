@@ -85,11 +85,11 @@ public class GroupPost {
 	}
 
 	// TODO
-//	public ArrayList<PostComment> GetComment()
-//	{
-//
-//		return null;
-//	}
+	public ArrayList<PostComment> GetComment()
+	{
+
+		return null;
+	}
 
 	// Done //
 	public int GetReactionCount(String auth_token)
