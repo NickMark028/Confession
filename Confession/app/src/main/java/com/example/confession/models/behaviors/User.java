@@ -432,9 +432,5 @@ public class User {
 	}
 
 	@Override
-	public String toString() {
-		return "User{" +
-				"user_info=" + user_info +
-				'}';
-	}
+	
 }
