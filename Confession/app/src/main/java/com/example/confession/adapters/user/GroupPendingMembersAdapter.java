@@ -96,6 +96,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		}
 
 		public void InitListener() {
+
+			ViewHolder view_holder = this;
 			accept_pending_member.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -104,7 +106,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 						public void run() {
 							presenter.HandleAcceptPendingMembers(
 									groupPendingUser.get(getLayoutPosition()),
-									group_info
+									group_info,
+									view_holder
 							);
 						}
 					}).start();
@@ -128,7 +131,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		}
 
 		@Override
-		public void OnAcceptPendingMembersSuccess() {
+		public void OnAcceptPendingMembersSuccess(RecyclerView.ViewHolder view_holder) {
 
 			((Activity) context).runOnUiThread(new Runnable() {
 				@Override
@@ -141,7 +144,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		}
 
 		@Override
-		public void OnAcceptPendingMembersFailure(String error) {
+		public void OnAcceptPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error) {
 			((Activity) context).runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -152,12 +155,12 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		}
 
 		@Override
-		public void OnRejectPendingMembersSuccess() {
+		public void OnRejectPendingMembersSuccess(RecyclerView.ViewHolder view_holder) {
 
 		}
 
 		@Override
-		public void OnRejectPendingMembersFailure(ManagePendingMembersBinder.View view, String error) {
+		public void OnRejectPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error) {
 
 		}
 	}
