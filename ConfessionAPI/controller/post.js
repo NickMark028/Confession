@@ -69,7 +69,7 @@ class PostController
     }   
     
     
-    newComment(req,res)
+    newComment(req,res) // 
     {
         let token = req.body.token;
         if(Token.isValid(token))
