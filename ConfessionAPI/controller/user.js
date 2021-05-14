@@ -12,10 +12,10 @@ class UserController
 {
     index(req,res)
     {
-        res.send('User API')
+        res.send('User API');
     }
 
-    register(req,res)
+    register(req,res) // 
     {
         //console.log(req.body);
         let data={
