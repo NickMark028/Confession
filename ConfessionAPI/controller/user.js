@@ -552,7 +552,7 @@ class UserController
         }
     }
 
-    getStates(req, res)
+    getStates(req, res) //
     {
         let token = req.query.token;
         let groupid = req.query.groupid;
