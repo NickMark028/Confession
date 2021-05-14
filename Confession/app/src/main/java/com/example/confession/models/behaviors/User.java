@@ -457,7 +457,7 @@ public class User {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				BasicUserInfo basicUserInfo = new BasicUserInfo(user_info.basic_info.id,user_info.basic_info.username,user_info.basic_info.username,user_info.basic_info.avatar);
+				BasicUserInfo basicUserInfo = new BasicUserInfo(user_info.basic_info.id,user_info.basic_info.username,user_info.basic_info.name,user_info.basic_info.avatar);
 				UserInfo userInfo = new UserInfo(basicUserInfo,user_info.email,user_info.phone);
 				updated_user = new User(userInfo);
 			}
