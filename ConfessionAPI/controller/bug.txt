@@ -1,1 +1,1 @@
-Fix isreact in newsfeed api.
+Fix reject pending user.
