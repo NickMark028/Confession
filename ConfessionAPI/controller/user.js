@@ -519,7 +519,7 @@ class UserController
         }
     }
 
-    isAdmin(req,res)
+    isAdmin(req,res) //
     {
         let token = req.query.token;
         let groupid = req.query.groupid;
