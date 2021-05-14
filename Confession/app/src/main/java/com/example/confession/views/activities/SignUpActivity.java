@@ -88,11 +88,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		su_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (!ValidateUsername() | !ValidateEmail() | !ValidatePhone()
-						| !ValidatePass() | !ValidateConfirmPass()) {
-					Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_SHORT).show();
-					return;
-				}
 
 				//After GUI check
 				newT = new Thread(new Runnable() {
@@ -112,10 +107,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 
 				//Init Dialog
 				InitProgressDialog("Please wait...");
-
 			}
 		});
-
 
 		txt_si_click.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -126,29 +119,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				finish();
 			}
 		});
-	}
-
-
-	private boolean ValidateConfirmPass() {
-		String pass = su_password.getText().toString();
-		String confirm = su_confirm_pass.getText().toString();
-
-		if (confirm.isEmpty()) {
-			til_su_confirmpass.setError("Field can't be empty");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		if (!pass.equals(confirm)) {
-			til_su_confirmpass.setError("Password not match");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
-
-
-		til_su_confirmpass.setError(null);
-		til_su_confirmpass.setErrorIconDrawable(null);
-		return true;
 	}
 
 	@Override
@@ -177,46 +147,63 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				progressDialog.dismiss();
 
 				// USERNAME
-				if ((error_code & SignUpBinder.ERROR_EMPTY_USERNAME) != 0)
+				if ((error_code & SignUpBinder.ERROR_EMPTY_USERNAME) != 0) {
 					til_su_username.setError("Field can't be empty");
+					til_su_username.setErrorIconDrawable(null);
+				}
 				else if ((error_code & SignUpBinder.ERROR_INVALID_USERNAME) != 0) {
 					til_su_username.setError("Please use a valid username");
 					til_su_username.setErrorIconDrawable(null);
-				} else til_su_username.setError(null);
+				}
+				else til_su_username.setError(null);
 
 				// EMAIL
-				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0) {
 					til_su_email.setError("Field can't be empty");
-				else if ((error_code & SignUpBinder.ERROR_INVALID_EMAIL) != 0)
+					til_su_email.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_INVALID_EMAIL) != 0) {
 					til_su_email.setError("Please enter a valid email");
+					til_su_email.setErrorIconDrawable(null);
+				}
 				else til_su_email.setError(null);
 
 				// PHONE
-				if ((error_code & SignUpBinder.ERROR_EMPTY_PHONE) != 0)
+				if ((error_code & SignUpBinder.ERROR_EMPTY_PHONE) != 0) {
 					til_su_phone.setError("Field can't be empty");
-				else if ((error_code & SignUpBinder.ERROR_NON_VN_FORMAT) != 0)
-					til_su_phone.setError("We only use VietNam phone format");
-				else if ((error_code & SignUpBinder.ERROR_PHONE_FORMAT) != 0)
+					til_su_phone.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_NON_VN_FORMAT) != 0) {
+					til_su_phone.setError("We only use Viet Nam phone format");
+					til_su_phone.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_PHONE_FORMAT) != 0) {
 					til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
+					til_su_phone.setErrorIconDrawable(null);
+				}
 				else til_su_phone.setError(null);
 
 				// PASS
 				if ((error_code & SignUpBinder.ERROR_EMPTY_PASS) != 0) {
 					til_su_pass.setError("Field can't be empty");
 					til_su_pass.setErrorIconDrawable(null);
-				} else if ((error_code & SignUpBinder.ERROR_WEAK_PASS) != 0) {
+				}
+				else if ((error_code & SignUpBinder.ERROR_WEAK_PASS) != 0) {
 					til_su_pass.setError("Password too weak");
 					til_su_pass.setErrorIconDrawable(null);
-				} else til_su_pass.setError(null);
+				}
+				else til_su_pass.setError(null);
 
 				// CONFIRM PASS
 				if ((error_code & SignUpBinder.ERROR_EMPTY_CONFIRM) != 0) {
 					til_su_confirmpass.setError("Field can't be empty");
 					til_su_confirmpass.setErrorIconDrawable(null);
-				} else if ((error_code & SignUpBinder.ERROR_MISMATCH_PASS) != 0) {
+				}
+				else if ((error_code & SignUpBinder.ERROR_MISMATCH_PASS) != 0) {
 					til_su_confirmpass.setError("Password not match");
 					til_su_confirmpass.setErrorIconDrawable(null);
-				} else {
+				}
+				else {
 					til_su_confirmpass.setError(null);
 					til_su_confirmpass.setErrorIconDrawable(null);
 				}
