@@ -380,24 +380,60 @@ public class ConfessionGroup {
 	// TODO Tham so bi thieu
 	public ArrayList<GroupPostInfo> GetPosts(String auth_token) // Hoạt động tốt.
 	{
+		//////////////////////////////////////////////////////////////////////
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token",auth_token);
+		temp_params.put("groupid",this.group_info.id);
+		ApiGet ag1 = new ApiGet("user/memberid/", temp_params);
+		ag1.run();
+		Log.d("MemberID Res: ", ag1.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag1.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("MemberID: ", memberid);
+		///////////////////////////////////////////////////////////////////////
+
 		HashMap<String, String> params = new HashMap<>();
 		params.put("conf", this.group_info.id);
 
-		ApiGet ag = new ApiGet("confession/id", params);
+		ApiGet ag2 = new ApiGet("confession/id", params);
 
 		Log.d("Thread API: ", "Đang lấy danh sách tat ca bai dang...");
-		ag.run();
+		ag2.run();
 
 		ArrayList<GroupPostInfo> posts = new ArrayList<>();
-		Log.e("Response", ag.response);
+		Log.e("Response", ag2.response);
 		JSONObject obj = null;
 		try {
-			obj = new JSONObject(ag.response);
+			obj = new JSONObject(ag2.response);
 			if (!obj.has("error")) {
 				JSONArray items = obj.getJSONArray("posts");
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String id = item.getString("_id"); // post id;
+
+					/////////////// IS REACT //////////////////////////////
+					Boolean isreact = false;
+					/*temp_params.clear();
+					temp_params.put("token",auth_token);
+					temp_params.put("memberid",memberid);
+					temp_params.put("postid",id);
+					ApiGet ag3 = new ApiGet("confession/id", params);
+					ag3.run();
+					Log.d("Is React: ", ag3.response);
+
+					try {
+						JSONObject temp_obj = new JSONObject(ag3.response);
+						isreact = temp_obj.getBoolean("isreact");
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					Log.e("Is React: ",isreact.toString());*/
+					//////////////////////////////////////////////////////
 
 //					JSONObject poster = item.getJSONObject("memberid");
 //					poster = poster.getJSONObject("userid");
@@ -423,8 +459,12 @@ public class ConfessionGroup {
 
 					JSONArray reactions =item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
+					for(int m=0;m<reaction_count;m++)
+					{
+						if(reactions.get(m).equals(memberid)) isreact = true;
+					}
 					Log.e("Content post in group: ",content);
-					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
+					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, isreact);
 
 					posts.add(post_info);
 				}

@@ -343,12 +343,11 @@ public class User {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 
-
 					String groupid = item.getString("groupid");
 					String shortname = item.getString("shortname");
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
-
+					Boolean isreact = item.getBoolean("isreact");
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
@@ -360,7 +359,7 @@ public class User {
 					JSONArray reactions = item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
 					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
-					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
+					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, isreact);
 					posts.add(post);
 				}
 				return posts;
