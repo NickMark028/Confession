@@ -459,7 +459,7 @@ class UserController
         })
     }
 
-    getPendingUsers(req,res)
+    getPendingUsers(req,res) //
     {
         let token = req.query.token;
         let groupid = req.query.groupid;
