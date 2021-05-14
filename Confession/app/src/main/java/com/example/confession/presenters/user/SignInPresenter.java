@@ -28,9 +28,7 @@ public class SignInPresenter implements SignInBinder.Presenter {
 			return;
 		}
 
-		User user = User.Login(username, password);
-
-		user = User.Login(username, Hashing.SHA512(password));
+		User user = User.Login(username, Hashing.SHA512(password));
 		if (user != null)
 			view.OnLoginSuccess(user);
 		else

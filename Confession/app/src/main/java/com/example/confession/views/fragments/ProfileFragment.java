@@ -269,13 +269,13 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void onButtonCreatePostClicked(int result) {
-		Intent addPostIntent = new Intent(getContext().getApplicationContext(), AddPostActivity.class);
+		Intent addPostIntent = new Intent(getContext(), AddPostActivity.class);
 		startActivity(addPostIntent);
 	}
 
 	@Override
 	public void onButtonCreateGroupClicked(int result) {
-		Intent createGroupIntent = new Intent(getContext().getApplicationContext(), CreateGroupActivity.class);
+		Intent createGroupIntent = new Intent(getContext(), CreateGroupActivity.class);
 		startActivity(createGroupIntent);
 	}
 
@@ -302,7 +302,7 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
-
+		// Do nothing
 	}
 
 	@Override
@@ -322,7 +322,7 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void OnGetFollowedGroupsFailure(String error) {
-
+		// Do nothing
 	}
 
 

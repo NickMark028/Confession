@@ -37,11 +37,6 @@ public class PostFragment extends Fragment {
 	private boolean full = false;
 	private String user_role = "ROLE_ADMIN";
 
-
-	public PostFragment() {
-		// Required empty public constructor
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
