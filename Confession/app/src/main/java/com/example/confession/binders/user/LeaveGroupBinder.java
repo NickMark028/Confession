@@ -8,8 +8,5 @@ public interface LeaveGroupBinder {
 		void OnLeaveGroupFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleLeaveGroup(String group_id);
-	}
 }
