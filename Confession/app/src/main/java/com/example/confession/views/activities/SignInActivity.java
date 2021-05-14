@@ -120,7 +120,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 		progressDialog.dismiss();
 
-		SharedPreferences share = getSharedPreferences("USERDATA",MODE_PRIVATE);
+		SharedPreferences share = getSharedPreferences("USERDATA", MODE_PRIVATE);
 		SharedPreferences.Editor editor = share.edit();
 		editor.putString("token", User.GetAuthToken());
 		editor.apply();
@@ -138,22 +138,19 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 			progressDialog.dismiss();
 
-			if ((error_code & SignInBinder.ERROR_EMPTY_USERNAME) != 0)
-			{
+			if ((error_code & SignInBinder.ERROR_EMPTY_USERNAME) != 0) {
 				til_si_username.setError("Field can't be empty");
 				til_si_username.setErrorIconDrawable(null);
 			}
 			else til_si_username.setError(null);
 
-			if ((error_code & SignInBinder.ERROR_EMPTY_PASSWORD) != 0)
-			{
+			if ((error_code & SignInBinder.ERROR_EMPTY_PASSWORD) != 0) {
 				til_si_password.setError("Field can't be empty");
 				til_si_password.setErrorIconDrawable(null);
 			}
 			else til_si_password.setError(null);
 
-			if ((error_code & SignInBinder.ERROR_USER_NOT_EXISTS) != 0)
-			{
+			if ((error_code & SignInBinder.ERROR_USER_NOT_EXISTS) != 0) {
 				Toast.makeText(this, "Account doesn't exists", Toast.LENGTH_LONG).show();
 			}
 		});
