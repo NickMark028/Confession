@@ -23,7 +23,7 @@ class UserController
         res.send('Confession API');
     }
 
-    newConfession(req, res)
+    newConfession(req, res) //
     {
         let token = req.body.token;
         if(Token.isValid(token))
