@@ -4,8 +4,6 @@ import com.example.confession.models.behaviors.User;
 
 public interface SignInBinder {
 
-
-
 	interface View {
 
 		void OnLoginSuccess(User user);
