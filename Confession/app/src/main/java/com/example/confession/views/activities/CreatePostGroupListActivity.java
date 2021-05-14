@@ -27,7 +27,7 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	private TextView txt_get_gr_notice;
 	private ListView lv_create_post_group_list;
 	private LinearLayout ll_create_post_gr_loading;
-    private GroupListAdapter myAdapter;
+	private GroupListAdapter myAdapter;
 	private ArrayList<ConfessionGroupInfo> list_groups;
 	private Thread newThread;
 
@@ -104,7 +104,9 @@ public class CreatePostGroupListActivity extends AppCompatActivity implements Cr
 	protected void onDestroy() {
 		super.onDestroy();
 
-		if(newThread != null && newThread.isAlive()){newThread.interrupt();}
+		if (newThread != null && newThread.isAlive()) {
+			newThread.interrupt();
+		}
 	}
 
 	@Override

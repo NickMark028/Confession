@@ -49,7 +49,7 @@ public class GroupSearchAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
-		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		View row = inflater.inflate(R.layout.layout_group_info, null);
 
 		//  Init view
@@ -65,7 +65,7 @@ public class GroupSearchAdapter extends BaseAdapter {
 		return row;
 	}
 
-	public void InitView(View row){
+	public void InitView(View row) {
 
 		search_gr_avatar = row.findViewById(R.id.search_gr_avatar);
 		search_gr_name = row.findViewById(R.id.search_gr_name);
@@ -73,7 +73,7 @@ public class GroupSearchAdapter extends BaseAdapter {
 		search_gr_user_state = row.findViewById(R.id.search_gr_user_state);
 	}
 
-	public void InitData(int pos){
+	public void InitData(int pos) {
 
 		ConfessionGroupInfo cgi = groups.get(pos);
 
@@ -81,9 +81,10 @@ public class GroupSearchAdapter extends BaseAdapter {
 		search_gr_name.setText(cgi.name);
 
 		String members = Integer.toString(cgi.member_count);
-		if(cgi.member_count > 1){
+		if (cgi.member_count > 1) {
 			members += " members";
-		}else {members += " member";}
+		}
+		else {members += " member";}
 
 		search_gr_member.setText(members);
 

@@ -59,8 +59,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 	}
 
 
-
-	public class ViewHolder extends RecyclerView.ViewHolder{
+	public class ViewHolder extends RecyclerView.ViewHolder {
 		private LinearLayout ll_cmt_cover;
 		private ImageView iv_ava_user_cmt, iv_cmt_react;
 		private TextView txt_username_message, txt_cmt_time, txt_cmt_likes;
@@ -107,7 +106,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 			// Todo Add avatar here
 		}
 
-		public void InitListener(){
+		public void InitListener() {
 			iv_cmt_react.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

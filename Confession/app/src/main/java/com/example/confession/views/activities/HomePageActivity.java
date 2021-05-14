@@ -78,19 +78,19 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		firebaseSubscribeTopic();
 	}
 
-	public void InitService(){
+	public void InitService() {
 		Intent intentBGService = new Intent(this, MyFirebasePushNotificationService.class);
 		startService(intentBGService);
 	}
 
-	private void firebaseSubscribeTopic(){
+	private void firebaseSubscribeTopic() {
 		FirebaseMessaging.getInstance().subscribeToTopic("pending")
 				.addOnCompleteListener(new OnCompleteListener<Void>() {
 					@Override
 					public void onComplete(@NonNull Task<Void> task) {
 						String msg = "Done";
 
-						if(!task.isSuccessful()){
+						if (!task.isSuccessful()) {
 							msg = "Failed";
 						}
 					}
@@ -116,7 +116,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		if (text.equals("logout")) {
 			Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
 
-			SharedPreferences share = getSharedPreferences("USERDATA",MODE_PRIVATE);
+			SharedPreferences share = getSharedPreferences("USERDATA", MODE_PRIVATE);
 			SharedPreferences.Editor editor = share.edit();
 			editor.putString("token", "");
 			editor.apply();
@@ -131,7 +131,8 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 
 			View view = bottomNavigationView.findViewById(R.id.navigation_add_post);
 			view.performClick();
-		} else {
+		}
+		else {
 			Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 		}
 	}
