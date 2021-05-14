@@ -1,1 +1,1 @@
-Add isreact api.Update.
+Fix isreact in newsfeed api.
