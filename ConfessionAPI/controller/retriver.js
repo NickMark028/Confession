@@ -172,7 +172,7 @@ class Retriver
     }
 
 
-    getOwnConfession(token)
+    getOwnConfession(token) //
     {
         if(Token.isValid(token))
         {
