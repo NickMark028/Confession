@@ -208,8 +208,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/nunito_regular"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             android:text="Don't have an account?"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
@@ -222,7 +220,7 @@
                             android:clickable="true"
                             android:fontFamily="@font/nunito_bold"
                             android:onClick="onClick"
-                            android:paddingStart="5dp"
+                            android:paddingStart="3dp"
                             android:paddingEnd="0dp"
                             android:text="@string/sign_up"
                             android:textColor="@color/main_theme"

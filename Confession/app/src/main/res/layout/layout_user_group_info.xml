@@ -20,7 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/description"
-            android:src="@drawable/tree_icon" />
+            android:src="@drawable/group_icon" />
     </androidx.cardview.widget.CardView>
 
 

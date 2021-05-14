@@ -68,10 +68,17 @@
         android:paddingEnd="10dp"
         android:paddingBottom="10dp">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@mipmap/img_avatar_test_foreground" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            android:elevation="10dp"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/img_avatar_test" />
+        </com.google.android.material.card.MaterialCardView>
 
         <EditText
             android:id="@+id/cmt_edit_txt_cmt"

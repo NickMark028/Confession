@@ -25,7 +25,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:contentDescription="@string/description"
-                android:src="@drawable/tree_icon" />
+                android:src="@drawable/group_icon" />
         </androidx.cardview.widget.CardView>
 
         <TextView

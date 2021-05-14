@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/tree_icon" />
+            android:src="@drawable/group_icon" />
 
         <LinearLayout
             android:layout_width="227dp"
