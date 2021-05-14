@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
+import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.binders.user.SignUpBinder;
 import com.example.confession.presenters.user.SignUpPresenter;
 import com.example.confession.utilities.Regex;
@@ -127,41 +128,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		});
 	}
 
-	private boolean ValidateUsername() {
-
-		String username = su_username.getText().toString().trim();
-
-		if (username.isEmpty()) {
-			til_su_username.setError("Field can't be empty");
-			return false;
-		}
-
-		if (!Regex.USERNAME_PATTERN.matcher(username).matches()) {
-			til_su_username.setError("Please use a valid username");
-			til_su_username.setErrorIconDrawable(null);
-			return false;
-		}
-
-		til_su_username.setError(null);
-		return true;
-	}
-
-	private boolean ValidateEmail() {
-		String email = su_email.getText().toString().trim();
-
-		if (email.isEmpty()) {
-			til_su_email.setError("Field can't be empty");
-			return false;
-		}
-		if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-			til_su_email.setError("Please enter a valid email");
-			return false;
-		}
-
-		til_su_email.setError(null);
-		return true;
-	}
-
 	private boolean ValidatePhone() {
 		String phone = su_phone.getText().toString().trim();
 
@@ -243,11 +209,24 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	@Override
 	public void OnSignUpFailure(int error_code) {
 		newT.interrupt();
-		progressDialog.dismiss();
 
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+
+				progressDialog.dismiss();
+
+				// USERNAME
+				if ((error_code & SignUpBinder.ERROR_EMPTY_USERNAME) != 0)
+					til_su_username.setError("Field can't be empty");
+				else if ((error_code & SignUpBinder.ERROR_INVALID_USERNAME) != 0) {
+					til_su_username.setError("Please use a valid username");
+					til_su_username.setErrorIconDrawable(null);
+				} else til_su_username.setError(null);
+
+				
+
+				// OTHERWISE
 				Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
 			}
 		});
