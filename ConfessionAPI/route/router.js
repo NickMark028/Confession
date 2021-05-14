@@ -9,7 +9,7 @@ class Router
             res.send('Confession API'); // 
         })
         
-        app.use('/user', userRouter);
+        app.use('/user', userRouter); // 
 
         app.use('/confession', confessionRouter);
 
