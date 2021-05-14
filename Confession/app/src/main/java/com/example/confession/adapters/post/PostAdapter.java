@@ -349,5 +349,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 	}
 
 	@Override
+	public void OnReactPostFailure(String error) {
 
+	}
 }
