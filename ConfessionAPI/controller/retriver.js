@@ -6,7 +6,7 @@ const Token = require('./token');
 const post = require('./post');
 class Retriver
 {
-    getAllGroup()
+    getAllGroup() //
     {        
         console.log('Retriver...');
         let mypromise = new Promise(function(resolve,reject){
@@ -73,7 +73,7 @@ class Retriver
         return mypromise;
     }
 
-    getJoinedConfession(token)
+    getJoinedConfession(token) //
     {
         if(Token.isValid(token))
         {
@@ -172,7 +172,7 @@ class Retriver
     }
 
 
-    getOwnConfession(token)
+    getOwnConfession(token) //
     {
         if(Token.isValid(token))
         {

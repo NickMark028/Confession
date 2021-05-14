@@ -1,6 +1,6 @@
 class Error
 {
-    report(code,path,message)
+    report(code,path,message) //
     {
         
         let error={
