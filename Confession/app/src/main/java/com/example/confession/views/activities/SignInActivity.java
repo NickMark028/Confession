@@ -15,7 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.confession.R;
 import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.models.behaviors.User;
-import com.example.confession.models.data.UserState;
 import com.example.confession.presenters.user.SignInPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -86,20 +85,9 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 			@Override
 			public void onClick(View view) {
 
-				if (!ValidateUsername() | !ValidatePass()) {
-					Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_LONG).show();
-					return;
-				}
-
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-
-						presenter.HandleLogin(
-								si_username.getText().toString(),
-								si_password.getText().toString());
-					}
-				}).start();
+				new Thread(() -> presenter.HandleLogin(
+						si_username.getText().toString(),
+						si_password.getText().toString())).start();
 
 				//Init Dialog
 				InitProgressDialog("Logging in");
@@ -132,31 +120,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		});
 	}
 
-	private boolean ValidateUsername() {
-		String username = si_username.getText().toString();
-
-		if (username.isEmpty()) {
-			til_si_username.setError("Field can't be empty");
-			return false;
-		}
-
-		til_si_username.setError(null);
-		return true;
-	}
-
-	private boolean ValidatePass() {
-		String pass = si_password.getText().toString();
-
-		if (pass.isEmpty()) {
-			til_si_password.setError("Field can't be empty");
-			til_si_password.setErrorIconDrawable(null);
-			return false;
-		}
-
-		til_si_password.setError(null);
-		return true;
-	}
-
 	@SuppressLint("ShowToast")
 	@Override
 	public void OnLoginSuccess(User user) {
@@ -175,9 +138,30 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 	@SuppressLint("ShowToast")
 	@Override
-	public void OnLoginFailure(String error) {
+	public void OnLoginFailure(int error_code) {
 
-		progressDialog.dismiss();
-		this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Login failure", Toast.LENGTH_LONG).show());
+		this.runOnUiThread(() -> {
+
+			progressDialog.dismiss();
+
+			if ((error_code & SignInBinder.ERROR_EMPTY_USERNAME) != 0)
+			{
+				til_si_username.setError("Field can't be empty");
+				til_si_username.setErrorIconDrawable(null);
+			}
+			else til_si_username.setError(null);
+
+			if ((error_code & SignInBinder.ERROR_EMPTY_PASSWORD) != 0)
+			{
+				til_si_password.setError("Field can't be empty");
+				til_si_password.setErrorIconDrawable(null);
+			}
+			else til_si_password.setError(null);
+
+			if ((error_code & SignInBinder.ERROR_USER_NOT_EXISTS) != 0)
+			{
+				Toast.makeText(this, "Account doesn't exists", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }

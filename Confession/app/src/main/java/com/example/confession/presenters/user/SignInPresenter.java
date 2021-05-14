@@ -15,9 +15,15 @@ public class SignInPresenter implements SignInBinder.Presenter {
 	@Override
 	public void HandleLogin(String username, String password) {
 
-		if (username.isEmpty() || password.isEmpty())
+		int error_code = 0;
+		if (username.isEmpty())
+			error_code |= SignInBinder.ERROR_EMPTY_USERNAME;
+		if (password.isEmpty())
+			error_code |= SignInBinder.ERROR_EMPTY_PASSWORD;
+
+		if (error_code > 0)
 		{
-			view.OnLoginFailure("Username and password can't be empty");
+			view.OnLoginFailure(error_code);
 			return;
 		}
 
@@ -28,7 +34,7 @@ public class SignInPresenter implements SignInBinder.Presenter {
 		if (user != null)
 			view.OnLoginSuccess(user);
 		else
-			view.OnLoginFailure("User not exists");
+			view.OnLoginFailure(SignInBinder.ERROR_USER_NOT_EXISTS);
 	}
 	public void HandleLogin(String token)
 	{
@@ -37,7 +43,6 @@ public class SignInPresenter implements SignInBinder.Presenter {
 		if (user != null)
 			view.OnLoginSuccess(user);
 		else
-			view.OnLoginFailure("User not exists");
+			view.OnLoginFailure(SignInBinder.ERROR_USER_NOT_EXISTS);
 	}
-
 }

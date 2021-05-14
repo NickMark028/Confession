@@ -95,7 +95,7 @@ public class CoverActivity extends Activity implements SignInBinder.View {
 	}
 
 	@Override
-	public void OnLoginFailure(String error) {
+	public void OnLoginFailure(int error_code) {
 		runOnUiThread(() -> {
 //			Toast.makeText(getApplicationContext(), "Check Token that cmn bai", Toast.LENGTH_SHORT).show();
 			StartLogin();

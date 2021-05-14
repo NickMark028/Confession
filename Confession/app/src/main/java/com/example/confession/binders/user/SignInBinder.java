@@ -2,34 +2,21 @@ package com.example.confession.binders.user;
 
 import com.example.confession.models.behaviors.User;
 
-import java.io.Serializable;
-
-//enum SignInErrorMask {
-//
-//
-//
-//	private int value;
-//	public int GetValue() {
-//		return value
-//	}
-//
-//	SignInErrorMask()
-//}
-
 public interface SignInBinder {
 
-//	final int
+	int ERROR_EMPTY_USERNAME = 1 << 0;
+	int ERROR_EMPTY_PASSWORD = 1 << 1;
+	int ERROR_USER_NOT_EXISTS = 1 << 31;
 
 	interface View {
 
 		void OnLoginSuccess(User user);
-
-		void OnLoginFailure(String error);
+		void OnLoginFailure(int error_code);
 	}
 
 	interface Presenter {
-		void HandleLogin(String username, String password);
 
+		void HandleLogin(String username, String password);
 		void HandleLogin(String token);
 	}
 }
