@@ -11,5 +11,8 @@ public interface CreateGroupBinder {
 		void OnCreateGroupFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleCreateGroup(String short_name, String name);
+	}
 }
