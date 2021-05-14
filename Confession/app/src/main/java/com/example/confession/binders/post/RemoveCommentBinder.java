@@ -10,8 +10,5 @@ public interface RemoveCommentBinder {
 		void OnRemoveCommentFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleRemoveComment(PostCommentInfo comment_info);
-	}
 }

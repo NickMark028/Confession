@@ -16,8 +16,5 @@ public interface GetCommentsBinder {
 		void OnGetCommentsFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleGetComments(GroupPostInfo info);
-	}
 }
