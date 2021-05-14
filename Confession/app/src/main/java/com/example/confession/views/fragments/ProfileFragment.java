@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.confession.R;
 import com.example.confession.binders.user.CreatedGroupsBinder;
 import com.example.confession.binders.user.FollowedGroupsBinder;
+import com.example.confession.binders.user.SignOutBinder;
+import com.example.confession.binders.user.SignOutPresenter;
 import com.example.confession.listener.BottomSheetCreateNewListener;
 import com.example.confession.listener.BottomSheetLogoutListener;
 import com.example.confession.models.behaviors.User;
@@ -39,25 +41,32 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment
-	implements
+		implements
 		FollowedGroupsBinder.View,
 		CreatedGroupsBinder.View,
 		BottomSheetCreateNewListener,
-		BottomSheetLogoutListener {
+		BottomSheetLogoutListener,
+		SignOutBinder.View {
 
 	// IN-USE VARIABLES
+	private final SignOutBinder.Presenter presenter;
+
 	private ProfileCreateNewBottomSheet bottomSheetCreateNew;
 	private ProfileUsernameBottomSheet bottomSheetLogout;
 
-	private  FollowedGroupsBinder.Presenter followedGroupPresenter;
-	private  CreatedGroupsBinder.Presenter createdGroupPresenter;
+	private FollowedGroupsBinder.Presenter followedGroupPresenter;
+	private CreatedGroupsBinder.Presenter createdGroupPresenter;
 
 	private TextView profile_txt_username_click;
 	private ImageButton profile_open_post_btn;
 	private LinearLayout profile_joined_group, profile_your_group,
 			profile_edit_account_btn, profile_change_pass_btn, profile_faq_btn, profile_contact_us_btn;
-	private TextView profile_fullname, profile_email, profile_phone,txt_ygroup_count ,txt_fgroup_count;
+	private TextView profile_fullname, profile_email, profile_phone, txt_ygroup_count, txt_fgroup_count;
 	private Thread createdGroupThread, followGroupThread;
+
+	public ProfileFragment() {
+		presenter = new SignOutPresenter(this);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -90,13 +99,13 @@ public class ProfileFragment extends Fragment
 		createdGroupPresenter = new CreatedGroupsPresenter(this);
 	}
 
-	private void InitBottomSheet(){
+	private void InitBottomSheet() {
 		bottomSheetCreateNew = new ProfileCreateNewBottomSheet(this);
 		bottomSheetLogout = new ProfileUsernameBottomSheet(this);
 	}
 
-	private void HandleGetFollowedGroup(){
-		try{
+	private void HandleGetFollowedGroup() {
+		try {
 			followGroupThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -105,11 +114,13 @@ public class ProfileFragment extends Fragment
 			});
 
 			followGroupThread.start();
-		}catch (Exception e){Log.e("In Follow Thread", e.getMessage());}
+		} catch (Exception e) {
+			Log.e("In Follow Thread", e.getMessage());
+		}
 	}
 
-	private void HandleGetCreatedGroup(){
-		try{
+	private void HandleGetCreatedGroup() {
+		try {
 			createdGroupThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -118,7 +129,9 @@ public class ProfileFragment extends Fragment
 			});
 
 			createdGroupThread.start();
-		}catch (Exception e){Log.e("In Follow Thread", e.getMessage());}
+		} catch (Exception e) {
+			Log.e("In Follow Thread", e.getMessage());
+		}
 	}
 
 	private void InitView() {
@@ -235,9 +248,13 @@ public class ProfileFragment extends Fragment
 	public void onDestroy() {
 		super.onDestroy();
 
-		if(followGroupThread!= null && followGroupThread.isAlive()){followGroupThread.interrupt();}
+		if (followGroupThread != null && followGroupThread.isAlive()) {
+			followGroupThread.interrupt();
+		}
 
-		if(createdGroupThread!= null && createdGroupThread.isAlive()){createdGroupThread.interrupt();}
+		if (createdGroupThread != null && createdGroupThread.isAlive()) {
+			createdGroupThread.interrupt();
+		}
 	}
 
 	@Override
@@ -254,20 +271,13 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void onButtonLogoutClicked(int result) {
-		SharedPreferences share = getActivity().getSharedPreferences("USERDATA",MODE_PRIVATE);
-		SharedPreferences.Editor editor = share.edit();
-		editor.putString("token", "");
-		editor.apply();
 
-		Intent myIntent = new Intent(getContext().getApplicationContext(), SignInActivity.class);
-		startActivity(myIntent);
-
-		getActivity().finish();
+		presenter.HandleSignOut(getActivity());
 	}
 
 	@Override
 	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
-		if(getActivity() == null){
+		if (getActivity() == null) {
 			return;
 		}
 
@@ -282,14 +292,12 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
-		if(getActivity() == null){
-			return;
-		}
+
 	}
 
 	@Override
 	public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
-		if(getActivity() == null){
+		if (getActivity() == null) {
 			return;
 		}
 
@@ -304,10 +312,20 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void OnGetFollowedGroupsFailure(String error) {
-		if(getActivity() == null){
-			return;
-		}
+
 	}
 
 
+	@Override
+	public void OnSignOutSuccess() {
+
+		Intent myIntent = new Intent(getActivity().getApplicationContext(), SignInActivity.class);
+		startActivity(myIntent);
+		getActivity().finish();
+	}
+
+	@Override
+	public void OnSignOutFailure(String error) {
+
+	}
 }
