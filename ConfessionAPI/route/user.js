@@ -8,5 +8,5 @@ router.post('/login',userController.login); //
 router.get('/profile',userController.getProfile); //
 router.post('/profile',userController.updateProfile); //
 
-router.get('/joinedconf',userController.getJoinedConfession);
+router.get('/joinedconf',userController.getJoinedConfession); //
 module.exports=router;
