@@ -491,7 +491,7 @@ class UserController
         })
     }
 
-    getMembers(req,res)
+    getMembers(req,res) //
     {
         let token = req.query.token;
         let groupid = req.query.groupid;
