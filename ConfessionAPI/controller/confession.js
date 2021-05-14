@@ -93,7 +93,7 @@ class UserController
         }
     }
 
-    joinRequest(req, res)
+    joinRequest(req, res) //
     {
         let token = req.body.token;
         let confession = req.body.confession;
