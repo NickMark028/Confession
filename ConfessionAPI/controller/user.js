@@ -115,7 +115,7 @@ class UserController
         }
     }
 
-    getProfile(req,res)
+    getProfile(req,res) //
     {
         let token = req.query.token;
         if(Token.isValid(token))
