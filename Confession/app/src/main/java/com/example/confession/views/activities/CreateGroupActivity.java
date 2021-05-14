@@ -141,7 +141,6 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
 
     @Override
     public void OnCreateGroupSuccess(ConfessionGroup group) {
-        // Todo navigate to new group
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {

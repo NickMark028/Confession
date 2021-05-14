@@ -159,7 +159,6 @@ public class User {
 		return user_info.basic_info.id;
 	}
 
-	// TODO sua lai tham so ben trong
 	public ConfessionGroup CreateGroup(ConfessionGroupInfo group) {
 
 		HashMap params = new HashMap<String, String>();
@@ -183,9 +182,7 @@ public class User {
 				String groupname = obj.getString("groupname");
 				String avatar = obj.getString("avatar");
 
-				// TODO sua lai member_count la gia tri cu the thay vi 0
 				ConfessionGroupInfo confession_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, 0);
-
 				confession = new ConfessionGroup(confession_info);
 			}
 		} catch (JSONException e) {
@@ -222,7 +219,6 @@ public class User {
 		return false;
 	}
 
-	// TODO FIX THIS (URGENT)
 	// Done //
 	public ArrayList<ConfessionGroupInfo> GetFollowedGroups() {
 
@@ -251,7 +247,6 @@ public class User {
 					JSONArray members = item.getJSONArray("members"); // moi them
 					int member_count = members.length(); // moi them
 
-					// TODO sua lai tham so 0 la member_count
 					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
 					groups.add(group_info);
 				}
@@ -288,7 +283,6 @@ public class User {
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
 
-					// TODO sua lai tham so member_count thay vi de la 0
 					JSONArray members = item.getJSONArray("members"); // moi them
 					int member_count = members.length(); // moi them
 
@@ -358,7 +352,7 @@ public class User {
 					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
 					JSONArray reactions = item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
-					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
+
 					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, isreact);
 					posts.add(post);
 				}
@@ -375,7 +369,6 @@ public class User {
 		return null;
 	}
 
-	// TODO
 	public UserState GetState(String group_id) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token",auth_token);
@@ -407,18 +400,13 @@ public class User {
 		return false;
 	}
 
-	// TODO
 	public User UpdatePassword(String old_pass, String new_pass)
 	{
 		User updated_user = null;
 
-		// Phong
-		// BEGIN
 		String auth_token = instance.auth_token;
 		String fullname = instance.user_info.basic_info.name;
 
-
-		///////////////////////////////////////////////////////////////////////////
 		HashMap params = new HashMap<String, String>();
 		params.put("token", auth_token);
 		params.put("fullname", fullname);
@@ -440,10 +428,6 @@ public class User {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		///////////////////////////////////////////////////////////////////////////
-
-//		updated_user = ...
-		// END
 
 		// Update singleton
 		if (updated_user != null)

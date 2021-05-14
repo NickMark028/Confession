@@ -61,8 +61,8 @@ public class GroupFragment extends Fragment
 	private UserState userState;
 
 	private String user_role = "ROLE_ADMIN";
-	private LinearLayout ll_noti_join_group, ll_group_member,ll_group_loading;
-	private TextView txt_gr_name, txt_group_mem_count,txt_group_post_count;
+	private LinearLayout ll_noti_join_group, ll_group_member, ll_group_loading;
+	private TextView txt_gr_name, txt_group_mem_count, txt_group_post_count;
 
 	private RecyclerView rv_group_posts;
 	private SwipeRefreshLayout srl_group_posts;
@@ -108,7 +108,7 @@ public class GroupFragment extends Fragment
 		InitData();
 
 		CheckUserInGroup();
-		LoadGroupPosts();
+//		LoadGroupPosts();
 		return view;
 	}
 
@@ -123,7 +123,7 @@ public class GroupFragment extends Fragment
 		newThread.start();
 	}
 
-	public void InitPresenter(){
+	public void InitPresenter() {
 		presenter = new GetPostsPresenter(this);
 		presenterUserState = new GetUserStatePresenter(this);
 		presenterJoinGroup = new JoinGroupPresenter(this);
@@ -168,12 +168,12 @@ public class GroupFragment extends Fragment
 		srl_group_posts.setVisibility(View.GONE);
 	}
 
-	public void InitData(){
+	public void InitData() {
 		txt_gr_name.setText(cgi.name);
 		txt_group_mem_count.setText(Integer.toString(cgi.member_count));
 	}
 
-	public void LoadGroupPosts(){
+	public void LoadGroupPosts() {
 		loadPostThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -217,10 +217,10 @@ public class GroupFragment extends Fragment
 		iv_group_setting_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(userState == UserState.Admin){
+				if (userState == UserState.Admin) {
 					assert getFragmentManager() != null;
 					bottomSheetAdmin.show(getFragmentManager(), "admin_settings");
-				}else if(userState == UserState.Following){
+				} else if (userState == UserState.Following) {
 					assert getFragmentManager() != null;
 					bottomSheetUser.show(getFragmentManager(), "user_settings");
 				}
@@ -228,9 +228,9 @@ public class GroupFragment extends Fragment
 		});
 	}
 
-	private void HandleResultFromAdminManagerBottomSheet(int result){
+	private void HandleResultFromAdminManagerBottomSheet(int result) {
 //		Toast.makeText(getContext(), "Check result - " + result, Toast.LENGTH_LONG).show();
-		switch (result){
+		switch (result) {
 			case 0: //Open pending member
 				Intent pendingIntent = new Intent(getContext().getApplicationContext(), GroupPendingMembersActivity.class);
 				pendingIntent.putExtra("cgi", cgi);
@@ -247,13 +247,13 @@ public class GroupFragment extends Fragment
 				bottomSheetAdmin.dismiss();
 				break;
 
-			case -1:
+			default:
 				break;
 		}
 	}
 
-	private void HandleResultFromUserManagerBottomSheet(int result){
-		switch (result){
+	private void HandleResultFromUserManagerBottomSheet(int result) {
+		switch (result) {
 			case 0: //Open members
 				Intent memberIntent = new Intent(getContext().getApplicationContext(), MembersJoinedGroupActivity.class);
 				memberIntent.putExtra("cgi", cgi);
@@ -270,25 +270,25 @@ public class GroupFragment extends Fragment
 	}
 
 	//Setup UI base on USER ROLE
-	public void SetupAdminUI(){
+	public void SetupAdminUI() {
 		ll_group_loading.setVisibility(View.GONE);
 		srl_group_posts.setVisibility(View.VISIBLE);
 		iv_group_setting_btn.setVisibility(View.VISIBLE);
 	}
 
-	public void SetupFollowingUI(){
+	public void SetupFollowingUI() {
 		ll_group_loading.setVisibility(View.GONE);
 		srl_group_posts.setVisibility(View.VISIBLE);
 		iv_group_setting_btn.setVisibility(View.VISIBLE);
 	}
 
-	public void SetupNonMemberUI(){
+	public void SetupNonMemberUI() {
 		ll_group_loading.setVisibility(View.GONE);
 		btn_join_group.setVisibility(View.VISIBLE);
 		ll_noti_join_group.setVisibility(View.VISIBLE);
 	}
 
-	public void SetupPendingUI(){
+	public void SetupPendingUI() {
 		ll_group_loading.setVisibility(View.GONE);
 
 		btn_join_group.setText("Requesting");
@@ -306,8 +306,12 @@ public class GroupFragment extends Fragment
 	public void onDestroy() {
 		super.onDestroy();
 
-		if (newThread != null && newThread.isAlive()){newThread.interrupt();}
-		if (loadPostThread != null && loadPostThread.isAlive()){loadPostThread.interrupt();}
+		if (newThread != null && newThread.isAlive()) {
+			newThread.interrupt();
+		}
+		if (loadPostThread != null && loadPostThread.isAlive()) {
+			loadPostThread.interrupt();
+		}
 	}
 
 	@Override
@@ -347,25 +351,25 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void OnGetUserStateSuccess(UserState user_state) {
-		if(getActivity() == null) return;
+		if (getActivity() == null) return;
 
 		userState = user_state;
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
-			public void run(){
-				if(user_state.equals(UserState.Admin)){
-					Log.e("Port: ","Admin if");
+			public void run() {
+				if (user_state.equals(UserState.Admin)) {
+					Log.e("Port: ", "Admin if");
 					SetupAdminUI();
-					//LoadGroupPosts();
-				}else if (user_state == UserState.Following){
+					LoadGroupPosts();
+				} else if (user_state == UserState.Following) {
 					SetupFollowingUI();
-					//LoadGroupPosts();
-				}else if(user_state == UserState.NonMember){
+					LoadGroupPosts();
+				} else if (user_state == UserState.NonMember) {
 					SetupNonMemberUI();
-				}else if (user_state == UserState.Pening){
+				} else if (user_state == UserState.Pening) {
 					SetupPendingUI();
-				}else{
+				} else {
 					//do nothing
 				}
 			}
@@ -374,7 +378,7 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void OnGetUserStateFailure(String error) {
-		if(getActivity() == null) return;
+		if (getActivity() == null) return;
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
@@ -386,7 +390,7 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void OnJoinGroupSuccess() {
-		if(getActivity() == null) return;
+		if (getActivity() == null) return;
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
@@ -402,7 +406,7 @@ public class GroupFragment extends Fragment
 
 	@Override
 	public void OnJoinGroupFailure(String error) {
-		if(getActivity() == null) return;
+		if (getActivity() == null) return;
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
