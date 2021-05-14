@@ -12,5 +12,8 @@ public interface CreatedGroupsBinder {
 		void OnGetCreatedGroupsFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleGetCreatedGroups();
+	}
 }
