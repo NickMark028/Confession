@@ -10,5 +10,9 @@ public interface ReactPostBinder {
 
         void OnReactPostSuccess(boolean check);
         void OnReactPostFailure(String error);
+    }
+    interface Presenter {
 
+        void HandleReactPost(GroupPostInfo postInfo);
+    }
 }
