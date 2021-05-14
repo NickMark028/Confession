@@ -165,15 +165,15 @@ public class ConfessionGroup {
 					}
 					Log.d("Get posts: ",".");
 				}
-//				else
-//				{
-//					String error = obj.getString("error");
-//					Log.d("Error: ",error);
-//				}
-//			}
-//		});
-//		return true;
-//	}
+				else
+				{
+					String error = obj.getString("error");
+					Log.d("Error: ",error);
+				}
+			}
+		});
+		return true;
+	}
 //
 //	public boolean getMembers(Context context)
 //	{
