@@ -166,14 +166,14 @@ public class User {
 		params.put("token", User.GetAuthToken());
 		params.put("shortname", group.short_name);
 		params.put("groupname", group.name);
-		params.put("avatar", group.avatar);
+		params.put("avatar", "cat.png");
 
 		ApiPost ap = new ApiPost("confession/new", params);
 		Log.d("Thread API: ", "Đang tạo confession...");
 		ap.run();
 
 		ConfessionGroup confession = null;
-		Log.d("Response", ap.response);
+		Log.d("Create Group Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -88,29 +89,41 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
 
-    public void ValidateGroupName(){
+    public boolean ValidateGroupName(){
         String group_name = create_group_name.getText().toString();
 
         if(group_name.isEmpty()){
             til_create_post_name.setError("Field can't be empty");
+            return false;
         }
 
         if(!Regex.GROUPNAME_PATTERN.matcher(group_name).matches()){
             til_create_post_name.setError("Invalid group name");
+            return false;
         }
 
         til_create_post_name.setError(null);
+        return true;
     }
 
     private void CreateGroup(String shortName, String groupName){
-        newThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                presenter.HandleCreateGroup(shortName, groupName);
-            }
-        });
 
-        newThread.start();
+        if(!ValidateGroupName()){
+            return;
+        }
+
+        try{
+            newThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    presenter.HandleCreateGroup(shortName, groupName);
+                }
+            });
+
+            newThread.start();
+        }catch(Exception e){
+            Log.e("In Create Group Thread exception", e.getMessage());
+        }
     }
 
     @Override
