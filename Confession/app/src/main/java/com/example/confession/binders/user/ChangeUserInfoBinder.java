@@ -10,8 +10,5 @@ public interface ChangeUserInfoBinder {
 		void OnChangeUserInfoFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleChangeUserInfo(String fullname, String email, String phone);
-	}
 }
