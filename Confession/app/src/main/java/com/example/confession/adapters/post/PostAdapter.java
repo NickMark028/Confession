@@ -153,17 +153,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 			}
 		}
 
-//		public void InitData(int position) {
-//
-//			GroupPostInfo post_info = posts.get(position);
-//
-//			txt_group_name.setText(post_info.group.name);
-//			txt_time_post.setText(DateTimeFormatter.FormatDateTillNow(post_info.time_created));
-//			txt_content.setText(post_info.content);
-//			txt_likes.setText(post_info.reaction_count + " likes");
-//
-//			FillHeartAnimate(post_info.react);
-//		}
+		public void InitData(int position) {
+
+			GroupPostInfo post_info = posts.get(position);
+
+			txt_group_name.setText(post_info.group.name);
+			txt_time_post.setText(DateTimeFormatter.FormatDateTillNow(post_info.time_created));
+			txt_content.setText(post_info.content);
+			txt_likes.setText(post_info.reaction_count + " likes");
+
+			FillHeartAnimate(post_info.react);
+		}
 
 		public void InitListener() {
 
