@@ -124,6 +124,27 @@ public class ConfessionGroup {
 
 	// Write API later //
 	public boolean RejectUser(String user_id, String auth_token) {
+		HashMap<String, String> params = new HashMap<String,String>();
+		params.put("token", auth_token);
+		params.put("userid", user_id);
+		params.put("groupid", this.group_info.id);
+
+		ApiPost ap = new ApiPost("confession/rejectpremember", params);
+
+		Log.d("Thread API: ", "Đang từ chối thành viên chờ...");
+		ap.run();
+
+		Log.d("Response", ap.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				Boolean iscomplete = obj.getBoolean("rejectPremember");
+				return iscomplete;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
