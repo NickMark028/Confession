@@ -78,6 +78,8 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 		firebaseSubscribeTopic();
 	}
 
+
+
 	public void InitService() {
 		Intent intentBGService = new Intent(this, MyFirebasePushNotificationService.class);
 		startService(intentBGService);
@@ -100,7 +102,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomSheetLi
 	@Override
 	protected void onResume() {
 		super.onResume();
-		bottomNavigationView.setSelectedItemId(mPrevNavItem);
+		bottomNavigationView.setSelectedItemId(mCurrentNavItem);
 	}
 
 	private void SetFragment(Fragment selectedFragment) {
