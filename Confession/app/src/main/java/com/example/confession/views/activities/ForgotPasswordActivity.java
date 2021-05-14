@@ -35,7 +35,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements ForgotP
 
 	private void InitView() {
 
-
 		fp_email = findViewById(R.id.fp_email);
 		fp_button = findViewById(R.id.fp_button);
 		txt_si_click = findViewById(R.id.txt_si_click);
