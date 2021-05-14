@@ -313,11 +313,11 @@ public class User {
 					String content = item.getString("content");
 
 					// TODO thay thanh gia tri hop le
-					BasicUserInfo author = new BasicUserInfo("", "", "", "");
-					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
-					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
-					JSONArray reactions = item.getJSONArray("reactions");
-					int reaction_count = reactions.length();
+//					BasicUserInfo author = new BasicUserInfo("", "", "", "");
+//					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
+//					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
+//					JSONArray reactions = item.getJSONArray("reactions");
+//					int reaction_count = reactions.length();
 					// TODO tham so bi thieu sua lai. Thay (null, 0, false) thanh gia tri hop le
 					GroupPostInfo post = new GroupPostInfo(id, group, author, approver, content, reaction_count, false);
 					posts.add(post);
