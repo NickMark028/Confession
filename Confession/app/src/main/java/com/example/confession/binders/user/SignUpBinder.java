@@ -18,10 +18,12 @@ public interface SignUpBinder {
     int ERROR_EMPTY_CONFIRM = 1 << 8;
     int ERROR_MISMATCH_PASS = 1 << 9;
 
+    int ERROR_FAILED = 1 << 31;
+
     interface View {
 
         void OnSignUpSuccess();
-        void OnSignUpFailure(String error);
+        void OnSignUpFailure(int error_code);
     }
 
     interface Presenter {

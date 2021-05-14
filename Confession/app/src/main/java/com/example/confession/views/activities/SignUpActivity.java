@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.binders.user.SignInBinder;
 import com.example.confession.binders.user.SignUpBinder;
 import com.example.confession.presenters.user.SignUpPresenter;
 import com.example.confession.utilities.Regex;
@@ -242,7 +241,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	}
 
 	@Override
-	public void OnSignUpFailure(String error) {
+	public void OnSignUpFailure(int error_code) {
 		newT.interrupt();
 		progressDialog.dismiss();
 
