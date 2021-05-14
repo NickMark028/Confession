@@ -30,7 +30,6 @@ public class SignInPresenter implements SignInBinder.Presenter {
 
 		User user = User.Login(username, password);
 
-		// Todo: Change to sha password
 		user = User.Login(username, Hashing.SHA512(password));
 		if (user != null)
 			view.OnLoginSuccess(user);
