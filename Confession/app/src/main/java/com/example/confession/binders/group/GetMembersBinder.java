@@ -13,8 +13,5 @@ public interface GetMembersBinder {
 		void OnGetMembersFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleGetMembers(ConfessionGroupInfo group_info);
-	}
 }

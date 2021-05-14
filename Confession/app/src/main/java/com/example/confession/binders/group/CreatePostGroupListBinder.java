@@ -14,8 +14,5 @@ public interface CreatePostGroupListBinder {
 		void OnGetGroupsFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleGetGroups();
-	}
 }

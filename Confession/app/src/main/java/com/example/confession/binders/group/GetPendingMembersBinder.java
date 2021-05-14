@@ -16,8 +16,5 @@ public interface GetPendingMembersBinder {
 		void OnGetPendingMembersFailure(String error);
 	}
 
-	interface Presenter {
-
-		void HandleGetPendingMembers(ConfessionGroupInfo group_info);
-	}
+	
 }
