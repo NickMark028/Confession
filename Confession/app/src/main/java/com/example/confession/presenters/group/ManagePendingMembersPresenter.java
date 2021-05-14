@@ -33,8 +33,8 @@ public class ManagePendingMembersPresenter implements ManagePendingMembersBinder
 		ConfessionGroup group = new ConfessionGroup(group_info);
 
 		if (group.RejectUser(user_info.id, User.GetAuthToken()))
-			view.OnAcceptPendingMembersSuccess(view_holder);
+			view.OnRejectPendingMembersSuccess(view_holder);
 		else
-			this.view.OnAcceptPendingMembersFailure(view_holder, "Failed to reject pending members");
+			this.view.OnRejectPendingMembersFailure(view_holder, "Failed to reject pending members");
 	}
 }
