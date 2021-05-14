@@ -22,7 +22,7 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 
 		int error_code =
 				ValidateUsername(username) | ValidateEmail(email) | ValidatePhone(phone) |
-				ValidatePass(password) | ValidateConfirmPass(password, confirm_pass);
+						ValidatePass(password) | ValidateConfirmPass(password, confirm_pass);
 
 		if (error_code != 0) {
 			view.OnSignUpFailure(error_code);
@@ -52,17 +52,15 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 
 	private int ValidateEmail(String email) {
 
-		if (email.isEmpty()) {
-			til_su_email.setError("Field can't be empty");
-			return false;
-		}
-		if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-			til_su_email.setError("Please enter a valid email");
-			return false;
-		}
+		int error_code = 0;
 
-		til_su_email.setError(null);
-		return true;
+		if (email.isEmpty())
+			error_code |= SignUpBinder.ERROR_EMPTY_EMAIL;
+
+		if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+			error_code |= SignUpBinder.ERROR_INVALID_EMAIL;
+
+		return error_code;
 	}
 
 	private int ValidatePhone(String phone) {
