@@ -11,7 +11,7 @@ class Router
         
         app.use('/user', userRouter); // 
 
-        app.use('/confession', confessionRouter);
+        app.use('/confession', confessionRouter); //
 
         app.use('/post', postRouter);
     }
