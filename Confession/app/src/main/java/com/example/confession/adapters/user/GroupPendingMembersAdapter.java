@@ -1,4 +1,5 @@
 package com.example.confession.adapters.user;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -151,6 +152,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				@Override
 				public void run() {
 					Toast.makeText(context, "Accept Successfully", Toast.LENGTH_SHORT).show();
+					view_holder.itemView.findViewById(R.id.pending_mem_checking).setVisibility(View.GONE);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status).setVisibility(View.VISIBLE);
 				}
 			});
 		}
@@ -169,10 +172,16 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		@Override
 		public void OnRejectPendingMembersSuccess(RecyclerView.ViewHolder view_holder) {
 			((Activity) context).runOnUiThread(new Runnable() {
+				@SuppressLint("ResourceAsColor")
 				@Override
 				public void run() {
 					Toast.makeText(context, "Reject Successfully", Toast.LENGTH_SHORT).show();
+					view_holder.itemView.findViewById(R.id.pending_mem_checking).setVisibility(View.GONE);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status).setVisibility(View.VISIBLE);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status).setBackgroundColor(R.color.light_red);
 
+					((TextView)view_holder.itemView.findViewById(R.id.txt_peding_status)).setText("Rejected");
+					((TextView)view_holder.itemView.findViewById(R.id.txt_peding_status)).setTextColor(R.color.red);
 				}
 			});
 		}
