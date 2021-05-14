@@ -19,7 +19,7 @@
             android:id="@+id/search_gr_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@mipmap/img_avatar_test_round"
+            android:src="@drawable/tree_icon"
             android:contentDescription="@string/description"
             />
     </androidx.cardview.widget.CardView>
