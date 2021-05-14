@@ -128,46 +128,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		});
 	}
 
-	private boolean ValidatePhone() {
-		String phone = su_phone.getText().toString().trim();
-
-		if (phone.isEmpty()) {
-			til_su_phone.setError("Field can't be empty");
-			return false;
-		}
-		if (phone.length() != 10) {
-
-			til_su_phone.setError("We only use VietNam phone format");
-			return false;
-		} else if (!phone.startsWith("03") && !phone.startsWith("05") &&
-				!phone.startsWith("07") && !phone.startsWith("08") &&
-				!phone.startsWith("09")) {
-			til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
-			return false;
-		}
-
-		til_su_phone.setError(null);
-		return true;
-	}
-
-	private boolean ValidatePass() {
-		String pass = su_password.getText().toString();
-
-		if (pass.isEmpty()) {
-			til_su_pass.setError("Field can't be empty");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		if (!Regex.PASSWORD_PATTERN.matcher(pass).matches()) {
-			til_su_pass.setError("Password too weak");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		til_su_pass.setError(null);
-		return true;
-	}
 
 	private boolean ValidateConfirmPass() {
 		String pass = su_password.getText().toString();
@@ -232,19 +192,34 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				else til_su_email.setError(null);
 
 				// PHONE
-				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+				if ((error_code & SignUpBinder.ERROR_EMPTY_PHONE) != 0)
 					til_su_phone.setError("Field can't be empty");
-				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
-					til_su_phone.setError("Field can't be empty");
-				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+				else if ((error_code & SignUpBinder.ERROR_NON_VN_FORMAT) != 0)
 					til_su_phone.setError("We only use VietNam phone format");
-				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+				else if ((error_code & SignUpBinder.ERROR_PHONE_FORMAT) != 0)
 					til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
 				else til_su_phone.setError(null);
 
 				// PASS
+				if ((error_code & SignUpBinder.ERROR_EMPTY_PASS) != 0) {
+					til_su_pass.setError("Field can't be empty");
+					til_su_pass.setErrorIconDrawable(null);
+				} else if ((error_code & SignUpBinder.ERROR_WEAK_PASS) != 0) {
+					til_su_pass.setError("Password too weak");
+					til_su_pass.setErrorIconDrawable(null);
+				} else til_su_pass.setError(null);
 
 				// CONFIRM PASS
+				if ((error_code & SignUpBinder.ERROR_EMPTY_CONFIRM) != 0) {
+					til_su_confirmpass.setError("Field can't be empty");
+					til_su_confirmpass.setErrorIconDrawable(null);
+				} else if ((error_code & SignUpBinder.ERROR_MISMATCH_PASS) != 0) {
+					til_su_confirmpass.setError("Password not match");
+					til_su_confirmpass.setErrorIconDrawable(null);
+				} else {
+					til_su_confirmpass.setError(null);
+					til_su_confirmpass.setErrorIconDrawable(null);
+				}
 
 				// OTHERWISE
 				Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
