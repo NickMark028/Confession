@@ -94,26 +94,26 @@ public class GroupPost {
 	// Done //
 	public int GetReactionCount(String auth_token)
 	{
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", auth_token); // User.GetAuthToken()
-		params.put("postid", this.post_info.id);
-
-		ApiGet ag = new ApiGet("post/reactions", params);
-		Log.d("Thread API: ", "Đang lấy số lượng tim...");
-		ag.run();
-
-		Log.d("Response", ag.response);
-		JSONObject obj = null;
-		try {
-			JSONArray items = new JSONArray(ag.response);
-			if (!items.isNull(0))
-			{
-				return items.length();
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return 0;
+//		HashMap<String, String> params = new HashMap<String, String>();
+//		params.put("token", auth_token); // User.GetAuthToken()
+//		params.put("postid", this.post_info.id);
+//
+//		ApiGet ag = new ApiGet("post/reactions", params);
+//		Log.d("Thread API: ", "Đang lấy số lượng tim...");
+//		ag.run();
+//
+//		Log.d("Response", ag.response);
+//		JSONObject obj = null;
+//		try {
+//			JSONArray items = new JSONArray(ag.response);
+//			if (!items.isNull(0))
+//			{
+//				return items.length();
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return 0;
 	}
 
 	public GroupPostInfo GetPostInfo() {
