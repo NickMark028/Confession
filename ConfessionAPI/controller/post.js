@@ -107,7 +107,7 @@ class PostController
         }
     }
 
-    react(req,res)
+    react(req,res) //
     {
         let token = req.body.token;
         if(Token.isValid(token))
