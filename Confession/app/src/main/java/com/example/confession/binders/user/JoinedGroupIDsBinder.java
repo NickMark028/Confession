@@ -10,5 +10,8 @@ public interface JoinedGroupIDsBinder {
 		void OnGetJoinedGroupIDsFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleGetJoinedGroupIDs();
+	}
 }
