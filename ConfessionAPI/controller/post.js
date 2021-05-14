@@ -225,7 +225,7 @@ class PostController
         }
     }
 
-    isReact(req, res)
+    isReact(req, res) //
     {
         let token=req.query.token;
         let memberid = req.query.memberid;
