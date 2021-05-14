@@ -101,16 +101,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 		private Thread newThread;
 		private boolean waiting_react = false;
 
-//		public ViewHolder(@NonNull View itemView) {
-//			super(itemView);
-//			position = getLayoutPosition();
-//
-//			//  Init view
-//			InitView(itemView);
-//
-//			//Init listener
-//			InitListener();
-//		}
+		public ViewHolder(@NonNull View itemView) {
+			super(itemView);
+			position = getLayoutPosition();
+
+			//  Init view
+			InitView(itemView);
+
+			//Init listener
+			InitListener();
+		}
 
 		public void SendComment(String msg) {
 			GroupPostInfo gpi = posts.get(getLayoutPosition());
