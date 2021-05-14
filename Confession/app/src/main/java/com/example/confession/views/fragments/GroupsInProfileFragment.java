@@ -17,7 +17,7 @@ public class GroupsInProfileFragment extends Fragment {
 
 	private String mParam1;
 	private String mParam2;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
