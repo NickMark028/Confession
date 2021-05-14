@@ -103,7 +103,7 @@ class UserController
         }
     }
 
-    isLogin(token)
+    isLogin(token) // 
     {   
         if(Token.isValid(token))
         {
