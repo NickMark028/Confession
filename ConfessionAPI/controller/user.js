@@ -443,7 +443,7 @@ class UserController
         }
     }
 
-    getOwnComments(req,res)
+    getOwnComments(req,res) //
     {
         let token=req.query.token;
         let postid = req.query.postid;
