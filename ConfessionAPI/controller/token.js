@@ -17,7 +17,7 @@ class TokenController
         }
     }
 
-    isValid(token)
+    isValid(token) //
     {
         try 
         {
