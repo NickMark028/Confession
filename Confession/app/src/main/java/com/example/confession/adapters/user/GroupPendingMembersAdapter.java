@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confession.R;
 import com.example.confession.binders.group.ManagePendingMembersBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.models.data.UserInfo;
 import com.example.confession.presenters.group.ManagePendingMembersPresenter;
 import com.google.android.material.card.MaterialCardView;
 
@@ -159,7 +157,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		}
 
 		@Override
-		public void OnRejectPendingMembersFailure(String error) {
+		public void OnRejectPendingMembersFailure(ManagePendingMembersBinder.View view, String error) {
 
 		}
 	}
