@@ -12,7 +12,7 @@ class UserController
 {
     index(req,res)
     {
-        res.send('User API');
+        res.send('User API')
     }
 
     register(req,res)
