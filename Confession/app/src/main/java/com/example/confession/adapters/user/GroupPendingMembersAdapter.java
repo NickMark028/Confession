@@ -172,7 +172,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				@Override
 				public void run() {
 					Toast.makeText(context, "Reject Successfully", Toast.LENGTH_SHORT).show();
-					
+
 				}
 			});
 		}
