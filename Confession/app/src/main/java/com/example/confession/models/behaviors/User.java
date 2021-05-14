@@ -105,7 +105,7 @@ public class User {
 				BasicUserInfo basic_info = new BasicUserInfo(id, username, name, "");
 				UserInfo info = new UserInfo(basic_info, email, phone);
 				instance = new User(info);
-				auth_token=token;
+				auth_token = token;
 				return instance;
 			}
 		} catch (JSONException e) {
@@ -150,8 +150,7 @@ public class User {
 		return null;
 	}
 
-	public static User Login(String auth_token)
-	{
+	public static User Login(String auth_token) {
 		return null;
 	}
 
@@ -305,13 +304,13 @@ public class User {
 		if (joined_groups == null && created_groups == null)
 			return null;
 
-		if(joined_groups == null){
+		if (joined_groups == null) {
 			joined_groups = new ArrayList<>();
 		}
 
-		try{
+		try {
 			joined_groups.addAll(created_groups);
-		}catch (NullPointerException exc){
+		} catch (NullPointerException exc) {
 			Log.e("NullExc", exc.getMessage());
 		}
 		return joined_groups;
@@ -345,11 +344,11 @@ public class User {
 
 					String id = item.getString("_id");
 					String content = item.getString("content");
-					int createAt =  item.getInt("createAt");
+					int createAt = item.getInt("createAt");
 					// TODO thay thanh gia tri hop le
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
 					BasicUserInfo approver = new BasicUserInfo("", "", "", ""); // khong co luu thong tin nay tren DB.
-					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,0);
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid, shortname, groupname, avatar, 0);
 					JSONArray reactions = item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
 
@@ -371,8 +370,8 @@ public class User {
 
 	public UserState GetState(String group_id) {
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token",auth_token);
-		params.put("groupid",group_id);
+		params.put("token", auth_token);
+		params.put("groupid", group_id);
 		ApiGet ag = new ApiGet("user/states/", params);
 		ag.run();
 		Log.d("State: ", ag.response);
@@ -383,11 +382,11 @@ public class User {
 			boolean isMember = obj.getBoolean("isMember");
 			boolean isPending = obj.getBoolean("isPending");
 			UserState userState;
-			if(isAdmin) userState=UserState.Admin;
-			else if(isMember) userState=UserState.Following;
-			else if (isPending) userState=UserState.Pening;
-			else userState=UserState.NonMember;
-			Log.e("State: ",userState.toString());
+			if (isAdmin) userState = UserState.Admin;
+			else if (isMember) userState = UserState.Following;
+			else if (isPending) userState = UserState.Pening;
+			else userState = UserState.NonMember;
+			Log.e("State: ", userState.toString());
 			return userState;
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -400,8 +399,7 @@ public class User {
 		return false;
 	}
 
-	public User UpdatePassword(String old_pass, String new_pass)
-	{
+	public User UpdatePassword(String old_pass, String new_pass) {
 		User updated_user = null;
 
 		String auth_token = instance.auth_token;
@@ -421,8 +419,8 @@ public class User {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				BasicUserInfo basicUserInfo = new BasicUserInfo(instance.user_info.basic_info.id,instance.user_info.basic_info.username,fullname,instance.user_info.basic_info.avatar);
-				UserInfo userInfo = new UserInfo(basicUserInfo,instance.user_info.email,instance.user_info.phone);
+				BasicUserInfo basicUserInfo = new BasicUserInfo(instance.user_info.basic_info.id, instance.user_info.basic_info.username, fullname, instance.user_info.basic_info.avatar);
+				UserInfo userInfo = new UserInfo(basicUserInfo, instance.user_info.email, instance.user_info.phone);
 				updated_user = new User(userInfo);
 			}
 		} catch (JSONException e) {
@@ -457,8 +455,8 @@ public class User {
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				BasicUserInfo basicUserInfo = new BasicUserInfo(user_info.basic_info.id,user_info.basic_info.username,user_info.basic_info.name,user_info.basic_info.avatar);
-				UserInfo userInfo = new UserInfo(basicUserInfo,user_info.email,user_info.phone);
+				BasicUserInfo basicUserInfo = new BasicUserInfo(user_info.basic_info.id, user_info.basic_info.username, user_info.basic_info.name, user_info.basic_info.avatar);
+				UserInfo userInfo = new UserInfo(basicUserInfo, user_info.email, user_info.phone);
 				updated_user = new User(userInfo);
 			}
 		} catch (JSONException e) {
