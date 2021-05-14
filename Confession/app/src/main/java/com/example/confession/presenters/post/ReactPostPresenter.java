@@ -14,7 +14,9 @@ public class ReactPostPresenter implements ReactPostBinder.Presenter {
 
     @Override
     public void HandleReactPost(GroupPostInfo postInfo) {
+
         GroupPost post = new GroupPost(postInfo);
+
         boolean check = post.React(User.GetInstance().GetID(), User.GetAuthToken());
         if (check != true) {
             view.OnReactPostSuccess(check);

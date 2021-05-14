@@ -20,5 +20,7 @@ public class SignOutPresenter implements SignOutBinder.Presenter {
 		SharedPreferences.Editor editor = share.edit();
 		editor.putString("token", "");
 		editor.apply();
+
+		view.OnSignOutSuccess();
 	}
 }

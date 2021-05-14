@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,9 +42,6 @@ import com.example.confession.views.bottomsheet.GroupAdminManagePostBottomSheet;
 import com.example.confession.views.fragments.GroupFragment;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 		implements
@@ -106,7 +101,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 		private Thread newThread;
 		private boolean waiting_react = false;
 
-
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			position = getLayoutPosition();
@@ -131,6 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
 		@SuppressLint("UseCompatLoadingForDrawables")
 		public void InitView(View view) {
+
 			edit_txt_cmt = view.findViewById(R.id.edit_txt_cmt);
 			txt_post_cmt = view.findViewById(R.id.txt_post_cmt);
 			txt_group_name = view.findViewById(R.id.txt_group_name);
@@ -156,7 +151,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 			if (!user_role.equals("ROLE_ADMIN")) {
 				iv_admin_manage_btn.setVisibility(View.GONE);
 			}
-
 		}
 
 		public void InitData(int position) {
@@ -168,20 +162,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 			txt_content.setText(post_info.content);
 			txt_likes.setText(post_info.reaction_count + " likes");
 
-
-			AnimatedVectorDrawable drawable;
-			if (post_info.react){
-				drawable = fill_heart;
-			}
-			else {
-				drawable = empty_heart;
-			}
-			iv_react.setImageDrawable(drawable);
-			drawable.start();
-
+			FillHeartAnimate(post_info.react);
 		}
 
 		public void InitListener() {
+
 			txt_group_name.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -203,9 +188,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 					GroupPostInfo post = posts.get((int) getLayoutPosition());
 
 					try {
-//						if (newThread != null && newThread.isAlive()) {
-//							newThread.interrupt();
-//						}
+						if (newThread != null && newThread.isAlive()) {
+							newThread.interrupt();
+						}
 
 						newThread = new Thread(new Runnable() {
 							@Override
@@ -217,10 +202,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
 					} catch (Exception e) {Log.e("In New Thread Exception", e.getMessage());}
 					finally {
-						HeartAnimate();
 
 						post.reaction_count += post.react ? -1 : +1;
 						post.react = !post.react;
+						FillHeartAnimate(post.react);
+
 						txt_likes.setText((post.reaction_count + " likes"));
 					}
 				}
@@ -253,6 +239,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 			feed_content_layout.setOnClickListener(new DoubleClickListener() {
 				@Override
 				public void onDoubleClick() {
+
 					heart_cover.setAlpha(0.70f);
 					if (drawable instanceof AnimatedVectorDrawableCompat) {
 						avd = (AnimatedVectorDrawableCompat) drawable;
@@ -326,8 +313,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 			});
 		}
 
-		private void HeartAnimate() {
-			AnimatedVectorDrawable drawable = posts.get(getLayoutPosition()).react ? empty_heart : fill_heart;
+		private void FillHeartAnimate(boolean fill) {
+
+			AnimatedVectorDrawable drawable = fill ? fill_heart : empty_heart;
 			iv_react.setImageDrawable(drawable);
 			drawable.start();
 		}

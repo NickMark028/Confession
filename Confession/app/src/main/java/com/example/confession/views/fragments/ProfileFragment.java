@@ -292,7 +292,7 @@ public class ProfileFragment extends Fragment
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
-		
+
 	}
 
 	@Override
@@ -319,7 +319,7 @@ public class ProfileFragment extends Fragment
 	@Override
 	public void OnSignOutSuccess() {
 
-		Intent myIntent = new Intent(getContext().getApplicationContext(), SignInActivity.class);
+		Intent myIntent = new Intent(getActivity().getApplicationContext(), SignInActivity.class);
 		startActivity(myIntent);
 		getActivity().finish();
 	}
