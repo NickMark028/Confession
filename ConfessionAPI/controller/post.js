@@ -162,7 +162,7 @@ class PostController
         }
     }
 
-    getReactions(req,res)
+    getReactions(req,res) //
     {
         let token=req.query.token;
         let postid = req.query.postid;
