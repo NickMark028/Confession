@@ -148,7 +148,7 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	//	public boolean getPosts(Context context)
+//		public boolean getPosts(Context context)
 //	{
 //		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
 //		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
@@ -177,32 +177,32 @@ public class ConfessionGroup {
 //
 //	public boolean getMembers(Context context)
 //	{
-////		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
-////		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
-////			@Override
-////			public void getResponse(String response) throws JSONException {
-////				JSONObject obj = new JSONObject(response);
-////				if(!obj.has("error"))
-////				{
-////					JSONArray arr = obj.getJSONArray("members");
-////					for(int i=0;i<arr.length();i++)
-////					{
-////						JSONObject member = arr.getJSONObject(i);
-////						String username = member.getString("username");
-////						String fullname = member.getString("fullname");
-////						String avatar = member.getString("avatar"); // Xem lại tên thuộc tính.
-////						BasicUserInfo meminfo = new BasicUserInfo(username,fullname,avatar);
-////						members.add(meminfo);
-////					}
-////					Log.d("Get members: ",".");
-////				}
-////				else
-////				{
-////					String error = obj.getString("error");
-////					Log.d("Error: ",error);
-////				}
-////			}
-////		});
+//		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
+//		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
+//			@Override
+//			public void getResponse(String response) throws JSONException {
+//				JSONObject obj = new JSONObject(response);
+//				if(!obj.has("error"))
+//				{
+//					JSONArray arr = obj.getJSONArray("members");
+//					for(int i=0;i<arr.length();i++)
+//					{
+//						JSONObject member = arr.getJSONObject(i);
+//						String username = member.getString("username");
+//						String fullname = member.getString("fullname");
+//						String avatar = member.getString("avatar"); // Xem lại tên thuộc tính.
+//						BasicUserInfo meminfo = new BasicUserInfo(username,fullname,avatar);
+//						members.add(meminfo);
+//					}
+//					Log.d("Get members: ",".");
+//	}
+//				else
+//	{
+//		String error = obj.getString("error");
+//		Log.d("Error: ",error);
+//	}
+//}
+//		});
 //		return false;
 //	}
 
