@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				newT.start();
 
 				//Init Dialog
-				InitProgressDialog("Please wait...");
+				InitProgressDialog("Please wait ...");
 			}
 		});
 
@@ -209,7 +209,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				}
 
 				// OTHERWISE
-				Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+				if ((error_code & SignUpBinder.ERROR_FAILED) != 0)
+					Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
 			}
 		});
 	}
