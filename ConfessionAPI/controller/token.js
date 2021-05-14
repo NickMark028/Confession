@@ -8,7 +8,7 @@ class TokenController
         return token;
     }
 
-    parseToken(token)
+    parseToken(token) //
     {
         if(this.isValid(token))
         {
