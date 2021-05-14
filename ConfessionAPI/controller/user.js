@@ -644,7 +644,7 @@ class UserController
         }
     }
 
-    getPreMemberId(req,res)
+    getPreMemberId(req,res) //
     {
         let userid = req.query.userid;
         let groupid = req.query.groupid;
