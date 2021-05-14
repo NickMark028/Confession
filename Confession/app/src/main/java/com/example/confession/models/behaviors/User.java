@@ -438,15 +438,32 @@ public class User {
 
 	// TODO
 	public User UpdateUserInfo(UserInfo user_info) {
-
 		User updated_user = null;
 
-		// Phong
-		// BEGIN
 		String auth_token = instance.auth_token;
 
-//		updated_user = ...
-		// END
+		HashMap params = new HashMap<String, String>();
+		params.put("token", auth_token);
+		params.put("fullname", user_info.basic_info.name);
+		params.put("email", user_info.email);
+		params.put("phone", user_info.phone);
+		ApiPost ap = new ApiPost("user/profile3", params);
+
+		Log.d("Thread API: ", "Đang cập nhật thông tin cá nhân...");
+		ap.run();
+		Log.d("Response", ap.response);
+
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ap.response);
+			if (!obj.has("error")) {
+				BasicUserInfo basicUserInfo = new BasicUserInfo(user_info.basic_info.id,user_info.basic_info.username,user_info.basic_info.username,user_info.basic_info.avatar);
+				UserInfo userInfo = new UserInfo(basicUserInfo,user_info.email,user_info.phone);
+				updated_user = new User(userInfo);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 		// Update singleton
 		if (updated_user != null)
