@@ -85,8 +85,8 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
 
-        llm.setReverseLayout(true);
-        llm.setStackFromEnd(true);
+//        llm.setReverseLayout(true);
+//        llm.setStackFromEnd(true);
 
         rv_pending_item.setLayoutManager(llm);
 
@@ -102,15 +102,13 @@ public class GroupPendingMembersActivity extends AppCompatActivity implements Ge
     public void InitListener() {
         iv_pending_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { finish();
-
-            }
+            public void onClick(View v) { finish(); }
         });
 
         txt_accept_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(GroupPendingMembersActivity.this, "New feature", Toast.LENGTH_SHORT).show();
             }
         });
 

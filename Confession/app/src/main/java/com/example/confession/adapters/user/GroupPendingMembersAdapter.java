@@ -123,7 +123,20 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 			reject_pending_members.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							presenter.HandleRejectPendingMembers(
+									groupPendingUser.get(getLayoutPosition()),
+									group_info
+							);
+						}
+					}).start();
 
+
+					accept_pending_member.setVisibility(View.GONE);
+					reject_pending_members.setVisibility(View.GONE);
+					pending_mem_checking.setVisibility(View.VISIBLE);
 				}
 			});
 
@@ -136,8 +149,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				@Override
 				public void run() {
 					Toast.makeText(context, "Accept Successfully", Toast.LENGTH_SHORT).show();
-//                groupPendingUser.remove(removePosition);
-//                groupPendingUser.notifyAll();
 				}
 			});
 		}
@@ -148,19 +159,30 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				@Override
 				public void run() {
 					removePosition = -1;
-					Toast.makeText(context, "Failed to accpect", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "Failed to accept this user", Toast.LENGTH_SHORT).show();
 				}
 			});
 		}
 
 		@Override
 		public void OnRejectPendingMembersSuccess() {
-
+			((Activity) context).runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					Toast.makeText(context, "Reject Successfully", Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 
 		@Override
 		public void OnRejectPendingMembersFailure(String error) {
-
+			((Activity) context).runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					removePosition = -1;
+					Toast.makeText(context, "Failed to reject this user", Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 	}
 }
