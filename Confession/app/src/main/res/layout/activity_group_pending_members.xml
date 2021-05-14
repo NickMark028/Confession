@@ -46,14 +46,14 @@
                 android:text="Accept all"
                 android:textAlignment="textEnd"
                 android:textColor="@color/green"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="invisible" />
 
             <ProgressBar
                 android:id="@+id/pending_mem_loading"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -61,8 +61,8 @@
             android:id="@+id/srl_refresh_pending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_pending_item"
                 android:layout_width="match_parent"
@@ -70,9 +70,6 @@
                 android:layout_weight="1"
                 android:divider="@color/transparent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
 
 
     </LinearLayout>
