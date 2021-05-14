@@ -196,7 +196,7 @@ class PostController
     }
 
 
-    removePost(req,res)
+    removePost(req,res) //
     {
         let token = req.body.token;
         let postid = req.body.postid;
