@@ -1,7 +1,6 @@
 package com.example.confession.views.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,7 @@ import com.example.confession.R;
 import com.example.confession.binders.user.CreatedGroupsBinder;
 import com.example.confession.binders.user.FollowedGroupsBinder;
 import com.example.confession.binders.user.SignOutBinder;
-import com.example.confession.binders.user.SignOutPresenter;
+import com.example.confession.presenters.user.SignOutPresenter;
 import com.example.confession.listener.BottomSheetCreateNewListener;
 import com.example.confession.listener.BottomSheetLogoutListener;
 import com.example.confession.models.behaviors.User;
@@ -37,8 +36,6 @@ import com.example.confession.views.bottomsheet.ProfileCreateNewBottomSheet;
 import com.example.confession.views.bottomsheet.ProfileUsernameBottomSheet;
 
 import java.util.ArrayList;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment
 		implements

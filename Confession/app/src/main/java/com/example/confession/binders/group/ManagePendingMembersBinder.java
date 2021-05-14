@@ -1,25 +1,24 @@
 package com.example.confession.binders.group;
 
-import com.example.confession.models.behaviors.ConfessionGroup;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.confession.models.data.BasicUserInfo;
 import com.example.confession.models.data.ConfessionGroupInfo;
-
-import java.util.ArrayList;
 
 public interface ManagePendingMembersBinder {
 
 	interface View {
 
-		void OnAcceptPendingMembersSuccess();
-		void OnAcceptPendingMembersFailure(String error);
+		void OnAcceptPendingMembersSuccess(RecyclerView.ViewHolder view_holder);
+		void OnAcceptPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error);
 
-		void OnRejectPendingMembersSuccess();
-		void OnRejectPendingMembersFailure(String error);
+		void OnRejectPendingMembersSuccess(RecyclerView.ViewHolder view_holder);
+		void OnRejectPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error);
 	}
 
 	interface Presenter {
 
-		void HandleAcceptPendingMembers(BasicUserInfo user_info, ConfessionGroupInfo group_info);
-		void HandleRejectPendingMembers(BasicUserInfo user_info, ConfessionGroupInfo group_info);
+		void HandleAcceptPendingMembers(BasicUserInfo user_info, ConfessionGroupInfo group_info, RecyclerView.ViewHolder view_holder);
+		void HandleRejectPendingMembers(BasicUserInfo user_info, ConfessionGroupInfo group_info, RecyclerView.ViewHolder view_holder);
 	}
 }

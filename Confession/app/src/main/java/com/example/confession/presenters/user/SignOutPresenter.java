@@ -1,7 +1,9 @@
-package com.example.confession.binders.user;
+package com.example.confession.presenters.user;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+
+import com.example.confession.binders.user.SignOutBinder;
 
 import static android.content.Context.MODE_PRIVATE;
 
