@@ -224,6 +224,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 					til_su_username.setErrorIconDrawable(null);
 				} else til_su_username.setError(null);
 
+				// EMAIL
+				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+					til_su_email.setError("Field can't be empty");
+				else if ((error_code & SignUpBinder.ERROR_INVALID_EMAIL) != 0)
+					til_su_email.setError("Please enter a valid email");
+				else til_su_email.setError(null);
+
 				
 
 				// OTHERWISE
