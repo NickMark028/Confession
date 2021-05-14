@@ -288,7 +288,7 @@ class UserController
         }
     }
 
-    getConfessionByID(req, res)
+    getConfessionByID(req, res) //
     {
         let confession = req.query.conf;
         Confession.find(
