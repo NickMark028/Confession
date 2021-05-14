@@ -231,7 +231,20 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 					til_su_email.setError("Please enter a valid email");
 				else til_su_email.setError(null);
 
-				
+				// PHONE
+				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+					til_su_phone.setError("Field can't be empty");
+				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+					til_su_phone.setError("Field can't be empty");
+				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+					til_su_phone.setError("We only use VietNam phone format");
+				else if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0)
+					til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
+				else til_su_phone.setError(null);
+
+				// PASS
+
+				// CONFIRM PASS
 
 				// OTHERWISE
 				Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
