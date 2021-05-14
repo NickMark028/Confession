@@ -425,10 +425,10 @@ public class User {
 		// END
 
 		// Update singleton
-//		if (updated_user != null)
-//			instance = updated_user;
-//
-//		return updated_user;
+		if (updated_user != null)
+			instance = updated_user;
+
+		return updated_user;
 	}
 
 	@Override
