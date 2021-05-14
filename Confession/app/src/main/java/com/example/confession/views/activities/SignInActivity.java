@@ -57,12 +57,6 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 		google_button = findViewById(R.id.google_button);
 		txt_su_click = findViewById(R.id.txt_su_click);
 		forgot_pass_click = findViewById(R.id.forgot_pass_click);
-
-		// Todo Debug
-
-		//admin - 1
-		si_username.setText("tphong175");
-		si_password.setText("aA1%aA1");
 	}
 
 	private void InitProgressDialog(String msg) {

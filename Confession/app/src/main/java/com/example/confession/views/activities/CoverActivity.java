@@ -41,19 +41,20 @@ public class CoverActivity extends Activity implements SignInBinder.View {
 
 		setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-		share = getSharedPreferences("USERDATA",MODE_PRIVATE);
+		share = getSharedPreferences("USERDATA", MODE_PRIVATE);
 		token = share.getString("token", "");
 
 //		Log.e("token cua t dau ???", token);
 
-		if (token.length()<10) {
+		if (token.length() < 10) {
 			mWait.postDelayed(new Runnable() {
 				@Override
 				public void run() {
 					StartLogin();
 				}
-			}, 3000);    // TODO
-		} else {
+			}, 3000);
+		}
+		else {
 			thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
