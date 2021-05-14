@@ -12,8 +12,5 @@ public interface ForgotPasswordBinder {
         void OnResetPasswordFailure(String error);
     }
 
-    interface Presenter {
 
-        void HandleSendEmailToResetPassword(String email);
-    }
 }
