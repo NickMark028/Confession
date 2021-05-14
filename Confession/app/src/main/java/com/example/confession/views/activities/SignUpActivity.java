@@ -3,18 +3,20 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.binders.SignUpBinder;
-import com.example.confession.presenters.SignUpPresenter;
+import com.example.confession.binders.user.SignInBinder;
+import com.example.confession.binders.user.SignUpBinder;
+import com.example.confession.presenters.user.SignUpPresenter;
+import com.example.confession.utilities.Regex;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -132,6 +134,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 			return false;
 		}
 
+		if(!Regex.USERNAME_PATTERN.matcher(username).matches()){
+			til_su_username.setError("Please use a valid username");
+			til_su_username.setErrorIconDrawable(null);
+			return false;
+		}
+
 		til_su_username.setError(null);
 		return true;
 	}
@@ -143,6 +151,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 			til_su_email.setError("Field can't be empty");
 			return false;
 		}
+		if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+			til_su_email.setError("Please enter a valid email");
+			return false;
+		}
+
 		til_su_email.setError(null);
 		return true;
 	}
@@ -175,6 +188,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 
 		if(pass.isEmpty()){
 			til_su_pass.setError("Field can't be empty");
+			til_su_pass.setErrorIconDrawable(null);
+			return false;
+		}
+
+		if(!Regex.PASSWORD_PATTERN.matcher(pass).matches()){
+			til_su_pass.setError("Password too weak");
 			til_su_pass.setErrorIconDrawable(null);
 			return false;
 		}
@@ -226,9 +245,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 			}
 		});
 
-		Intent myIntent = new Intent(this, SignInActivity.class);
-		startActivity(myIntent);
-
 		finish();
 	}
 
@@ -237,7 +253,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		newT.interrupt();
 		progressDialog.dismiss();
 
-		// TODO Add error code display
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {

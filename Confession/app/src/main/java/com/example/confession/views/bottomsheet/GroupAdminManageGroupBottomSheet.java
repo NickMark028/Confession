@@ -11,18 +11,30 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.confession.R;
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetManageGroupListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment {
-    BottomSheetListener mListener;
+    BottomSheetManageGroupListener mListener;
 
     private AppCompatButton group_admin_join_request_btn,
             group_admin_member_btn,
             group_admin_leave_group_btn,
             group_admin_del_group_btn,
             group_admin_pending_post_btn;
-    private int result = 0;
+
+    /*
+       -1 -    Default, do nothing
+        0 -    Join Resquests
+        1 -    Members
+        2 -    Delete Groups
+    */
+    private int result = -1;
+
+    public GroupAdminManageGroupBottomSheet(BottomSheetManageGroupListener listener){
+        mListener = listener;
+    }
 
     @Override
     public int getTheme() {
@@ -32,7 +44,7 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bottom_sheet_group_admin_manage_post,container,false);
+        View view = inflater.inflate(R.layout.bottom_sheet_group_admin_manage_group,container,false);
 
         InitView(view);
         InitListener();
@@ -43,9 +55,9 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
     public void InitView(View view) {
         group_admin_join_request_btn = view.findViewById(R.id.group_admin_join_request_btn);
         group_admin_member_btn = view.findViewById(R.id.group_admin_member_btn);
-        group_admin_leave_group_btn = view.findViewById(R.id.group_admin_leave_group_btn);
+//      group_admin_leave_group_btn = view.findViewById(R.id.group_admin_leave_group_btn);
         group_admin_del_group_btn = view.findViewById(R.id.group_admin_del_group_btn);
-        group_admin_pending_post_btn = view.findViewById(R.id.group_admin_pending_post_btn);
+        //group_admin_pending_post_btn = view.findViewById(R.id.group_admin_pending_post_btn);
     }
 
     public void InitListener(){
@@ -53,55 +65,55 @@ public class GroupAdminManageGroupBottomSheet extends BottomSheetDialogFragment 
             @Override
             public void onClick(View v) {
                 result = 0;
-                mListener.onButtonClicked("action_admin_join_request");
-            }
-        });
-
-        group_admin_pending_post_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result = 1;
-                mListener.onButtonClicked("action_admin_pending_post");
+                mListener.onButtonAdminClicked(result);
             }
         });
 
         group_admin_member_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = 2;
-                mListener.onButtonClicked("action_admin_member");
-            }
-        });
-
-        group_admin_leave_group_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result = 3;
-                mListener.onButtonClicked("action_admin_leave_group");
+                result = 1;
+                mListener.onButtonAdminClicked(result);
             }
         });
 
         group_admin_del_group_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = 4;
-                mListener.onButtonClicked("action_admin_del_group");
+                result = 2;
+                mListener.onButtonAdminClicked(result);
             }
         });
 
+//        group_admin_leave_group_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                result = 2;
+//                mListener.onButtonClicked("action_admin_leave_group");
+//            }
+//        });
 
+
+
+//        group_admin_pending_post_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                result = 1;
+//                mListener.onButtonClicked("action_admin_pending_post");
+//            }
+//        });
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        try {
-            mListener = (BottomSheetListener) context;
-        }
-        catch(ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
-        }
+//        try {
+//            mListener = (BottomSheetManageGroupListener) context;
+//        }
+//        catch(ClassCastException e){
+//            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
+//        }
 
     }
 

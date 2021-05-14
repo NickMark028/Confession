@@ -8,39 +8,46 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupSearchAdapter;
-import com.example.confession.binders.JoinedGroupsTabBinder;
-import com.example.confession.binders.SearchTabBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.adapters.group.GroupSearchAdapter;
+import com.example.confession.binders.group.SearchGroupBinder;
+import com.example.confession.binders.user.JoinedGroupIDsBinder;
+import com.example.confession.presenters.user.JoinedGroupsIDPresenter;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.JoinedGroupsTabPresenter;
-import com.example.confession.presenters.SearchGroupPresenter;
+import com.example.confession.presenters.group.SearchGroupPresenter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Set;
 
-public class GroupSearchFragment extends Fragment implements SearchTabBinder.View {
+public class GroupSearchFragment extends Fragment implements SearchGroupBinder.View, JoinedGroupIDsBinder.View {
 
-	private final SearchTabBinder.Presenter presenter;
+	private final SearchGroupBinder.Presenter search_presenter;
+	private final JoinedGroupIDsBinder.Presenter joined_presenter;
 
 	androidx.appcompat.widget.SearchView txt_search;
 	TextView txt_search_result;
 	ListView lv_search_item;
+	LinearLayout ll_progress_bar;
 
-	ArrayList<ConfessionGroupInfo> list_group;
-	Set<String> joined_groups;
-	GroupSearchAdapter mGroupSearchAdapter;
+	private ArrayList<ConfessionGroupInfo> list_group;
+	private Set<String> joined_groups;
+	private GroupSearchAdapter mGroupSearchAdapter;
+	private String searchQuery;
+	private Thread newThread;
 
 	public GroupSearchFragment() {
 
-		presenter = new SearchGroupPresenter(this);
-		presenter.HandleGetJoinedGroups();
+		search_presenter = new SearchGroupPresenter(this);
+		joined_presenter = new JoinedGroupsIDPresenter(this);
+
+		//joined_groups = new HashSet<>();
+		//new Thread(() -> joined_presenter.HandleGetJoinedGroupIDs()).start();
 	}
 
 	@Override
@@ -62,14 +69,16 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 
 	private void InitFragment(View view) {
 
+		ll_progress_bar = view.findViewById(R.id.ll_progress_bar);
 		txt_search = view.findViewById(R.id.txt_search);
 		txt_search_result = view.findViewById(R.id.txt_search_result);
 		lv_search_item = view.findViewById(R.id.lv_search_group_item);
 
 		list_group = new ArrayList<>();
-		joined_groups = new HashSet<>();
 		mGroupSearchAdapter = new GroupSearchAdapter(getContext(), list_group, joined_groups);
 		lv_search_item.setAdapter(mGroupSearchAdapter);
+
+		ll_progress_bar.setVisibility(View.GONE);
 	}
 
 	private void InitListener() {
@@ -89,11 +98,26 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		});
 
 		txt_search.setOnClickListener(v -> txt_search.onActionViewExpanded());
+
 		txt_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
+				searchQuery = query;
+				ll_progress_bar.setVisibility(View.VISIBLE);
 
-				presenter.HandleFindGroup(query);
+				if(newThread!=null && newThread.isAlive()){
+					newThread.interrupt();
+				}
+
+				newThread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						search_presenter.HandleFindGroup(query);
+					}
+				});
+
+				newThread.start();
+
 				return false;
 			}
 
@@ -101,7 +125,6 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 			public boolean onQueryTextChange(String newText) {
 
 				if (newText.isEmpty()) {
-					txt_search_result.setText(String.format("No Results", newText));
 					list_group.clear();
 					UpdateListView();
 					return true;
@@ -109,50 +132,49 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 
 				txt_search_result.setText(String.format("Searching for %s", newText));
 
-				//presenter.HandleFindGroup(newText);
 				return true;
 			}
-//			@Override
-//			public boolean onQueryTextSubmit(String query) {
-//
-//				UpdateListView();
-//				txt_search_result.setText(String.format("Results for %s", query));
-//				Toast.makeText(getActivity(), "Search found " + search_item.size(), Toast.LENGTH_SHORT).show();
-//
-//				return false;
-//			}
-//
-//			@Override
-//			public boolean onQueryTextChange(String newText) {
-//
-//				if (newText.isEmpty()) {
-//					txt_search_result.setText(String.format("No Results", newText));
-//					search_item.clear();
-//					UpdateListView();
-//					return true;
-//				}
-//
-//				txt_search_result.setText(String.format("Searching for %s", newText));
-//
-//				if (search_item.size() > 0) {
-//					search_item.clear();
-//				}
-//				return true;
-//			}
+
 		});
 	}
 
 	private void UpdateListView() {
+		ll_progress_bar.setVisibility(View.GONE);
+		lv_search_item.setVisibility(View.GONE);
 
-		Runnable run = new Runnable() {
+		txt_search_result.setText(String.format("No Results"));
+
+		mGroupSearchAdapter.notifyDataSetChanged();
+		lv_search_item.invalidateViews();
+		lv_search_item.refreshDrawableState();
+	}
+
+	private void UpdateListViewOnUIThread() {
+		if(getActivity() == null){ return; }
+
+		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				ll_progress_bar.setVisibility(View.GONE);
+				lv_search_item.setVisibility(View.VISIBLE);
+
+				txt_search_result.setText(String.format("Results for %s", searchQuery));
+
 				mGroupSearchAdapter.notifyDataSetChanged();
 				lv_search_item.invalidateViews();
 				lv_search_item.refreshDrawableState();
 			}
-		};
-		run.run();
+		});
+
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if(newThread!=null && newThread.isAlive()){
+			newThread.interrupt();
+		}
 	}
 
 	@Override
@@ -161,33 +183,34 @@ public class GroupSearchFragment extends Fragment implements SearchTabBinder.Vie
 		list_group.clear();
 		list_group.addAll(groups);
 
-		UpdateListView();
+		UpdateListViewOnUIThread();
 	}
 
 	@Override
 	public void OnFindGroupFailure(String error) {
-
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getContext(), "Failed to find group", Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 
 	@Override
-	public void OnGetJoinedGroupsSuccess(Set<String> joined_groups) {
-
+	public void OnGetJoinedGroupIDsSuccess(Collection<String> groups) {
 		this.joined_groups.clear();
-		this.joined_groups.addAll(joined_groups);
+		this.joined_groups.addAll(groups);
+
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				//Do sth in UI
+			}
+		});
 	}
 
 	@Override
-	public void OnGetJoinedGroupsFailure(String error) {
-
+	public void OnGetJoinedGroupIDsFailure(String error) {
+		// Do nothing
 	}
-
-//	@Override
-//	public void OnJoinGroupSuccess(ConfessionGroup group) {
-//
-//	}
-//
-//	@Override
-//	public void OnJoinGroupFailure(String error) {
-//
-//	}
 }

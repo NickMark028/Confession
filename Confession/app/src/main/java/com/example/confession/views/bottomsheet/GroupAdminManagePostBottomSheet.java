@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.confession.R;
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class GroupAdminManagePostBottomSheet extends BottomSheetDialogFragment {

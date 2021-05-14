@@ -1,62 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.PostFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="5dp"
             android:layout_marginBottom="1dp"
-            app:cardCornerRadius="0dp">
+            app:cardCornerRadius="0dp"
+            app:cardElevation="5dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 android:text="@string/app_name"
                 android:textAlignment="center"
-                android:textSize="26sp"
-                android:fontFamily="@font/nunito_semi_bold"
                 android:textColor="@color/main_theme"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:textSize="26sp" />
         </com.google.android.material.card.MaterialCardView>
-        <ScrollView
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_posts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                android:orientation="vertical">
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            tools:ignore="UselessParent">-->
 
-                <fragment
-                    android:id="@+id/temp_1"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
 
-                <fragment
-                    android:id="@+id/temp_2"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+<!--                android:orientation="vertical">-->
 
-                <fragment
-                    android:id="@+id/temp_3"
-                    class="com.example.confession.views.fragments.PostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+<!--                <fragment-->
+<!--                    android:id="@+id/temp_1"-->
+<!--                    class="com.example.confession.views.fragments.PostFragment"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
 
-            </LinearLayout>
+<!--                <fragment-->
+<!--                    android:id="@+id/temp_2"-->
+<!--                    class="com.example.confession.views.fragments.PostFragment"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
 
-        </ScrollView>
+<!--                <fragment-->
+<!--                    android:id="@+id/temp_3"-->
+<!--                    class="com.example.confession.views.fragments.PostFragment"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </ScrollView>-->
     </LinearLayout>
 </FrameLayout>
