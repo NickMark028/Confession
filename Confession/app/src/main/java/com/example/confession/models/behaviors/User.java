@@ -235,27 +235,27 @@ public class User {
 		ag.run();
 
 		Log.d("Response", ag.response);
-
-		try {
-			JSONArray items = new JSONArray(ag.response);
-			if (!items.isNull(0)) {
-
-				for (int i = 0; i < items.length(); i++) {
-					JSONObject item = items.getJSONObject(i);
-					String id = item.getString("_id");
-					String shortname = item.getString("shortname");
-					String groupname = item.getString("groupname");
-					String avatar = item.getString("avatar");
-
-					// TODO sua lai tham so member_count thay vi de la 0
-					JSONArray members = item.getJSONArray("members"); // moi them
-					int member_count = members.length(); // moi them
-
-					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
-					groups.add(group_info);
-				}
-				return groups;
-			}
+//
+//		try {
+//			JSONArray items = new JSONArray(ag.response);
+//			if (!items.isNull(0)) {
+//
+//				for (int i = 0; i < items.length(); i++) {
+//					JSONObject item = items.getJSONObject(i);
+//					String id = item.getString("_id");
+//					String shortname = item.getString("shortname");
+//					String groupname = item.getString("groupname");
+//					String avatar = item.getString("avatar");
+//
+//					// TODO sua lai tham so member_count thay vi de la 0
+//					JSONArray members = item.getJSONArray("members"); // moi them
+//					int member_count = members.length(); // moi them
+//
+//					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
+//					groups.add(group_info);
+//				}
+//				return groups;
+//			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
