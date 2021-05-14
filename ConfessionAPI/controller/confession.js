@@ -443,7 +443,7 @@ class UserController
         })
     }
 
-    search(req,res)
+    search(req,res) //
     {
         let keyword = req.query.keyword;
         Confession.find({shortname:{$regex: keyword, $options: "i"}},(err,data)=>{
