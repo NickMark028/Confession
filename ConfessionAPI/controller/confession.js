@@ -156,7 +156,7 @@ class UserController
         }
     }
 
-    addMember(req, res)
+    addMember(req, res) //
     {
         let token = req.body.token;
         let confession = req.body.confession;
