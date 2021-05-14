@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.confession.R;
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class UserLeaveGroupBottomSheet extends BottomSheetDialogFragment{

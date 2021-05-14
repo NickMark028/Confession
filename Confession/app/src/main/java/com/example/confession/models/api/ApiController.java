@@ -26,105 +26,103 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ApiController {
-    String apiURL = "https://confessionapi2021.herokuapp.com/";
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
-            if (first)
-                first = false;
-            else
-                result.append("&");
 
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-        }
-        return result.toString();
-    }
+	final String apiURL = "https://confessionapi2021.herokuapp.com/";
+	//final String apiURL = "http://10.0.2.2:3000/";
+	private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
 
+	    StringBuilder result = new StringBuilder();
+		boolean first = true;
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			if (first)
+				first = false;
+			else
+				result.append("&");
 
-    public String post(String path, HashMap<String, String> postDataParams) {
-        String requestURL = this.apiURL + path;
-        URL url;
-        String response = "";
-        try {
-            url = new URL(requestURL);
+			result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+			result.append("=");
+			result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+		}
+		return result.toString();
+	}
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+	public String post(String path, HashMap<String, String> postDataParams) {
 
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
-            writer.flush();
-            writer.close();
-            os.close();
-            int responseCode=conn.getResponseCode();
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                    response+=line;
-                }
-            }
-            else {
-                response="";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return response;
-    }
+		String requestURL = this.apiURL + path;
+		URL url;
+		String response = "";
+		try {
+			url = new URL(requestURL);
 
-    public String get(String path,HashMap<String,String> query)
-    {
-        String response="";
-        String fullurl = this.apiURL + path;
-        int i=1;
-       for (Map.Entry<String, String> item: query.entrySet()) {
-            if(i==1)
-            {
-                Log.d("1111111","");
-                fullurl=fullurl+"?"+item.getKey()+"="+item.getValue();
-            }
-            else
-            {
-                fullurl=fullurl+"&"+item.getKey()+"="+item.getValue();
-            }
-            i++;
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(15000);
+			conn.setConnectTimeout(15000);
+			conn.setRequestMethod("POST");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
 
-        }
-        Log.d("fullurl", fullurl);
+			OutputStream os = conn.getOutputStream();
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+			writer.write(getPostDataString(postDataParams));
+			writer.flush();
+			writer.close();
+			os.close();
+			int responseCode = conn.getResponseCode();
+			if (responseCode == HttpsURLConnection.HTTP_OK) {
+				String line;
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = br.readLine()) != null) {
+					response += line;
+				}
+			} else {
+				response = "";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
 
-        URL url = null;
-        try {
-            url = new URL(fullurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
+	public String get(String path, HashMap<String, String> query) {
+		String response = "";
+		String fullurl = this.apiURL + path;
+		int i = 1;
+		for (Map.Entry<String, String> item : query.entrySet()) {
+			if (i == 1) {
+				Log.d("1111111", "");
+				fullurl = fullurl + "?" + item.getKey() + "=" + item.getValue();
+			} else {
+				fullurl = fullurl + "&" + item.getKey() + "=" + item.getValue();
+			}
+			i++;
 
-            int responseCode=conn.getResponseCode();
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader buf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line = buf.readLine()) != null) {
-                    response+=line;
-                    Log.e("Line", line);
-                }
-                buf.close();
-            }
-            conn.disconnect();
+		}
+		Log.d("fullurl", fullurl);
 
-        } catch (MalformedURLException e) {
-            Log.e("Line","AA");
-        } catch (IOException e) {
-            Log.e("Line","AA");
-        }
-        return  response;
-    }
+		URL url = null;
+		try {
+			url = new URL(fullurl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(15000);
+			conn.setConnectTimeout(15000);
+
+			int responseCode = conn.getResponseCode();
+			if (responseCode == HttpsURLConnection.HTTP_OK) {
+				String line;
+				BufferedReader buf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = buf.readLine()) != null) {
+					response += line;
+					Log.e("Line", line);
+				}
+				buf.close();
+			}
+			conn.disconnect();
+
+		} catch (MalformedURLException e) {
+			Log.e("Line", "AA");
+		} catch (IOException e) {
+			Log.e("Line", "AA");
+		}
+		return response;
+	}
 }

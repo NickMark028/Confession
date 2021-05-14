@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -29,20 +28,19 @@ import android.widget.Toast;
 
 
 import com.example.confession.R;
-import com.example.confession.binders.AddPostTabBinder;
-import com.example.confession.models.behaviors.ConfessionGroup;
+import com.example.confession.binders.group.AddPostBinder;
 import com.example.confession.models.behaviors.GroupPost;
 import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.AddPostPresenter;
+import com.example.confession.presenters.group.AddPostPresenter;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.IOException;
 
-public class AddPostActivity extends AppCompatActivity implements AddPostTabBinder.View {
+public class AddPostActivity extends AppCompatActivity implements AddPostBinder.View {
 
-    private AddPostPresenter presenter;
+    private AddPostBinder.Presenter presenter;
 
     private Uri imageUri;
     private String myURL = "";
@@ -58,7 +56,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     private ImageView addp_post_img_added;
     private LinearLayout addp_image_click, addp_camera_click;
     private File imgOut = null;
-
+    private Thread newThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +86,8 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         add_post_loading = findViewById(R.id.add_post_loading);
 
         addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
-//        if(User.GetInstance().GetBasicUserInfo() != null){
-//            addp_post_username.setText(User.GetInstance().GetBasicUserInfo().name);
-//        }
+
+        post_txt_btn.setEnabled(false);
     }
 
     private void InitListener() {
@@ -122,7 +119,15 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                     post_txt_btn.setEnabled(false);
                     post_txt_btn.setVisibility(View.INVISIBLE);
                     add_post_loading.setVisibility(View.VISIBLE);
-                    presenter.HandleAddPost(cgi, User.GetAuthToken());
+
+                    newThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.HandleAddPost(cgi, addp_user_status.getText().toString());
+                        }
+                    });
+
+                    newThread.start();
                 }
             }
         });
@@ -163,12 +168,15 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
                 if(s.length() == 0){
                     hint = true;
                     addp_user_status.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+                    post_txt_btn.setEnabled(false);
                 }
                 else if(hint){
                     hint = false;
                     addp_user_status.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     addp_user_status.setTextColor(Color.BLACK);
+
                 }
+                post_txt_btn.setEnabled(true);
             }
 
             @Override
@@ -216,7 +224,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
         else if (requestCode == 1999 && resultCode == RESULT_OK)
         {
 
-            cgi = ConfessionGroupInfo.From(data.getExtras());
+            cgi = ConfessionGroupInfo.From(data);
 
 //            Log.e("-------------101----------------", cgi.name);
             ap_get_gr_list_btn.setText(cgi.name);
@@ -229,17 +237,36 @@ public class AddPostActivity extends AppCompatActivity implements AddPostTabBind
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(newThread != null && newThread.isAlive()){
+            newThread.interrupt();
+        }
+    }
+
+    @Override
     public void AddPostSuccess(GroupPost post) {
-        Toast.makeText(this, "Create Post Successfully", Toast.LENGTH_SHORT).show();
-        finish();
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Create Post Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     @Override
     public void AddPostFailure(String error) {
-        Toast.makeText(this, "Create Post Failure", Toast.LENGTH_SHORT).show();
-        add_post_loading.setVisibility(View.GONE);
-        post_txt_btn.setEnabled(true);
-        post_txt_btn.setVisibility(View.VISIBLE);
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Create Post Failure", Toast.LENGTH_SHORT).show();
+                add_post_loading.setVisibility(View.GONE);
+                post_txt_btn.setEnabled(true);
+                post_txt_btn.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 }

@@ -3,34 +3,39 @@ package com.example.confession.views.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.confession.R;
 import com.example.confession.adapters.ViewPagerAdapter;
-import com.example.confession.binders.JoinedGroupsTabBinder;
+import com.example.confession.binders.user.CreatedGroupsBinder;
+import com.example.confession.binders.user.FollowedGroupsBinder;
+import com.example.confession.models.behaviors.User;
 import com.example.confession.models.data.ConfessionGroupInfo;
-import com.example.confession.presenters.JoinedGroupsTabPresenter;
+import com.example.confession.presenters.user.CreatedGroupsPresenter;
+import com.example.confession.presenters.user.FollowedGroupsPresenter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBinder.View {
+public class ProfileGroupsFragment extends Fragment implements FollowedGroupsBinder.View, CreatedGroupsBinder.View {
 
-	private JoinedGroupsTabBinder.Presenter presenter;
+	private FollowedGroupsBinder.Presenter followed_groups_presenter;
+	private CreatedGroupsBinder.Presenter created_groups_presenter;
+
 	private String mTag;
 	private ViewPager profile_group_viewpager;
+	private TextView profile_txt_username_click;
 	private ImageButton profile_group_back_btn;
 	private TabLayout group_tab_layout;
+	private Thread newThread;
 
 	private FragmentStatePagerAdapter adapterViewPager;
 
@@ -39,7 +44,8 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 
 		super.onCreate(savedInstanceState);
 
-		presenter = new JoinedGroupsTabPresenter(this);
+		followed_groups_presenter = new FollowedGroupsPresenter(this);
+		created_groups_presenter = new CreatedGroupsPresenter(this);
 		mTag = this.getTag();
 	}
 
@@ -52,18 +58,35 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 		profile_group_back_btn = view.findViewById(R.id.profile_group_back_btn);
 		group_tab_layout = view.findViewById(R.id.group_tab_layout);
 		profile_group_viewpager = view.findViewById(R.id.profile_group_viewpager);
+		profile_txt_username_click = view.findViewById(R.id.profile_txt_username_click);
 
-		assert getFragmentManager() != null;
 		adapterViewPager = new ViewPagerAdapter(getChildFragmentManager());
 		profile_group_viewpager.setAdapter(adapterViewPager);
 		profile_group_viewpager.setOffscreenPageLimit(2);
 
 		group_tab_layout.setupWithViewPager(profile_group_viewpager);
+		profile_txt_username_click.setText(User.GetInstance().GetBasicUserInfo().username);
 
 		InitListener();
 		InitTabLayout();
 
 		return view;
+	}
+
+	private void CallPresenter(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				followed_groups_presenter.HandleGetFollowedGroups();
+			}
+		}).start();
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				created_groups_presenter.HandleGetCreatedGroups();
+			}
+		}).start();
 	}
 
 	public void InitListener() {
@@ -76,7 +99,8 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 
 			@Override
 			public void onPageSelected(int position) {
-				Toast.makeText(getContext(), "Frag-Pos-" + position, Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getContext(), "Frag-Pos-" + position, Toast.LENGTH_SHORT).show();
+				//CallPresenter(position);
 			}
 
 			@Override
@@ -88,8 +112,7 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 		group_tab_layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
-				Toast.makeText(getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
-
+//				Toast.makeText(getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -113,11 +136,14 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 		});
 	}
 
+
 	public void InitTabLayout() {
 		if (mTag.equals("TAG_JOINED_GROUP")) {
 			group_tab_layout.getTabAt(1).select();
 		}
 	}
+
+
 
 	@Override
 	public void OnGetFollowedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
@@ -136,16 +162,6 @@ public class ProfileGroupsFragment extends Fragment implements JoinedGroupsTabBi
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
-
-	}
-
-	@Override
-	public void OnLeaveGroupSuccess(ConfessionGroupInfo group) {
-
-	}
-
-	@Override
-	public void OnLeaveGroupFailure(String error) {
 
 	}
 }

@@ -18,56 +18,57 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO Check lai cac method signature trong class diagram
 public class GroupPost {
+
 	protected final GroupPostInfo post_info;
-	protected final ConfessionGroupInfo group;
 	protected ArrayList<PostComment> comments;
 
-	public GroupPost(GroupPostInfo post_info, ConfessionGroupInfo group) {
-
+	public GroupPost(GroupPostInfo post_info) {
 		this.post_info = post_info;
-		this.group = group;
 	}
 
-	public static GroupPost From(Bundle bundle) {
-
-		GroupPostInfo post_info = (GroupPostInfo) bundle.getSerializable("post_info");
-		ConfessionGroupInfo group = (ConfessionGroupInfo) bundle.getSerializable("group");
-
-		return new GroupPost(post_info, group);
-	}
-
-	public Bundle ToBundle() {
-
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("post_info", this.post_info);
-		bundle.putSerializable("group", this.group);
-		return bundle;
-	}
-
-	public String GetID(){
+	public String GetID() {
 		return post_info.id;
 	}
 
-	// Write API later //
-	public boolean RemoveComment(PostComment comment, BasicUserInfo from) {
+	// DONE //
+	public boolean RemoveComment(PostCommentInfo comment, BasicUserInfo from, String auth_token) {
+
 		return false;
 	}
 
-	// Sửa lại API tự lấy member id từ user id mới chạy được //
-	public boolean React(BasicUserInfo user)
-	{
+	// DONE //
+	public boolean React(String user_id, String auth_token) {
+		// API Update
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", this.post_info.group.id);
+//		Log.d("Token: ", auth_token);
+//		Log.d("GroupID React: ", this.post_info.group.id);
+		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+		ag.run();
+		Log.d("MemberID Res: ", ag.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
-		params.put("memberid", "6059a449abdfae07a4e77646"); // Sửa lại API
+		params.put("memberid", memberid); // Sửa lại API
 		params.put("postid", this.post_info.id);
 
-		ApiPost ap = new ApiPost("post/reaction/react", params);
-		Thread t = new Thread(ap);
-		t.start();
+		Log.d("Token: ", User.GetAuthToken());
+		Log.d("MemberID: ", memberid);
+		Log.d("PostID: ", this.post_info.id);
 
+		ApiPost ap = new ApiPost("post/reaction/react", params);
 		Log.d("Thread API: ", "Đang thả tim...");
-		while (!ap.isComplete);
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
@@ -82,32 +83,27 @@ public class GroupPost {
 		return false;
 	}
 
-	public PostComment[] GetComment()
-	{
+	// DONE //
+	public ArrayList<PostComment> GetComment() {
 
 		return null;
 	}
 
 	// Done //
-	public int GetReactionCount()
-	{
+	public int GetReactionCount(String auth_token) {
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
+		params.put("token", auth_token); // User.GetAuthToken()
 		params.put("postid", this.post_info.id);
 
 		ApiGet ag = new ApiGet("post/reactions", params);
-		Thread t = new Thread(ag);
-		t.start();
-
 		Log.d("Thread API: ", "Đang lấy số lượng tim...");
-		while (!ag.isComplete);
+		ag.run();
 
 		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
 			JSONArray items = new JSONArray(ag.response);
-			if (!items.isNull(0))
-			{
+			if (!items.isNull(0)) {
 				return items.length();
 			}
 		} catch (JSONException e) {
@@ -116,56 +112,58 @@ public class GroupPost {
 		return 0;
 	}
 
-	public GroupPostInfo GetPostInfo() {
-		return post_info;
-	}
+	// DONE //
+	public PostComment AddComment(PostCommentInfo comment, String auth_token) {
+		HashMap<String, String> temp_params = new HashMap<String, String>();
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", comment.post.group.id);
+		ApiGet ag = new ApiGet("user/memberid/", temp_params);
+		ag.run();
+		Log.d("MemberID Res: ", ag.response);
+		String memberid = null;
+		try {
+			JSONObject temp_obj = new JSONObject(ag.response);
+			memberid = temp_obj.getString("memberid");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Log.d("MemberID: ", memberid);
 
-	public ConfessionGroupInfo GetGroup() {
-		return group;
-	}
-
-	// Done //
-	public PostComment AddComment(PostCommentInfo comment, BasicUserInfo member)
-	{
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", User.GetAuthToken());
-		params.put("memberid", member.id);
-		params.put("postid", comment.id);
+		params.put("token", auth_token); //User.GetAuthToken()
+		params.put("memberid", memberid);
+		params.put("postid", comment.post.id);
 		params.put("content", comment.content);
 
 		ApiPost ap = new ApiPost("post/comment/new", params);
-		Thread t = new Thread(ap);
-		t.start();
-
 		Log.d("Thread API: ", "Đang đăng bình luận...");
-		while (!ap.isComplete);
+		ap.run();
 
 		Log.d("Response", ap.response);
 		JSONObject obj = null;
 		try {
 			obj = new JSONObject(ap.response);
 			if (!obj.has("error")) {
-				return new PostComment(comment,this.post_info);
+				return new PostComment(comment);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+
+
 		return null;
 	}
 
-	public ArrayList<PostComment> GetComments()
-	{
+	// TODO sua lai tham so null thanh tham so thich hop
+	public ArrayList<PostCommentInfo> GetComments(String auth_token) {
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("conf", this.group.id);
+		params.put("conf", post_info.group.id);
 
 		ApiGet ag = new ApiGet("confession/id", params);
-		Thread t = new Thread(ag);
-		t.start();
-		while (!ag.isComplete) {
-			Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
-		}
+		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
+		ag.run();
 
-		ArrayList<PostComment> postComments = new ArrayList<PostComment>();
+		ArrayList<PostCommentInfo> postComments = new ArrayList<PostCommentInfo>();
 		Log.d("Response", ag.response);
 		JSONObject obj = null;
 		try {
@@ -176,19 +174,19 @@ public class GroupPost {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String postid = item.getString("_id");
-					if(postid.equals(this.post_info.id))
-					{
+					if (postid.equals(this.post_info.id)) {
 						JSONArray comments = item.getJSONArray("comments");
-						for(int j=0;j<comments.length();j++)
-						{
+						for (int j = 0; j < comments.length(); j++) {
 							JSONObject comment = comments.getJSONObject(j);
 
 							String comment_id = comment.getString("_id");
 							String content = comment.getString("content");
 
-							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id,new BasicUserInfo("","","",""),content);
-							PostComment comment_info = new PostComment(postCommentInfo,this.post_info);
-							postComments.add(comment_info);
+							// TODO sua lai tham so null thanh tham so thich hop
+							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, post_info, new BasicUserInfo("", "", "", ""), content);
+
+//							PostComment comment_info = new PostComment(postCommentInfo);
+							postComments.add(postCommentInfo);
 						}
 					}
 				}

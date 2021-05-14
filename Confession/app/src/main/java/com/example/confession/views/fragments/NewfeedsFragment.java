@@ -2,16 +2,42 @@ package com.example.confession.views.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.models.behaviors.User;
+import com.example.confession.adapters.post.PostAdapter;
+import com.example.confession.binders.user.GetNewsfeedBinder;
 
-public class NewfeedsFragment extends Fragment {
+import com.example.confession.models.data.GroupPostInfo;
+import com.example.confession.presenters.user.GetNewsfeedPresenter;
+
+
+import java.util.ArrayList;
+
+public class NewfeedsFragment extends Fragment implements GetNewsfeedBinder.View {
+
+	//IN-USE VARIABLES
+	private GetNewsfeedBinder.Presenter presenter;
+	private SwipeRefreshLayout srl_refresh;
+
+	private ArrayList<GroupPostInfo> nf_posts;
+	private PostAdapter postAdapter;
+	private RecyclerView rv_posts;
+	private Thread newThread;
+
+	public NewfeedsFragment(){
+		presenter = new GetNewsfeedPresenter(this);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +48,98 @@ public class NewfeedsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_newfeed, container, false);
+		View view = inflater.inflate(R.layout.fragment_newfeed, container, false);
+		InitView(view);
+		InitListener();
+		CallPresenter();
+
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+	}
+
+	private void CallPresenter() {
+		newThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				presenter.HandleGetNewsfeed();
+			}
+		});
+
+		newThread.start();
+
+		srl_refresh.setRefreshing(true);
+		Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+	}
+
+	private void InitView(View view){
+		rv_posts = view.findViewById(R.id.rv_posts);
+		srl_refresh = view.findViewById(R.id.srl_refresh);
+		LinearLayoutManager llm = new LinearLayoutManager(getContext());
+
+//		llm.setReverseLayout(true);
+//		llm.setStackFromEnd(true);
+
+		rv_posts.setLayoutManager(llm);
+
+		nf_posts = new ArrayList<>();
+		postAdapter = new PostAdapter(getContext(), nf_posts);
+		rv_posts.setAdapter(postAdapter);
+	}
+
+	private void InitListener(){
+		srl_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				//Do sth
+				CallPresenter();
+			}
+		});
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if(newThread != null && newThread.isAlive()){
+			newThread.interrupt();
+		}
+	}
+
+	@Override
+	public void OnGetNewsfeedSuccess(ArrayList<GroupPostInfo> posts) {
+		nf_posts.clear();
+		nf_posts.addAll(posts);
+
+		if(getActivity() == null){ return; }
+
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				srl_refresh.setRefreshing(false);
+
+				postAdapter.notifyDataSetChanged();
+				rv_posts.invalidateItemDecorations();
+				rv_posts.refreshDrawableState();
+			}
+		});
+	}
+
+	@Override
+	public void OnGetNewsfeedFailure(String error) {
+
+		if(getActivity() == null){ return; }
+
+		this.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				srl_refresh.setRefreshing(false);
+
+				Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 }

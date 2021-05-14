@@ -1,38 +1,35 @@
 package com.example.confession.views.bottomsheet;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.example.confession.R;
-import com.example.confession.binders.BottomSheetListener;
+import com.example.confession.listener.BottomSheetCreateNewListener;
+import com.example.confession.listener.BottomSheetListener;
+import com.example.confession.listener.BottomSheetLogoutListener;
 import com.example.confession.models.behaviors.User;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ProfileUsernameBottomSheet extends BottomSheetDialogFragment{
-    BottomSheetListener mListener;
+    BottomSheetLogoutListener mListener;
+
     private Button profile_logout_btn;
     private TextView add_post_username;
     private ImageView add_post_avatar;
-    private int result = 0;
+    private int result = -1;
+
+    public ProfileUsernameBottomSheet(BottomSheetLogoutListener listener){
+        this.mListener = listener;
+    }
 
     @Override
     public int getTheme() {
@@ -55,8 +52,11 @@ public class ProfileUsernameBottomSheet extends BottomSheetDialogFragment{
 
         profile_logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
-                mListener.onButtonClicked("logout");
+
+                result = 0;
+                mListener.onButtonLogoutClicked(result);
             }
         });
 
@@ -67,12 +67,12 @@ public class ProfileUsernameBottomSheet extends BottomSheetDialogFragment{
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        try {
-            mListener = (BottomSheetListener) context;
-        }
-        catch(ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
-        }
+//        try {
+//            mListener = (BottomSheetListener) context;
+//        }
+//        catch(ClassCastException e){
+//            throw new ClassCastException(context.toString() + "must implement BottomSheetListener");
+//        }
     }
 
     public int GetResult(){return result;}

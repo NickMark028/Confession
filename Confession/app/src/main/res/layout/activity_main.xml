@@ -5,11 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.activities._MainActivity">
+    android:background="@drawable/custom_bg_gradient_vert"
+    tools:context=".views.activities.CoverActivity">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Testing purposes only" />
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/nunito_extra_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/app_name_uppercase"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:transitionName="confession"
+        />
+
+    </LinearLayout>
 
 </LinearLayout>

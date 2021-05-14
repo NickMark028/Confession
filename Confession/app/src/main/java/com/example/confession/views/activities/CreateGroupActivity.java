@@ -3,30 +3,31 @@ package com.example.confession.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.confession.R;
-import com.example.confession.adapters.GroupListAdapter;
-import com.example.confession.binders.CreateGroupBinder;
-import com.example.confession.models.behaviors.User;
+import com.example.confession.binders.user.CreateGroupBinder;
 import com.example.confession.models.behaviors.ConfessionGroup;
-import com.example.confession.presenters.CreateGroupPresenter;
+import com.example.confession.presenters.user.CreateGroupPresenter;
+import com.example.confession.utilities.Regex;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class CreateGroupActivity extends AppCompatActivity implements CreateGroupBinder.View {
 
     private CreateGroupPresenter presenter;
-    private ImageButton create_post_close_btn;
+    private ImageButton create_post_close_btn, create_group_btn;
     private TextInputEditText create_group_name;
-    private AppCompatButton create_group_btn;
-
+    private ProgressBar create_group_progress;
+    private TextInputLayout til_create_post_name;
+    private Thread newThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,15 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
     }
 
     private void InitPresenter() {
-
         this.presenter = new CreateGroupPresenter(this);
     }
 
     public void InitView(){
-
+        til_create_post_name = findViewById(R.id.til_create_post_name);
         create_post_close_btn = findViewById(R.id.create_post_close_btn);
         create_group_name = findViewById(R.id.create_group_name);
         create_group_btn = findViewById(R.id.create_group_btn);
-
+        create_group_progress = findViewById(R.id.create_group_progress);
 
         create_group_btn.setEnabled(false);
     }
@@ -83,23 +83,80 @@ public class CreateGroupActivity extends AppCompatActivity implements CreateGrou
             @Override
             public void onClick(View v) {
                 String gName = create_group_name.getText().toString();
-                presenter.HandleCreateGroup(gName, gName);
+                CreateGroup(gName, gName);
+            }
+        });
+    }
+
+
+    public boolean ValidateGroupName(){
+        String group_name = create_group_name.getText().toString();
+
+        if(group_name.isEmpty()){
+            til_create_post_name.setError("Field can't be empty");
+            return false;
+        }
+
+        if(!Regex.GROUPNAME_PATTERN.matcher(group_name).matches()){
+            til_create_post_name.setError("Invalid group name");
+            return false;
+        }
+
+        til_create_post_name.setError(null);
+        return true;
+    }
+
+    private void CreateGroup(String shortName, String groupName){
+
+        if(!ValidateGroupName()){
+            return;
+        }
+
+        try{
+            newThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    presenter.HandleCreateGroup(shortName, groupName);
+                }
+            });
+
+            newThread.start();
+        }catch(Exception e){
+            Log.e("In Create Group Thread exception", e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(newThread!=null && newThread.isAlive()){newThread.interrupt();}
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void OnCreateGroupSuccess(ConfessionGroup group) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finish();
             }
         });
     }
 
     @Override
-    public void OnCreateGroupSuccess(ConfessionGroup group) {
+    public void OnCreateGroupFailure(String error) {
 
-        // Todo navigate to new group
-
-        finish();
-
-    }
-
-    @Override
-    public void OnCreateGroupFail(String error) {
-
-        Toast.makeText(this, "Failed to create group", Toast.LENGTH_LONG).show();
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Failed to create group", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

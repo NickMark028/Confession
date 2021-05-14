@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.JoinedGroupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,12 +19,23 @@
             android:background="@drawable/custom_search_view"
             app:defaultQueryHint="Joined"
             />
-
+        <LinearLayout
+            android:id="@+id/ll_joined_group_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:visibility="visible">
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </LinearLayout>
         <ListView
             android:id="@+id/lv_joined_group_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/transparent"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             />
     </LinearLayout>
 

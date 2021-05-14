@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/app_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -24,6 +25,7 @@
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/app_name_uppercase"
             android:textColor="@color/white"
+            android:transitionName="confession"
             android:textSize="36sp" />
 
     </LinearLayout>
@@ -71,19 +73,21 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_si_username"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/custom_user_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/si_username"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/username"
@@ -91,20 +95,22 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_si_password"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+
                         android:theme="@style/EditTextLabel"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
                         app:hintEnabled="false"
                         app:passwordToggleEnabled="true"
+                        app:errorEnabled="true"
                         app:startIconDrawable="@drawable/custom_lock_icon">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/si_password"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:background="@drawable/custom_edit_text"
                             android:fontFamily="@font/nunito_regular"
                             android:hint="@string/password"
