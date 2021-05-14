@@ -522,7 +522,7 @@ class UserController
         })
     }
 
-    getAdmins(req,res)
+    getAdmins(req,res) //
     {
         let token = req.query.token;
         let groupid = req.query.groupid;
