@@ -152,19 +152,19 @@ public class ConfessionGroup {
 	{
 		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
 		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
-//			@Override
-//			public void getResponse(String response) throws JSONException {
-//				JSONObject obj = new JSONObject(response);
-//				if(!obj.has("error"))
-//				{
-//					JSONArray arr = obj.getJSONArray("posts");
-//					for(int i=0;i<arr.length();i++)
-//					{
-//						JSONObject post = arr.getJSONObject(i);
-//
-//					}
-//					Log.d("Get posts: ",".");
-//				}
+			@Override
+			public void getResponse(String response) throws JSONException {
+				JSONObject obj = new JSONObject(response);
+				if(!obj.has("error"))
+				{
+					JSONArray arr = obj.getJSONArray("posts");
+					for(int i=0;i<arr.length();i++)
+					{
+						JSONObject post = arr.getJSONObject(i);
+
+					}
+					Log.d("Get posts: ",".");
+				}
 //				else
 //				{
 //					String error = obj.getString("error");
