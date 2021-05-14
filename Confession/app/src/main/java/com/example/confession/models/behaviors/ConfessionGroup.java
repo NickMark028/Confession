@@ -124,7 +124,7 @@ public class ConfessionGroup {
 
 	// Write API later //
 	public boolean RejectUser(String user_id, String auth_token) {
-		HashMap<String, String> params = new HashMap<String,String>();
+		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", auth_token);
 		params.put("userid", user_id);
 		params.put("groupid", this.group_info.id);
