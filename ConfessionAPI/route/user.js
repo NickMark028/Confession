@@ -4,7 +4,7 @@ const userController=require('../controller/user');
 router.get('/',userController.index); //
 router.post('/register',userController.register); //
 
-router.post('/login',userController.login);
+router.post('/login',userController.login); //
 router.get('/profile',userController.getProfile);
 router.post('/profile',userController.updateProfile);
 
