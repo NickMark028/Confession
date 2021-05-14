@@ -64,11 +64,7 @@ public class MyJoinedGroupAdapter extends BaseAdapter {
         return row;
     }
 
-    public void InitView(View row){
-        iv_joined_group_gr_avatar = row.findViewById(R.id.iv_joined_group_gr_avatar);
-        joined_group_gr_name = row.findViewById(R.id.joined_group_gr_name);
-        joined_group_leave_bn = row.findViewById(R.id.joined_group_leave_bn);
-    }
+   
 
     public void InitListener(){
         joined_group_leave_bn.setOnClickListener(new View.OnClickListener() {
