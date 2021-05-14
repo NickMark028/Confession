@@ -254,7 +254,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		newT.interrupt();
 		progressDialog.dismiss();
 
-		// TODO Add error code display
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {

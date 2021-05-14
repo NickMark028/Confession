@@ -161,8 +161,6 @@
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
-            <!--            TODO Add comments from Phong-->
-
             <TextView
                 android:id="@+id/post_see_all_cmt"
                 android:layout_width="match_parent"

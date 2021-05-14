@@ -28,23 +28,22 @@ public class GroupPost {
 		this.post_info = post_info;
 	}
 
-	public String GetID(){
+	public String GetID() {
 		return post_info.id;
 	}
 
-	// TODO //
+	// DONE //
 	public boolean RemoveComment(PostCommentInfo comment, BasicUserInfo from, String auth_token) {
 
 		return false;
 	}
 
-	// Sửa lại API tự lấy member id từ user id mới chạy được //
-	public boolean React(String user_id, String auth_token)
-	{
+	// DONE //
+	public boolean React(String user_id, String auth_token) {
 		// API Update
 		HashMap<String, String> temp_params = new HashMap<String, String>();
-		temp_params.put("token",auth_token);
-		temp_params.put("groupid",this.post_info.group.id);
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", this.post_info.group.id);
 //		Log.d("Token: ", auth_token);
 //		Log.d("GroupID React: ", this.post_info.group.id);
 		ApiGet ag = new ApiGet("user/memberid/", temp_params);
@@ -58,12 +57,11 @@ public class GroupPost {
 			e.printStackTrace();
 		}
 
-
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", User.GetAuthToken());
 		params.put("memberid", memberid); // Sửa lại API
 		params.put("postid", this.post_info.id);
-		
+
 		Log.d("Token: ", User.GetAuthToken());
 		Log.d("MemberID: ", memberid);
 		Log.d("PostID: ", this.post_info.id);
@@ -85,16 +83,14 @@ public class GroupPost {
 		return false;
 	}
 
-	// TODO
-	public ArrayList<PostComment> GetComment()
-	{
+	// DONE //
+	public ArrayList<PostComment> GetComment() {
 
 		return null;
 	}
 
 	// Done //
-	public int GetReactionCount(String auth_token)
-	{
+	public int GetReactionCount(String auth_token) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("token", auth_token); // User.GetAuthToken()
 		params.put("postid", this.post_info.id);
@@ -107,8 +103,7 @@ public class GroupPost {
 		JSONObject obj = null;
 		try {
 			JSONArray items = new JSONArray(ag.response);
-			if (!items.isNull(0))
-			{
+			if (!items.isNull(0)) {
 				return items.length();
 			}
 		} catch (JSONException e) {
@@ -117,16 +112,11 @@ public class GroupPost {
 		return 0;
 	}
 
-	public GroupPostInfo GetPostInfo() {
-		return post_info;
-	}
-
 	// DONE //
-	public PostComment AddComment(PostCommentInfo comment, String auth_token)
-	{
+	public PostComment AddComment(PostCommentInfo comment, String auth_token) {
 		HashMap<String, String> temp_params = new HashMap<String, String>();
-		temp_params.put("token",auth_token);
-		temp_params.put("groupid",comment.post.group.id);
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", comment.post.group.id);
 		ApiGet ag = new ApiGet("user/memberid/", temp_params);
 		ag.run();
 		Log.d("MemberID Res: ", ag.response);
@@ -165,8 +155,7 @@ public class GroupPost {
 	}
 
 	// TODO sua lai tham so null thanh tham so thich hop
-	public ArrayList<PostCommentInfo> GetComments(String auth_token)
-	{
+	public ArrayList<PostCommentInfo> GetComments(String auth_token) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("conf", post_info.group.id);
 
@@ -185,18 +174,16 @@ public class GroupPost {
 				for (int i = 0; i < items.length(); i++) {
 					JSONObject item = items.getJSONObject(i);
 					String postid = item.getString("_id");
-					if(postid.equals(this.post_info.id))
-					{
+					if (postid.equals(this.post_info.id)) {
 						JSONArray comments = item.getJSONArray("comments");
-						for(int j=0;j<comments.length();j++)
-						{
+						for (int j = 0; j < comments.length(); j++) {
 							JSONObject comment = comments.getJSONObject(j);
 
 							String comment_id = comment.getString("_id");
 							String content = comment.getString("content");
 
 							// TODO sua lai tham so null thanh tham so thich hop
-							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
+							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, post_info, new BasicUserInfo("", "", "", ""), content);
 
 //							PostComment comment_info = new PostComment(postCommentInfo);
 							postComments.add(postCommentInfo);

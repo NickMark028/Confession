@@ -37,7 +37,7 @@ public class ConfessionGroup {
 	}
 
 	// Done //
-	public ArrayList<BasicUserInfo> GetPendingUsers(String auth_token,String groupid) {
+	public ArrayList<BasicUserInfo> GetPendingUsers(String auth_token, String groupid) {
 
 //		Log.e("Group ID Pending: ",groupid);
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -63,9 +63,9 @@ public class ConfessionGroup {
 					String id = item.getString("_id");
 					String username = item.getString("username");
 					String name = item.getString("fullname");
-					Log.e("User ID: ",id);
-					Log.e("User: ",username);
-					Log.e("Name: ",name);
+					Log.e("User ID: ", id);
+					Log.e("User: ", username);
+					Log.e("Name: ", name);
 					String avatar = "";
 					BasicUserInfo user = new BasicUserInfo(id, username, name, "");
 					users.add(user);
@@ -81,19 +81,19 @@ public class ConfessionGroup {
 	// Done //
 	public boolean AcceptUser(String user_id, String auth_token) {
 		HashMap<String, String> temp_params = new HashMap<String, String>();
-		Log.e("Token: ",auth_token);
-		Log.e("User id: ",user_id);
-		Log.e("G id: ",this.group_info.id);
-		temp_params.put("token",auth_token);
-		temp_params.put("userid",user_id);
-		temp_params.put("groupid",this.group_info.id);
+		Log.e("Token: ", auth_token);
+		Log.e("User id: ", user_id);
+		Log.e("G id: ", this.group_info.id);
+		temp_params.put("token", auth_token);
+		temp_params.put("userid", user_id);
+		temp_params.put("groupid", this.group_info.id);
 		ApiGet ag = new ApiGet("user/prememid/", temp_params);
 		ag.run();
 		Log.d("PreMemberID Res: ", ag.response);
 		String prememberid = null;
 		try {
 			JSONObject temp_obj = new JSONObject(ag.response);
-			prememberid  = temp_obj.getString("prememid");
+			prememberid = temp_obj.getString("prememid");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -188,42 +188,42 @@ public class ConfessionGroup {
 	// -Done- //
 	public ArrayList<BasicUserInfo> GetMembers(String auth_token) {
 
-	HashMap<String, String> params = new HashMap<String, String>();
-	params.put("conf", this.group_info.id);
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("conf", this.group_info.id);
 
-	ApiGet ag = new ApiGet("confession/id", params);
+		ApiGet ag = new ApiGet("confession/id", params);
 
 
-	Log.d("Thread API: ", "Đang lấy danh sách thành viên...");
-	ag.run();
+		Log.d("Thread API: ", "Đang lấy danh sách thành viên...");
+		ag.run();
 
-	ArrayList<BasicUserInfo> members = new ArrayList<BasicUserInfo>();
-	Log.d("Response", ag.response);
-	JSONObject obj = null;
-	try {
-		obj = new JSONObject(ag.response);
-		if (!obj.has("error")) {
-			JSONArray items = obj.getJSONArray("members");
+		ArrayList<BasicUserInfo> members = new ArrayList<BasicUserInfo>();
+		Log.d("Response", ag.response);
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(ag.response);
+			if (!obj.has("error")) {
+				JSONArray items = obj.getJSONArray("members");
 
-			for (int i = 0; i < items.length(); i++) {
+				for (int i = 0; i < items.length(); i++) {
 
-				JSONObject item = items.getJSONObject(i);
-				JSONObject subitem = item.getJSONObject("userid");
+					JSONObject item = items.getJSONObject(i);
+					JSONObject subitem = item.getJSONObject("userid");
 
-				String id = subitem.getString("_id");
-				String username = subitem.getString("username");
-				String name = subitem.getString("fullname");
-				String avatar = "";
-				BasicUserInfo user = new BasicUserInfo(id, username, name, avatar);
-				members.add(user);
+					String id = subitem.getString("_id");
+					String username = subitem.getString("username");
+					String name = subitem.getString("fullname");
+					String avatar = "";
+					BasicUserInfo user = new BasicUserInfo(id, username, name, avatar);
+					members.add(user);
+				}
+
 			}
-
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-	} catch (JSONException e) {
-		e.printStackTrace();
+		return members;
 	}
-	return members;
-}
 
 	//- Done- //
 	public ArrayList<BasicUserInfo> GetAdmins(String auth_token) {
@@ -293,9 +293,8 @@ public class ConfessionGroup {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("keyword", name);
-		if(name.equals("")) return null;
+		if (name.equals("")) return null;
 		ApiGet ag = new ApiGet("confession/search", params);
-
 
 		Log.d("Thread API: ", "Đang tìm kiếm các nhóm theo từ khóa...");
 		ag.run();
@@ -314,7 +313,6 @@ public class ConfessionGroup {
 					String groupname = item.getString("groupname");
 					String avatar = item.getString("avatar");
 
-					// TODO sua lai tham so member_count <> 0
 					JSONArray members = item.getJSONArray("members");
 					int member_count = members.length();
 					ConfessionGroupInfo group_info = new ConfessionGroupInfo(id, shortname, groupname, avatar, member_count);
@@ -330,8 +328,8 @@ public class ConfessionGroup {
 	// DONE //
 	public GroupPost AddPost(GroupPostInfo post, BasicUserInfo author, String auth_token) {
 		HashMap<String, String> temp_params = new HashMap<String, String>();
-		temp_params.put("token",auth_token);
-		temp_params.put("groupid",post.group.id);
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", post.group.id);
 		ApiGet ag = new ApiGet("user/memberid/", temp_params);
 		ag.run();
 		Log.d("MemberID Res: ", ag.response);
@@ -382,8 +380,8 @@ public class ConfessionGroup {
 	{
 		//////////////////////////////////////////////////////////////////////
 		HashMap<String, String> temp_params = new HashMap<String, String>();
-		temp_params.put("token",auth_token);
-		temp_params.put("groupid",this.group_info.id);
+		temp_params.put("token", auth_token);
+		temp_params.put("groupid", this.group_info.id);
 		ApiGet ag1 = new ApiGet("user/memberid/", temp_params);
 		ag1.run();
 		Log.d("MemberID Res: ", ag1.response);
@@ -446,29 +444,27 @@ public class ConfessionGroup {
 //					BasicUserInfo author = new BasicUserInfo(posterid, username, fullname, "");
 					BasicUserInfo author = new BasicUserInfo("", "", "", "");
 					// TODO: Change approver to the one who approved the post
-					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here") ;
+					BasicUserInfo approver = new BasicUserInfo("Add approver username here", "Add approver name here");
 
-					// TODO Tham so bi thieu. Thay (null, 0, false) thanh gia tri hop le
 					String groupid = obj.getString("_id"); // group id
 					String shortname = obj.getString("shortname");
 					String groupname = obj.getString("groupname");
 					String avatar = obj.getString("avatar");
 					JSONArray members = obj.getJSONArray("members");
 					int member_count = members.length();
-					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid,shortname,groupname,avatar,member_count);
+					ConfessionGroupInfo group = new ConfessionGroupInfo(groupid, shortname, groupname, avatar, member_count);
 
-					JSONArray reactions =item.getJSONArray("reactions");
+					JSONArray reactions = item.getJSONArray("reactions");
 					int reaction_count = reactions.length();
-					for(int m=0;m<reaction_count;m++)
-					{
-						if(reactions.get(m).equals(memberid)) isreact = true;
+					for (int m = 0; m < reaction_count; m++) {
+						if (reactions.get(m).equals(memberid)) isreact = true;
 					}
-					Log.e("Content post in group: ",content);
+					Log.e("Content post in group: ", content);
 					GroupPostInfo post_info = new GroupPostInfo(id, group, author, approver, content, reaction_count, isreact);
 
 					posts.add(post_info);
 				}
-				Log.e("Posts length: ",Integer.toString(posts.size()));
+				Log.e("Posts length: ", Integer.toString(posts.size()));
 				return posts;
 			}
 		} catch (JSONException e) {
@@ -478,32 +474,27 @@ public class ConfessionGroup {
 	}
 
 	// Write API later- //
-	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token)
-	{
+	public ArrayList<GroupPostInfo> GetPendingPosts(String auth_token) {
 		return null;
 	}
 
 	// Write API later //
-	public boolean AcceptPost(String post_id, String auth_token)
-	{
+	public boolean AcceptPost(String post_id, String auth_token) {
 		return false;
 	}
 
 	// Write API later //
-	public boolean RejectPost(String post_id, String auth_token)
-	{
+	public boolean RejectPost(String post_id, String auth_token) {
 		return false;
 	}
 
 	// Write API later //
-	public boolean PinPostToTop(String post_id, String auth_token)
-	{
+	public boolean PinPostToTop(String post_id, String auth_token) {
 		return false;
 	}
 
 	// Write API later //
-	public boolean RemovePost(String post_id, String auth_token)
-	{
+	public boolean RemovePost(String post_id, String auth_token) {
 		return false;
 	}
 

@@ -9,13 +9,11 @@ import java.util.Date;
 public final class GroupPostInfo implements Serializable {
 
 	public final String id;
-	public final ConfessionGroupInfo group;      // TODO Them cai nay vao constructor
+	public final ConfessionGroupInfo group;
 	public final Date time_created;
 	private final BasicUserInfo author;
 	public final BasicUserInfo approver;
 	public final String content;
-
-	// TODO Related
 	public int reaction_count;
 	public boolean react;
 

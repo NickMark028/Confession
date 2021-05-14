@@ -10,7 +10,6 @@
     android:paddingEnd="15dp"
     tools:context=".views.fragments.GroupSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/txt_search"
         android:layout_width="match_parent"
