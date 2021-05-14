@@ -72,11 +72,6 @@ public class GroupListAdapter extends BaseAdapter {
 		txt_group_list_gr_name = row.findViewById(R.id.txt_group_list_gr_name);
 	}
 
-	public void InitData(int pos){
-		ConfessionGroupInfo group = groups.get(pos);
-		txt_group_list_gr_name.setText(group.name);
-		//iv_group_item_gr_avatar.setImageResource(cgi.avatar); int # String - not match
-	}
 
 	//Kiem tra User co trong Group khong
 	private boolean checkIsUserInGroup(){
