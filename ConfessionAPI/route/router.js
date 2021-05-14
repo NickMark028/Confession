@@ -13,7 +13,7 @@ class Router
 
         app.use('/confession', confessionRouter); //
 
-        app.use('/post', postRouter);
+        app.use('/post', postRouter); //
     }
 }
 
