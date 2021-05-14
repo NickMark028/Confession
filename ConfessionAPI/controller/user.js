@@ -176,7 +176,7 @@ class UserController
         }
     }
 
-    updateProfile3(req,res)
+    updateProfile3(req,res) //
     {
         let token = req.body.token;
         if(Token.isValid(token))
