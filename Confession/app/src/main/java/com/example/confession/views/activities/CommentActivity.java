@@ -55,7 +55,7 @@ public class CommentActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_comment);
 
-		gpi = (GroupPostInfo)getIntent().getSerializableExtra("gpi");
+		gpi = (GroupPostInfo) getIntent().getSerializableExtra("gpi");
 
 		InitPresenter();
 		InitView();
@@ -64,8 +64,8 @@ public class CommentActivity extends AppCompatActivity
 		LoadComment();
 	}
 
-	public void LoadComment(){
-		if(newThread!=null && newThread.isAlive()){
+	public void LoadComment() {
+		if (newThread != null && newThread.isAlive()) {
 			Toast.makeText(CommentActivity.this, "Please wait! Ur so fast", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -83,7 +83,7 @@ public class CommentActivity extends AppCompatActivity
 		//Toast.makeText(CommentActivity.this, "Loading comment...", Toast.LENGTH_LONG).show();
 	}
 
-	public void SendComment(String msg){
+	public void SendComment(String msg) {
 		//Log.e("Check ID------------------","Post Position - " + getLayoutPosition());
 
 		newThread = new Thread(new Runnable() {
@@ -152,7 +152,8 @@ public class CommentActivity extends AppCompatActivity
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					cmt_txt_post_cmt.setVisibility(View.VISIBLE);
-				} else {
+				}
+				else {
 					cmt_txt_post_cmt.setVisibility(View.GONE);
 				}
 			}
@@ -183,14 +184,15 @@ public class CommentActivity extends AppCompatActivity
 			@Override
 			public void onClick(View v) {
 				String msg = cmt_edit_txt_cmt.getText().toString();
-				if(!msg.isEmpty()){
+				if (!msg.isEmpty()) {
 					SendComment(msg);
 					cmt_edit_txt_cmt.setText("");
 					cmt_edit_txt_cmt.clearFocus();
 
 					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-				}else{
+				}
+				else {
 					Toast.makeText(CommentActivity.this, "What is y'message?", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -230,7 +232,7 @@ public class CommentActivity extends AppCompatActivity
 	protected void onDestroy() {
 		super.onDestroy();
 
-		if (newThread != null && newThread.isAlive()){newThread.interrupt();}
+		if (newThread != null && newThread.isAlive()) {newThread.interrupt();}
 	}
 
 	@Override

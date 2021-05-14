@@ -241,7 +241,7 @@ public class ProfileFragment extends Fragment
 		});
 	}
 
-	public void ReUpdateUserData(){
+	public void ReUpdateUserData() {
 		profile_txt_username_click.setText(User.GetInstance().GetBasicUserInfo().username);
 		profile_fullname.setText(User.GetInstance().GetBasicUserInfo().name);
 		profile_email.setText(User.GetInstance().GetUserInfo().email);

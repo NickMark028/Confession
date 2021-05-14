@@ -31,7 +31,6 @@ import java.util.ArrayList;
  */
 public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.View {
 
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "mPage";
 	private static final String ARG_PARAM2 = "mTitle";
 
@@ -55,14 +54,6 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		presenter = new CreatedGroupsPresenter(this);
 	}
 
-	/**
-	 * Use this factory method to create a new instance of
-	 * this fragment using the provided parameters.
-	 *
-	 * @param page  page number.
-	 * @param title title of page.
-	 * @return A new instance of fragment YourGroupFragment.
-	 */
 	public static YourGroupFragment newInstance(int page, String title) {
 
 		YourGroupFragment fragment = new YourGroupFragment();
@@ -72,7 +63,6 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		fragment.setArguments(args);
 		return fragment;
 	}
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -105,8 +95,6 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		return view;
 	}
 
-
-
 	private void CallPresenter() {
 		newThread = new Thread(new Runnable() {
 			@Override
@@ -130,7 +118,7 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 			ConfessionGroupInfo cgi = (ConfessionGroupInfo) parent.getItemAtPosition(position);
 			Fragment fragment = GroupFragment.newInstance(cgi);
 
-			((AppCompatActivity)getContext()).getSupportFragmentManager()
+			((AppCompatActivity) getContext()).getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.fragment_container, fragment, "group_info")
 					.addToBackStack("group_info")
@@ -142,7 +130,7 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 			public boolean onQueryTextSubmit(String query) {
 				groups_list.clear();
 				origin_item.forEach(e -> {
-					if(e.name.contains(query)){
+					if (e.name.contains(query)) {
 						groups_list.add(e);
 					}
 				});
@@ -155,13 +143,13 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 			}
 
 			@Override
-				public boolean onQueryTextChange(String newText) {
-					if(newText.isEmpty()){
-						search_item.clear();
-						UpdateOriginalListView();
-						return true;
-					}
+			public boolean onQueryTextChange(String newText) {
+				if (newText.isEmpty()) {
+					search_item.clear();
+					UpdateOriginalListView();
 					return true;
+				}
+				return true;
 			}
 		});
 
@@ -175,14 +163,13 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 		mAdapter.notifyDataSetChanged();
 		lv_your_group_item.invalidateViews();
 		lv_your_group_item.refreshDrawableState();
-
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 
-		if(newThread.isAlive()){
+		if (newThread.isAlive()) {
 			newThread.interrupt();
 		}
 	}
@@ -191,7 +178,7 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 	public void OnGetCreatedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups) {
 		//newThread.interrupt();
 
-		if(getActivity() == null){
+		if (getActivity() == null) {
 			return;
 		}
 
@@ -211,13 +198,12 @@ public class YourGroupFragment extends Fragment implements CreatedGroupsBinder.V
 				lv_your_group_item.refreshDrawableState();
 			}
 		});
-
 	}
 
 	@Override
 	public void OnGetCreatedGroupsFailure(String error) {
 
-		if(getActivity() == null){
+		if (getActivity() == null) {
 			return;
 		}
 

@@ -48,7 +48,7 @@ public class GroupListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
-		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		@SuppressLint("ViewHolder")
 		View row = inflater.inflate(R.layout.layout_user_group_info, null);
 
@@ -61,25 +61,25 @@ public class GroupListAdapter extends BaseAdapter {
 		return row;
 	}
 
-	public void ChangeData(ArrayList<ConfessionGroupInfo> data_groups){
+	public void ChangeData(ArrayList<ConfessionGroupInfo> data_groups) {
 		groups.clear();
 		groups.addAll(data_groups);
 		notifyDataSetChanged();
 	}
 
-	public void InitView(View row){
+	public void InitView(View row) {
 		iv_group_item_gr_avatar = row.findViewById(R.id.iv_group_item_gr_avatar);
 		txt_group_list_gr_name = row.findViewById(R.id.txt_group_list_gr_name);
 	}
 
-	public void InitData(int pos){
+	public void InitData(int pos) {
 		ConfessionGroupInfo group = groups.get(pos);
 		txt_group_list_gr_name.setText(group.name);
 		//iv_group_item_gr_avatar.setImageResource(cgi.avatar); int # String - not match
 	}
 
 	//Kiem tra User co trong Group khong
-	private boolean checkIsUserInGroup(){
+	private boolean checkIsUserInGroup() {
 		return true;
 	}
 }

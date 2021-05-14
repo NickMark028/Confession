@@ -53,14 +53,6 @@ public class JoinedGroupFragment extends Fragment implements FollowedGroupsBinde
 		presenter = new FollowedGroupsPresenter(this);
 	}
 
-	/**
-	 * Use this factory method to create a new instance of
-	 * this fragment using the provided parameters.
-	 *
-	 * @param page  page number.
-	 * @param title title of page.
-	 * @return A new instance of fragment YourGroupFragment.
-	 */
 	public static JoinedGroupFragment newInstance(int page, String title) {
 
 		JoinedGroupFragment fragment = new JoinedGroupFragment();

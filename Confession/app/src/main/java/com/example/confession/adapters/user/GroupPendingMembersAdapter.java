@@ -1,4 +1,5 @@
 package com.example.confession.adapters.user;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -109,7 +110,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 									groupPendingUser.get(getLayoutPosition()),
 									group_info,
 									view_holder
-							);
+							                                    );
 						}
 					}).start();
 					checkPendingAcceptClick = true;
@@ -132,7 +133,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 									groupPendingUser.get(getLayoutPosition()),
 									group_info,
 									view_holder
-							);
+							                                    );
 						}
 					}).start();
 
@@ -180,14 +181,14 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 					view_holder.itemView.findViewById(R.id.mcv_pending_status).setVisibility(View.VISIBLE);
 					view_holder.itemView.findViewById(R.id.mcv_pending_status).setBackgroundColor(R.color.light_red);
 
-					((TextView)view_holder.itemView.findViewById(R.id.txt_peding_status)).setText("Rejected");
-					((TextView)view_holder.itemView.findViewById(R.id.txt_peding_status)).setTextColor(R.color.red);
+					((TextView) view_holder.itemView.findViewById(R.id.txt_peding_status)).setText("Rejected");
+					((TextView) view_holder.itemView.findViewById(R.id.txt_peding_status)).setTextColor(R.color.red);
 				}
 			});
 		}
 
 		@Override
-		public void OnRejectPendingMembersFailure(RecyclerView.ViewHolder view_holder,String error) {
+		public void OnRejectPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error) {
 			((Activity) context).runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
