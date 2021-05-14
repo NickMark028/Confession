@@ -13,5 +13,8 @@ public interface GetUserCommentsBinder {
 		void OnGetUserCommentsFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleGetUserComments(GroupPostInfo info);
+	}
 }
