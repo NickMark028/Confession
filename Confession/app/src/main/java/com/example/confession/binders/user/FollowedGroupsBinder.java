@@ -12,8 +12,5 @@ public interface FollowedGroupsBinder {
 		void OnGetFollowedGroupsFailure(String error);
 	}
 
-	interface Presenter {
 
-		void HandleGetFollowedGroups();
-	}
 }
