@@ -6,5 +6,14 @@ import java.util.ArrayList;
 
 public interface GetNewsfeedBinder {
 
+	interface View {
 
+		void OnGetNewsfeedSuccess(ArrayList<GroupPostInfo> posts);
+		void OnGetNewsfeedFailure(String error);
+	}
+
+	interface Presenter {
+
+		void HandleGetNewsfeed();
+	}
 }
