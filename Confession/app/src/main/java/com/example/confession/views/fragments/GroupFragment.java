@@ -371,7 +371,7 @@ public class GroupFragment extends Fragment
 				else if (user_state == UserState.NonMember) {
 					SetupNonMemberUI();
 				}
-				else if (user_state == UserState.Pening) {
+				else if (user_state == UserState.Pending) {
 					SetupPendingUI();
 				}
 				else {

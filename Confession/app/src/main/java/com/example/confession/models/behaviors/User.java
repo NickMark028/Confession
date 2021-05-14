@@ -1,13 +1,6 @@
 package com.example.confession.models.behaviors;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.example.confession.models.api.ApiGet;
 import com.example.confession.models.api.ApiPost;
@@ -384,7 +377,7 @@ public class User {
 			UserState userState;
 			if (isAdmin) userState = UserState.Admin;
 			else if (isMember) userState = UserState.Following;
-			else if (isPending) userState = UserState.Pening;
+			else if (isPending) userState = UserState.Pending;
 			else userState = UserState.NonMember;
 			Log.e("State: ", userState.toString());
 			return userState;
