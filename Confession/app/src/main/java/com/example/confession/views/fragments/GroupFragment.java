@@ -220,7 +220,8 @@ public class GroupFragment extends Fragment
 				if (userState == UserState.Admin) {
 					assert getFragmentManager() != null;
 					bottomSheetAdmin.show(getFragmentManager(), "admin_settings");
-				} else if (userState == UserState.Following) {
+				}
+				else if (userState == UserState.Following) {
 					assert getFragmentManager() != null;
 					bottomSheetUser.show(getFragmentManager(), "user_settings");
 				}
@@ -362,14 +363,18 @@ public class GroupFragment extends Fragment
 					Log.e("Port: ", "Admin if");
 					SetupAdminUI();
 					LoadGroupPosts();
-				} else if (user_state == UserState.Following) {
+				}
+				else if (user_state == UserState.Following) {
 					SetupFollowingUI();
 					LoadGroupPosts();
-				} else if (user_state == UserState.NonMember) {
+				}
+				else if (user_state == UserState.NonMember) {
 					SetupNonMemberUI();
-				} else if (user_state == UserState.Pening) {
+				}
+				else if (user_state == UserState.Pening) {
 					SetupPendingUI();
-				} else {
+				}
+				else {
 					//do nothing
 				}
 			}
