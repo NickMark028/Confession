@@ -13,5 +13,8 @@ public interface AddCommentBinder {
 		void OnAddCommentFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleAddComment(GroupPostInfo post_info, String content);
+	}
 }
