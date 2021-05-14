@@ -129,7 +129,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 						public void run() {
 							presenter.HandleRejectPendingMembers(
 									groupPendingUser.get(getLayoutPosition()),
-									group_info
+									group_info,
+									view_holder
 							);
 						}
 					}).start();
@@ -171,6 +172,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				@Override
 				public void run() {
 					Toast.makeText(context, "Reject Successfully", Toast.LENGTH_SHORT).show();
+					
 				}
 			});
 		}
@@ -184,5 +186,6 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 					Toast.makeText(context, "Failed to reject this user", Toast.LENGTH_SHORT).show();
 				}
 			});
+		}
 	}
 }
