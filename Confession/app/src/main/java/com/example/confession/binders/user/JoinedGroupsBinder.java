@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 public interface JoinedGroupsBinder {
 
+	interface View {
+
+		void OnGetJoinedGroupsSuccess(ArrayList<ConfessionGroupInfo> groups);
+		void OnGetJoinedGroupsFailure(String error);
+	}
 
 	interface Presenter {
 
