@@ -60,7 +60,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/custom_bg_group_profile"
-                android:src="@mipmap/img_avatar_dark_foreground"
+                android:src="@mipmap/img_avatar_dark"
                 />
             <View
                 android:layout_width="0dp"

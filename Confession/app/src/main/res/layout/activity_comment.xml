@@ -42,8 +42,8 @@
         android:id="@+id/srl_refresh_cmt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        >
+        android:layout_weight="1">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cmt_item"
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/tree_icon" />
+            android:src="@mipmap/img_avatar_test_foreground" />
 
         <EditText
             android:id="@+id/cmt_edit_txt_cmt"
@@ -92,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:text="Post"
             android:padding="5dp"
+            android:text="Post"
             android:textColor="@color/main_theme"
             android:textSize="16sp" />
 
@@ -101,6 +101,6 @@
             android:id="@+id/cmt_progress_bar"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>
