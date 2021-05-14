@@ -105,7 +105,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 				searchQuery = query;
 				ll_progress_bar.setVisibility(View.VISIBLE);
 
-				if(newThread!=null && newThread.isAlive()){
+				if (newThread != null && newThread.isAlive()) {
 					newThread.interrupt();
 				}
 
@@ -150,7 +150,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	}
 
 	private void UpdateListViewOnUIThread() {
-		if(getActivity() == null){ return; }
+		if (getActivity() == null) { return; }
 
 		this.getActivity().runOnUiThread(new Runnable() {
 			@Override
@@ -172,7 +172,7 @@ public class GroupSearchFragment extends Fragment implements SearchGroupBinder.V
 	public void onDestroy() {
 		super.onDestroy();
 
-		if(newThread!=null && newThread.isAlive()){
+		if (newThread != null && newThread.isAlive()) {
 			newThread.interrupt();
 		}
 	}
