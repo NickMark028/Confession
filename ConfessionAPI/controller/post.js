@@ -14,7 +14,7 @@ const tool=require("./tool");
 
 class PostController
 {
-    index(req,res)
+    index(req,res) //
     {
         res.send('Post API');
     }
