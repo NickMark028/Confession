@@ -81,7 +81,7 @@ class UserController
         })
     }
 
-    isLoginSession(req,res)
+    isLoginSession(req,res) // 
     {
         let obj;
         let token = req.query.token;
