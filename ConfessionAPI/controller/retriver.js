@@ -73,7 +73,7 @@ class Retriver
         return mypromise;
     }
 
-    getJoinedConfession(token)
+    getJoinedConfession(token) //
     {
         if(Token.isValid(token))
         {
