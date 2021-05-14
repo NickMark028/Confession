@@ -129,7 +129,7 @@ class PostController
     }
 
 
-    getComments(req,res)
+    getComments(req,res) //
     {
         let token=req.query.token;
         let postid = req.query.postid;
