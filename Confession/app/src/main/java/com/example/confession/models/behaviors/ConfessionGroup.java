@@ -148,10 +148,10 @@ public class ConfessionGroup {
 		return false;
 	}
 
-	//	public boolean getPosts(Context context)
-//	{
-//		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
-//		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
+		public boolean getPosts(Context context)
+	{
+		final ApiService AS = new ApiService(context,"confession/id?conf="+group_info.id);
+		AS.executeRequest(Request.Method.GET, new VolleyCallback() {
 //			@Override
 //			public void getResponse(String response) throws JSONException {
 //				JSONObject obj = new JSONObject(response);
