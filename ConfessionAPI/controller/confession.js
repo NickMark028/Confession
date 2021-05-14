@@ -252,7 +252,7 @@ class UserController
         }
     }
 
-    rejectPremember(req,res) // Chua check admin
+    rejectPremember(req,res) // Chua check admin //
     {
         let token = req.body.token; // admin token
         let groupid = req.body.groupid;
