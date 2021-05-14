@@ -64,8 +64,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 	public class ViewHolder extends RecyclerView.ViewHolder implements ManagePendingMembersBinder.View {
 		private LinearLayout ll_group_pending_members;
 		private ImageView ava_user_pending, accept_pending_member, reject_pending_members;
-		private TextView pending_member_name, txt_peding_status;
-		private MaterialCardView mcv_pending_status;
+		private TextView pending_member_name, txt_peding_status, txt_pending_status_reject;
+		private MaterialCardView mcv_pending_status,mcv_pending_status_reject;
 		private ProgressBar pending_mem_checking;
 		private boolean checkPendingAcceptClick = false;
 
@@ -86,7 +86,10 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 			pending_member_name = view.findViewById(R.id.pending_member_name);
 
 			txt_peding_status = view.findViewById(R.id.txt_peding_status);
+			txt_pending_status_reject = view.findViewById(R.id.txt_pending_status_reject);
 			mcv_pending_status = view.findViewById(R.id.mcv_pending_status);
+			mcv_pending_status_reject = view.findViewById(R.id.mcv_pending_status_reject);
+
 			pending_mem_checking = view.findViewById(R.id.pending_mem_checking);
 		}
 
@@ -166,6 +169,8 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				public void run() {
 					removePosition = -1;
 					Toast.makeText(context, "Failed to accept this user", Toast.LENGTH_SHORT).show();
+					view_holder.itemView.findViewById(R.id.pending_mem_checking).setVisibility(View.GONE);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status).setVisibility(View.VISIBLE);
 				}
 			});
 		}
@@ -178,11 +183,7 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 				public void run() {
 					Toast.makeText(context, "Reject Successfully", Toast.LENGTH_SHORT).show();
 					view_holder.itemView.findViewById(R.id.pending_mem_checking).setVisibility(View.GONE);
-					view_holder.itemView.findViewById(R.id.mcv_pending_status).setVisibility(View.VISIBLE);
-					view_holder.itemView.findViewById(R.id.mcv_pending_status).setBackgroundColor(R.color.light_red);
-
-					((TextView) view_holder.itemView.findViewById(R.id.txt_peding_status)).setText("Rejected");
-					((TextView) view_holder.itemView.findViewById(R.id.txt_peding_status)).setTextColor(R.color.red);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status_reject).setVisibility(View.VISIBLE);
 				}
 			});
 		}
@@ -190,10 +191,13 @@ public class GroupPendingMembersAdapter extends RecyclerView.Adapter<GroupPendin
 		@Override
 		public void OnRejectPendingMembersFailure(RecyclerView.ViewHolder view_holder, String error) {
 			((Activity) context).runOnUiThread(new Runnable() {
+				@SuppressLint("ResourceAsColor")
 				@Override
 				public void run() {
 					removePosition = -1;
-					Toast.makeText(context, "Failed to reject this user", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(context, "Failed to reject this user", Toast.LENGTH_SHORT).show();
+					view_holder.itemView.findViewById(R.id.pending_mem_checking).setVisibility(View.GONE);
+					view_holder.itemView.findViewById(R.id.mcv_pending_status_reject).setVisibility(View.VISIBLE);
 				}
 			});
 		}
