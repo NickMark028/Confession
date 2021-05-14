@@ -6,7 +6,7 @@ const Token = require('./token');
 const post = require('./post');
 class Retriver
 {
-    getAllGroup()
+    getAllGroup() //
     {        
         console.log('Retriver...');
         let mypromise = new Promise(function(resolve,reject){
