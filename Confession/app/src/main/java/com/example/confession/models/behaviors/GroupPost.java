@@ -164,51 +164,51 @@ public class GroupPost {
 	}
 
 	// TODO sua lai tham so null thanh tham so thich hop
-	public ArrayList<PostCommentInfo> GetComments(String auth_token)
-	{
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("conf", post_info.group.id);
-
-		ApiGet ag = new ApiGet("confession/id", params);
-		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
-		ag.run();
-
-		ArrayList<PostCommentInfo> postComments = new ArrayList<PostCommentInfo>();
-		Log.d("Response", ag.response);
-		JSONObject obj = null;
-		try {
-			obj = new JSONObject(ag.response);
-			if (!obj.has("error")) {
-				JSONArray items = obj.getJSONArray("posts");
-
-				for (int i = 0; i < items.length(); i++) {
-					JSONObject item = items.getJSONObject(i);
-					String postid = item.getString("_id");
-					if(postid.equals(this.post_info.id))
-					{
-						JSONArray comments = item.getJSONArray("comments");
-						for(int j=0;j<comments.length();j++)
-						{
-							JSONObject comment = comments.getJSONObject(j);
-
-							String comment_id = comment.getString("_id");
-							String content = comment.getString("content");
-
-							// TODO sua lai tham so null thanh tham so thich hop
-							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
-
-//							PostComment comment_info = new PostComment(postCommentInfo);
-							postComments.add(postCommentInfo);
-						}
-					}
-				}
-
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return postComments;
-	}
+//	public ArrayList<PostCommentInfo> GetComments(String auth_token)
+//	{
+//		HashMap<String, String> params = new HashMap<String, String>();
+//		params.put("conf", post_info.group.id);
+//
+//		ApiGet ag = new ApiGet("confession/id", params);
+//		Log.d("Thread API: ", "Đang lấy tất cả bình luận...");
+//		ag.run();
+//
+//		ArrayList<PostCommentInfo> postComments = new ArrayList<PostCommentInfo>();
+//		Log.d("Response", ag.response);
+//		JSONObject obj = null;
+//		try {
+//			obj = new JSONObject(ag.response);
+//			if (!obj.has("error")) {
+//				JSONArray items = obj.getJSONArray("posts");
+//
+//				for (int i = 0; i < items.length(); i++) {
+//					JSONObject item = items.getJSONObject(i);
+//					String postid = item.getString("_id");
+//					if(postid.equals(this.post_info.id))
+//					{
+//						JSONArray comments = item.getJSONArray("comments");
+//						for(int j=0;j<comments.length();j++)
+//						{
+//							JSONObject comment = comments.getJSONObject(j);
+//
+//							String comment_id = comment.getString("_id");
+//							String content = comment.getString("content");
+//
+//							// TODO sua lai tham so null thanh tham so thich hop
+//							PostCommentInfo postCommentInfo = new PostCommentInfo(comment_id, null, new BasicUserInfo("","","",""),content);
+//
+////							PostComment comment_info = new PostComment(postCommentInfo);
+//							postComments.add(postCommentInfo);
+//						}
+//					}
+//				}
+//
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return postComments;
+//	}
 
 	@Override
 	public String toString() {
