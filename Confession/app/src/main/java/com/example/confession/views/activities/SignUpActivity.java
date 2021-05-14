@@ -26,8 +26,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	private TextInputEditText su_username, su_email, su_phone, su_password, su_confirm_pass;
 	private Button su_button;
 	private TextView txt_si_click;
-	private TextInputLayout til_su_username,til_su_email,
-			til_su_phone,til_su_pass,til_su_confirmpass;
+	private TextInputLayout til_su_username, til_su_email,
+			til_su_phone, til_su_pass, til_su_confirmpass;
 	private AlertDialog.Builder builder;
 	private AlertDialog progressDialog;
 	private Thread newT;
@@ -48,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	}
 
 	private void InitView() {
+
 		til_su_username = findViewById(R.id.til_su_username);
 		til_su_email = findViewById(R.id.til_su_email);
 		til_su_phone = findViewById(R.id.til_su_phone);
@@ -67,7 +68,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		//forgot_pass_click= findViewById(R.id.forgot_pass_click);
 	}
 
-	private void InitProgressDialog(String msg){
+	private void InitProgressDialog(String msg) {
+
 		builder = new AlertDialog.Builder(SignUpActivity.this);
 		builder.setCancelable(false);
 
@@ -86,11 +88,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 		su_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if(!ValidateUsername() | !ValidateEmail() | !ValidatePhone()
-				| !ValidatePass() | !ValidateConfirmPass()){
-					Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_SHORT).show();
-					return;
-				}
 
 				//After GUI check
 				newT = new Thread(new Runnable() {
@@ -109,11 +106,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 				newT.start();
 
 				//Init Dialog
-				InitProgressDialog("Please wait...");
-
+				InitProgressDialog("Please wait ...");
 			}
 		});
-
 
 		txt_si_click.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -125,113 +120,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 			}
 		});
 	}
-
-	private boolean ValidateUsername(){
-		String username = su_username.getText().toString().trim();
-
-		if(username.isEmpty()){
-			til_su_username.setError("Field can't be empty");
-			return false;
-		}
-
-		if(!Regex.USERNAME_PATTERN.matcher(username).matches()){
-			til_su_username.setError("Please use a valid username");
-			til_su_username.setErrorIconDrawable(null);
-			return false;
-		}
-
-		til_su_username.setError(null);
-		return true;
-	}
-
-	private boolean ValidateEmail(){
-		String email = su_email.getText().toString().trim();
-
-		if(email.isEmpty()){
-			til_su_email.setError("Field can't be empty");
-			return false;
-		}
-		if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-			til_su_email.setError("Please enter a valid email");
-			return false;
-		}
-
-		til_su_email.setError(null);
-		return true;
-	}
-
-	private boolean ValidatePhone(){
-		String phone = su_phone.getText().toString().trim();
-
-		if(phone.isEmpty()){
-			til_su_phone.setError("Field can't be empty");
-			return false;
-		}
-		if(phone.length() != 10){
-
-			til_su_phone.setError("We only use VietNam phone format");
-			return false;
-		}
-		else if(!phone.startsWith("03") && !phone.startsWith("05") &&
-				!phone.startsWith("07") && !phone.startsWith("08") &&
-				!phone.startsWith("09")){
-			til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
-			return false;
-		}
-
-		til_su_phone.setError(null);
-		return true;
-	}
-
-	private boolean ValidatePass(){
-		String pass = su_password.getText().toString();
-
-		if(pass.isEmpty()){
-			til_su_pass.setError("Field can't be empty");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		if(!Regex.PASSWORD_PATTERN.matcher(pass).matches()){
-			til_su_pass.setError("Password too weak");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		til_su_pass.setError(null);
-		return true;
-	}
-
-	private boolean ValidateConfirmPass(){
-		String pass = su_password.getText().toString();
-		String confirm = su_confirm_pass.getText().toString();
-
-		if(confirm.isEmpty()){
-			til_su_confirmpass.setError("Field can't be empty");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
-
-		if(!pass.equals(confirm)){
-			til_su_confirmpass.setError("Password not match");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
-
-
-		til_su_confirmpass.setError(null);
-		til_su_confirmpass.setErrorIconDrawable(null);
-		return true;
-	}
-
-
-
-//	@Override
-//	public void OnSignUpSuccess(User user) {
-//		Toast.makeText(getApplicationContext(), "Sign up success", Toast.LENGTH_LONG).show();
-//		Intent myIntent = new Intent(this, HomePageActivity.class);
-//		startActivity(myIntent);
-//	}
 
 	@Override
 	public void OnSignUpSuccess() {
@@ -249,14 +137,80 @@ public class SignUpActivity extends AppCompatActivity implements SignUpBinder.Vi
 	}
 
 	@Override
-	public void OnSignUpFailure(String error) {
+	public void OnSignUpFailure(int error_code) {
 		newT.interrupt();
-		progressDialog.dismiss();
 
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+
+				progressDialog.dismiss();
+
+				// USERNAME
+				if ((error_code & SignUpBinder.ERROR_EMPTY_USERNAME) != 0) {
+					til_su_username.setError("Field can't be empty");
+					til_su_username.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_INVALID_USERNAME) != 0) {
+					til_su_username.setError("Please use a valid username");
+					til_su_username.setErrorIconDrawable(null);
+				}
+				else til_su_username.setError(null);
+
+				// EMAIL
+				if ((error_code & SignUpBinder.ERROR_EMPTY_EMAIL) != 0) {
+					til_su_email.setError("Field can't be empty");
+					til_su_email.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_INVALID_EMAIL) != 0) {
+					til_su_email.setError("Please enter a valid email");
+					til_su_email.setErrorIconDrawable(null);
+				}
+				else til_su_email.setError(null);
+
+				// PHONE
+				if ((error_code & SignUpBinder.ERROR_EMPTY_PHONE) != 0) {
+					til_su_phone.setError("Field can't be empty");
+					til_su_phone.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_NON_VN_FORMAT) != 0) {
+					til_su_phone.setError("We only use Viet Nam phone format");
+					til_su_phone.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_PHONE_FORMAT) != 0) {
+					til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
+					til_su_phone.setErrorIconDrawable(null);
+				}
+				else til_su_phone.setError(null);
+
+				// PASS
+				if ((error_code & SignUpBinder.ERROR_EMPTY_PASS) != 0) {
+					til_su_pass.setError("Field can't be empty");
+					til_su_pass.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_WEAK_PASS) != 0) {
+					til_su_pass.setError("Password too weak");
+					til_su_pass.setErrorIconDrawable(null);
+				}
+				else til_su_pass.setError(null);
+
+				// CONFIRM PASS
+				if ((error_code & SignUpBinder.ERROR_EMPTY_CONFIRM) != 0) {
+					til_su_confirmpass.setError("Field can't be empty");
+					til_su_confirmpass.setErrorIconDrawable(null);
+				}
+				else if ((error_code & SignUpBinder.ERROR_MISMATCH_PASS) != 0) {
+					til_su_confirmpass.setError("Password not match");
+					til_su_confirmpass.setErrorIconDrawable(null);
+				}
+				else {
+					til_su_confirmpass.setError(null);
+					til_su_confirmpass.setErrorIconDrawable(null);
+				}
+
+				// OTHERWISE
+				if ((error_code & SignUpBinder.ERROR_FAILED) != 0)
+					Toast.makeText(getApplicationContext(), "Sign up failed", Toast.LENGTH_LONG).show();
 			}
 		});
 	}

@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// TODO Check lai cac method signature trong class diagram
 public class GroupPost {
 
 	protected final GroupPostInfo post_info;
@@ -32,7 +31,7 @@ public class GroupPost {
 		return post_info.id;
 	}
 
-	// DONE //
+	// TODO //
 	public boolean RemoveComment(PostCommentInfo comment, BasicUserInfo from, String auth_token) {
 
 		return false;
@@ -83,34 +82,28 @@ public class GroupPost {
 		return false;
 	}
 
-	// DONE //
-	public ArrayList<PostComment> GetComment() {
-
-		return null;
-	}
-
 	// Done //
-	public int GetReactionCount(String auth_token) {
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("token", auth_token); // User.GetAuthToken()
-		params.put("postid", this.post_info.id);
-
-		ApiGet ag = new ApiGet("post/reactions", params);
-		Log.d("Thread API: ", "Đang lấy số lượng tim...");
-		ag.run();
-
-		Log.d("Response", ag.response);
-		JSONObject obj = null;
-		try {
-			JSONArray items = new JSONArray(ag.response);
-			if (!items.isNull(0)) {
-				return items.length();
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+//	public int GetReactionCount(String auth_token) {
+//		HashMap<String, String> params = new HashMap<String, String>();
+//		params.put("token", auth_token); // User.GetAuthToken()
+//		params.put("postid", this.post_info.id);
+//
+//		ApiGet ag = new ApiGet("post/reactions", params);
+//		Log.d("Thread API: ", "Đang lấy số lượng tim...");
+//		ag.run();
+//
+//		Log.d("Response", ag.response);
+//		JSONObject obj = null;
+//		try {
+//			JSONArray items = new JSONArray(ag.response);
+//			if (!items.isNull(0)) {
+//				return items.length();
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return 0;
+//	}
 
 	// DONE //
 	public PostComment AddComment(PostCommentInfo comment, String auth_token) {
@@ -149,7 +142,6 @@ public class GroupPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 
 		return null;
 	}
