@@ -376,7 +376,7 @@ class UserController
     }
 
 
-    getAllConfession(req, res)
+    getAllConfession(req, res) //
     {
         //res.json(id);
         //res.send( Tool.isMember('60505ccec951fc27083de447','6059827d051ad535c0f70861'));
