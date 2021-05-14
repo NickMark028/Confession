@@ -241,6 +241,19 @@ public class ProfileFragment extends Fragment
 		});
 	}
 
+	public void ReUpdateUserData(){
+		profile_txt_username_click.setText(User.GetInstance().GetBasicUserInfo().username);
+		profile_fullname.setText(User.GetInstance().GetBasicUserInfo().name);
+		profile_email.setText(User.GetInstance().GetUserInfo().email);
+		profile_phone.setText(User.GetInstance().GetUserInfo().phone);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		ReUpdateUserData();
+	}
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

@@ -63,7 +63,7 @@ public class SignInActivity extends Activity implements SignInBinder.View {
 
 		//admin - 1
 		si_username.setText("tphong175");
-		si_password.setText("123456789");
+		si_password.setText("aA1%aA1");
 	}
 
 	private void InitProgressDialog(String msg) {
