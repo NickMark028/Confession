@@ -302,7 +302,7 @@ class UserController
         }
     }
 
-    getJoinedConfessionNoRole(req, res)
+    getJoinedConfessionNoRole(req, res) //
     {
         let token = req.query.token;
         if(Token.isValid(token))
