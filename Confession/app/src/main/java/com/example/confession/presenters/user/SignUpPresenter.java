@@ -64,66 +64,46 @@ public class SignUpPresenter implements SignUpBinder.Presenter {
 	}
 
 	private int ValidatePhone(String phone) {
-		String phone = su_phone.getText().toString().trim();
 
-		if (phone.isEmpty()) {
-			til_su_phone.setError("Field can't be empty");
-			return false;
-		}
-		if (phone.length() != 10) {
+		int error_code = 0;
 
-			til_su_phone.setError("We only use VietNam phone format");
-			return false;
-		} else if (!phone.startsWith("03") && !phone.startsWith("05") &&
+		if (phone.isEmpty())
+			error_code |= SignUpBinder.ERROR_EMPTY_PHONE;
+
+		if (phone.length() != 10)
+			error_code |= SignUpBinder.ERROR_NON_VN_FORMAT;
+
+		if (!phone.startsWith("03") && !phone.startsWith("05") &&
 				!phone.startsWith("07") && !phone.startsWith("08") &&
-				!phone.startsWith("09")) {
-			til_su_phone.setError("(VN) 03x, 05x, 07x, 08x, 09x");
-			return false;
-		}
+				!phone.startsWith("09"))
+			error_code |= SignUpBinder.ERROR_PHONE_FORMAT;
 
-		til_su_phone.setError(null);
-		return true;
+		return error_code;
 	}
 
 	private int ValidatePass(String password) {
-		String pass = su_password.getText().toString();
 
-		if (pass.isEmpty()) {
-			til_su_pass.setError("Field can't be empty");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
+		int error_code = 0;
 
-		if (!Regex.PASSWORD_PATTERN.matcher(pass).matches()) {
-			til_su_pass.setError("Password too weak");
-			til_su_pass.setErrorIconDrawable(null);
-			return false;
-		}
+		if (password.isEmpty())
+			error_code |= SignUpBinder.ERROR_EMPTY_PASS;
 
-		til_su_pass.setError(null);
-		return true;
+		if (!Regex.PASSWORD_PATTERN.matcher(password).matches())
+			error_code |= SignUpBinder.ERROR_WEAK_PASS;
+
+		return error_code;
 	}
 
 	private int ValidateConfirmPass(String pass, String confirm_pass) {
-		String pass = su_password.getText().toString();
-		String confirm = su_confirm_pass.getText().toString();
 
-		if (confirm.isEmpty()) {
-			til_su_confirmpass.setError("Field can't be empty");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
+		int error_code = 0;
 
-		if (!pass.equals(confirm)) {
-			til_su_confirmpass.setError("Password not match");
-			til_su_confirmpass.setErrorIconDrawable(null);
-			return false;
-		}
+		if (confirm_pass.isEmpty())
+			error_code |= SignUpBinder.ERROR_EMPTY_CONFIRM;
 
+		if (!confirm_pass.equals(pass))
+			error_code |= SignUpBinder.ERROR_MISMATCH_PASS;
 
-		til_su_confirmpass.setError(null);
-		til_su_confirmpass.setErrorIconDrawable(null);
-		return true;
+		return error_code;
 	}
-
 }
