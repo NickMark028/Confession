@@ -10,4 +10,8 @@ public interface UpdatePasswordBinder {
 		void OnUpdatePasswordFailure(String error);
 	}
 
+	interface Presenter {
 
+		void HandleUpdatePassword(String old_pass, String new_pass);
+	}
+}
