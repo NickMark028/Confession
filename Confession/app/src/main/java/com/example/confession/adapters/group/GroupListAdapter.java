@@ -61,11 +61,7 @@ public class GroupListAdapter extends BaseAdapter {
 		return row;
 	}
 
-	public void ChangeData(ArrayList<ConfessionGroupInfo> data_groups){
-		groups.clear();
-		groups.addAll(data_groups);
-		notifyDataSetChanged();
-	}
+
 
 	public void InitView(View row){
 		iv_group_item_gr_avatar = row.findViewById(R.id.iv_group_item_gr_avatar);
