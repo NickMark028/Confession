@@ -17,7 +17,7 @@ class UserController
 
     }
 
-    index(req, res)
+    index(req, res) //
     {
         
         res.send('Confession API');
