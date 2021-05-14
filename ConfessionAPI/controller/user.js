@@ -371,7 +371,7 @@ class UserController
         }
     }
 
-    getNewsFeed(req,res)
+    getNewsFeed(req,res) //
     {
         let token=req.query.token;
         if(Token.isValid(token))
