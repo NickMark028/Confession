@@ -194,15 +194,15 @@ public class ConfessionGroup {
 						BasicUserInfo meminfo = new BasicUserInfo(username,fullname,avatar);
 						members.add(meminfo);
 					}
-////					Log.d("Get members: ",".");
-////				}
-////				else
-////				{
-////					String error = obj.getString("error");
-////					Log.d("Error: ",error);
-////				}
-////			}
-////		});
+					Log.d("Get members: ",".");
+				}
+				else
+				{
+					String error = obj.getString("error");
+					Log.d("Error: ",error);
+				}
+			}
+		});
 //		return false;
 //	}
 
