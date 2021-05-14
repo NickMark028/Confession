@@ -5,7 +5,7 @@ const Confession = require('../model/Confession');
 
 class Tool
 {
-    async isMember(groupid, userid)
+    async isMember(groupid, userid) //
     { 
         let result;
         let group_members,user_members;

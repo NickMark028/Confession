@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken');
 const key=require('../util/hash');
 class TokenController
 {
-    createToken(object, expireTime)
+    createToken(object, expireTime) //
     {
         let token=jwt.sign(object, key, { expiresIn: expireTime });
         return token;
     }
 
-    parseToken(token)
+    parseToken(token) //
     {
         if(this.isValid(token))
         {
@@ -17,7 +17,7 @@ class TokenController
         }
     }
 
-    isValid(token)
+    isValid(token) //
     {
         try 
         {

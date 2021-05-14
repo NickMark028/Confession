@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const url=require('../util/db');
 mongoose.connect(url,{useNewUrlParser: true });
-let schema=mongoose.Schema({
+let schema=mongoose.Schema({ //
     //memberid: String,
     memberid: {type: mongoose.Schema.Types.ObjectId, ref:'Member'},
     createAt: Date,
