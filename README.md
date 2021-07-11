@@ -48,6 +48,10 @@ Why we do this:
 
 <code>Android Native/Java</code>
 
+### Video demo
+
+[/assets/demo/demo.mp4](Video demo)
+
 <!-- INSTALLATION -->
 ## Installation
 
