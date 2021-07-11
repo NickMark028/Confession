@@ -50,7 +50,7 @@ Why we do this:
 
 ### Video demo
 
-[/assets/demo/demo.mp4](Video demo)
+[Video demo](/assets/demo/demo.mp4)
 
 <!-- INSTALLATION -->
 ## Installation
